@@ -22,3 +22,4 @@ The frontend follows a **component-based architecture** with clear separation of
 - **Pages**
 - **Routes**
 - **Styling**
+
