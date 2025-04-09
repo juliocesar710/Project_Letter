@@ -1,11 +1,48 @@
-import { createUser } from "../services/userService.js";
+import { findUser } from "../services/userLoginService.js";
+import { createUser } from "../services/userRegisterService.js";
+import jwt from 'jsonwebtoken';
 
 export const registerUser = async (req, res) => {
-    try {
-        const userData = req.body;
-        const newUser = await createUser(userData);
-        res.status(201).json(newUser);
-    } catch (error) {
-        res.status(400).json({ message: error.message });
+  try {
+    const userData = req.body;
+    const newUser = await createUser(userData);
+    
+    
+    const token = jwt.sign(
+      { id: newUser._id },
+      process.env.JWT_SECRET,
+      { expiresIn: '1d' }
+    );
+
+    res.status(201).json({
+      token,
+      user: newUser
+    });
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
+
+export const getUser = async (req, res) => {
+  try {
+    const userData = req.body;
+    const user = await findUser(userData);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
     }
-}
+
+    
+    const token = jwt.sign(
+      { id: user._id },
+      process.env.JWT_SECRET,
+      { expiresIn: '1d' }
+    );
+
+    res.status(200).json({
+      token,
+      user
+    });
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
