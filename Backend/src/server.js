@@ -11,16 +11,14 @@ const PORT = process.env.PORT || 5000;
 
 app.use(express.json());
 
-// Rotas públicas
+
 app.use('/user', publicRoutes);
 
-// Rotas de autenticação
+
 app.use('/auth', authRoutes);
 
-// Rota protegida de exemplo
-app.get('/protected', authMiddleware, (req, res) => {
-  res.json({ message: 'Esta é uma rota protegida', user: req.user });
-});
+
+
 
 app.get('/', (req, res) => {
   res.send('Welcome to the API!');
