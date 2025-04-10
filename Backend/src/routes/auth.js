@@ -1,16 +1,15 @@
-import express from 'express';
-import { getUser, registerUser } from '../controllers/userController.js';
-import  authMiddleware  from '../middlewares/auth.js';
-
-const router = express.Router();
+    import express from 'express';
+    import {  registerUser } from '../controllers/userRegisterController.js';
+    import { getUser } from '../controllers/userLoginController.js';
 
 
-router.post('/register', registerUser);
-router.post('/login', getUser);
+    const router = express.Router();
 
 
-router.get('/profile', authMiddleware, (req, res) => {
-    res.json({ message: 'Perfil do usuário', user: req.user });
-});
+    router.post('/register', registerUser);
+    router.post('/login', getUser);
 
-export default router; 
+
+
+
+    export default router; 

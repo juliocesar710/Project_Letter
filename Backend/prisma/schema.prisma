@@ -14,9 +14,29 @@ datasource db {
 }
 
 model User {
+  id             Int              @id @default(autoincrement())
+  name           String
+  email          String           @unique
+  password       String
+  createdAt      DateTime         @default(now())
+  GenresFromUser GenresFromUser[]
+}
+
+model Genres {
+  id             Int              @id @default(autoincrement())
+  name           String           @unique
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+  GenresFromUser GenresFromUser[]
+}
+
+model GenresFromUser {
   id        Int      @id @default(autoincrement())
-  name      String
-  email     String   @unique
-  password  String
+  userId    Int
+  genreId   Int
   createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user  User   @relation(fields: [userId], references: [id])
+  genre Genres @relation(fields: [genreId], references: [id])
 }

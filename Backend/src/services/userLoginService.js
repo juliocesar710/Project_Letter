@@ -1,30 +1,26 @@
-import { PrismaClient } from "@prisma/client";
-import bcrypt from 'bcrypt';
+import bcrypt from "bcrypt";
 
-const prisma = new PrismaClient();
+import { findUserByEmailRepository } from "../repositories/userLoginRepository.js";
 
 export const findUser = async (userData) => {
-    console.log("User data:", userData);
-    if (!userData.email || !userData.password) {
-        throw new Error("Email and password are required");
-    }
+  if (!userData.email || !userData.password) {
+    throw new Error("Email and password are required");
+  }
 
-    const user = await prisma.user.findUnique({
-        where: {
-            email: userData.email,
-        },
-    });
+  const user = await findUserByEmailRepository(userData.email);
 
-    if (!user) {
-        throw new Error("User not found");
-    }
+  if (!user) {
+    throw new Error("User not found");
+  }
 
-    const isPasswordValid = await bcrypt.compare(userData.password, user.password);
+  const isPasswordValid = await bcrypt.compare(
+    userData.password,
+    user.password
+  );
 
-    if (!isPasswordValid) {
-        throw new Error("Invalid password");
-    }
+  if (!isPasswordValid) {
+    throw new Error("Invalid password");
+  }
 
-    return user;
-}
-
+  return user;
+};
