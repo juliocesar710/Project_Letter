@@ -1,8 +1,6 @@
-import bcrypt from "bcrypt";
-import {  createUserRepository } from "../repositories/userRegisterRepository.js";
-import { findUserByEmailRepository } from "../repositories/userLoginRepository.js";
+import { createUserRepository } from "../repositories/userRegisterRepository.js";
 
-export const createUser = async (userData) => {
+export const createUserService = async (userData) => {
   if (!userData.name || !userData.email || !userData.password) {
     throw new Error("Nothing fieds should be empty");
   }
@@ -11,12 +9,8 @@ export const createUser = async (userData) => {
     throw new Error("Password should be at least 6 characters long");
   }
 
-  const existEmail = await findUserByEmailRepository(userData.email);
-  if (existEmail) {
-    throw new Error("Email already exists");
-  }
+  
 
- 
   const newUser = await createUserRepository(userData);
 
   return newUser;

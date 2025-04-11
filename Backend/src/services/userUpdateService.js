@@ -1,17 +1,23 @@
-import prisma from "../utils/prismaClient";
+import { updateUserRepository } from "../repositories/userUpdateRepository.js";
 
+export const updateUserService = async (userId, data) => {
+  if (!userId) {
+    throw new Error("User ID is required");
+  }
 
-export const updateUser = async (userId, userData) => {
-   
+  const { genres, ...userData } = data;
 
-    if (!userId || !userData) {
-        throw new Error("User ID and user data are required");
-    }
+ 
+  if (genres) {
+    await updateUserRepository.updateGenres(userId, genres);
+  }
 
-    const updatedUser = await prisma.user.update({
-        where: { id: userId },
-        data: userData,
-    });
+  
+  if (Object.keys(userData).length > 0) {
+    await updateUserRepository.updateUserData(userId, userData);
+  }
 
-    return updatedUser;
-}
+ 
+  const updatedUser = await updateUserRepository.getUserById(userId);
+  return updatedUser;
+};

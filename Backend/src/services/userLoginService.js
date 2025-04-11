@@ -10,7 +10,7 @@ export const findUser = async (userData) => {
   const user = await findUserByEmailRepository(userData.email);
 
   if (!user) {
-    throw new Error("User not found");
+    throw new Error("User not found the here");
   }
 
   const isPasswordValid = await bcrypt.compare(
