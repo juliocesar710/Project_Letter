@@ -6,10 +6,10 @@ export const getUser = async (req, res) => {
     const userData = req.body;
     const user = await findUser(userData);
     if (!user) {
-      return res.status(404).json({ message: "User not found" });
+      return res.status(404).json({ message: "User not found here" });
     }
 
-    const token = generateToken(user._id);
+    const token = generateToken(user.id);
 
     res.status(200).json({
       token,

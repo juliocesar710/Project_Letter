@@ -1,12 +1,12 @@
-import { createUser } from "../services/userRegisterService.js";
+import { createUserService } from "../services/userRegisterService.js";
 import { generateToken } from "../utils/generateTokenJWT.js";
 
-export const registerUser = async (req, res) => {
+export const createUser = async (req, res) => {
   try {
     const userData = req.body;
-    const newUser = await createUser(userData);
+    const newUser = await createUserService(userData);
 
-    const token = generateToken(newUser._id);
+    const token = generateToken(newUser.id);
 
     res.status(201).json({
       token,
