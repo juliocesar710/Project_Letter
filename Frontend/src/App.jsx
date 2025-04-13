@@ -1,7 +1,14 @@
+import React from "react";
+import AppRouter from "./routes/Router";
+import { ThemeProvider } from 'styled-components';
+import { theme } from './styles/theme';
 
+const App = () => {
+  return (
+    <ThemeProvider theme={theme}>
+      <AppRouter />
+    </ThemeProvider>
+  );
+};
 
-function App() {
-  return <h1>ola</h1>
-}
-
-export default App
+export default App;
