@@ -1,18 +1,21 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { theme } from '../../styles/theme';
-//import { signup } from "../../api/api";
+import { theme } from "../../styles/theme";
+import { signup } from "../../api/api";
+import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
+import Alert from "../utils/Alert";
 
-  const FormContainer = styled.form`
-    &.form-container {
-      background-color: ${theme.colors.background};
-      padding: ${theme.padding.container};
-      border-radius: ${theme.borderRadius.medium};
-      width: 100%;
-      max-width: 400px;
-      margin: 0 auto;
-    }
-  `;
+const FormContainer = styled.form`
+  &.form-container {
+    background-color: ${theme.colors.background};
+    padding: ${theme.padding.container};
+    border-radius: ${theme.borderRadius.medium};
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+`;
 
 const FormTitle = styled.h2`
   text-align: center;
@@ -70,6 +73,9 @@ const RegisterForm = () => {
   });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
+
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -88,13 +94,19 @@ const RegisterForm = () => {
       setError("As senhas não coincidem.");
       return;
     }
-    // try {
-    //   const data = await signup(formData);
-    //   console.log("Usuário registrado com sucesso:", data);
-    // }catch (error) {
-    //   console.error("Erro ao registrar usuário:", error);
-    //   setError("Erro ao registrar usuário. Tente novamente.");
-    // }
+    try {
+      const data = await signup(formData);
+      console.log("Usuário registrado com sucesso:", data);
+
+      Cookies.set("authToken", data.token, { expires: 1 });
+      Cookies.set("userdata", JSON.stringify(data.user), { expires: 1 });
+
+      navigate("/profile");
+    } catch (error) {
+      console.error("Erro ao registrar usuário:", error);
+      setError("Erro ao registrar usuário. Tente novamente.");
+      setAlertMessage("Erro ao registrar usuário. Tente novamente.");
+    }
 
     setError("");
     setLoading(true);
@@ -108,6 +120,7 @@ const RegisterForm = () => {
   return (
     <FormContainer className="form-container" onSubmit={handleSubmit}>
       <FormTitle>Registrar</FormTitle>
+      {alertMessage && <Alert message={alertMessage} />}
       <Input
         className="input-global"
         type="text"
