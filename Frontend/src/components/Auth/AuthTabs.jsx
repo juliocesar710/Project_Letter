@@ -3,7 +3,6 @@ import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
 import styled from "styled-components";
 
-// Contêiner principal
 const AuthContainer = styled.div`
   position: relative;
   width: 100%;
@@ -13,14 +12,12 @@ const AuthContainer = styled.div`
   border-radius: 10px;
 `;
 
-// Botões de aba
 const TabButtons = styled.div`
   display: flex;
   justify-content: center;
   margin-bottom: 20px;
 `;
 
-// Estilo de cada botão de aba
 const TabButton = styled.button`
   padding: 10px 20px;
   margin: 0 10px;
@@ -41,7 +38,6 @@ const TabButton = styled.button`
   }
 `;
 
-// Contêiner dos formulários com animação
 const FormContainer = styled.div`
   position: relative;
   width: 200%;

@@ -5,7 +5,7 @@ import PostList from "../components/profile/PostList";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import { userDelete } from "../api/Auth/userDelete";
-import Confirm from "../components/utils/Confirm"; // Importe o componente Confirm
+import Confirm from "../components/utils/Confirm"; 
 
 const PageContainer = styled.div`
   display: flex;
@@ -59,7 +59,7 @@ const MenuItem = styled.div`
 
 const ProfilePage = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [confirmDelete, setConfirmDelete] = useState(false); // Estado para exibir o Confirm
+  const [confirmDelete, setConfirmDelete] = useState(false); 
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -69,7 +69,7 @@ const ProfilePage = () => {
   };
 
   const handleDeleteAccount = () => {
-    setConfirmDelete(true); // Exibe o popup de confirmação
+    setConfirmDelete(true); 
   };
 
   const confirmDeleteAccount = () => {

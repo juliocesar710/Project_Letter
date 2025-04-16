@@ -99,7 +99,7 @@ const RegisterForm = () => {
 
       Cookies.set("authToken", data.token, { expires: 1 });
       Cookies.set("userData", JSON.stringify(data.user), { expires: 1 });
-     
+
       setError("");
       setLoading(true);
 
@@ -116,7 +116,7 @@ const RegisterForm = () => {
   return (
     <FormContainer className="form-container" onSubmit={handleSubmit}>
       <FormTitle>Registrar</FormTitle>
-      {alertMessage && <Alert message={alertMessage} />}  
+      {alertMessage && <Alert message={alertMessage} />}
       <Input
         className="input-global"
         type="text"

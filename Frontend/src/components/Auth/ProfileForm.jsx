@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Cookies from "js-cookie";
 import { theme } from "../../styles/theme";
 import { updateUser } from "../../api/Auth/userUpdate";
-import { useNavigate } from "react-router-dom"; 
+import { useNavigate } from "react-router-dom";
 import Sucess from "../utils/Sucess";
 
 const FormContainer = styled.div`
@@ -19,7 +19,6 @@ const FormContainer = styled.div`
     ${theme.colors.border}
   );
 `;
-
 
 const FormTitle = styled.h2`
   text-align: center;
@@ -112,39 +111,35 @@ const ProfileForm = ({ onSubmit, isEdit = false }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
-   
+
     setSuccessMessage("");
-  
+
     const payload = {
       name: formData.name,
       email: formData.email,
       genres: formData.interests.split(",").map((interest) => interest.trim()),
     };
-  
+
     try {
       const updatedUser = await updateUser(payload);
       Cookies.set("userData", JSON.stringify(updatedUser), { expires: 1 });
-  
+
       setSuccessMessage("Usuário alterado com sucesso!");
       onSubmit(updatedUser);
-  
 
       setIsLoading(true);
       setTimeout(() => {
-        navigate("/profile"); 
+        navigate("/profile");
         setIsLoading(false);
       }, 2000);
     } catch (error) {
       console.error("Erro ao atualizar o usuário:", error);
-    }  
-    
+    }
   };
 
   return (
     <FormContainer>
       <Form onSubmit={handleSubmit}>
-      
         <FormTitle>{isEdit ? "Editar Perfil" : "Registrar"}</FormTitle>
         {isLoading && <p>Carregando, salvando...</p>}
         {successMessage && <Sucess message={successMessage} />}

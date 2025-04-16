@@ -87,9 +87,8 @@ const LoginForm = () => {
     try {
       const data = await siginin({ email, password });
 
-         Cookies.set("authToken", data.token, { expires: 1 });
-         Cookies.set("userData", JSON.stringify(data.user), { expires: 1 });
-         
+      Cookies.set("authToken", data.token, { expires: 1 });
+      Cookies.set("userData", JSON.stringify(data.user), { expires: 1 });
 
       setAlertMessage("");
       setLoading(true);
