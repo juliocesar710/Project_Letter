@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { theme } from "../../styles/theme";
-import { signup } from "../../api/api";
+import { signup } from "../../api/Auth/userRegister";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import Alert from "../utils/Alert";
@@ -96,25 +96,20 @@ const RegisterForm = () => {
     }
     try {
       const data = await signup(formData);
-      console.log("Usuário registrado com sucesso:", data);
 
       Cookies.set("authToken", data.token, { expires: 1 });
       Cookies.set("userdata", JSON.stringify(data.user), { expires: 1 });
+      setError("");
+      setLoading(true);
 
-      navigate("/profile");
+      setTimeout(() => {
+        navigate("/profile");
+        setLoading(false);
+      }, 2000);
     } catch (error) {
-      console.error("Erro ao registrar usuário:", error);
-      setError("Erro ao registrar usuário. Tente novamente.");
+      setError("Erro ao registrar usuário. Tente novamente.", error);
       setAlertMessage("Erro ao registrar usuário. Tente novamente.");
     }
-
-    setError("");
-    setLoading(true);
-
-    setTimeout(() => {
-      console.log("Registro enviado", formData);
-      setLoading(false);
-    }, 2000);
   };
 
   return (
