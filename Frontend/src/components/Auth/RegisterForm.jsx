@@ -4,7 +4,7 @@ import { theme } from "../../styles/theme";
 import { signup } from "../../api/Auth/userRegister";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
-import Alert from "../utils/Alert";
+import Alert from "../utils/Error";
 
 const FormContainer = styled.form`
   &.form-container {
@@ -98,7 +98,8 @@ const RegisterForm = () => {
       const data = await signup(formData);
 
       Cookies.set("authToken", data.token, { expires: 1 });
-      Cookies.set("userdata", JSON.stringify(data.user), { expires: 1 });
+      Cookies.set("userData", JSON.stringify(data.user), { expires: 1 });
+     
       setError("");
       setLoading(true);
 
@@ -115,7 +116,7 @@ const RegisterForm = () => {
   return (
     <FormContainer className="form-container" onSubmit={handleSubmit}>
       <FormTitle>Registrar</FormTitle>
-      {alertMessage && <Alert message={alertMessage} />}
+      {alertMessage && <Alert message={alertMessage} />}  
       <Input
         className="input-global"
         type="text"

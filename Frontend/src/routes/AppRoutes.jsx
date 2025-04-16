@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import AuthPage from "../pages/AuthPage";
 import ProfilePage from "../pages/ProfilePage";
 import PrivateRoute from "./PrivateRoute";
-
+import ProfileForm from "../components/forms/ProfileForm";
 const AppRoutes = () => {
   return (
     <Routes>
@@ -16,6 +16,8 @@ const AppRoutes = () => {
           </PrivateRoute>
         }
       />
+      <Route
+        path="/edit-profile" element={<ProfileForm/>}/>
     </Routes>
   );
 };

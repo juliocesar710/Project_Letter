@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { theme } from "../../styles/theme";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
-import Alert from "../utils/Alert";
+import Alert from "../utils/Error";
 import { siginin } from "../../api/Auth/userLogin";
 
 const FormContainer = styled.form`
@@ -87,8 +87,9 @@ const LoginForm = () => {
     try {
       const data = await siginin({ email, password });
 
-      Cookies.set("token", data.token, { expires: 1 });
-      Cookies.set("user", JSON.stringify(data.user), { expires: 1 });
+         Cookies.set("authToken", data.token, { expires: 1 });
+         Cookies.set("userData", JSON.stringify(data.user), { expires: 1 });
+         
 
       setAlertMessage("");
       setLoading(true);
