@@ -58,7 +58,7 @@ const HomePage = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    console.log("Formulário enviado!");
+    console.log("Formulário enviado!!");
     navigate("/auth");
   };
 
