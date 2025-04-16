@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import { theme } from "../../styles/theme";
+import { useNavigate } from "react-router-dom";
+
 
 const InfoCard = styled.div`
   background-color: ${theme.colors.inputBackground};
@@ -11,16 +13,16 @@ const InfoCard = styled.div`
   height: 100%;
   position: relative;
   margin-bottom: 20px;
-  &::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 10px;
-    height: 100%;
-    background-color: ${theme.colors.primary};
-    border-radius: ${theme.borderRadius.small} 0 0 ${theme.borderRadius.small};
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const ProfileHeader = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
 `;
 
 const ProfileImage = styled.img`
@@ -28,14 +30,34 @@ const ProfileImage = styled.img`
   height: 120px;
   border-radius: 50%;
   border: 3px solid ${theme.colors.primary};
-  margin-bottom: 15px;
+`;
+
+const EditButton = styled.button`
+  padding: 10px 20px;
+  background-color: ${theme.colors.primary};
+  color: ${theme.colors.inputBackground};
+  border: none;
+  border-radius: ${theme.borderRadius.small};
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: ${theme.colors.primaryDark};
+  }
 `;
 
 const UserName = styled.h2`
   font-size: 24px;
   color: ${theme.colors.primaryDark};
+  margin-top: 15px;
+`;
+
+const UserEmail = styled.p`
+  font-size: 16px;
+  color: ${theme.colors.primaryDark};
   margin-bottom: 10px;
-  text-align: center;
+  font-weight: bold;
 `;
 
 const Bio = styled.p`
@@ -45,40 +67,18 @@ const Bio = styled.p`
   margin-bottom: 10px;
 `;
 
-const InfoText = styled.p`
-  font-size: 14px;
-  color: ${theme.colors.textSecondary};
-  text-align: center;
-`;
-
-const InterestsContainer = styled.div`
-  margin-top: 15px;
-  text-align: center;
-`;
-
-const Interest = styled.span`
-  display: inline-block;
-  background-color: ${theme.colors.primaryLight};
-  color: ${theme.colors.primaryDark};
-  font-size: 14px;
-  padding: 5px 10px;
-  border-radius: ${theme.borderRadius.small};
-  margin: 5px;
-  box-shadow: ${theme.shadows.light};
-`;
-
 const ProfileInfo = ({ user }) => {
+  const navigate = useNavigate();
+
   return (
     <InfoCard>
-      <ProfileImage src={user.profileImage} alt={`${user.name} profile`} />
+      <ProfileHeader>
+        <ProfileImage src={user.profileImage} alt={`${user.name} profile`} />
+        <EditButton onClick={() => navigate("/edit-profile")}>Editar Perfil</EditButton>
+      </ProfileHeader>
       <UserName>{user.name}</UserName>
+      <UserEmail>{user.email}</UserEmail>
       <Bio>{user.bio}</Bio>
-      <InfoText>Data de nascimento: {user.birthDate}</InfoText>
-      <InterestsContainer>
-        {user.interests.map((interest, index) => (
-          <Interest key={index}>{interest}</Interest>
-        ))}
-      </InterestsContainer>
     </InfoCard>
   );
 };

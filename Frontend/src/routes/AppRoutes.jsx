@@ -2,12 +2,22 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import AuthPage from "../pages/AuthPage";
 import ProfilePage from "../pages/ProfilePage";
+import PrivateRoute from "./PrivateRoute";
+import ProfileForm from "../components/Auth/ProfileForm";
 
 const AppRoutes = () => {
   return (
     <Routes>
       <Route path="/auth" element={<AuthPage />} />
-      <Route path="/profile" element={<ProfilePage />} />
+      <Route
+        path="/profile"
+        element={
+          <PrivateRoute>
+            <ProfilePage />
+          </PrivateRoute>
+        }
+      />
+      <Route path="/edit-profile" element={<ProfileForm />} />
     </Routes>
   );
 };

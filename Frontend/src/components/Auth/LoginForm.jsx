@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { theme } from '../../styles/theme';
+import { theme } from "../../styles/theme";
+import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
+import Alert from "../utils/Error";
+import { siginin } from "../../api/Auth/userLogin";
 
 const FormContainer = styled.form`
   &.form-container {
@@ -64,21 +68,47 @@ const ErrorMessage = styled.p`
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
 
-  const handleSubmit = (e) => {
+  const [loading, setLoading] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
+
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!email || !password) {
-      setError("Todos os campos são obrigatórios.");
+      setAlertMessage("Todos os campos são obrigatórios.");
       return;
     }
-    setError(""); 
+
+    setAlertMessage("");
     console.log("Login enviado", { email, password });
+
+    try {
+      const data = await siginin({ email, password });
+
+      Cookies.set("authToken", data.token, { expires: 1 });
+      Cookies.set("userData", JSON.stringify(data.user), { expires: 1 });
+
+      setAlertMessage("");
+      setLoading(true);
+
+      setTimeout(() => {
+        navigate("/profile");
+        setLoading(false);
+      }, 2000);
+    } catch (error) {
+      console.error("Erro ao fazer login:", error);
+      setAlertMessage(
+        "Erro ao tentar fazer login do usuário. Tente novamente."
+      );
+    }
   };
 
   return (
     <FormContainer className="form-container" onSubmit={handleSubmit}>
       <Title>Login</Title>
+      {alertMessage && <Alert message={alertMessage} />}
       <Input
         className="input-global"
         type="email"
@@ -95,8 +125,10 @@ const LoginForm = () => {
         onChange={(e) => setPassword(e.target.value)}
         required
       />
-      {error && <ErrorMessage>{error}</ErrorMessage>}
-      <Button className="button-primary" type="submit">Entrar</Button>
+
+      <Button className="button-primary" type="submit" disabled={loading}>
+        {loading ? "Entrando..." : "Entrar"}
+      </Button>
     </FormContainer>
   );
 };
