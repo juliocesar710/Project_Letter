@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { theme } from "../styles/theme";
 import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
@@ -11,20 +10,20 @@ const Container = styled.div`
   height: 100%;
   background: linear-gradient(
     90deg,
-    ${theme.colors.primary},
-    ${theme.colors.secondary}
+    ${({ theme }) => theme.colors.primary},
+    ${({ theme }) => theme.colors.secondary}
   );
   text-align: center;
 `;
 
 const Title = styled.h1`
   font-size: 2.5rem;
-  color: ${theme.colors.text};
+  color: ${({ theme }) => theme.colors.text};
   margin-bottom: 20px;
 `;
 const Description = styled.p`
   font-size: 1.2rem;
-  color: ${theme.colors.text};
+  color: ${({ theme }) => theme.colors.text};
 `;
 
 const GoupButton = styled.div`
@@ -36,18 +35,18 @@ const GoupButton = styled.div`
 `;
 
 const Button = styled.button`
-  background-color: ${theme.colors.primary};
-  color: ${theme.colors.text};
+  background-color: ${({ theme }) => theme.colors.primary};
+  color: ${({ theme }) => theme.colors.text};
   border: none;
-  border-radius: ${theme.borderRadius.medium};
-  padding: ${theme.padding.button};
+  border-radius: ${({ theme }) => theme.borderRadius.medium};
+  padding: ${({ theme }) => theme.padding.button};
   font-size: 1rem;
   cursor: pointer;
   transition: background-color 0.3s;
   margin: 0 10px;
 
   &:hover {
-    background-color: ${theme.colors.primaryDark};
+    background-color: ${({ theme }) => theme.colors.primaryDark};
   }
 `;
 

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { theme } from "../../styles/theme";
 import { signup } from "../../api/Auth/userRegister";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
@@ -8,9 +7,9 @@ import Alert from "../utils/Error";
 
 const FormContainer = styled.form`
   &.form-container {
-    background-color: ${theme.colors.background};
-    padding: ${theme.padding.container};
-    border-radius: ${theme.borderRadius.medium};
+    background-color: ${({ theme }) => theme.colors.background};
+    padding: ${({ theme }) => theme.padding.container};
+    border-radius: ${({ theme }) => theme.borderRadius.medium};
     width: 100%;
     max-width: 400px;
     margin: 0 auto;
@@ -20,7 +19,7 @@ const FormContainer = styled.form`
 const FormTitle = styled.h2`
   text-align: center;
   margin-bottom: 20px;
-  color: ${theme.colors.primaryDark};
+  color: ${({ theme }) => theme.colors.primaryDark};
 `;
 
 const Input = styled.input`
@@ -28,13 +27,13 @@ const Input = styled.input`
     width: 100%;
     padding: 12px;
     margin: 10px 0;
-    border: 1px solid ${theme.colors.border};
+    border: 1px solid ${({ theme }) => theme.colors.border};
     border-radius: 5px;
     font-size: 16px;
-    background-color: ${theme.colors.inputBackground};
+    background-color: ${({ theme }) => theme.colors.inputBackground};
 
     &:focus {
-      border-color: ${theme.colors.borderFocus};
+      border-color: ${({ theme }) => theme.colors.borderFocus};
       outline: none;
     }
   }
@@ -44,8 +43,8 @@ const Button = styled.button`
   &.button-primary {
     width: 100%;
     padding: 12px;
-    background-color: ${theme.colors.primary};
-    color: ${theme.colors.inputBackground};
+    background-color: ${({ theme }) => theme.colors.primary}};
+    color: ${({ theme }) => theme.colors.inputBackground};
     font-size: 16px;
     border: none;
     border-radius: 5px;
@@ -53,13 +52,13 @@ const Button = styled.button`
     transition: background-color 0.3s;
 
     &:hover {
-      background-color: ${theme.colors.primaryDark};
+      background-color: ${({ theme }) => theme.colors.primaryDark};
     }
   }
 `;
 
 const ErrorMessage = styled.p`
-  color: ${theme.colors.error};
+  color: ${({ theme }) => theme.colors.error};
   font-size: 14px;
   margin: 5px 0;
 `;
