@@ -1,16 +1,15 @@
 import React from "react";
 import styled from "styled-components";
-import { theme } from "../../styles/theme";
 
 const AlertContainer = styled.div`
-  background-color: ${theme.colors.success};
-  color: ${theme.colors.textOnSuccess};
+  background-color: ${({ theme }) => theme.colors.sucess};
+  color: ${({ theme }) => theme.colors.textOnSucess};
   padding: 15px;
-  border-radius: ${theme.borderRadius.medium};
+  border-radius: ${({ theme }) => theme.borderRadius.medium};
   text-align: center;
   margin-bottom: 20px;
   font-size: 14px;
-  box-shadow: ${theme.shadows.light};
+  box-shadow: ${({ theme }) => theme.shadows.light};
 `;
 
 const Sucess = ({ message }) => {

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Cookies from "js-cookie";
-import { theme } from "../../styles/theme";
 import { updateUser } from "../../api/Auth/userUpdate";
 import { useNavigate } from "react-router-dom";
 import Sucess from "../utils/Sucess";
@@ -15,66 +14,66 @@ const FormContainer = styled.div`
   min-height: 100vh;
   background: linear-gradient(
     90deg,
-    ${theme.colors.background},
-    ${theme.colors.border}
+    ${({ theme }) => theme.colors.background},
+    ${({ theme }) => theme.colors.border}
   );
 `;
 
 const FormTitle = styled.h2`
   text-align: center;
   margin-bottom: 20px;
-  color: ${theme.colors.primaryDark};
+  color: ${({ theme }) => theme.colors.primaryDark};
 `;
 
 const Form = styled.form`
-  background-color: ${theme.colors.inputBackground};
+  background-color: ${({ theme }) => theme.colors.inputBackground};
   padding: 20px;
-  border-radius: ${theme.borderRadius.medium};
-  box-shadow: ${theme.shadows.light};
+  border-radius: ${({ theme }) => theme.borderRadius.medium};
+  box-shadow: ${({ theme }) => theme.shadows.light};
   width: 100%;
   max-width: 400px;
 `;
 
 const Input = styled.input`
   width: 100%;
-  padding: ${theme.padding.input};
+  padding: ${(({ theme }) => theme.padding.input)};
   margin-bottom: 15px;
-  border: 1px solid ${theme.colors.border};
-  border-radius: ${theme.borderRadius.small};
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  border-radius: ${({ theme }) => theme.borderRadius.small};
   font-size: 16px;
 
   &:focus {
-    border-color: ${theme.colors.borderFocus};
+    border-color: ${({ theme }) => theme.colors.borderFocus};
     outline: none;
   }
 `;
 
 const TextArea = styled.textarea`
   width: 100%;
-  padding: ${theme.padding.input};
+  padding: ${({ theme }) => theme.padding.input};
   margin-bottom: 15px;
-  border: 1px solid ${theme.colors.border};
-  border-radius: ${theme.borderRadius.small};
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  border-radius: ${({ theme }) => theme.borderRadius.small};
   font-size: 16px;
 
   &:focus {
-    border-color: ${theme.colors.borderFocus};
+    border-color: ${({ theme }) => theme.colors.borderFocus};
     outline: none;
   }
 `;
 
 const Button = styled.button`
   width: 100%;
-  padding: ${theme.padding.button};
-  background-color: ${theme.colors.primary};
-  color: ${theme.colors.inputBackground};
+  padding: ${({ theme }) => theme.padding.button};
+  background-color: ${({ theme }) => theme.colors.primary};
+  color: ${({ theme }) => theme.colors.inputBackground};
   border: none;
-  border-radius: ${theme.borderRadius.small};
+  border-radius: ${({ theme }) => theme.borderRadius.small};
   cursor: pointer;
   font-size: 16px;
 
   &:hover {
-    background-color: ${theme.colors.primaryDark};
+    background-color: ${({ theme }) => theme.colors.primaryDark};
   }
 `;
 

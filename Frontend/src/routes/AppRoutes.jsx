@@ -1,12 +1,12 @@
 import React from "react";
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import AuthPage from "../pages/AuthPage";
 import ProfilePage from "../pages/ProfilePage";
 import PrivateRoute from "./PrivateRoute";
 import ProfileForm from "../components/Auth/ProfileForm";
 import HomePage from "../pages/HomePage";
 
-const AppRoutes = () => {
+const AppRoutes = ({ toggleTheme }) => {
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
@@ -15,7 +15,7 @@ const AppRoutes = () => {
         path="/profile"
         element={
           <PrivateRoute>
-            <ProfilePage />
+            <ProfilePage toggleTheme={toggleTheme} />
           </PrivateRoute>
         }
       />

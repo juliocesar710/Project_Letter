@@ -24,17 +24,17 @@ const TabButton = styled.button`
   font-size: 16px;
   border-radius: 5px;
   border: none;
-  background-color: #a39e93;
-  color: #faf9f7;
+  background-color: ${({ theme }) => theme.colors.primary};
+  color: ${({ theme }) => theme.colors.inputBackground};
   cursor: pointer;
   transition: background-color 0.3s;
 
   &:hover {
-    background-color: #8c8579;
+    background-color: ${({ theme }) => theme.colors.primaryDark};
   }
 
   &.active {
-    background-color: #8c8579;
+    background-color: ${({ theme }) => theme.colors.primaryDark};
   }
 `;
 

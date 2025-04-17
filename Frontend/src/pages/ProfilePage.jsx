@@ -12,7 +12,7 @@ const PageContainer = styled.div`
   justify-content: center;
   padding: 20px;
   min-height: 100vh;
-  background: linear-gradient(90deg, #f5f2ed, #e0dcd5);
+  background: linear-gradient(90deg, ${({theme})=> theme.colors.background}, ${({theme})=> theme.colors.border});
   position: relative;
 `;
 
@@ -28,10 +28,10 @@ const SettingsIcon = styled.div`
   right: 20px;
   cursor: pointer;
   font-size: 24px;
-  color: #8c8579;
+  color: ${({ theme }) => theme.colors.primaryDark};
 
   &:hover {
-    color: #a39e93;
+    color: ${({ theme }) => theme.colors.primary};
   }
 `;
 
@@ -40,7 +40,7 @@ const Menu = styled.div`
   top: 50px;
   right: 20px;
   background-color: #fff;
-  border: 1px solid #e0dcd5;
+  border: 1px solid ${({ theme }) => theme.colors.border};
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   z-index: 10;
@@ -53,13 +53,13 @@ const MenuItem = styled.div`
   color: #333;
 
   &:hover {
-    background-color: #f5f2ed;
+    background-color: ${({ theme }) => theme.colors.background};
   }
 `;
 
-const ProfilePage = () => {
+const ProfilePage = ({ toggleTheme }) => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [confirmDelete, setConfirmDelete] = useState(false); 
+  const [confirmDelete, setConfirmDelete] = useState(false);
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -69,7 +69,7 @@ const ProfilePage = () => {
   };
 
   const handleDeleteAccount = () => {
-    setConfirmDelete(true); 
+    setConfirmDelete(true);
   };
 
   const confirmDeleteAccount = () => {
@@ -84,12 +84,12 @@ const ProfilePage = () => {
         console.error("Erro ao deletar conta:", error);
       })
       .finally(() => {
-        setConfirmDelete(false); 
+        setConfirmDelete(false);
       });
   };
 
   const cancelDeleteAccount = () => {
-    setConfirmDelete(false); 
+    setConfirmDelete(false);
   };
 
   const toggleMenu = () => {
@@ -126,6 +126,7 @@ const ProfilePage = () => {
       <Menu isOpen={menuOpen}>
         <MenuItem onClick={handleLogout}>Logout</MenuItem>
         <MenuItem onClick={handleDeleteAccount}>Deletar Conta</MenuItem>
+        <MenuItem onClick={toggleTheme}>Alternar Tema</MenuItem>
       </Menu>
       <ProfileSection>
         <ProfileInfo user={user} />

@@ -1,13 +1,12 @@
 import React from "react";
 import styled from "styled-components";
-import { theme } from "../../styles/theme";
 import { useNavigate } from "react-router-dom";
 
 
 const InfoCard = styled.div`
-  background-color: ${theme.colors.inputBackground};
-  border: 1px solid ${theme.colors.border};
-  border-radius: ${theme.borderRadius.medium};
+  background-color: ${({ theme }) => theme.colors.background};
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  border-radius: ${({ theme }) => theme.borderRadius.medium};
   padding: 20px;
   width: 100%;
   height: 100%;
@@ -29,40 +28,40 @@ const ProfileImage = styled.img`
   width: 120px;
   height: 120px;
   border-radius: 50%;
-  border: 3px solid ${theme.colors.primary};
+  border: 3px solid ${({ theme }) => theme.colors.primary};
 `;
 
 const EditButton = styled.button`
   padding: 10px 20px;
-  background-color: ${theme.colors.primary};
-  color: ${theme.colors.inputBackground};
+  background-color: ${({ theme }) => theme.colors.primary};
+  color: ${({ theme }) => theme.colors.inputBackground};
   border: none;
-  border-radius: ${theme.borderRadius.small};
+  border-radius: ${({ theme }) => theme.borderRadius.small};
   font-size: 14px;
   cursor: pointer;
   transition: background-color 0.3s;
 
   &:hover {
-    background-color: ${theme.colors.primaryDark};
+    background-color: ${({ theme }) => theme.colors.primaryDark};
   }
 `;
 
 const UserName = styled.h2`
   font-size: 24px;
-  color: ${theme.colors.primaryDark};
+  color: ${({ theme }) => theme.colors.primaryDark};
   margin-top: 15px;
 `;
 
 const UserEmail = styled.p`
   font-size: 16px;
-  color: ${theme.colors.primaryDark};
+  color: ${({ theme }) => theme.colors.primaryDark};
   margin-bottom: 10px;
   font-weight: bold;
 `;
 
 const Bio = styled.p`
   font-size: 16px;
-  color: ${theme.colors.textSecondary};
+  color: ${({ theme }) => theme.colors.textSecondary};
   text-align: center;
   margin-bottom: 10px;
 `;
