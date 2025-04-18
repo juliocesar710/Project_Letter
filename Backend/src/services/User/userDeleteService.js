@@ -1,4 +1,4 @@
-import { deleteUserRepository } from "../repositories/userDeleteRepository.js";
+import { deleteUserRepository } from "../../repositories/User/userDeleteRepository.js";
 
 export const deleteUserService = async (userId) => {
   if (!userId) {

@@ -1,4 +1,4 @@
-import { createUserRepository } from "../repositories/userRegisterRepository.js";
+import { createUserRepository } from "../../repositories/User/userRegisterRepository.js";
 
 export const createUserService = async (userData) => {
   if (!userData.name || !userData.email || !userData.password) {

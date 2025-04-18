@@ -1,5 +1,5 @@
-import { createUserService } from "../services/userRegisterService.js";
-import { generateToken } from "../utils/generateTokenJWT.js";
+import { createUserService } from "../../services/User/userRegisterService.js";
+import { generateToken } from "../../utils/generateTokenJWT.js";
 
 export const createUser = async (req, res) => {
   try {

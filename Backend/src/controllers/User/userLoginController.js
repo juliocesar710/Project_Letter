@@ -1,5 +1,5 @@
-import { findUser } from "../services/userLoginService.js";
-import { generateToken } from "../utils/generateTokenJWT.js";
+import { findUser } from "../../services/User/userLoginService.js";
+import { generateToken } from "../../utils/generateTokenJWT.js";
 
 export const getUser = async (req, res) => {
   try {

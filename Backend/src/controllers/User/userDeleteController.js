@@ -1,4 +1,4 @@
-import { deleteUserService } from "../services/userDeleteService.js";
+import { deleteUserService } from "../../services/User/userDeleteService.js";
 
 export const deleteUser = async (req, res) => {
   try {

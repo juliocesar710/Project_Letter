@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
 
-import { findUserByEmailRepository } from "../repositories/userLoginRepository.js";
+import { findUserByEmailRepository } from "../../repositories/User/userLoginRepository.js";
 
 export const findUser = async (userData) => {
   if (!userData.email || !userData.password) {

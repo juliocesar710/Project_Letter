@@ -1,4 +1,4 @@
-import { updateUserService } from "../services/userUpdateService.js";
+import { updateUserService } from "../../services/User/userUpdateService.js";
 
 export const updateUser = async (req, res) => {
   try {

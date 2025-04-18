@@ -18,6 +18,7 @@ app.use(cors({
 
 
 app.use("/auth", authRoutes);
+app.use("/api", authRoutes);
 
 app.get("/", (req, res) => {
   res.send("Welcome to the API!");

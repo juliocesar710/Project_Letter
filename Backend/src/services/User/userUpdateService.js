@@ -1,4 +1,4 @@
-import { updateUserRepository } from "../repositories/userUpdateRepository.js";
+import { updateUserRepository } from "../../repositories/User/userUpdateRepository.js";
 
 export const updateUserService = async (userId, data) => {
   if (!userId) {
