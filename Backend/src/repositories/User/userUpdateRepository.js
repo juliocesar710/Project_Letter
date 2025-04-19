@@ -1,4 +1,4 @@
-import prisma from "../utils/prismaClient.js";
+import prisma from "../../utils/prismaClient.js";
 
 export const updateUserRepository = {
   updateGenres: async (userId, genres) => {
