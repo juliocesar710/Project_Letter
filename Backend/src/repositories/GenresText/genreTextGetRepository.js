@@ -2,22 +2,21 @@ import prisma from "../../utils/prismaClient.js";
 
 export const getGenresTextRepository = async (userId) => {
   try {
-    const genresText = await prisma.genresFromUser.findMany({
+    const genresText = await prisma.genreTextFromUser.findMany({
       where: {
         userId: userId,
       },
       select: {
-        genre: {
+        genreText: { 
           select: {
-            name: true, 
+            name: true,
           },
         },
       },
     });
 
-    
     return genresText.map((item) => ({
-      genreName: item.genre.name,
+      genreName: item.genreText.name, 
     }));
   } catch (error) {
     console.error("Error fetching genres text:", error);
