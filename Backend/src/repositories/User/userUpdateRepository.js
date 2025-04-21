@@ -3,7 +3,7 @@ import prisma from "../../utils/prismaClient.js";
 export const updateUserRepository = {
   updateGenres: async (userId, genres) => {
     if (genres && genres.length > 0) {
-      const existingGenres = await prisma.genres.findMany({
+      const existingGenres = await prisma.genreText.findMany({
         where: {
           name: { in: genres },
         },
@@ -15,10 +15,10 @@ export const updateUserRepository = {
 
       const genreRelations = existingGenres.map((genre) => ({
         userId,
-        genreId: genre.id,
+       genreTextId: genre.id,
       }));
 
-      await prisma.genresFromUser.createMany({
+      await prisma.genreTextFromUser.createMany({
         data: genreRelations,
         skipDuplicates: true,
       });

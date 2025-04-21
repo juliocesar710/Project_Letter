@@ -2,7 +2,7 @@ import prisma from '../../utils/prismaClient.js';
 
 export const getAllGenresTextRepository = async () => {
   try {
-    const genresText = await prisma.genres.findMany({
+    const genresText = await prisma.genreText.findMany({
       select: {
         name: true,
       },

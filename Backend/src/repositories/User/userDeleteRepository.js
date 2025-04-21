@@ -3,7 +3,7 @@ import prisma from "../../utils/prismaClient.js";
 export const deleteUserRepository = async (userId) => {
   try {
     
-    await prisma.genresFromUser.deleteMany({
+    await prisma.genreTextFromUser.deleteMany({
         where: {
           userId: userId,
         },
