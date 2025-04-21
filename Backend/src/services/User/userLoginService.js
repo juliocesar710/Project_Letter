@@ -1,4 +1,4 @@
-import bcrypt from "bcrypt";
+import * as bcrypt from "bcrypt";
 
 import { findUserByEmailRepository } from "../../repositories/User/userLoginRepository.js";
 
