@@ -4,6 +4,7 @@ import ProfilePage from "../pages/ProfilePage";
 import AuthPage from "../pages/AuthPage";
 import ProfileForm from "../components/Auth/ProfileForm";
 import HomePage from "../pages/HomePage";
+import PrivateRoute from "./PrivateRoute";
 
 const AppRouter = ({ toggleTheme }) => {
   return (
@@ -11,7 +12,14 @@ const AppRouter = ({ toggleTheme }) => {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/auth" element={<AuthPage />} />
-        <Route path="/profile" element={<ProfilePage toggleTheme={toggleTheme} />} />
+        <Route
+          path="/profile"
+          element={
+            <PrivateRoute>
+              <ProfilePage toggleTheme={toggleTheme} />
+            </PrivateRoute>
+          }
+        />
         <Route path="/edit-profile" element={<ProfileForm />} />
       </Routes>
     </Router>
