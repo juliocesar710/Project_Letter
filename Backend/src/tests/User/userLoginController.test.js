@@ -18,7 +18,7 @@ const { findUserByEmailRepository } = await import(
 const bcrypt = await import("bcrypt");
 
 describe("Testing findUser", () => {
-  it("deve retornar o usuário com email e senha válidos", async () => {
+  it("must return the user with a valid email and password", async () => {
     const userData = {
       email: "julio@email.com",
       password: "123456",
@@ -42,7 +42,7 @@ describe("Testing findUser", () => {
     expect(result).toEqual(mockUser);
   });
 
-  it("deve lançar erro se email ou senha estiverem vazios", async () => {
+  it("should throw error if email or password are empty", async () => {
     const userData = {
       email: "",
       password: "",
@@ -53,7 +53,7 @@ describe("Testing findUser", () => {
     );
   });
 
-  it("deve lançar erro se o usuário não for encontrado", async () => {
+  it("should throw error if user not found", async () => {
     const userData = {
       email: "inexistente@email.com",
       password: "qualquer",
@@ -64,7 +64,7 @@ describe("Testing findUser", () => {
     await expect(findUser(userData)).rejects.toThrow("User not found the here");
   });
 
-  it("deve lançar erro se a senha estiver incorreta", async () => {
+  it("should throw error if password is incorrect", async () => {
     const userData = {
       email: "julio@email.com",
       password: "senhaerrada",
