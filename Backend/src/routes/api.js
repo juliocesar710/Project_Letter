@@ -5,6 +5,7 @@ import { getAllGenresText } from "../controllers/GenresText/genreTextGetAllContr
 import { createPost } from '../controllers/Posts/postMakeController.js';
 import { deletePost } from '../controllers/Posts/postDeleteController.js';
 import { getPostById } from '../controllers/Posts/postGetController.js';
+import {getAllPostsByUser} from '../controllers/Posts/postGetAllUserController.js';
 
 
 
@@ -17,5 +18,8 @@ router.get("/genreTextAll", getAllGenresText);
 router.post("/post", authMiddleware, createPost);
 router.delete("/postDelete/:postId", authMiddleware, deletePost);
 router.get("/postGet/:postId", authMiddleware, getPostById);
+router.get("/postGetAllUser", authMiddleware, getAllPostsByUser);
+
+
 
 export default router;
