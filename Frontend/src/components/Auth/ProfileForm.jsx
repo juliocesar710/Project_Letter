@@ -36,7 +36,7 @@ const Form = styled.form`
 
 const Input = styled.input`
   width: 100%;
-  padding: ${(({ theme }) => theme.padding.input)};
+  padding: ${({ theme }) => theme.padding.input};
   margin-bottom: 15px;
   border: 1px solid ${({ theme }) => theme.colors.border};
   border-radius: ${({ theme }) => theme.borderRadius.small};
@@ -110,22 +110,27 @@ const ProfileForm = ({ onSubmit, isEdit = false }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     setSuccessMessage("");
-
-    const payload = {
-      name: formData.name,
-      email: formData.email,
-      genres: formData.interests.split(",").map((interest) => interest.trim()),
-    };
-
+  
+   
+    const payload = Object.fromEntries(
+      Object.entries({
+        name: formData.name,
+        email: formData.email,
+        genres: formData.interests
+          ? formData.interests.split(",").map((interest) => interest.trim())
+          : undefined,
+      }).filter(([, value]) => value !== "" && value !== undefined)
+    );
+  
     try {
       const updatedUser = await updateUser(payload);
       Cookies.set("userData", JSON.stringify(updatedUser), { expires: 1 });
-
+  
       setSuccessMessage("Usuário alterado com sucesso!");
       onSubmit(updatedUser);
-
+  
       setIsLoading(true);
       setTimeout(() => {
         navigate("/profile");
