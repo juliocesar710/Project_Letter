@@ -1,9 +1,6 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -19,8 +16,13 @@ model User {
   email             String              @unique
   password          String
   createdAt         DateTime            @default(now())
+  birthDate         DateTime?          
+  description       String?             
+  profileImage      String?             
   Posts             Post[]
   GenreTextFromUser GenreTextFromUser[]
+  friendships       Friendship[]        @relation("UserAsUser")
+  friendsWithMe     Friendship[]        @relation("UserAsFriend")
 }
 
 model GenreText {
@@ -53,4 +55,15 @@ model Post {
   userId      Int
   user        User        @relation(fields: [userId], references: [id])
   genreTexts  GenreText[] @relation("PostGenreTexts")
+}
+
+model Friendship {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  friendId  Int
+  status    String  
+  createdAt DateTime @default(now())
+
+  user      User     @relation("UserAsUser", fields: [userId], references: [id])
+  friend    User     @relation("UserAsFriend", fields: [friendId], references: [id])
 }
