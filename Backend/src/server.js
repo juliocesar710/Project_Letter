@@ -2,7 +2,9 @@ import express from "express";
 import dotenv from "dotenv";
 import authRoutes from "./routes/auth.js";
 import apiRoutes from "./routes/api.js";
+import genreTextRoutes from "./routes/genreText.js";
 import cors from "cors";
+
 
 dotenv.config();
 
@@ -21,6 +23,7 @@ app.use(
 
 app.use("/auth", authRoutes);
 app.use("/api", apiRoutes);
+app.use("/genreText", genreTextRoutes);
 
 app.get("/", (req, res) => {
   res.send("Welcome to the API!");

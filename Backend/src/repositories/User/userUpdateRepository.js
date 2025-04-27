@@ -13,15 +13,26 @@ export const updateUserRepository = {
         throw new Error("Some genres do not exist in the database");
       }
 
-      const genreRelations = existingGenres.map((genre) => ({
-        userId,
-       genreTextId: genre.id,
-      }));
-
-      await prisma.genreTextFromUser.createMany({
-        data: genreRelations,
-        skipDuplicates: true,
+      const userGenres = await prisma.genreTextFromUser.findMany({
+        where: { userId },
+        select: { genreTextId: true },
       });
+
+      const userGenreIds = userGenres.map((relation) => relation.genreTextId);
+
+      const newGenreRelations = existingGenres
+        .filter((genre) => !userGenreIds.includes(genre.id))
+        .map((genre) => ({
+          userId,
+          genreTextId: genre.id,
+        }));
+
+      if (newGenreRelations.length > 0) {
+        await prisma.genreTextFromUser.createMany({
+          data: newGenreRelations,
+          skipDuplicates: true,
+        });
+      }
     }
   },
 
