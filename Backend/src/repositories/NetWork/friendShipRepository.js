@@ -6,7 +6,7 @@ export const friendshipRepository = {
       data: {
         userId,
         friendId,
-        status: "pending", 
+        status: "pending",
       },
     });
   },
@@ -19,6 +19,19 @@ export const friendshipRepository = {
           { userId: friendId, friendId: userId },
         ],
       },
+    });
+  },
+
+  updateFriendshipStatus: async (friendshipId, status) => {
+    return await prisma.friendship.update({
+      where: { id: friendshipId },
+      data: { status },
+    });
+  },
+
+  findFriendshipById: async (friendshipId) => {
+    return await prisma.friendship.findUnique({
+      where: { id: friendshipId },
     });
   },
 };

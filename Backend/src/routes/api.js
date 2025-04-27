@@ -6,6 +6,7 @@ import { getPostById } from "../controllers/Posts/postGetController.js";
 import { getAllPostsByUser } from "../controllers/Posts/postGetAllUserController.js";
 import { getAllPosts } from "../controllers/Posts/postGetAllController.js";
 import { createFriendship } from "../controllers/NetWork/friendShipController.js";
+import { updateFriendshipStatus } from "../controllers/NetWork/friendShipStatus.js";
 
 const router = express.Router();
 
@@ -16,5 +17,6 @@ router.get("/postGetAllUser", authMiddleware, getAllPostsByUser);
 router.get("/postGetAll", getAllPosts);
 
 router.post("/friendShip", authMiddleware, createFriendship);
+router.patch("/friendShipStatus", authMiddleware, updateFriendshipStatus);
 
 export default router;
