@@ -1,11 +1,15 @@
-import { friendshipService } from "../../services/NetWork/friendShipService.js";
+import { friendshipStatusService } from "../../services/NetWork/friendShipStatusService.js";
 
 export const updateFriendshipStatus = async (req, res) => {
   try {
     const userId = req.user.id;
-    const { friendshipId, status } = req.body; 
+    const { friendId, status } = req.body;
 
-    const updatedFriendship = await friendshipService.updateFriendshipStatus(friendshipId, userId, status);
+    const updatedFriendship = await friendshipStatusService.updateFriendshipStatus(
+      userId,
+      friendId,
+      status
+    );
 
     res.status(200).json(updatedFriendship);
   } catch (error) {

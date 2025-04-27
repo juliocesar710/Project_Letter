@@ -21,17 +21,4 @@ export const friendshipRepository = {
       },
     });
   },
-
-  updateFriendshipStatus: async (friendshipId, status) => {
-    return await prisma.friendship.update({
-      where: { id: friendshipId },
-      data: { status },
-    });
-  },
-
-  findFriendshipById: async (friendshipId) => {
-    return await prisma.friendship.findUnique({
-      where: { id: friendshipId },
-    });
-  },
 };
