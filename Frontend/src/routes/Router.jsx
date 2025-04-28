@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import ProfilePage from "../pages/ProfilePage";
 import AuthPage from "../pages/AuthPage";
-import ProfileForm from "../components/Auth/ProfileForm";
+import ProfileForm from "../components/Profile/ProfileForm";
 import HomePage from "../pages/HomePage";
 import PrivateRoute from "./PrivateRoute";
 
