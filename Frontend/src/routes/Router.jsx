@@ -20,7 +20,8 @@ const AppRouter = ({ toggleTheme }) => {
             </PrivateRoute>
           }
         />
-        <Route path="/edit-profile" element={<ProfileForm />} />
+        <Route path="/edit-profile" element={<ProfileForm isEdit={true} onSubmit={(user) => console.log("Usuário atualizado:", user)} />
+} />
       </Routes>
     </Router>
   );

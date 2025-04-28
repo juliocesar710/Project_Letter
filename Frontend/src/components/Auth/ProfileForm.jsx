@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Cookies from "js-cookie";
 import { updateUser } from "../../api/Auth/userUpdate";
-import { useNavigate } from "react-router-dom";
 import Sucess from "../utils/Sucess";
+import GenreSelector from "./GenreSelector";
 
 const FormContainer = styled.div`
   display: flex;
@@ -81,26 +81,24 @@ const ProfileForm = ({ onSubmit, isEdit = false }) => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    bio: "",
+    description: "",
     birthDate: "",
     profileImage: "",
-    interests: "",
+    interests: [],
   });
 
-  const [isLoading, setIsLoading] = useState(false);
-  const [successMessage, setSuccessMessage] = useState("");
-  const navigate = useNavigate();
+  const [selectedGenres, setSelectedGenres] = useState([]);
 
   useEffect(() => {
     const userData = JSON.parse(Cookies.get("userData") || "{}");
     setFormData({
       name: userData.name || "",
       email: userData.email || "",
-      bio: userData.bio || "",
+      description: userData.description || "",
       birthDate: userData.birthDate || "",
       profileImage: userData.profileImage || "",
-      interests: userData.interests ? userData.interests.join(", ") : "",
     });
+    setSelectedGenres(userData.interests || []);
   }, []);
 
   const handleChange = (e) => {
@@ -110,32 +108,17 @@ const ProfileForm = ({ onSubmit, isEdit = false }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
-    setSuccessMessage("");
-  
-   
-    const payload = Object.fromEntries(
-      Object.entries({
-        name: formData.name,
-        email: formData.email,
-        genres: formData.interests
-          ? formData.interests.split(",").map((interest) => interest.trim())
-          : undefined,
-      }).filter(([, value]) => value !== "" && value !== undefined)
-    );
-  
+
+    const payload = {
+      ...formData,
+      birthDate: formData.birthDate ? new Date(formData.birthDate).toISOString() : null,
+      genres: selectedGenres,
+    };
+
     try {
       const updatedUser = await updateUser(payload);
       Cookies.set("userData", JSON.stringify(updatedUser), { expires: 1 });
-  
-      setSuccessMessage("Usuário alterado com sucesso!");
       onSubmit(updatedUser);
-  
-      setIsLoading(true);
-      setTimeout(() => {
-        navigate("/profile");
-        setIsLoading(false);
-      }, 2000);
     } catch (error) {
       console.error("Erro ao atualizar o usuário:", error);
     }
@@ -144,9 +127,7 @@ const ProfileForm = ({ onSubmit, isEdit = false }) => {
   return (
     <FormContainer>
       <Form onSubmit={handleSubmit}>
-        <FormTitle>{isEdit ? "Editar Perfil" : "Registrar"}</FormTitle>
-        {isLoading && <p>Carregando, salvando...</p>}
-        {successMessage && <Sucess message={successMessage} />}
+        <FormTitle>{isEdit ? "Editar Perfil" : "Editando"}</FormTitle>
         <Input
           type="text"
           name="name"
@@ -161,32 +142,29 @@ const ProfileForm = ({ onSubmit, isEdit = false }) => {
           value={formData.email}
           onChange={handleChange}
         />
-        {/* <TextArea
-          name="bio"
+        <TextArea
+          name="description"
           placeholder="Biografia"
-          value={formData.bio}
+          value={formData.description}
           onChange={handleChange}
-        /> */}
-        {/* <Input
+        />
+        <Input
           type="date"
           name="birthDate"
           placeholder="Data de Nascimento"
           value={formData.birthDate}
           onChange={handleChange}
-        /> */}
-        {/* <Input
+        />
+        <Input
           type="text"
           name="profileImage"
           placeholder="URL da Imagem de Perfil"
           value={formData.profileImage}
           onChange={handleChange}
-        /> */}
-        <Input
-          type="text"
-          name="interests"
-          placeholder="Gêneros Textuais (separados por vírgula)"
-          value={formData.interests}
-          onChange={handleChange}
+        />
+        <GenreSelector
+          selectedGenres={selectedGenres}
+          setSelectedGenres={setSelectedGenres}
         />
         <Button type="submit">
           {isEdit ? "Salvar Alterações" : "Registrar"}
