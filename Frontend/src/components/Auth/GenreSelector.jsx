@@ -6,14 +6,34 @@ const GenreContainer = styled.div`
   margin-bottom: 15px;
 `;
 
-const GenreItem = styled.div`
+const GenreList = styled.div`
   display: flex;
-  align-items: center;
-  margin-bottom: 5px;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
 `;
 
-const Checkbox = styled.input`
-  margin-right: 10px;
+const GenreBadge = styled.label`
+  padding: 8px 16px;
+  border: 2px solid ${({ theme }) => theme.colors.primary};
+  border-radius: ${({ theme }) => theme.borderRadius.large};
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  background-color: ${({ selected, theme }) =>
+    selected ? theme.colors.primary : theme.colors.background};
+  color: ${({ selected, theme }) =>
+    selected ? theme.colors.background : theme.colors.primary};
+  box-shadow: ${({ theme }) => theme.shadows.light};
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.primaryDark};
+    color: ${({ theme }) => theme.colors.background};
+  }
+`;
+
+const HiddenCheckbox = styled.input`
+  display: none;
 `;
 
 const GenreSelector = ({ selectedGenres, setSelectedGenres }) => {
@@ -43,16 +63,21 @@ const GenreSelector = ({ selectedGenres, setSelectedGenres }) => {
   return (
     <GenreContainer>
       <label>Gêneros Textuais:</label>
-      {genres.map((genre) => (
-        <GenreItem key={genre.genreName}>
-          <Checkbox
-            type="checkbox"
-            checked={selectedGenres.includes(genre.genreName)}
-            onChange={() => handleGenreChange(genre.genreName)}
-          />
-          {genre.genreName}
-        </GenreItem>
-      ))}
+      <GenreList>
+        {genres.map((genre) => (
+          <GenreBadge
+            key={genre.genreName}
+            selected={selectedGenres.includes(genre.genreName)}
+          >
+            <HiddenCheckbox
+              type="checkbox"
+              checked={selectedGenres.includes(genre.genreName)}
+              onChange={() => handleGenreChange(genre.genreName)}
+            />
+            {genre.genreName}
+          </GenreBadge>
+        ))}
+      </GenreList>
     </GenreContainer>
   );
 };
