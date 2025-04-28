@@ -1,0 +1,25 @@
+{
+  "name": "project_letter",
+  "version": "1.0.0",
+  "description": "The **Letter** project is a project management application composed of a backend built with **Node.js**, **Express**, and **Prisma** for database management, and a frontend built with **React** and **Vite** for the user interface. The project will be a social network to connect readers and writers through common interests.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "concurrently \"npm run dev --prefix Backend\" \"npm run dev --prefix Frontend\" \"npx prisma studio --schema=./Backend/prisma/schema.prisma\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/juliocesar710/Project_Letter.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/juliocesar710/Project_Letter/issues"
+  },
+  "homepage": "https://github.com/juliocesar710/Project_Letter#readme",
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}
