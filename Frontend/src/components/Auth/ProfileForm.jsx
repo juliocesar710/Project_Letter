@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Cookies from "js-cookie";
 import { updateUser } from "../../api/Auth/userUpdate";
-import { useNavigate } from "react-router-dom";
 import Sucess from "../utils/Sucess";
+import Alert from "../utils/Error";
+import GenreSelector from "./GenreSelector";
 
 const FormContainer = styled.div`
   display: flex;
@@ -75,32 +76,38 @@ const Button = styled.button`
   &:hover {
     background-color: ${({ theme }) => theme.colors.primaryDark};
   }
+
+  &:disabled {
+    background-color: ${({ theme }) => theme.colors.border};
+    cursor: not-allowed;
+  }
 `;
 
 const ProfileForm = ({ onSubmit, isEdit = false }) => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    bio: "",
+    description: "",
     birthDate: "",
     profileImage: "",
-    interests: "",
+    interests: [],
   });
 
-  const [isLoading, setIsLoading] = useState(false);
+  const [selectedGenres, setSelectedGenres] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
-  const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     const userData = JSON.parse(Cookies.get("userData") || "{}");
     setFormData({
       name: userData.name || "",
       email: userData.email || "",
-      bio: userData.bio || "",
+      description: userData.description || "",
       birthDate: userData.birthDate || "",
       profileImage: userData.profileImage || "",
-      interests: userData.interests ? userData.interests.join(", ") : "",
     });
+    setSelectedGenres(userData.interests || []);
   }, []);
 
   const handleChange = (e) => {
@@ -110,43 +117,39 @@ const ProfileForm = ({ onSubmit, isEdit = false }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+    setLoading(true);
     setSuccessMessage("");
-  
-   
-    const payload = Object.fromEntries(
-      Object.entries({
-        name: formData.name,
-        email: formData.email,
-        genres: formData.interests
-          ? formData.interests.split(",").map((interest) => interest.trim())
-          : undefined,
-      }).filter(([, value]) => value !== "" && value !== undefined)
-    );
-  
+    setErrorMessage("");
+
+    const payload = {
+      ...formData,
+      birthDate: formData.birthDate
+        ? new Date(formData.birthDate).toISOString()
+        : null,
+      genres: selectedGenres,
+    };
+
     try {
       const updatedUser = await updateUser(payload);
       Cookies.set("userData", JSON.stringify(updatedUser), { expires: 1 });
-  
-      setSuccessMessage("Usuário alterado com sucesso!");
       onSubmit(updatedUser);
-  
-      setIsLoading(true);
-      setTimeout(() => {
-        navigate("/profile");
-        setIsLoading(false);
-      }, 2000);
     } catch (error) {
+      setErrorMessage("Erro ao atualizar o usuário. Tente novamente.");
       console.error("Erro ao atualizar o usuário:", error);
+    } finally {
+      setTimeout(() => {
+        setLoading(false);
+        setSuccessMessage("Usuário atualizado com sucesso!");
+      }, 2000);
     }
   };
 
   return (
     <FormContainer>
       <Form onSubmit={handleSubmit}>
-        <FormTitle>{isEdit ? "Editar Perfil" : "Registrar"}</FormTitle>
-        {isLoading && <p>Carregando, salvando...</p>}
-        {successMessage && <Sucess message={successMessage} />}
+        <FormTitle>{isEdit ? "Editar Perfil" : "Editando"}</FormTitle>
+        {successMessage && <Sucess message={successMessage} />}{" "}
+        {errorMessage && <Alert message={errorMessage} />}{" "}
         <Input
           type="text"
           name="name"
@@ -161,35 +164,32 @@ const ProfileForm = ({ onSubmit, isEdit = false }) => {
           value={formData.email}
           onChange={handleChange}
         />
-        {/* <TextArea
-          name="bio"
+        <TextArea
+          name="description"
           placeholder="Biografia"
-          value={formData.bio}
+          value={formData.description}
           onChange={handleChange}
-        /> */}
-        {/* <Input
+        />
+        <Input
           type="date"
           name="birthDate"
           placeholder="Data de Nascimento"
           value={formData.birthDate}
           onChange={handleChange}
-        /> */}
-        {/* <Input
+        />
+        <Input
           type="text"
           name="profileImage"
           placeholder="URL da Imagem de Perfil"
           value={formData.profileImage}
           onChange={handleChange}
-        /> */}
-        <Input
-          type="text"
-          name="interests"
-          placeholder="Gêneros Textuais (separados por vírgula)"
-          value={formData.interests}
-          onChange={handleChange}
         />
-        <Button type="submit">
-          {isEdit ? "Salvar Alterações" : "Registrar"}
+        <GenreSelector
+          selectedGenres={selectedGenres}
+          setSelectedGenres={setSelectedGenres}
+        />
+        <Button type="submit" disabled={loading}>
+          {loading ? "Salvando..." : isEdit ? "Salvar Alterações" : "Registrar"}
         </Button>
       </Form>
     </FormContainer>
