@@ -4,7 +4,7 @@ import Cookies from "js-cookie";
 import { updateUser } from "../../api/Auth/userUpdate";
 import Sucess from "../utils/Sucess";
 import Alert from "../utils/Error";
-import GenreSelector from "./GenreSelector";
+import GenreSelector from "../utils/GenreSelector";
 
 const FormContainer = styled.div`
   display: flex;
