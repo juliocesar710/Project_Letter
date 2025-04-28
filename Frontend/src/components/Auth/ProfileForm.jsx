@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Cookies from "js-cookie";
 import { updateUser } from "../../api/Auth/userUpdate";
 import Sucess from "../utils/Sucess";
+import Alert from "../utils/Error";
 import GenreSelector from "./GenreSelector";
 
 const FormContainer = styled.div`
@@ -75,6 +76,11 @@ const Button = styled.button`
   &:hover {
     background-color: ${({ theme }) => theme.colors.primaryDark};
   }
+
+  &:disabled {
+    background-color: ${({ theme }) => theme.colors.border};
+    cursor: not-allowed;
+  }
 `;
 
 const ProfileForm = ({ onSubmit, isEdit = false }) => {
@@ -88,6 +94,9 @@ const ProfileForm = ({ onSubmit, isEdit = false }) => {
   });
 
   const [selectedGenres, setSelectedGenres] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     const userData = JSON.parse(Cookies.get("userData") || "{}");
@@ -108,10 +117,15 @@ const ProfileForm = ({ onSubmit, isEdit = false }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    setSuccessMessage("");
+    setErrorMessage("");
 
     const payload = {
       ...formData,
-      birthDate: formData.birthDate ? new Date(formData.birthDate).toISOString() : null,
+      birthDate: formData.birthDate
+        ? new Date(formData.birthDate).toISOString()
+        : null,
       genres: selectedGenres,
     };
 
@@ -120,7 +134,13 @@ const ProfileForm = ({ onSubmit, isEdit = false }) => {
       Cookies.set("userData", JSON.stringify(updatedUser), { expires: 1 });
       onSubmit(updatedUser);
     } catch (error) {
+      setErrorMessage("Erro ao atualizar o usuário. Tente novamente.");
       console.error("Erro ao atualizar o usuário:", error);
+    } finally {
+      setTimeout(() => {
+        setLoading(false);
+        setSuccessMessage("Usuário atualizado com sucesso!");
+      }, 2000);
     }
   };
 
@@ -128,6 +148,8 @@ const ProfileForm = ({ onSubmit, isEdit = false }) => {
     <FormContainer>
       <Form onSubmit={handleSubmit}>
         <FormTitle>{isEdit ? "Editar Perfil" : "Editando"}</FormTitle>
+        {successMessage && <Sucess message={successMessage} />}{" "}
+        {errorMessage && <Alert message={errorMessage} />}{" "}
         <Input
           type="text"
           name="name"
@@ -166,8 +188,8 @@ const ProfileForm = ({ onSubmit, isEdit = false }) => {
           selectedGenres={selectedGenres}
           setSelectedGenres={setSelectedGenres}
         />
-        <Button type="submit">
-          {isEdit ? "Salvar Alterações" : "Registrar"}
+        <Button type="submit" disabled={loading}>
+          {loading ? "Salvando..." : isEdit ? "Salvar Alterações" : "Registrar"}
         </Button>
       </Form>
     </FormContainer>

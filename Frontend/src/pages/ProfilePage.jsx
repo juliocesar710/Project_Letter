@@ -1,18 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import ProfileInfo from "../components/profile/ProfileInfo";
 import PostList from "../components/profile/PostList";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import { userDelete } from "../api/Auth/userDelete";
-import Confirm from "../components/utils/Confirm"; 
+import { getUserGenresText } from "../api/GenreText/genreTextGet";
+import Confirm from "../components/utils/Confirm";
 
 const PageContainer = styled.div`
   display: flex;
   justify-content: center;
   padding: 20px;
   min-height: 100vh;
-  background: linear-gradient(90deg, ${({theme})=> theme.colors.background}, ${({theme})=> theme.colors.border});
+  background: linear-gradient(
+    90deg,
+    ${({ theme }) => theme.colors.background},
+    ${({ theme }) => theme.colors.border}
+  );
   position: relative;
 `;
 
@@ -60,7 +65,21 @@ const MenuItem = styled.div`
 const ProfilePage = ({ toggleTheme }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(false);
+  const [userGenres, setUserGenres] = useState([]);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchUserGenres = async () => {
+      try {
+        const genres = await getUserGenresText();
+        setUserGenres(genres.map((genre) => genre.genreName));
+      } catch (error) {
+        console.error("Erro ao buscar gêneros textuais do usuário:", error);
+      }
+    };
+
+    fetchUserGenres();
+  }, []);
 
   const handleLogout = () => {
     Cookies.remove("authToken");
@@ -101,11 +120,12 @@ const ProfilePage = ({ toggleTheme }) => {
   const user = {
     name: userData.name || "Usuário",
     email: userData.email || "email@exemplo.com",
-    bio: "Desenvolvedor apaixonado por tecnologia e inovação.",
-    birthDate: "27 de março de 1990",
+    bio: userData.description || "Sem biografia disponível.",
+    birthDate: userData.birthDate || "Data de nascimento não informada.",
     profileImage:
+      userData.profileImage ||
       "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0e/d9/fa/1b/lost-valley.jpg?w=900&h=500&s=1",
-    interests: ["Tecnologia", "Inovação", "React", "JavaScript"],
+    interests: userGenres,
     posts: [
       {
         id: 1,
@@ -119,6 +139,8 @@ const ProfilePage = ({ toggleTheme }) => {
       },
     ],
   };
+
+  console.log("User data:", userData);
 
   return (
     <PageContainer>
