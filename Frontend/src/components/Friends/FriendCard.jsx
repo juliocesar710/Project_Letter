@@ -25,6 +25,7 @@ const ProfileImage = styled.img`
   height: 60px;
   border-radius: 50%;
   object-fit: cover;
+  background-color: ${({ theme }) => theme.colors.backgroundSecondary};
 `;
 
 const FriendInfo = styled.div`
@@ -67,9 +68,15 @@ const FriendCard = ({ friend }) => {
 
   return (
     <Card onClick={handleViewProfile}>
-      <ProfileImage src={friend.profileImage} alt={friend.name} />
+      <ProfileImage 
+        src={friend.profileImage || 'https://cdn.vectorstock.com/i/1000v/66/13/default-avatar-profile-icon-social-media-user-vector-49816613.jpg'} 
+        alt={friend.name || 'Usuário'} 
+        onError={(e) => {
+          e.target.src = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZmlsbD0iI2NjYyIgZD0iTTEyIDJDNi40OCAyIDIgNi40OCAyIDEyczQuNDggMTAgMTAgMTAgMTAtNC40OCAxMC0xMFMxNy41MiAyIDEyIDJ6bTAgM2MyLjY3IDAgNC44NCAyLjE3IDQuODQgNC44NCAwIDIuNjctMi4xNyA4Ljg0LTQuODQgNC44NC0yLjY3IDAtNC44NC0yLjE3LTQuODQtNC44NCAwLTIuNjcgMi4xNy00Ljg0IDQuODQtNC44NHptMCAxMmE5LjkxIDkuOTEgMCAwIDEtOC4wNC00LjQyYzAuMDItMy4wMiAyLjQ5LTUuNDcgNS40OC01LjQ3IDIuOTkgMCA1LjQ2IDIuNDUgNS40OCA5LjQ3QTkuOTEgOS45MSAwIDAgMSAxMiAxN3oiLz48L3N2Zz4=';
+        }}
+      />
       <FriendInfo>
-        <Name>{friend.name}</Name>
+        <Name>{friend.name || 'Usuário'}</Name>
         <Status>{friend.status || 'Online'}</Status>
       </FriendInfo>
       <ActionButton onClick={(e) => {

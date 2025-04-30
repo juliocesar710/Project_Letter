@@ -74,6 +74,10 @@ const ProfileInfo = ({ user }) => {
     navigate("/edit-profile");
   };
 
+  const handleFriendsClick = () => {
+    navigate("/friends");
+  }
+
   let formattedBirthDate = "Data de nascimento não informada";
 
   if (user.birthDate) {
@@ -89,7 +93,7 @@ const ProfileInfo = ({ user }) => {
     <InfoCard>
       <ProfileHeader>
         <ProfileImage src={user.profileImage} alt={`${user.name} profile`} />
-        <ProfileButton>Amigos</ProfileButton>
+        <ProfileButton onClick={handleFriendsClick}>Amigos</ProfileButton>
       </ProfileHeader>
 
       <Section>
