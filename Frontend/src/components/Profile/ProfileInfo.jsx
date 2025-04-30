@@ -44,7 +44,7 @@ const ProfileImage = styled.img`
   margin-bottom: 20px;
 `;
 
-const EditButton = styled.button`
+const ProfileButton = styled.button`
   padding: 10px 20px;
   background-color: ${({ theme }) => theme.colors.primary};
   color: ${({ theme }) => theme.colors.inputBackground};
@@ -74,22 +74,36 @@ const ProfileInfo = ({ user }) => {
     navigate("/edit-profile");
   };
 
-  const formattedBirthDate = user.birthDate
-  ? format(new Date(user.birthDate), "dd 'de' MMMM 'de' yyyy", { locale: ptBR })
-  : "Data de nascimento não informada";
+  const handleFriendsClick = () => {
+    navigate("/friends");
+  }
+
+  let formattedBirthDate = "Data de nascimento não informada";
+
+  if (user.birthDate) {
+    const parsedDate = new Date(user.birthDate);
+    if (!isNaN(parsedDate)) {
+      formattedBirthDate = format(parsedDate, "dd 'de' MMMM 'de' yyyy", {
+        locale: ptBR,
+      });
+    }
+  }
 
   return (
     <InfoCard>
       <ProfileHeader>
         <ProfileImage src={user.profileImage} alt={`${user.name} profile`} />
-        <EditButton onClick={handleEditProfile}>Editar Perfil</EditButton>
+        <ProfileButton onClick={handleFriendsClick}>Amigos</ProfileButton>
       </ProfileHeader>
 
       <Section>
+        <ProfileButton onClick={handleEditProfile}>Editar Perfil</ProfileButton>
         <SectionTitle>Informações Pessoais</SectionTitle>
         <SectionContent>Nome: {user.name}</SectionContent>
         <SectionContent>Email: {user.email}</SectionContent>
-        <SectionContent>Data de Nascimento: {formattedBirthDate}</SectionContent>
+        <SectionContent>
+          Data de Nascimento: {formattedBirthDate}
+        </SectionContent>
       </Section>
       <Section>
         <SectionTitle>Biografia</SectionTitle>

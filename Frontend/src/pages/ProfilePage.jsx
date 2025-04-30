@@ -115,6 +115,8 @@ const ProfilePage = ({ toggleTheme }) => {
     setMenuOpen(!menuOpen);
   };
 
+  
+
   const userData = JSON.parse(Cookies.get("userData") || "{}");
 
   const user = {

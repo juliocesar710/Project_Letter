@@ -12,9 +12,7 @@ const App = () => {
 
   return (
     <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
-      {/* <button onClick={toggleTheme}>
-        {isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
-      </button> */}
+      
       <AppRouter toggleTheme={toggleTheme} />
     </ThemeProvider>
   );

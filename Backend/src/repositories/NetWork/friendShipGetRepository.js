@@ -11,10 +11,10 @@ export const friendshipGetRepository = {
       },
       include: {
         user: {
-          select: { id: true, name: true, email: true },
+          select: { id: true, name: true, email: true, profileImage:true },
         },
         friend: {
-          select: { id: true, name: true, email: true },
+          select: { id: true, name: true, email: true, profileImage:true },
         },
       },
     });

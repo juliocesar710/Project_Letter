@@ -5,6 +5,7 @@ import AuthPage from "../pages/AuthPage";
 import ProfileForm from "../components/Profile/ProfileForm";
 import HomePage from "../pages/HomePage";
 import PrivateRoute from "./PrivateRoute";
+import FriendsPage from "../pages/FriendsPage";
 
 const AppRouter = ({ toggleTheme }) => {
   return (
@@ -20,8 +21,16 @@ const AppRouter = ({ toggleTheme }) => {
             </PrivateRoute>
           }
         />
-        <Route path="/edit-profile" element={<ProfileForm isEdit={true} onSubmit={(user) => console.log("Usuário atualizado:", user)} />
-} />
+        <Route
+          path="/edit-profile"
+          element={
+            <ProfileForm
+              isEdit={true}
+              onSubmit={(user) => console.log("Usuário atualizado:", user)}
+            />
+          }
+        />
+        <Route path="/friends" element={<FriendsPage />} />
       </Routes>
     </Router>
   );
