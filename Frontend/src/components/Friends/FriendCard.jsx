@@ -38,6 +38,12 @@ const Name = styled.h3`
   font-size: 1.1rem;
 `;
 
+const Email = styled.p`
+  color: ${({ theme }) => theme.colors.textSecondary};
+  margin: 5px 0;
+  font-size: 0.9rem;
+`;
+
 const Status = styled.p`
   color: ${({ theme }) => theme.colors.textSecondary};
   margin: 5px 0 0;
@@ -77,7 +83,8 @@ const FriendCard = ({ friend }) => {
       />
       <FriendInfo>
         <Name>{friend.name || 'Usuário'}</Name>
-        <Status>{friend.status || 'Online'}</Status>
+        <Email>{friend.email || 'email@gmail.com'}</Email>
+        <Status>Pedido de amizade: {friend.status || 'Online'}</Status>
       </FriendInfo>
       <ActionButton onClick={(e) => {
         e.stopPropagation();

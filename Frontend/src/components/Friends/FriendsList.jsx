@@ -66,7 +66,8 @@ const FriendsList = () => {
               id: friend.id,
               name: friend.friend.name || 'Usuário',
               profileImage: friend.friend.profileImage,
-              status: friend.status || 'Online'
+              status: friend.status || 'Online',
+              email: friend.friend.email || 'email@gmail.com',
             }} 
           />
         ))
