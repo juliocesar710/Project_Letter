@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import { deleteFriendship } from '../../api/Friends/friendsDelete';
 
 const Card = styled.div`
   background-color: ${({ theme }) => theme.colors.background};
@@ -89,18 +90,26 @@ const ViewProfileButton = styled.button`
   }
 `;
 
-const FriendCard = ({ friend }) => {
+const FriendCard = ({ friend, onFriendRemoved }) => {
   const navigate = useNavigate();
 
   const handleViewProfile = (e) => {
     e.stopPropagation();
-   
     navigate(`/friends/${friend.id}`);
   };
 
-  const handleRemoveFriend = (e) => {
+  const handleRemoveFriend = async (e) => {
     e.stopPropagation();
-    // Implementar ação de remover amigo
+    try {
+      console.log("aquiiiiiiiii: ", friend.friendshipId);
+      console.log("éeeeeeeeeeeeeee: ", friend.id);
+      await deleteFriendship(friend.id);
+      if (onFriendRemoved) {
+        onFriendRemoved(friend.id);
+      }
+    } catch (error) {
+      console.error('Erro ao remover amigo:', error);
+    }
   };
 
   return (

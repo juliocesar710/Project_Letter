@@ -9,8 +9,7 @@ export const friendsGetUser = async () => {
         api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     
         const response = await api.get("/friendShip/get");
-        console.log("Response data:", response);
-        console.log("Response data:", response.data);
+     
         return response.data;
     } catch (error) {
         console.error("Erro ao buscar usuários:", error);

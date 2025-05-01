@@ -1,12 +1,12 @@
 import { friendshipDeleteRepository } from "../../repositories/NetWork/friendShipDeleteRepository.js";
 
 export const friendshipDeleteService = {
-  deleteFriendship: async (userId, friendshipId) => {
-    if (!friendshipId) {
-      throw new Error("Friendship ID is required");
+  deleteFriendship: async (userId, friendId) => {
+    if (!friendId) {
+      throw new Error("Friend ID is required");
     }
 
-    const friendship = await friendshipDeleteRepository.findFriendshipById(friendshipId);
+    const friendship = await friendshipDeleteRepository.findFriendshipByUsers(userId, friendId);
 
     if (!friendship) {
       throw new Error("Friendship not found");
@@ -16,7 +16,7 @@ export const friendshipDeleteService = {
       throw new Error("You are not authorized to delete this friendship");
     }
 
-    await friendshipDeleteRepository.deleteFriendship(friendshipId);
+    await friendshipDeleteRepository.deleteFriendship(friendship.id);
     return { message: "Friendship deleted successfully" };
   }
-}; 
+};
