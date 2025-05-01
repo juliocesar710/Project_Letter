@@ -6,6 +6,7 @@ import PrivateRoute from "./PrivateRoute";
 import ProfileForm from "../components/Auth/ProfileForm";
 import HomePage from "../pages/HomePage";
 import FriendsPage from "../pages/FriendsPage";
+import FriendProfile from "../pages/FriendProfile";
 
 const AppRoutes = ({ toggleTheme }) => {
   return (
@@ -21,7 +22,8 @@ const AppRoutes = ({ toggleTheme }) => {
         }
       />
       <Route path="/edit-profile" element={<ProfileForm />} />
-      <Route path="/friends" element={<FriendsPage />}></Route>
+      <Route path="/friends" element={<FriendsPage />} />
+      <Route path="/friends/:friendId" element={<FriendProfile />} />
     </Routes>
   );
 };

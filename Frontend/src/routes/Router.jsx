@@ -6,6 +6,8 @@ import ProfileForm from "../components/Profile/ProfileForm";
 import HomePage from "../pages/HomePage";
 import PrivateRoute from "./PrivateRoute";
 import FriendsPage from "../pages/FriendsPage";
+import FriendProfile from "../pages/FriendProfile";
+
 
 const AppRouter = ({ toggleTheme }) => {
   return (
@@ -31,6 +33,7 @@ const AppRouter = ({ toggleTheme }) => {
           }
         />
         <Route path="/friends" element={<FriendsPage />} />
+        <Route path="/friends/:friendId" element={<FriendProfile />} />
       </Routes>
     </Router>
   );

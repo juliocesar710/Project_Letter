@@ -61,13 +61,14 @@ const FriendsList = () => {
       {friends.length > 0 ? (
         friends.map((friend) => (
           <FriendCard 
-            key={friend.friend.id} 
+            key={friend} 
             friend={{
-              id: friend.id,
+              
               name: friend.friend.name || 'Usuário',
               profileImage: friend.friend.profileImage,
               status: friend.status || 'Online',
               email: friend.friend.email || 'email@gmail.com',
+              id: friend.friend.id || '0'
             }} 
           />
         ))
