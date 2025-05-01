@@ -28,7 +28,6 @@ const FriendsList = () => {
   const fetchFriends = async () => {
     try {
       const response = await friendsGetUser();
-      console.log("Dados recebidos:", response);
       
       if (Array.isArray(response) && response.length > 0) {
         setFriends(response);
@@ -48,7 +47,6 @@ const FriendsList = () => {
   }, []);
 
   const handleFriendRemoved = (friendId) => {
-    console.log("dados20: ", friendId);
     setFriends(prevFriends => prevFriends.filter(friend => friend.id !== friendId));
   };
   
