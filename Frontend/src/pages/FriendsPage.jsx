@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import FriendsList from '../components/Friends/FriendsList';
 import FriendSearch from '../components/Friends/FriendSearch';
 import FriendRequests from '../components/Friends/FriendRequests';
+import AllUsersList from '../components/Friends/AllUsersList';
 
 const FriendsContainer = styled.div`
   padding: 20px;
@@ -129,7 +130,6 @@ const FriendsPage = () => {
     if (request) {
       setFriends([...friends, { ...request, status: 'online', lastSeen: 'Agora mesmo' }]);
       setFriendRequests(friendRequests.filter(req => req.id !== requestId));
-      // Atualiza o status de amigo no allUsers
       setAllUsers(allUsers.map(user => 
         user.id === requestId ? { ...user, isFriend: true } : user
       ));
@@ -189,7 +189,7 @@ const FriendsPage = () => {
         />
       )}
       {activeTab === 'users' && (
-        <FriendsList 
+        <AllUsersList 
           friends={allUsers} 
           onAddFriend={handleAddFriend}
           onRemoveFriend={handleRemoveFriend}

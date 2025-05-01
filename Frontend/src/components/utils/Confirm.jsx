@@ -42,7 +42,8 @@ const Button = styled.button`
   cursor: pointer;
   font-size: 14px;
   color: ${({ theme }) => theme.colors.inputBackground};
-  background-color: ${({ confirm, theme }) => (confirm ? theme.colors.primaryDark : theme.colors.error)};
+  background-color: ${({ confirm, theme }) =>
+    confirm ? theme.colors.primaryDark : theme.colors.error};
   box-shadow: ${({ theme }) => theme.shadows.light};
 
   &:hover {
@@ -56,7 +57,13 @@ const Confirm = ({ message, onConfirm, onCancel }) => {
       <PopupContainer>
         <Message>{message}</Message>
         <ButtonContainer>
-          <Button confirm onClick={onConfirm}>
+          <Button
+            confirm
+            onClick={() => {
+              onConfirm();
+              window.location.reload();
+            }}
+          >
             Confirmar
           </Button>
           <Button onClick={onCancel}>Cancelar</Button>
