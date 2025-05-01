@@ -15,6 +15,8 @@ router.post("/register", createUser);
 router.post("/login", getUser);
 router.patch("/update", authMiddleware, updateUser);
 router.delete("/delete", authMiddleware, deleteUser);
+
+
 router.get("/users", getAllUsers);
 router.get("/userByName", getUserByName);
 

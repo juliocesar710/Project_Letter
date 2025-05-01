@@ -25,31 +25,33 @@ const FriendsList = () => {
   const [friends, setFriends] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchFriends = async () => {
-      try {
-        const response = await friendsGetUser();
-        console.log("Dados recebidos:", response);
-        
-        // Verifica se response é um array e tem dados
-        if (Array.isArray(response) && response.length > 0) {
-          console.log("friends",response)
-          console.log("Dados recebidos:", response);
-
-          setFriends(response);
-        } else {
-          setFriends([]);
-        }
-      } catch (error) {
-        console.error('Erro ao buscar amigos:', error);
+  const fetchFriends = async () => {
+    try {
+      const response = await friendsGetUser();
+      console.log("Dados recebidos:", response);
+      
+      if (Array.isArray(response) && response.length > 0) {
+        setFriends(response);
+      } else {
         setFriends([]);
-      } finally {
-        setLoading(false);
       }
-    };
+    } catch (error) {
+      console.error('Erro ao buscar amigos:', error);
+      setFriends([]);
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     fetchFriends();
   }, []);
+
+  const handleFriendRemoved = (friendId) => {
+    console.log("dados20: ", friendId);
+    setFriends(prevFriends => prevFriends.filter(friend => friend.id !== friendId));
+  };
+  
 
   if (loading) {
     return <EmptyMessage>Carregando amigos...</EmptyMessage>;
@@ -63,12 +65,14 @@ const FriendsList = () => {
           <FriendCard 
             key={friend.friend.id} 
             friend={{
-              id: friend.id,
               name: friend.friend.name || 'Usuário',
               profileImage: friend.friend.profileImage,
               status: friend.status || 'Online',
               email: friend.friend.email || 'email@gmail.com',
-            }} 
+              id: friend.friend.id || '0',
+              friendshipId: friend.id
+            }}
+            onFriendRemoved={handleFriendRemoved}
           />
         ))
       ) : (

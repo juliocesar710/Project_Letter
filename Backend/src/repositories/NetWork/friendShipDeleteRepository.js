@@ -7,9 +7,14 @@ export const friendshipDeleteRepository = {
     });
   },
 
-  findFriendshipById: async (friendshipId) => {
-    return await prisma.friendship.findUnique({
-      where: { id: friendshipId },
+  findFriendshipByUsers: async (userId, friendId) => {
+    return await prisma.friendship.findFirst({
+      where: {
+        OR: [
+          { userId: userId, friendId: friendId },
+          { userId: friendId, friendId: userId }
+        ]
+      }
     });
   }
-}; 
+};
