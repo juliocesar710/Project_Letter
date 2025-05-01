@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import FriendsList from '../components/Friends/FriendsList';
 import FriendSearch from '../components/Friends/FriendSearch';
 import FriendRequests from '../components/Friends/FriendRequests';
+import AllUsersList from '../components/Friends/AllUsersList';
 
 const FriendsContainer = styled.div`
   padding: 20px;
@@ -188,7 +189,7 @@ const FriendsPage = () => {
         />
       )}
       {activeTab === 'users' && (
-        <FriendsList 
+        <AllUsersList 
           friends={allUsers} 
           onAddFriend={handleAddFriend}
           onRemoveFriend={handleRemoveFriend}

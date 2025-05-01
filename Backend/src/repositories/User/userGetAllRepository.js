@@ -10,6 +10,7 @@ export const getAllUsersRepository = async () => {
                 name: true,
                 email: true,
                 createdAt: true,
+                profileImage: true,
             }
         });
         return users;

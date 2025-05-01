@@ -3,6 +3,9 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { deleteFriendship } from "../../api/Friends/friendsDelete";
 import Confirm from "../utils/Confirm";
+import FriendRemoveButton from "../utils/RemoveFriendButton";
+
+
 
 const Card = styled.div`
   background-color: ${({ theme }) => theme.colors.background};
@@ -15,10 +18,7 @@ const Card = styled.div`
   gap: 15px;
   transition: transform 0.2s;
 
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: ${({ theme }) => theme.shadows.medium};
-  }
+  
 `;
 
 const ProfileImage = styled.img`
@@ -115,10 +115,7 @@ const FriendCard = ({ friend, onFriendRemoved }) => {
     }
   };
 
-  const handleRemoveClick = (e) => {
-    e.stopPropagation();
-    setShowConfirm(true);
-  };
+
 
   return (
     <>
@@ -155,8 +152,8 @@ const FriendCard = ({ friend, onFriendRemoved }) => {
             </svg>
             Ver Perfil
           </ViewProfileButton>
-          <ActionButton onClick={handleRemoveClick}>Remover</ActionButton>
-        </ButtonsContainer>
+          <FriendRemoveButton friend={friend} onFriendRemoved={onFriendRemoved} />
+          </ButtonsContainer>
       </Card>
 
       {showConfirm && (
