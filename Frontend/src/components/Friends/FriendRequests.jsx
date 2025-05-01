@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { friendsPending } from '../../api/Friends/friendsPending';
+import { updateFriendshipStatus } from '../../api/Friends/friendsStatus';
 import { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';  
 
@@ -82,10 +83,22 @@ const EmptyMessage = styled.p`
   text-align: center;
   padding: 20px;
 `;
-const FriendRequests = ({ onAcceptRequest, onRejectRequest }) => {
+
+const FriendRequests = ({ onUpdateRequests }) => { 
   const [requests, setRequests] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentUserId, setCurrentUserId] = useState(null);
+
+  const handleStatusChange = async (friendId, status) => {
+    try {
+      await updateFriendshipStatus({friendId, status});
+      const updatedRequests = await friendsPending();
+      setRequests(updatedRequests);
+      if (onUpdateRequests) onUpdateRequests();
+    } catch (error) {
+      console.error("Erro ao atualizar status de amizade:", error);
+    }
+  };
 
   useEffect(() => {
     const token = Cookies.get('authToken');
@@ -115,11 +128,7 @@ const FriendRequests = ({ onAcceptRequest, onRejectRequest }) => {
       <SectionTitle>Solicitações de Amizade</SectionTitle>
       {requests.length > 0 ? (
         requests.map((request) => {
-          // Determina se o usuário atual é quem ENVIOU a solicitação
           const isSender = currentUserId && request.user.id === currentUserId;
-          
-          // Se for o sender, mostra info do receptor (friend)
-          // Se for o receiver, mostra info do sender (user)
           const profileUser = isSender ? request.friend : request.user;
 
           return (
@@ -135,13 +144,13 @@ const FriendRequests = ({ onAcceptRequest, onRejectRequest }) => {
                 <ButtonGroup>
                   <ActionButton 
                     className="accept"
-                    onClick={() => onAcceptRequest(request.user.id)}  // Aceita o sender
+                    onClick={() => handleStatusChange(request.user.id, 'accepted')}
                   >
                     Aceitar
                   </ActionButton>
                   <ActionButton 
                     className="reject"
-                    onClick={() => onRejectRequest(request.user.id)}  // Rejeita o sender
+                    onClick={() => handleStatusChange(request.user.id, 'rejected')}
                   >
                     Rejeitar
                   </ActionButton>

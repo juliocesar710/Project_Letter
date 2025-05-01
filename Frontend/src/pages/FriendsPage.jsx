@@ -129,7 +129,6 @@ const FriendsPage = () => {
     if (request) {
       setFriends([...friends, { ...request, status: 'online', lastSeen: 'Agora mesmo' }]);
       setFriendRequests(friendRequests.filter(req => req.id !== requestId));
-      // Atualiza o status de amigo no allUsers
       setAllUsers(allUsers.map(user => 
         user.id === requestId ? { ...user, isFriend: true } : user
       ));
