@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { userGetByName } from '../../api/Auth/userGetByName'; 
+import AddFriendButton from '../utils/AddFriendButton';
 
 const SearchContainer = styled.div`
   position: relative;
@@ -127,6 +128,7 @@ const FriendSearch = () => {
               <ResultInfo>
                 <ResultName>{user.name}</ResultName>
                 <ResultEmail>{user.email}</ResultEmail>
+                
               </ResultInfo>
             </ResultItem>
           ))}

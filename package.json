@@ -21,5 +21,8 @@
   "homepage": "https://github.com/juliocesar710/Project_Letter#readme",
   "devDependencies": {
     "concurrently": "^9.1.2"
+  },
+  "dependencies": {
+    "lucide-react": "^0.507.0"
   }
 }
