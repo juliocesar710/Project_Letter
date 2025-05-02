@@ -4,6 +4,7 @@ import { userGetAll } from "../../api/Auth/userGetAll";
 import { friendsGetUser } from "../../api/Friends/friendsGetUser";
 import FriendRemoveButton from "../utils/RemoveFriendButton";
 import { inviteFriend } from "../../api/Friends/friendsInvite";
+import Cookies from "js-cookie";
 
 const UserListContainer = styled.div`
   display: flex;
@@ -41,6 +42,10 @@ const AllUsersList = ({ onAddFriend, onRemoveFriend }) => {
   const [friends, setFriends] = useState([]);
   const [isLoading, setIsLoading] = useState({});
 
+  const userData = JSON.parse(Cookies.get("userData") || "{}");
+  const userId = userData.id;
+  console.log("id so user logado:", userId)
+
   const handleAddFriend = async (friendId) => {
     setIsLoading((prev) => ({ ...prev, [friendId]: true }));
     try {
@@ -57,8 +62,6 @@ const AllUsersList = ({ onAddFriend, onRemoveFriend }) => {
     }
   };
 
-
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -67,15 +70,14 @@ const AllUsersList = ({ onAddFriend, onRemoveFriend }) => {
           userGetAll(),
           friendsGetUser(),
         ]);
-  
+
         console.log("All Users:", allUsers);
         console.log("My Friends:", myFriends);
-  
+
         setUsers(allUsers || []);
         setFriends(Array.isArray(myFriends) ? myFriends : []);
       } catch (error) {
         console.error("Erro ao carregar dados combinados:", error);
-        
         // Se falhar, tenta buscar apenas os usuários
         try {
           const allUsers = await userGetAll();
@@ -94,8 +96,9 @@ const AllUsersList = ({ onAddFriend, onRemoveFriend }) => {
   }, []);
 
   const isFriend = (userId) => {
-    return Array.isArray(friends) && friends.some(
-      (friend) => friend?.friend?.id === userId
+    return (
+      Array.isArray(friends) &&
+      friends.some((friend) => friend?.friend?.id === userId)
     );
   };
 
@@ -106,7 +109,8 @@ const AllUsersList = ({ onAddFriend, onRemoveFriend }) => {
 
   return (
     <UserListContainer>
-      {users.map((user) => (
+      {users.filter(user => user.id !== userId)
+      .map((user) => (
         <UserCard key={user.id}>
           <Avatar
             src={
