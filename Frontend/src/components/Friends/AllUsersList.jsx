@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { userGetAll } from "../../api/Auth/userGetAll";
 import { friendsGetUser } from "../../api/Friends/friendsGetUser";
 import FriendRemoveButton from "../utils/RemoveFriendButton";
+import { inviteFriend } from "../../api/Friends/friendsInvite";
 
 const UserListContainer = styled.div`
   display: flex;
@@ -38,27 +39,64 @@ const Button = styled.button`
 const AllUsersList = ({ onAddFriend, onRemoveFriend }) => {
   const [users, setUsers] = useState([]);
   const [friends, setFriends] = useState([]);
+  const [isLoading, setIsLoading] = useState({});
+
+  const handleAddFriend = async (friendId) => {
+    setIsLoading((prev) => ({ ...prev, [friendId]: true }));
+    try {
+      await inviteFriend(friendId);
+      if (onAddFriend) {
+        onAddFriend(friendId);
+      }
+      const myFriends = await friendsGetUser();
+      setFriends(myFriends || []);
+    } catch (error) {
+      console.error("Erro ao adicionar amigo:", error);
+    } finally {
+      setIsLoading((prev) => ({ ...prev, [friendId]: false }));
+    }
+  };
+
+
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        // Primeiro tenta buscar ambos simultaneamente
         const [allUsers, myFriends] = await Promise.all([
           userGetAll(),
           friendsGetUser(),
         ]);
-
+  
+        console.log("All Users:", allUsers);
+        console.log("My Friends:", myFriends);
+  
         setUsers(allUsers || []);
-        setFriends(myFriends || []);
+        setFriends(Array.isArray(myFriends) ? myFriends : []);
       } catch (error) {
-        console.error("Erro ao carregar dados:", error);
+        console.error("Erro ao carregar dados combinados:", error);
+        
+        // Se falhar, tenta buscar apenas os usuários
+        try {
+          const allUsers = await userGetAll();
+          console.log("Fallback - All Users:", allUsers);
+          setUsers(allUsers || []);
+          setFriends([]); // Define amigos como array vazio
+        } catch (fallbackError) {
+          console.error("Erro ao carregar usuários (fallback):", fallbackError);
+          setUsers([]);
+          setFriends([]);
+        }
       }
     };
-
+  
     fetchData();
   }, []);
 
   const isFriend = (userId) => {
-    return friends.some((friend) => friend.friend.id === userId);
+    return Array.isArray(friends) && friends.some(
+      (friend) => friend?.friend?.id === userId
+    );
   };
 
   const getFriendshipId = (userId) => {
@@ -88,7 +126,12 @@ const AllUsersList = ({ onAddFriend, onRemoveFriend }) => {
               onFriendRemoved={onRemoveFriend}
             />
           ) : (
-            <Button onClick={() => onAddFriend(user)}>Adicionar Amigo</Button>
+            <Button
+              onClick={() => handleAddFriend(user.id)}
+              disabled={isLoading[user.id]}
+            >
+              {isLoading[user.id] ? "Enviando..." : "Adicionar Amigo"}
+            </Button>
           )}
         </UserCard>
       ))}
