@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { userGetByName } from '../../api/Auth/userGetByName'; 
 
 const SearchContainer = styled.div`
   position: relative;
@@ -18,6 +19,21 @@ const SearchInput = styled.input`
   &:focus {
     outline: none;
     border-color: ${({ theme }) => theme.colors.primary};
+  }
+`;
+
+const SearchButton = styled.button`
+  margin-top: 10px;
+  padding: 10px 15px;
+  background-color: ${({ theme }) => theme.colors.primary};
+  color: white;
+  border: none;
+  border-radius: ${({ theme }) => theme.borderRadius.medium};
+  cursor: pointer;
+  width: 100%;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.primaryDark || '#0053a0'};
   }
 `;
 
@@ -54,28 +70,41 @@ const ResultImage = styled.img`
   object-fit: cover;
 `;
 
+const ResultInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
 const ResultName = styled.span`
   color: ${({ theme }) => theme.colors.text};
+  font-weight: bold;
+`;
+
+const ResultEmail = styled.span`
+  color: ${({ theme }) => theme.colors.subtleText || '#888'};
+  font-size: 0.85rem;
 `;
 
 const FriendSearch = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [results, setResults] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-  const handleSearch = (e) => {
-    const value = e.target.value;
-    setSearchTerm(value);
-    
-    // Aqui você implementaria a lógica de busca
-    // Por enquanto, vamos simular resultados
-    if (value.length > 2) {
-      // Simulação de resultados
-      setResults([
-        { id: 1, name: 'Usuário 1', profileImage: 'https://via.placeholder.com/30' },
-        { id: 2, name: 'Usuário 2', profileImage: 'https://via.placeholder.com/30' },
-      ]);
-    } else {
+  const handleSearch = async () => {
+    if (searchTerm.trim().length < 3) {
       setResults([]);
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const users = await userGetByName(searchTerm.trim());
+      setResults(users);
+    } catch (error) {
+      console.log(error)
+      setResults([]);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -85,14 +114,20 @@ const FriendSearch = () => {
         type="text"
         placeholder="Buscar amigos..."
         value={searchTerm}
-        onChange={handleSearch}
+        onChange={(e) => setSearchTerm(e.target.value)}
       />
+      <SearchButton onClick={handleSearch}>
+        {loading ? 'Buscando...' : 'Buscar'}
+      </SearchButton>
       {results.length > 0 && (
         <SearchResults>
           {results.map((user) => (
             <ResultItem key={user.id}>
-              <ResultImage src={user.profileImage} alt={user.name} />
-              <ResultName>{user.name}</ResultName>
+              <ResultImage src={user.profileImage || 'https://via.placeholder.com/30'} alt={user.name} />
+              <ResultInfo>
+                <ResultName>{user.name}</ResultName>
+                <ResultEmail>{user.email}</ResultEmail>
+              </ResultInfo>
             </ResultItem>
           ))}
         </SearchResults>
@@ -101,4 +136,4 @@ const FriendSearch = () => {
   );
 };
 
-export default FriendSearch; 
+export default FriendSearch;

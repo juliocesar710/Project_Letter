@@ -18,7 +18,7 @@ router.delete("/delete", authMiddleware, deleteUser);
 
 
 router.get("/users", getAllUsers);
-router.get("/userByName", getUserByName);
+router.post("/userByName", getUserByName);
 
 
 
