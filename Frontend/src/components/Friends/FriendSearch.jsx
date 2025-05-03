@@ -1,7 +1,11 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import { userGetByName } from '../../api/Auth/userGetByName'; 
-import AddFriendButton from '../utils/AddFriendButton';
+import React, { useState } from "react";
+import styled from "styled-components";
+import { userGetByName } from "../../api/Auth/userGetByName";
+import { useEffect } from "react";
+import { friendsGetUser } from "../../api/Friends/friendsGetUser";
+import AddFriendButton from "../utils/AddFriendButton";
+import ViewProfileButton from "../utils/ViewProfileButton";
+import { useNavigate } from "react-router-dom";
 
 const SearchContainer = styled.div`
   position: relative;
@@ -34,7 +38,7 @@ const SearchButton = styled.button`
   width: 100%;
 
   &:hover {
-    background-color: ${({ theme }) => theme.colors.primaryDark || '#0053a0'};
+    background-color: ${({ theme }) => theme.colors.primaryDark || "#0053a0"};
   }
 `;
 
@@ -82,14 +86,39 @@ const ResultName = styled.span`
 `;
 
 const ResultEmail = styled.span`
-  color: ${({ theme }) => theme.colors.subtleText || '#888'};
+  color: ${({ theme }) => theme.colors.subtleText || "#888"};
   font-size: 0.85rem;
 `;
 
 const FriendSearch = () => {
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [friends, setFriends] = useState([]);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchFriends = async () => {
+      try {
+        const data = await friendsGetUser();
+        setFriends(data.map((f) => f.friend)); // certifique-se de que isso seja um array de usuários com id
+      } catch (error) {
+        console.error("Erro ao carregar amigos:", error);
+      }
+    };
+
+    fetchFriends();
+  }, []);
+
+  const isFriend = (userId) => {
+    const parsedFriends = JSON.parse(JSON.stringify(friends));
+    return parsedFriends.some((friend) => friend.id === userId);
+  };
+
+  const handleViewProfile = (userId) => {
+    // use o React Router ou outra lógica de navegação
+    navigate(`/profile/${userId}`);
+  };
 
   const handleSearch = async () => {
     if (searchTerm.trim().length < 3) {
@@ -102,7 +131,7 @@ const FriendSearch = () => {
       const users = await userGetByName(searchTerm.trim());
       setResults(users);
     } catch (error) {
-      console.log(error)
+      console.log(error);
       setResults([]);
     } finally {
       setLoading(false);
@@ -118,17 +147,28 @@ const FriendSearch = () => {
         onChange={(e) => setSearchTerm(e.target.value)}
       />
       <SearchButton onClick={handleSearch}>
-        {loading ? 'Buscando...' : 'Buscar'}
+        {loading ? "Buscando..." : "Buscar"}
       </SearchButton>
       {results.length > 0 && (
         <SearchResults>
           {results.map((user) => (
             <ResultItem key={user.id}>
-              <ResultImage src={user.profileImage || 'https://via.placeholder.com/30'} alt={user.name} />
+              <ResultImage
+                src={user.profileImage || "https://via.placeholder.com/30"}
+                alt={user.name}
+              />
               <ResultInfo>
                 <ResultName>{user.name}</ResultName>
                 <ResultEmail>{user.email}</ResultEmail>
-                
+                {isFriend(user.id) ? (
+                  <ViewProfileButton
+                    onClick={() => handleViewProfile(user.id)}
+                  />
+                ) : (
+                  <AddFriendButton userId={user.id}>
+                    Adiconar Amigo
+                  </AddFriendButton>
+                )}
               </ResultInfo>
             </ResultItem>
           ))}
