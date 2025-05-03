@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { friendsGetUser } from "../../api/Friends/friendsGetUser";
 import AddFriendButton from "../utils/AddFriendButton";
 import ViewProfileButton from "../utils/ViewProfileButton";
-import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 const SearchContainer = styled.div`
   position: relative;
@@ -95,13 +95,13 @@ const FriendSearch = () => {
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
   const [friends, setFriends] = useState([]);
-  const navigate = useNavigate();
+  const userId = JSON.parse(Cookies.get("userData") || "{}")?.id;
 
   useEffect(() => {
     const fetchFriends = async () => {
       try {
         const data = await friendsGetUser();
-        setFriends(data.map((f) => f.friend)); // certifique-se de que isso seja um array de usuários com id
+        setFriends(data.map((f) => f.friend));
       } catch (error) {
         console.error("Erro ao carregar amigos:", error);
       }
@@ -113,11 +113,6 @@ const FriendSearch = () => {
   const isFriend = (userId) => {
     const parsedFriends = JSON.parse(JSON.stringify(friends));
     return parsedFriends.some((friend) => friend.id === userId);
-  };
-
-  const handleViewProfile = (userId) => {
-    // use o React Router ou outra lógica de navegação
-    navigate(`/profile/${userId}`);
   };
 
   const refreshFriends = async () => {
@@ -156,33 +151,35 @@ const FriendSearch = () => {
       </SearchButton>
       {results.length > 0 && (
         <SearchResults>
-          {results.map((user) => (
-            <ResultItem key={user.id}>
-              <ResultImage
-                src={user.profileImage || "https://via.placeholder.com/30"}
-                alt={user.name}
-              />
-              <ResultInfo>
-                <ResultName>{user.name}</ResultName>
-                <ResultEmail>{user.email}</ResultEmail>
-                {isFriend(user.id) ? (
-                  <ViewProfileButton
-                  userId={user.id}
-                  />
-                ) : (
-                  <AddFriendButton
-                  friendId={user.id} 
-                  onSuccess={() => {
-                    refreshFriends(); 
-                    setResults(prev => prev.filter(u => u.id !== user.id));
-                  }}
-                >
-                  Adicionar Amigo
-                </AddFriendButton>
-                )}
-              </ResultInfo>
-            </ResultItem>
-          ))}
+          {results
+            .filter((u) => u.id !== userId)
+            .map((user) => (
+              <ResultItem key={user.id}>
+                <ResultImage
+                  src={user.profileImage || "https://via.placeholder.com/30"}
+                  alt={user.name}
+                />
+                <ResultInfo>
+                  <ResultName>{user.name}</ResultName>
+                  <ResultEmail>{user.email}</ResultEmail>
+                  {isFriend(user.id) ? (
+                    <ViewProfileButton userId={user.id} />
+                  ) : (
+                    <AddFriendButton
+                      friendId={user.id}
+                      onSuccess={() => {
+                        refreshFriends();
+                        setResults((prev) =>
+                          prev.filter((u) => u.id !== user.id)
+                        );
+                      }}
+                    >
+                      Adicionar Amigo
+                    </AddFriendButton>
+                  )}
+                </ResultInfo>
+              </ResultItem>
+            ))}
         </SearchResults>
       )}
     </SearchContainer>
