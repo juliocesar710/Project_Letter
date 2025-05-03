@@ -120,6 +120,11 @@ const FriendSearch = () => {
     navigate(`/profile/${userId}`);
   };
 
+  const refreshFriends = async () => {
+    const updated = await friendsGetUser();
+    setFriends(updated || []);
+  };
+
   const handleSearch = async () => {
     if (searchTerm.trim().length < 3) {
       setResults([]);
@@ -165,9 +170,16 @@ const FriendSearch = () => {
                     onClick={() => handleViewProfile(user.id)}
                   />
                 ) : (
-                  <AddFriendButton userId={user.id}>
-                    Adiconar Amigo
-                  </AddFriendButton>
+                  <AddFriendButton
+                  friendId={user.id} // ← prop correta
+                  onSuccess={() => {
+                    refreshFriends(); // Atualiza a lista de amigos
+                    // Opcional: remove da lista de resultados
+                    setResults(prev => prev.filter(u => u.id !== user.id));
+                  }}
+                >
+                  Adicionar Amigo
+                </AddFriendButton>
                 )}
               </ResultInfo>
             </ResultItem>

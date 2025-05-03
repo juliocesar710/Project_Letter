@@ -1,11 +1,6 @@
-import React, { useState } from "react";
 import styled from "styled-components";
-import { deleteFriendship } from "../../api/Friends/friendsDelete";
-import Confirm from "../utils/Confirm";
 import FriendRemoveButton from "../utils/RemoveFriendButton";
 import ViewProfileButton from "../utils/ViewProfileButton";
-
-
 
 const Card = styled.div`
   background-color: ${({ theme }) => theme.colors.background};
@@ -16,9 +11,7 @@ const Card = styled.div`
   display: flex;
   align-items: center;
   gap: 15px;
-  transition: transform 0.2s;
-
-  
+  transition: transform 0.2s ease;
 `;
 
 const ProfileImage = styled.img`
@@ -56,46 +49,7 @@ const ButtonsContainer = styled.div`
   gap: 10px;
 `;
 
-const ActionButton = styled.button`
-  padding: 8px 15px;
-  border: none;
-  border-radius: ${({ theme }) => theme.borderRadius.small};
-  background-color: ${({ theme }) => theme.colors.error};
-  color: white;
-  cursor: pointer;
-  font-size: 0.9rem;
-  transition: all 0.2s;
-
-  &:hover {
-    background-color: ${({ theme }) => theme.colors.errorDark};
-    transform: translateY(-1px);
-  }
-`;
-
-
-
 const FriendCard = ({ friend, onFriendRemoved }) => {
-  const [showConfirm, setShowConfirm] = useState(false);
-
-  
-
-  const handleConfirmRemove = async () => {
-    try {
-      await deleteFriendship(friend.id);
-      if (onFriendRemoved) {
-        onFriendRemoved(friend.id);
-      }
-      window.location.reload();
-
-    } catch (error) {
-      console.error("Erro ao remover amigo:", error);
-    } finally {
-      setShowConfirm(false);
-    }
-  };
-
-
-
   return (
     <>
       <Card>
@@ -116,18 +70,13 @@ const FriendCard = ({ friend, onFriendRemoved }) => {
           <Status>Pedido de amizade: {friend.status || "Online"}</Status>
         </FriendInfo>
         <ButtonsContainer>
-        <ViewProfileButton userId={friend.id} />
-          <FriendRemoveButton friend={friend} onFriendRemoved={onFriendRemoved} />
-          </ButtonsContainer>
+          <ViewProfileButton userId={friend.id} />
+          <FriendRemoveButton
+            friend={friend}
+            onFriendRemoved={onFriendRemoved}
+          />
+        </ButtonsContainer>
       </Card>
-
-      {showConfirm && (
-        <Confirm
-          message={`Deseja realmente remover ${friend.name || "este amigo"}?`}
-          onConfirm={handleConfirmRemove}
-          onCancel={() => setShowConfirm(false)}
-        />
-      )}
     </>
   );
 };

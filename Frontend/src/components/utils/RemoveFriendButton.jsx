@@ -47,7 +47,7 @@ const FriendRemoveButton = ({ friend, onFriendRemoved }) => {
 
       {showConfirm && (
         <Confirm
-          message={`Deseja realmente remover ${friend.name || "este amigo"}?`}
+          message={`Deseja realmente remover ${friend.name || "este amigo"} ?`}
           onConfirm={handleConfirmRemove}
           onCancel={() => setShowConfirm(false)}
         />
