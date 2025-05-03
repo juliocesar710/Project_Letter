@@ -17,8 +17,7 @@ const Card = styled.div`
 
   &:hover {
     cursor: pointer;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2)
-
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   }
 `;
 
@@ -28,7 +27,6 @@ const Frame = styled.div`
   height: 80%;
   background: ${({ theme }) => theme.colors.background};
   border-radius: ${({ theme }) => theme.borderRadius.medium};
-  overflow: hidden;
   transition: transform 0.2s ease;
   margin-bottom: 10px;
   display: flex;
@@ -45,13 +43,11 @@ const Frame = styled.div`
 `;
 
 const Avatar = styled.img`
-    width: 80px;
-    height: 80px;
-    border-radius: 50%; 
-    object-fit: cover;
-    margin-bottom: 10px;
-
- 
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 10px;
 `;
 
 export const UserCard = ({ user, isFriend, friendshipId, onAdd, onRemove }) => {

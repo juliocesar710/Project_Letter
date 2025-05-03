@@ -167,14 +167,13 @@ const FriendSearch = () => {
                 <ResultEmail>{user.email}</ResultEmail>
                 {isFriend(user.id) ? (
                   <ViewProfileButton
-                    onClick={() => handleViewProfile(user.id)}
+                  userId={user.id}
                   />
                 ) : (
                   <AddFriendButton
-                  friendId={user.id} // ← prop correta
+                  friendId={user.id} 
                   onSuccess={() => {
-                    refreshFriends(); // Atualiza a lista de amigos
-                    // Opcional: remove da lista de resultados
+                    refreshFriends(); 
                     setResults(prev => prev.filter(u => u.id !== user.id));
                   }}
                 >
