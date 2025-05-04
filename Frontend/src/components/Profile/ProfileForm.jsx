@@ -87,7 +87,7 @@ const Button = styled.button`
   }
 `;
 
-const ProfileForm = ({ onSubmit, isEdit = false }) => {
+const ProfileForm = ({ isEdit = false }) => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -136,7 +136,6 @@ const ProfileForm = ({ onSubmit, isEdit = false }) => {
     try {
       const updatedUser = await updateUser(payload);
       Cookies.set("userData", JSON.stringify(updatedUser), { expires: 1 });
-      onSubmit(updatedUser);
     } catch (error) {
       setErrorMessage("Erro ao atualizar o usuário. Tente novamente.");
       console.error("Erro ao atualizar o usuário:", error);

@@ -8,7 +8,6 @@ import PrivateRoute from "./PrivateRoute";
 import FriendsPage from "../pages/FriendsPage";
 import FriendProfile from "../pages/FriendProfile";
 
-
 const AppRouter = ({ toggleTheme }) => {
   return (
     <Router>
@@ -26,14 +25,27 @@ const AppRouter = ({ toggleTheme }) => {
         <Route
           path="/edit-profile"
           element={
-            <ProfileForm
-              isEdit={true}
-              onSubmit={(user) => console.log("Usuário atualizado:", user)}
-            />
+            <PrivateRoute>
+              <ProfileForm isEdit={true} />
+            </PrivateRoute>
           }
         />
-        <Route path="/friends" element={<FriendsPage />} />
-        <Route path="/friends/:friendId" element={<FriendProfile />} />
+        <Route
+          path="/friends"
+          element={
+            <PrivateRoute>
+              <FriendsPage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/friends/:friendId"
+          element={
+            <PrivateRoute>
+              <FriendProfile />
+            </PrivateRoute>
+          }
+        />
       </Routes>
     </Router>
   );
