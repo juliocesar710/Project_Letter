@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { userDelete } from "../api/Auth/userDelete";
 import { getUserGenresText } from "../api/GenreText/genreTextGet";
 import Confirm from "../components/utils/Confirm";
+import { usePosts } from "../Hooks/usePosts";
 
 const PageContainer = styled.div`
   display: flex;
@@ -68,6 +69,8 @@ const ProfilePage = ({ toggleTheme }) => {
   const [userGenres, setUserGenres] = useState([]);
   const navigate = useNavigate();
 
+  const { posts, loading, error } = usePosts();
+
   useEffect(() => {
     const fetchUserGenres = async () => {
       try {
@@ -115,7 +118,8 @@ const ProfilePage = ({ toggleTheme }) => {
     setMenuOpen(!menuOpen);
   };
 
-  
+  if (loading) return <p>Carregando...</p>;
+  if (error) return <p>{error}</p>;
 
   const userData = JSON.parse(Cookies.get("userData") || "{}");
 
@@ -155,7 +159,7 @@ const ProfilePage = ({ toggleTheme }) => {
       <ProfileSection>
         <ProfileInfo user={user} />
       </ProfileSection>
-      <PostList posts={user.posts} />
+      <PostList posts={posts} />
       {confirmDelete && (
         <Confirm
           message="Tem certeza que deseja deletar sua conta?"
