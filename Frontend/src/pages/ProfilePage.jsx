@@ -126,7 +126,7 @@ const ProfilePage = ({ toggleTheme }) => {
     birthDate: userData.birthDate || "Data de nascimento não informada.",
     profileImage:
       userData.profileImage ||
-      "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0e/d9/fa/1b/lost-valley.jpg?w=900&h=500&s=1",
+      "https://cdn.vectorstock.com/i/1000v/66/13/default-avatar-profile-icon-social-media-user-vector-49816613.jpg",
     interests: userGenres,
     posts: [
       {
