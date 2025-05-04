@@ -26,16 +26,17 @@ export const lightTheme = {
 
 export const darkTheme = {
   colors: {
-    primary: '#a39e93', 
-    primaryDark: '#b8b3a8',
-    background: '#1a1a1a', 
-    inputBackground: '#2a2a2a', 
-    border: '#3a3a3a', 
-    borderFocus: '#a39e93', 
-    text: '#e0e0e0', 
-    error: '#d89292',
-    secondaryText: '#b0b0b0', 
-    highlight: '#3a3a3a', 
+    primary: '#888888',          // Cinza médio como cor principal
+    primaryDark: '#6e6e6e',      // Cinza escuro como cor primária alternativa
+    background: '#1e1e1e',       // Fundo bem escuro, mas não puro preto
+    inputBackground: '#2b2b2b',  // Fundo dos inputs com contraste leve
+    border: '#3f3f3f',           // Bordas discretas
+    borderFocus: '#888888',      // Realce de foco com cinza médio
+    text: '#e0e0e0',             // Texto principal claro
+    subtleText: '#b0b0b0',       // Texto secundário, menos contraste
+    error: '#cc6b6b',            // Vermelho acinzentado para erros
+    hover: '#333333',            // Cor de fundo ao passar o mouse
+    highlight: '#2e2e2e',        // Usado para destacar áreas
   },
   borderRadius: {
     small: '5px',
@@ -48,6 +49,6 @@ export const darkTheme = {
     container: '30px',
   },
   shadows: {
-    light: '0 2px 10px rgba(0, 0, 0, 0.2)', 
+    light: '0 2px 10px rgba(0, 0, 0, 0.3)', // Sombras mais fortes no dark
   },
 };

@@ -7,8 +7,10 @@ import AllUsersList from "../components/Friends/AllUsersList";
 
 const FriendsContainer = styled.div`
   padding: 20px;
-  max-width: 1200px;
   margin: 0 auto;
+  background: ${({ theme }) => theme.colors.background};
+  height: 100vh;
+  overflow: auto;
 `;
 
 const FriendsHeader = styled.div`
