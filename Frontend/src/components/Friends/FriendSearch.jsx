@@ -3,8 +3,8 @@ import styled from "styled-components";
 import { userGetByName } from "../../api/Auth/userGetByName";
 import { useEffect } from "react";
 import { friendsGetUser } from "../../api/Friends/friendsGetUser";
-import AddFriendButton from "../utils/AddFriendButton";
-import ViewProfileButton from "../utils/ViewProfileButton";
+import AddFriendButton from "../utils/Buttons/AddFriendButton";
+import ViewProfileButton from "../utils/Buttons/ViewProfileButton";
 import Cookies from "js-cookie";
 
 const SearchContainer = styled.div`

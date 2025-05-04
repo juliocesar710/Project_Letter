@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import FriendRemoveButton from "../utils/RemoveFriendButton";
-import ViewProfileButton from "../utils/ViewProfileButton";
+import FriendRemoveButton from "../utils/Buttons/RemoveFriendButton";
+import ViewProfileButton from "../utils/Buttons/ViewProfileButton";
 
 const Card = styled.div`
   background-color: ${({ theme }) => theme.colors.background};

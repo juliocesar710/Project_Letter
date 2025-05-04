@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { inviteFriend } from "../../api/Friends/friendsInvite";
+import { inviteFriend } from "../../../api/Friends/friendsInvite";
 
 
 

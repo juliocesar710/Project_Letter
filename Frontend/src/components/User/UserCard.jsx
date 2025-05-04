@@ -1,7 +1,7 @@
 // components/User/UserCard.jsx
 import styled from "styled-components";
-import FriendRemoveButton from "../utils/RemoveFriendButton";
-import AddFriendButton from "../utils/AddFriendButton";
+import FriendRemoveButton from "../utils/Buttons/RemoveFriendButton";
+import AddFriendButton from "../utils/Buttons/AddFriendButton.jsx";
 
 const Card = styled.div`
   background: ${({ theme }) => theme.colors.background};

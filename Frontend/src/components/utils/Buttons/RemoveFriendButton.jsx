@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { deleteFriendship } from "../../api/Friends/friendsDelete";
-import Confirm from "../utils/Confirm";
+import { deleteFriendship } from "../../../api/Friends/friendsDelete";
+import Confirm from "../../utils/Confirm";
 
 const ActionButton = styled.button`
   padding: 8px 15px;
