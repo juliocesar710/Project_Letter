@@ -42,6 +42,8 @@ const Input = styled.input`
   border: 1px solid ${({ theme }) => theme.colors.border};
   border-radius: ${({ theme }) => theme.borderRadius.small};
   font-size: 16px;
+  color: ${({ theme }) => theme.colors.text};
+  background-color: ${({ theme }) => theme.colors.inputBackground};
 
   &:focus {
     border-color: ${({ theme }) => theme.colors.borderFocus};
@@ -56,6 +58,8 @@ const TextArea = styled.textarea`
   border: 1px solid ${({ theme }) => theme.colors.border};
   border-radius: ${({ theme }) => theme.borderRadius.small};
   font-size: 16px;
+  color: ${({ theme }) => theme.colors.text};
+  background-color: ${({ theme }) => theme.colors.inputBackground};
 
   &:focus {
     border-color: ${({ theme }) => theme.colors.borderFocus};

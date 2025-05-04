@@ -74,7 +74,7 @@ const ActionButton = styled.button`
 `;
 
 const StatusMessage = styled.span`
-  color: ${({ theme }) => theme.colors.textSecondary};
+  color: ${({ theme }) => theme.colors.text};
   font-size: 0.9rem;
 `;
 

@@ -13,6 +13,13 @@ const GenreList = styled.div`
   margin-top: 10px;
 `;
 
+const TitleCheckList = styled.label`
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: ${({ theme }) => theme.colors.primary};
+`;
+
 const GenreBadge = styled.label`
   padding: 8px 16px;
   border: 2px solid ${({ theme }) => theme.colors.primary};
@@ -34,6 +41,9 @@ const GenreBadge = styled.label`
 
 const HiddenCheckbox = styled.input`
   display: none;
+  background-color: ${({ theme }) => theme.colors.background};
+  color: ${({ theme }) => theme.colors.primary};
+  cursor: pointer;
 `;
 
 const GenreSelector = ({ selectedGenres, setSelectedGenres }) => {
@@ -54,15 +64,15 @@ const GenreSelector = ({ selectedGenres, setSelectedGenres }) => {
 
   const handleGenreChange = (genre) => {
     setSelectedGenres((prev) =>
-      prev.includes(genre)
-        ? prev.filter((g) => g !== genre)
-        : [...prev, genre]
+      prev.includes(genre) ? prev.filter((g) => g !== genre) : [...prev, genre]
     );
   };
 
   return (
     <GenreContainer>
-      <label>Gêneros Textuais:</label>
+      <label>
+        <TitleCheckList>Gêneros Textuais:</TitleCheckList>
+      </label>
       <GenreList>
         {genres.map((genre) => (
           <GenreBadge

@@ -7,8 +7,9 @@ const Card = styled.div`
   background: ${({ theme }) => theme.colors.background};
   border: 1px solid ${({ theme }) => theme.colors.border};
   border-radius: ${({ theme }) => theme.borderRadius.medium};
+  color: ${({ theme }) => theme.colors.text};
   padding: 15px;
-  width: 200px;
+  width: 300px;
   overflow: hidden;
 
   text-align: center;

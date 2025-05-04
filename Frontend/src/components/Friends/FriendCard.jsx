@@ -6,6 +6,7 @@ const Card = styled.div`
   background-color: ${({ theme }) => theme.colors.background};
   border: 1px solid ${({ theme }) => theme.colors.border};
   border-radius: ${({ theme }) => theme.borderRadius.medium};
+  color: ${({ theme }) => theme.colors.text};
   padding: 15px;
   margin-bottom: 15px;
   display: flex;
