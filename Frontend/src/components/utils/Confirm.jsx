@@ -1,5 +1,7 @@
 import React from "react";
 import styled from "styled-components";
+import ReactDOM from "react-dom";
+
 
 const Overlay = styled.div`
   position: fixed;
@@ -52,7 +54,7 @@ const Button = styled.button`
 `;
 
 const Confirm = ({ message, onConfirm, onCancel }) => {
-  return (
+  return ReactDOM.createPortal(
     <Overlay>
       <PopupContainer>
         <Message>{message}</Message>
@@ -69,7 +71,8 @@ const Confirm = ({ message, onConfirm, onCancel }) => {
           <Button onClick={onCancel}>Cancelar</Button>
         </ButtonContainer>
       </PopupContainer>
-    </Overlay>
+    </Overlay>,
+    document.body
   );
 };
 

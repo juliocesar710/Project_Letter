@@ -12,6 +12,8 @@ const Container = styled.div`
   
 `;
 
+
+
 const AllUsersList = ({ onAddFriend, onRemoveFriend }) => {
   const {
     users,
@@ -26,7 +28,8 @@ const AllUsersList = ({ onAddFriend, onRemoveFriend }) => {
       {users
         .filter((u) => u.id !== userId)
         .map((user) => (
-          <UserCard
+        
+            <UserCard
             key={user.id}
             user={user}
             isFriend={isFriend(user.id)}
@@ -37,6 +40,8 @@ const AllUsersList = ({ onAddFriend, onRemoveFriend }) => {
             }}
             onRemove={onRemoveFriend}
           />
+         
+          
         ))}
     </Container>
   );
