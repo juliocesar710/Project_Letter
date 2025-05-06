@@ -1,8 +1,7 @@
-// hooks/usePosts.js
 import { useState, useEffect } from "react";
 import { getAllPostByUser } from "../api/Post/GetAllPostByUser";
 
-export const usePosts = (userId = null) => { // Pode receber userId para filtro (opcional)
+export const usePosts = (userId = null) => { 
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);

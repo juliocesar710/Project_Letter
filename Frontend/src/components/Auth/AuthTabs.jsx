@@ -63,7 +63,7 @@ const AuthTabs = () => {
           onClick={() => setActiveTab("login")}
           className={activeTab === "login" ? "active" : ""}
         >
-          Login
+          Entrar
         </TabButton>
         <TabButton
           onClick={() => setActiveTab("register")}

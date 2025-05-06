@@ -34,7 +34,7 @@ export const useAuthForm = ({ fields, onSubmitAPI, redirectPath }) => {
     }
 
     if (
-      fields.some((field) => field.name === "confirmPassword") && // <-- Verifica se o campo existe
+      fields.some((field) => field.name === "confirmPassword") && 
       formData.password !== formData.confirmPassword
     ) {
       setError("As senhas não coincidem.");
@@ -50,7 +50,14 @@ export const useAuthForm = ({ fields, onSubmitAPI, redirectPath }) => {
 
       setTimeout(() => navigate(redirectPath), 1500);
     } catch (error) {
-      setError(error.response?.data?.message || "Erro ao processar.");
+      if (error.response?.data?.message === "User not found to here"){
+        setError("Usuário não encontrado no banco de dados.");
+      } else if (error.response?.data?.message === "Email and password are required"){
+        setError("Email já está em uso.");
+      }else if(error.response?.data?.message === "Invalid password"){
+        setError("Senha inválida.");
+      }else 
+        setError(error.response?.data?.message || "Erro ao processar.");
     } finally {
       setLoading(false);
     }

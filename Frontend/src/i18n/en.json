@@ -1,0 +1,20 @@
+{
+  "welcome": "Welcome to Letter!",
+  "profile": "Profile",
+  "logout": "Logout",
+  "loading": "Loading...",
+  "deleteAccount": "Delete Account",
+  "toggleTheme": "Toggle Theme",
+  "confirmDeleteAccount": "Are you sure you want to delete your account?",
+  "edit profile": "Edit Profile",
+  "personal information": "Personal Information",
+  "biography": "biography",
+  "name": "name",
+  "email": "Email",
+  "date of birth": "date of birth",
+  "interests": "Interests",
+  "friends": "Friends",
+  "description of letter":"Connect with other literature lovers, share your discoveries, and find your next great read in our community of readers and writers.",
+  "quote1":"A reader lives a thousand lives before he dies. The man who never reads lives only one."
+}
+  

@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { BookOpen, PenSquare, Users, Sparkles, Bookmark } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 const Container = styled.div`
   display: flex;
@@ -168,6 +169,7 @@ const SecondaryButton = styled(Button)`
 
 const HomePage = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const handleLogin = (event) => {
     event.preventDefault();
@@ -180,22 +182,21 @@ const HomePage = () => {
 
   return (
     <Container>
-      <BookOpen size={64} color="var(--theme-colors-accent)" style={{ marginBottom: "1rem" }} />
-      
-      <Title>
-        Bem-vindo ao <Highlight>Letter</Highlight>
-      </Title>
-      
-      <Description>
-        Conecte-se com outros amantes da literatura, compartilhe suas descobertas
-        e encontre sua próxima grande leitura em nossa comunidade de leitores e escritores.
-      </Description>
-      
+      <BookOpen
+        size={64}
+        color="var(--theme-colors-accent)"
+        style={{ marginBottom: "1rem" }}
+      />
+
+      <Title>{t("welcome")}</Title>
+
+      <Description>{t("description of letter")}</Description>
+
       <Quote>
-        Um leitor vive mil vidas antes de morrer. O homem que nunca lê vive apenas uma.
+        {t("quote1")}
         <br />— George R.R. Martin
       </Quote>
-      
+
       <ButtonGroup>
         <Button onClick={handleLogin}>
           <PenSquare size={20} />
@@ -206,47 +207,67 @@ const HomePage = () => {
           Explorar livros
         </SecondaryButton>
       </ButtonGroup>
-      
+
       <div id="features" style={{ marginTop: "4rem" }}>
         <Title style={{ fontSize: "1.3rem" }}>O que você encontra aqui</Title>
-        
+
         <FeaturesGrid>
           <FeatureCard>
-            <FeatureIcon><Users size={32} /></FeatureIcon>
+            <FeatureIcon>
+              <Users size={32} />
+            </FeatureIcon>
             <FeatureTitle>Comunidade</FeatureTitle>
             <FeatureText>
-              Conecte-se com leitores que compartilham seus interesses e descubra novas perspectivas.
+              Conecte-se com leitores que compartilham seus interesses e
+              descubra novas perspectivas.
             </FeatureText>
           </FeatureCard>
-          
+
           <FeatureCard>
-            <FeatureIcon><BookOpen size={32} /></FeatureIcon>
+            <FeatureIcon>
+              <BookOpen size={32} />
+            </FeatureIcon>
             <FeatureTitle>Resenhas</FeatureTitle>
             <FeatureText>
-              Compartilhe suas opiniões sobre livros e leia o que outros pensam antes de começar uma nova leitura.
+              Compartilhe suas opiniões sobre livros e leia o que outros pensam
+              antes de começar uma nova leitura.
             </FeatureText>
           </FeatureCard>
-          
+
           <FeatureCard>
-            <FeatureIcon><PenSquare size={32} /></FeatureIcon>
+            <FeatureIcon>
+              <PenSquare size={32} />
+            </FeatureIcon>
             <FeatureTitle>Criação</FeatureTitle>
             <FeatureText>
-              Publique seus próprios textos, receba feedback e evolua como escritor.
+              Publique seus próprios textos, receba feedback e evolua como
+              escritor.
             </FeatureText>
           </FeatureCard>
-          
+
           <FeatureCard>
-            <FeatureIcon><Sparkles size={32} /></FeatureIcon>
+            <FeatureIcon>
+              <Sparkles size={32} />
+            </FeatureIcon>
             <FeatureTitle>Descobertas</FeatureTitle>
             <FeatureText>
-              Algoritmos inteligentes que recomendam livros baseados em seus gostos e hábitos de leitura.
+              Algoritmos inteligentes que recomendam livros baseados em seus
+              gostos e hábitos de leitura.
             </FeatureText>
           </FeatureCard>
         </FeaturesGrid>
       </div>
-      
-      {/* Espaço para futuras imagens */}
-      <div style={{ margin: "3rem 0", minHeight: "300px", width: "100%", background: "rgba(255,255,255,0.05)", borderRadius: "16px" }}>
+
+     
+      <div
+        style={{
+          margin: "3rem 0",
+          minHeight: "300px",
+          width: "100%",
+          background: "rgba(255,255,255,0.05)",
+          borderRadius: "16px",
+        }}
+      >
         {/* Aqui você pode adicionar um carrossel de livros ou imagens depois */}
       </div>
     </Container>

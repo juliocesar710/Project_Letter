@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
+import { useTranslation } from "react-i18next";
 
 const InfoCard = styled.div`
   background-color: ${({ theme }) => theme.colors.background};
@@ -69,6 +70,7 @@ const ProfileHeader = styled.div`
 
 const ProfileInfo = ({ user }) => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const handleEditProfile = () => {
     navigate("/edit-profile");
@@ -93,24 +95,32 @@ const ProfileInfo = ({ user }) => {
     <InfoCard>
       <ProfileHeader>
         <ProfileImage src={user.profileImage} alt={`${user.name} profile`} />
-        <ProfileButton onClick={handleFriendsClick}>Amigos</ProfileButton>
+        <ProfileButton onClick={handleFriendsClick}>
+          {t("friends")}
+        </ProfileButton>
       </ProfileHeader>
 
       <Section>
-        <ProfileButton onClick={handleEditProfile}>Editar Perfil</ProfileButton>
-        <SectionTitle>Informações Pessoais</SectionTitle>
-        <SectionContent>Nome: {user.name}</SectionContent>
-        <SectionContent>Email: {user.email}</SectionContent>
+        <ProfileButton onClick={handleEditProfile}>
+          {t("edit profile")}
+        </ProfileButton>
+        <SectionTitle>{t("personal information")}</SectionTitle>
         <SectionContent>
-          Data de Nascimento: {formattedBirthDate}
+          {t("name")}: {user.name}
+        </SectionContent>
+        <SectionContent>
+          {t("email")}: {user.email}
+        </SectionContent>
+        <SectionContent>
+          {t("date of birth")}: {formattedBirthDate}
         </SectionContent>
       </Section>
       <Section>
-        <SectionTitle>Biografia</SectionTitle>
+        <SectionTitle>{t("biography")}</SectionTitle>
         <SectionContent>{user.bio}</SectionContent>
       </Section>
       <Section>
-        <SectionTitle>Interesses</SectionTitle>
+        <SectionTitle>{t("interests")}</SectionTitle>
         <SectionContent>
           {user.interests && user.interests.length > 0
             ? user.interests.join(", ")

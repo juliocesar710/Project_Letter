@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import ProfileInfo from "../components/profile/ProfileInfo";
 import PostList from "../components/profile/PostList";
-import Cookies from "js-cookie";
 import Confirm from "../components/utils/Confirm";
 import { usePosts } from "../Hooks/usePosts";
 import { useProfile } from "../Hooks/useProfile";
+import  LanguageSwitcher  from "../components/utils/Buttons/LanguageSwitcherButton";
+import { useTranslation } from "react-i18next";
 
 const PageContainer = styled.div`
   display: flex;
@@ -47,6 +48,8 @@ const SettingsIcon = styled.div`
   cursor: pointer;
   font-size: 24px;
   color: ${({ theme }) => theme.colors.primaryDark};
+  z-index: 10;
+
 
   &:hover {
     color: ${({ theme }) => theme.colors.primary};
@@ -77,6 +80,7 @@ const MenuItem = styled.div`
 
 const ProfilePage = ({ toggleTheme }) => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { t } = useTranslation();
 
   const { posts, loading, error } = usePosts();
   const {
@@ -99,9 +103,10 @@ const ProfilePage = ({ toggleTheme }) => {
     <PageContainer>
       <SettingsIcon onClick={toggleMenu}>⚙️</SettingsIcon>
       <Menu isOpen={menuOpen}>
-        <MenuItem onClick={handleLogout}>Logout</MenuItem>
-        <MenuItem onClick={handleDeleteAccount}>Deletar Conta</MenuItem>
-        <MenuItem onClick={toggleTheme}>Alternar Tema</MenuItem>
+      <MenuItem onClick={handleLogout}>{t('logout')}</MenuItem>
+      <MenuItem onClick={handleDeleteAccount}>{t('deleteAccount')}</MenuItem>
+      <MenuItem onClick={toggleTheme}>{t('toggleTheme')}</MenuItem>
+        <LanguageSwitcher />
       </Menu>
       <ProfileSection>
         <ProfileInfo user={user} />
