@@ -13,6 +13,13 @@ const Card = styled.div`
   align-items: center;
   gap: 15px;
   transition: transform 0.2s ease;
+  flex-wrap: wrap;
+
+  @media (max-width: 600px) {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px;
+  }
 `;
 
 const ProfileImage = styled.img`
@@ -21,10 +28,19 @@ const ProfileImage = styled.img`
   border-radius: 50%;
   object-fit: cover;
   background-color: ${({ theme }) => theme.colors.backgroundSecondary};
+
+  @media (max-width: 600px) {
+    width: 50px;
+    height: 50px;
+  }
 `;
 
 const FriendInfo = styled.div`
   flex: 1;
+
+  @media (max-width: 600px) {
+    width: 100%;
+  }
 `;
 
 const Name = styled.h3`
@@ -45,9 +61,15 @@ const Status = styled.p`
   font-size: 0.9rem;
 `;
 
+
 const ButtonsContainer = styled.div`
   display: flex;
   gap: 10px;
+
+  @media (max-width: 600px) {
+    flex-direction: column;
+    width: 100%;
+  }
 `;
 
 const FriendCard = ({ friend, onFriendRemoved }) => {

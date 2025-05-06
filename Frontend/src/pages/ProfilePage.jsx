@@ -1,13 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import ProfileInfo from "../components/profile/ProfileInfo";
 import PostList from "../components/profile/PostList";
 import Cookies from "js-cookie";
-import { useNavigate } from "react-router-dom";
-import { userDelete } from "../api/Auth/userDelete";
-import { getUserGenresText } from "../api/GenreText/genreTextGet";
 import Confirm from "../components/utils/Confirm";
 import { usePosts } from "../Hooks/usePosts";
+import { useProfile } from "../Hooks/useProfile";
 
 const PageContainer = styled.div`
   display: flex;
@@ -20,13 +18,27 @@ const PageContainer = styled.div`
     ${({ theme }) => theme.colors.border}
   );
   position: relative;
+  flex-wrap: wrap; // Garante que elementos quebrem linha se necessário
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+  }
 `;
 
 const ProfileSection = styled.div`
   flex: 1;
   max-width: 20%;
   margin-right: 20px;
+
+  @media (max-width: 768px) {
+    max-width: 100%;
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
 `;
+
 
 const SettingsIcon = styled.div`
   position: absolute;
@@ -65,54 +77,16 @@ const MenuItem = styled.div`
 
 const ProfilePage = ({ toggleTheme }) => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [confirmDelete, setConfirmDelete] = useState(false);
-  const [userGenres, setUserGenres] = useState([]);
-  const navigate = useNavigate();
 
   const { posts, loading, error } = usePosts();
-
-  useEffect(() => {
-    const fetchUserGenres = async () => {
-      try {
-        const genres = await getUserGenresText();
-        setUserGenres(genres.map((genre) => genre.genreName));
-      } catch (error) {
-        console.error("Erro ao buscar gêneros textuais do usuário:", error);
-      }
-    };
-
-    fetchUserGenres();
-  }, []);
-
-  const handleLogout = () => {
-    Cookies.remove("authToken");
-    Cookies.remove("userData");
-    navigate("/auth");
-  };
-
-  const handleDeleteAccount = () => {
-    setConfirmDelete(true);
-  };
-
-  const confirmDeleteAccount = () => {
-    const userId = JSON.parse(Cookies.get("userData") || "{}").id;
-    userDelete(userId)
-      .then(() => {
-        Cookies.remove("authToken");
-        Cookies.remove("userData");
-        navigate("/auth");
-      })
-      .catch((error) => {
-        console.error("Erro ao deletar conta:", error);
-      })
-      .finally(() => {
-        setConfirmDelete(false);
-      });
-  };
-
-  const cancelDeleteAccount = () => {
-    setConfirmDelete(false);
-  };
+  const {
+    user,
+    confirmDelete,
+    handleLogout,
+    handleDeleteAccount,
+    confirmDeleteAccount,
+    cancelDeleteAccount,
+  } = useProfile();
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
@@ -120,33 +94,6 @@ const ProfilePage = ({ toggleTheme }) => {
 
   if (loading) return <p>Carregando...</p>;
   if (error) return <p>{error}</p>;
-
-  const userData = JSON.parse(Cookies.get("userData") || "{}");
-
-  const user = {
-    name: userData.name || "Usuário",
-    email: userData.email || "email@exemplo.com",
-    bio: userData.description || "Sem biografia disponível.",
-    birthDate: userData.birthDate || "Data de nascimento não informada.",
-    profileImage:
-      userData.profileImage ||
-      "https://cdn.vectorstock.com/i/1000v/66/13/default-avatar-profile-icon-social-media-user-vector-49816613.jpg",
-    interests: userGenres,
-    posts: [
-      {
-        id: 1,
-        title: "Meu primeiro post",
-        content: "Este é o conteúdo do meu primeiro post!",
-      },
-      {
-        id: 2,
-        title: "Explorando React",
-        content: "Hoje aprendi sobre styled-components e React Hooks.",
-      },
-    ],
-  };
-
-  console.log("User data:", userData);
 
   return (
     <PageContainer>

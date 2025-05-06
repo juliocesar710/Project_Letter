@@ -4,13 +4,17 @@ import FriendsList from "../components/Friends/FriendsList";
 import FriendSearch from "../components/Friends/FriendSearch";
 import FriendRequests from "../components/Friends/FriendRequests";
 import AllUsersList from "../components/Friends/AllUsersList";
-
 const FriendsContainer = styled.div`
   padding: 20px;
   margin: 0 auto;
   background: ${({ theme }) => theme.colors.background};
   height: 100vh;
   overflow: auto;
+
+  @media (max-width: 768px) {
+    padding: 10px;
+    height: auto; // evita scroll desnecessário em mobile
+  }
 `;
 
 const FriendsHeader = styled.div`
@@ -18,12 +22,24 @@ const FriendsHeader = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-bottom: 30px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 20px;
+  }
 `;
 
 const TabsContainer = styled.div`
   display: flex;
   gap: 20px;
+  flex-wrap: wrap;
   margin-bottom: 30px;
+  justify-content: center;
+
+  @media (max-width: 768px) {
+    gap: 10px;
+  }
 `;
 
 const TabButton = styled.button`
@@ -40,6 +56,20 @@ const TabButton = styled.button`
   &:hover {
     background: ${({ active, theme }) =>
       active ? theme.colors.primary : theme.colors.background};
+  }
+
+  @media (max-width: 480px) {
+    flex: 1 1 auto;
+    font-size: 0.9rem;
+    padding: 8px 12px;
+  }
+`;
+
+const FriendSearchWrapper = styled.div`
+  flex-shrink: 0;
+
+  @media (max-width: 768px) {
+    width: 100%;
   }
 `;
 
@@ -111,7 +141,9 @@ const FriendsPage = () => {
             Usuários
           </TabButton>
         </TabsContainer>
-        <FriendSearch />
+        <FriendSearchWrapper>
+          <FriendSearch />
+        </FriendSearchWrapper>
       </FriendsHeader>
 
       {activeTab === "friends" && <FriendsList friends={friends} />}

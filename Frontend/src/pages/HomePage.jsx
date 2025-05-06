@@ -16,7 +16,16 @@ const Container = styled.div`
   );
   text-align: center;
   padding: 2rem;
+
+  @media (max-width: 768px) {
+    padding: 1.5rem;
+  }
+
+  @media (max-width: 480px) {
+    padding: 1rem;
+  }
 `;
+
 
 const Title = styled.h1`
   font-size: 3rem;
@@ -24,7 +33,16 @@ const Title = styled.h1`
   margin-bottom: 1rem;
   font-weight: 700;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  @media (max-width: 768px) {
+    font-size: 2.2rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 1.8rem;
+  }
 `;
+
 
 const Highlight = styled.span`
   color: ${({ theme }) => theme.colors.accent};
@@ -64,6 +82,12 @@ const FeaturesGrid = styled.div`
   margin: 3rem 0;
   width: 100%;
   max-width: 900px;
+
+  @media (max-width: 480px) {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
 `;
 
 const FeatureCard = styled.div`
@@ -75,6 +99,7 @@ const FeatureCard = styled.div`
   &:hover {
     transform: translateY(-5px);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
   }
 `;
 
@@ -102,7 +127,13 @@ const ButtonGroup = styled.div`
   margin-top: 2rem;
   gap: 1rem;
   flex-wrap: wrap;
+
+  @media (max-width: 480px) {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
 `;
+
 
 const Button = styled.button`
   background-color: ${({ theme }) => theme.colors.accent};
@@ -177,7 +208,7 @@ const HomePage = () => {
       </ButtonGroup>
       
       <div id="features" style={{ marginTop: "4rem" }}>
-        <Title style={{ fontSize: "2rem" }}>O que você encontra aqui</Title>
+        <Title style={{ fontSize: "1.3rem" }}>O que você encontra aqui</Title>
         
         <FeaturesGrid>
           <FeatureCard>
