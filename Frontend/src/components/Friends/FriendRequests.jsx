@@ -169,7 +169,7 @@ const FriendRequests = ({ onUpdateRequests }) => {
           );
         })
       ) : (
-        <EmptyMessage>Nenhuma solicitação de amizade pendente.</EmptyMessage>
+        <EmptyMessage>{t("nopedingfriend")}</EmptyMessage>
       )}
     </RequestsContainer>
   );

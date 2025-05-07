@@ -91,11 +91,12 @@ const ProfileImage = styled.img`
   height: 130px;
   border-radius: 50%;
   border: 4px solid ${({ theme }) => theme.colors.primary};
-  margin-bottom: 20px;
+  margin: 0 auto 20px auto; 
   object-fit: cover;
   object-position: center;
-  margin-left: 30%;
+  display: block;
 `;
+
 
 const ProfileForm = ({ isEdit = false }) => {
 

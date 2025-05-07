@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 import { updateUser } from "../api/Auth/userUpdate";
+import { useTranslation } from "react-i18next";
 
 export const useProfileForm = () => {
   const [formData, setFormData] = useState({
@@ -16,6 +17,7 @@ export const useProfileForm = () => {
   const [loading, setLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const {t} = useTranslation();
 
   useEffect(() => {
     const userData = JSON.parse(Cookies.get("userData") || "{}");
@@ -51,7 +53,7 @@ export const useProfileForm = () => {
     try {
       const updatedUser = await updateUser(payload);
       Cookies.set("userData", JSON.stringify(updatedUser), { expires: 1 });
-      setTimeout(() => {setLoading(false), setSuccessMessage("Usuário atualizado com sucesso!");}, 2000);
+      setTimeout(() => {setLoading(false), setSuccessMessage(t("userupdatesuccess"));}, 2000);
       
     } catch (error) {
       setErrorMessage("Erro ao atualizar o usuário. Tente novamente.");

@@ -4,6 +4,8 @@ import { getFriendProfile } from "../api/Friends/friendsProfile";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import styled from "styled-components";
+import { useTranslation } from "react-i18next";
+import { getCurrentLocale } from "../i18n";
 
 const PageContainer = styled.div`
   display: flex;
@@ -33,7 +35,7 @@ const BackButton = styled.button`
   border: none;
   cursor: pointer;
   font-size: 16px;
-  
+
   &:hover {
     color: ${({ theme }) => theme.colors.primaryDark};
   }
@@ -45,7 +47,7 @@ const ProfileImage = styled.div`
   border-radius: 50%;
   margin-bottom: 16px;
   overflow: hidden;
-  
+
   img {
     width: 100%;
     height: 100%;
@@ -70,6 +72,7 @@ const SectionTitle = styled.h2`
   font-size: 1.25rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
+  margin-top: 1rem;
 `;
 
 const GenreTag = styled.span`
@@ -89,12 +92,13 @@ const FriendProfile = () => {
   const [friend, setFriend] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const fetchFriendProfile = async () => {
       try {
         const data = await getFriendProfile(friendId);
-        console.log("data: ",data);
+        console.log("data: ", data);
         setFriend(data);
       } catch (err) {
         setError(err.error || "Erro ao carregar perfil");
@@ -107,7 +111,11 @@ const FriendProfile = () => {
   }, [friendId]);
 
   if (loading) {
-    return <div className="flex justify-center items-center h-screen">Carregando...</div>;
+    return (
+      <div className="flex justify-center items-center h-screen">
+        Carregando...
+      </div>
+    );
   }
 
   if (error) {
@@ -118,7 +126,7 @@ const FriendProfile = () => {
           onClick={() => navigate(-1)}
           className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
         >
-          Voltar
+          {t("back")}
         </button>
       </div>
     );
@@ -127,7 +135,7 @@ const FriendProfile = () => {
   return (
     <PageContainer>
       <ProfileCard>
-        <BackButton onClick={() => navigate(-1)}>← Voltar</BackButton>
+        <BackButton onClick={() => navigate(-1)}>← {t("back")}</BackButton>
 
         <div className="flex flex-col items-center my-8">
           {friend.profileImage ? (
@@ -141,34 +149,37 @@ const FriendProfile = () => {
           )}
           <h1 className="text-2xl font-bold mb-2">{friend.name}</h1>
           <p className="text-gray-500">
-            Membro desde {format(new Date(friend.createdAt), "MMMM 'de' yyyy", { locale: ptBR })}
+            {t("member")}
+            {format(new Date(friend.createdAt), ": PPP", {
+              locale: getCurrentLocale(),
+            })}
           </p>
         </div>
 
         {friend.description && (
           <div className="mb-6">
-            <SectionTitle>Sobre</SectionTitle>
+            <SectionTitle>{t("about")}</SectionTitle>
             <p>{friend.description}</p>
           </div>
         )}
 
         {friend.birthDate && (
           <div className="mb-6">
-            <SectionTitle>Data de Nascimento</SectionTitle>
+            <SectionTitle>{t("date of birth")}</SectionTitle>
             <p>
-              {format(new Date(friend.birthDate), "dd 'de' MMMM 'de' yyyy", { locale: ptBR })}
+              {format(new Date(friend.birthDate), "dd 'de' MMMM 'de' yyyy", {
+                locale: ptBR,
+              })}
             </p>
           </div>
         )}
 
         {friend.genres && friend.genres.length > 0 && (
           <div>
-            <SectionTitle>Gêneros Preferidos</SectionTitle>
+            <SectionTitle>{t("favoritegenrestext")}</SectionTitle>
             <div className="flex flex-wrap">
               {friend.genres.map((genre) => (
-                <GenreTag key={genre.id}>
-                  {genre.name}
-                </GenreTag>
+                <GenreTag key={genre.id}>{genre.name}</GenreTag>
               ))}
             </div>
           </div>
@@ -178,4 +189,4 @@ const FriendProfile = () => {
   );
 };
 
-export default FriendProfile; 
+export default FriendProfile;

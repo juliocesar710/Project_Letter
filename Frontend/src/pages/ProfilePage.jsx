@@ -66,6 +66,8 @@ const Menu = styled.div`
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   z-index: 10;
   display: ${({ isOpen }) => (isOpen ? "block" : "none")};
+  margin:1rem;
+  padding:1rem;
 `;
 
 const MenuItem = styled.div`
