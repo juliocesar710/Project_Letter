@@ -27,7 +27,6 @@ const Container = styled.div`
   }
 `;
 
-
 const Title = styled.h1`
   font-size: 3rem;
   color: ${({ theme }) => theme.colors.text};
@@ -42,11 +41,6 @@ const Title = styled.h1`
   @media (max-width: 480px) {
     font-size: 1.8rem;
   }
-`;
-
-
-const Highlight = styled.span`
-  color: ${({ theme }) => theme.colors.accent};
 `;
 
 const Description = styled.p`
@@ -68,7 +62,8 @@ const Quote = styled.blockquote`
   border-radius: ${({ theme }) => theme.borderRadius.medium};
   position: relative;
 
-  &::before, &::after {
+  &::before,
+  &::after {
     content: '"';
     font-size: 2rem;
     color: ${({ theme }) => theme.colors.accent};
@@ -135,7 +130,6 @@ const ButtonGroup = styled.div`
   }
 `;
 
-
 const Button = styled.button`
   background-color: ${({ theme }) => theme.colors.accent};
   color: ${({ theme }) => theme.colors.textContrast};
@@ -200,48 +194,41 @@ const HomePage = () => {
       <ButtonGroup>
         <Button onClick={handleLogin}>
           <PenSquare size={20} />
-          Comece a escrever
+          {t("start writing")}
         </Button>
         <SecondaryButton onClick={handleExplore}>
           <Bookmark size={20} />
-          Explorar livros
+          {t("explore books")}
         </SecondaryButton>
       </ButtonGroup>
 
       <div id="features" style={{ marginTop: "4rem" }}>
-        <Title style={{ fontSize: "1.3rem" }}>O que você encontra aqui</Title>
+        <Title style={{ fontSize: "1.3rem" }}>{t("what you find here")}</Title>
 
         <FeaturesGrid>
           <FeatureCard>
             <FeatureIcon>
               <Users size={32} />
             </FeatureIcon>
-            <FeatureTitle>Comunidade</FeatureTitle>
-            <FeatureText>
-              Conecte-se com leitores que compartilham seus interesses e
-              descubra novas perspectivas.
-            </FeatureText>
+            <FeatureTitle>{t("community")}</FeatureTitle>
+            <FeatureText>{t("card1")}</FeatureText>
           </FeatureCard>
 
           <FeatureCard>
             <FeatureIcon>
               <BookOpen size={32} />
             </FeatureIcon>
-            <FeatureTitle>Resenhas</FeatureTitle>
-            <FeatureText>
-              Compartilhe suas opiniões sobre livros e leia o que outros pensam
-              antes de começar uma nova leitura.
-            </FeatureText>
+            <FeatureTitle>{t("reviews")}</FeatureTitle>
+            <FeatureText>{t("card2")}</FeatureText>
           </FeatureCard>
 
           <FeatureCard>
             <FeatureIcon>
               <PenSquare size={32} />
             </FeatureIcon>
-            <FeatureTitle>Criação</FeatureTitle>
+            <FeatureTitle>{t("create")}</FeatureTitle>
             <FeatureText>
-              Publique seus próprios textos, receba feedback e evolua como
-              escritor.
+              {t("card3")}
             </FeatureText>
           </FeatureCard>
 
@@ -249,16 +236,14 @@ const HomePage = () => {
             <FeatureIcon>
               <Sparkles size={32} />
             </FeatureIcon>
-            <FeatureTitle>Descobertas</FeatureTitle>
+            <FeatureTitle>{t("discoveries")}</FeatureTitle>
             <FeatureText>
-              Algoritmos inteligentes que recomendam livros baseados em seus
-              gostos e hábitos de leitura.
+              {t("card4")}
             </FeatureText>
           </FeatureCard>
         </FeaturesGrid>
       </div>
 
-     
       <div
         style={{
           margin: "3rem 0",
@@ -268,7 +253,6 @@ const HomePage = () => {
           borderRadius: "16px",
         }}
       >
-        {/* Aqui você pode adicionar um carrossel de livros ou imagens depois */}
       </div>
     </Container>
   );

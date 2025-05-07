@@ -8,15 +8,41 @@
   "confirmDeleteAccount": "Tem certeza que deseja deletar sua conta?",
   "posts": "Postagens",
   "edit profile": "Editar Perfil",
+  
   "personal information": "Informações Pessoais",
   "biography": "biografia",
   "name": "Nome",
   "email": "E-mail",
+  "password":"senha",
+  "confirm password":"Confirmar senha",
   "date of birth": "data de nascimento",
+  "date of birth not provided":"Data de nascimento não fornecida",
   "interests": "Interesses",
   "friends": "Amigos",
+
+  "sending":"Enviando...",
+  
   "description of letter":" Conecte-se com outros amantes da literatura, compartilhe suas descobertas e encontre sua próxima grande leitura em nossa comunidade de leitores e escritores.",
-  "quote1":" Um leitor vive mil vidas antes de morrer. O homem que nunca lê vive apenas uma."
+  "quote1":" Um leitor vive mil vidas antes de morrer. O homem que nunca lê vive apenas uma.",
+  "start writing":"Comece escrever",
+  "explore books":"Explore livros",
+  "what you find here":"O que você encontra aqui",
+
+  "card1":" Conecte-se com leitores que compartilham seus interesses e descubra novas perspectivas.",
+  "card2":" Compartilhe suas opiniões sobre livros e leia o que outros pensam antes de começar uma nova leitura.",
+  "card3":"Publique seus próprios textos, receba feedback e evolua comoescritor.",
+  "card4":"Algoritmos inteligentes que recomendam livros baseados em seusgostos e hábitos de leitura.",
+
+
+  "community":"Comunidade",
+  "reviews":"Resenhas",
+  "create":"criação",
+  "discoveries":"Descobertas",
+
+  "register":"Registrar",
+  "login":"Entrar"
+
+
 
 }
   

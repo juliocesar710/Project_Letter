@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
 import styled from "styled-components";
+import { useTranslation } from "react-i18next";
 
 const AuthContainer = styled.div`
   position: relative;
@@ -55,6 +56,7 @@ const FormWrapper = styled.div`
 
 const AuthTabs = () => {
   const [activeTab, setActiveTab] = useState("login");
+  const { t } = useTranslation();
 
   return (
     <AuthContainer>
@@ -63,13 +65,13 @@ const AuthTabs = () => {
           onClick={() => setActiveTab("login")}
           className={activeTab === "login" ? "active" : ""}
         >
-          Entrar
+          {t("login")}
         </TabButton>
         <TabButton
           onClick={() => setActiveTab("register")}
           className={activeTab === "register" ? "active" : ""}
         >
-          Registrar
+          {t("register")}
         </TabButton>
       </TabButtons>
 

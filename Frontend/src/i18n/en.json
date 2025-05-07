@@ -7,14 +7,35 @@
   "toggleTheme": "Toggle Theme",
   "confirmDeleteAccount": "Are you sure you want to delete your account?",
   "edit profile": "Edit Profile",
+
   "personal information": "Personal Information",
   "biography": "biography",
-  "name": "name",
+  "name": "Name",
   "email": "Email",
+  "password": "Password",
+  "confirm password": "Confirm Password",
   "date of birth": "date of birth",
+  "date of birth not provided":"Date of birth not provided",
   "interests": "Interests",
   "friends": "Friends",
-  "description of letter":"Connect with other literature lovers, share your discoveries, and find your next great read in our community of readers and writers.",
-  "quote1":"A reader lives a thousand lives before he dies. The man who never reads lives only one."
+
+  "sending": "Sending...",
+
+  "description of letter": "Connect with other literature lovers, share your discoveries, and find your next great read in our community of readers and writers.",
+  "quote1": "A reader lives a thousand lives before he dies. The man who never reads lives only one.",
+  "start writing": "Start writing",
+  "explore books": "Explore books",
+  "what you find here": "What you find here",
+  "community": "Comunnity",
+  "card1": "Connect with readers who share your interests and discover new perspectives.",
+  "card2": "Share your opinions about books and read what others think before starting a new book.",
+  "card3": "Publish your own texts, receive feedback and evolve as awriter.",
+  "card4": "Intelligent algorithms that recommend books based on yourtastes and reading habits.",
+  "reviews": "Reviews",
+  "create": "create",
+  "discoveries": "Discoveries",
+
+  "register": "Register",
+  "login": "Login"
 }
   

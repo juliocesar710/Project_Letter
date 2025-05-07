@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { Eye, EyeOff } from "lucide-react";
 import { useAuthForm } from "../../Hooks/useAuthForm";
+import { useTranslation } from "react-i18next";
 
 const PasswordInputWrapper = styled.div`
   position: relative;
@@ -79,6 +80,7 @@ const AuthForm = ({ title, fields, onSubmitAPI, redirectPath }) => {
     handleSubmit,
     togglePasswordVisibility,
   } = useAuthForm({ fields, onSubmitAPI, redirectPath });
+  const { t } = useTranslation();
 
   return (
     <FormContainer onSubmit={handleSubmit}>
@@ -119,7 +121,7 @@ const AuthForm = ({ title, fields, onSubmitAPI, redirectPath }) => {
       ))}
       {error && <ErrorMessage>{error}</ErrorMessage>}
       <Button type="submit" disabled={loading}>
-        {loading ? "Enviando..." : title}
+        {loading ? t("sending") : title}
       </Button>
     </FormContainer>
   );

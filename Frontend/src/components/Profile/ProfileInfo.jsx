@@ -2,8 +2,9 @@ import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { format } from "date-fns";
-import { ptBR } from "date-fns/locale";
 import { useTranslation } from "react-i18next";
+import { getCurrentLocale } from "../../i18n";
+
 
 const InfoCard = styled.div`
   background-color: ${({ theme }) => theme.colors.background};
@@ -80,13 +81,13 @@ const ProfileInfo = ({ user }) => {
     navigate("/friends");
   }
 
-  let formattedBirthDate = "Data de nascimento não informada";
+  let formattedBirthDate = t("date of birth not provided");
 
   if (user.birthDate) {
     const parsedDate = new Date(user.birthDate);
     if (!isNaN(parsedDate)) {
-      formattedBirthDate = format(parsedDate, "dd 'de' MMMM 'de' yyyy", {
-        locale: ptBR,
+      formattedBirthDate = format(parsedDate, "dd  MMMM  yyyy", {
+        locale: getCurrentLocale(),
       });
     }
   }
