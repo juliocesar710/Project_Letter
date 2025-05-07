@@ -103,9 +103,9 @@ const ProfilePage = ({ toggleTheme }) => {
     <PageContainer>
       <SettingsIcon onClick={toggleMenu}>⚙️</SettingsIcon>
       <Menu isOpen={menuOpen}>
-      <MenuItem onClick={handleLogout}>{t('logout')}</MenuItem>
-      <MenuItem onClick={handleDeleteAccount}>{t('deleteAccount')}</MenuItem>
-      <MenuItem onClick={toggleTheme}>{t('toggleTheme')}</MenuItem>
+        <MenuItem onClick={handleLogout}>{t("logout")}</MenuItem>
+        <MenuItem onClick={handleDeleteAccount}>{t("deleteAccount")}</MenuItem>
+        <MenuItem onClick={toggleTheme}>{t("toggleTheme")}</MenuItem>
         <LanguageSwitcher />
       </Menu>
       <ProfileSection>
@@ -114,7 +114,7 @@ const ProfilePage = ({ toggleTheme }) => {
       <PostList posts={posts} />
       {confirmDelete && (
         <Confirm
-          message="Tem certeza que deseja deletar sua conta?"
+          message={t("confirmDeleteAccount")}
           onConfirm={confirmDeleteAccount}
           onCancel={cancelDeleteAccount}
         />

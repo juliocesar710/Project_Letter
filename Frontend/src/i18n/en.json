@@ -3,9 +3,13 @@
   "profile": "Profile",
   "logout": "Logout",
   "loading": "Loading...",
+  "saving":"saving...",
+  "save":"Save Changes",
+
   "deleteAccount": "Delete Account",
-  "toggleTheme": "Toggle Theme",
   "confirmDeleteAccount": "Are you sure you want to delete your account?",
+
+  "toggleTheme": "Toggle Theme",
   "edit profile": "Edit Profile",
 
   "personal information": "Personal Information",
@@ -15,11 +19,17 @@
   "password": "Password",
   "confirm password": "Confirm Password",
   "date of birth": "date of birth",
+  "url image":"URL from image",
+
   "date of birth not provided":"Date of birth not provided",
   "interests": "Interests",
   "friends": "Friends",
+  "text genre":"Textual Genres",
+
 
   "sending": "Sending...",
+  "confirm":"Confirm",
+  "cancel":"Cancel",
 
   "description of letter": "Connect with other literature lovers, share your discoveries, and find your next great read in our community of readers and writers.",
   "quote1": "A reader lives a thousand lives before he dies. The man who never reads lives only one.",
@@ -36,6 +46,14 @@
   "discoveries": "Discoveries",
 
   "register": "Register",
-  "login": "Login"
+  "login": "Login",
+
+  "error password":"The passwords do not match",
+  "error user not found":"User Not found",
+  "error email already exists":"Email already exists",
+  "error invalid password":"Password is invalid",
+
+  "no interest registered.":"No interest registered."
+
 }
   

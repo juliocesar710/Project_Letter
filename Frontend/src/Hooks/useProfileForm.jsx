@@ -51,12 +51,11 @@ export const useProfileForm = () => {
     try {
       const updatedUser = await updateUser(payload);
       Cookies.set("userData", JSON.stringify(updatedUser), { expires: 1 });
-      setSuccessMessage("Usuário atualizado com sucesso!");
+      setTimeout(() => {setLoading(false), setSuccessMessage("Usuário atualizado com sucesso!");}, 2000);
+      
     } catch (error) {
       setErrorMessage("Erro ao atualizar o usuário. Tente novamente.");
       console.error(error);
-    } finally {
-      setLoading(false);
     }
   };
 

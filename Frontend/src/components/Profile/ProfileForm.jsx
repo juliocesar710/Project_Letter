@@ -3,6 +3,7 @@ import Sucess from "../utils/Sucess";
 import Alert from "../utils/Error";
 import GenreSelector from "../utils/GenreSelector";
 import { useProfileForm } from "../../Hooks/useProfileForm";
+import { useTranslation } from "react-i18next";
 
 const FormContainer = styled.div`
   display: flex;
@@ -85,7 +86,21 @@ const Button = styled.button`
   }
 `;
 
+const ProfileImage = styled.img`
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  border: 4px solid ${({ theme }) => theme.colors.primary};
+  margin-bottom: 20px;
+  object-fit: cover;
+  object-position: center;
+  margin-left: 30%;
+`;
+
 const ProfileForm = ({ isEdit = false }) => {
+
+  const { t } = useTranslation();
+
   const {
     formData,
     selectedGenres,
@@ -100,33 +115,34 @@ const ProfileForm = ({ isEdit = false }) => {
   return (
     <FormContainer>
       <Form onSubmit={handleSubmit}>
-        <FormTitle>{isEdit ? "Editar Perfil" : "Editando"}</FormTitle>
+        <FormTitle>{isEdit ? t("edit profile") : "Editando"}</FormTitle>
         {successMessage && <Sucess message={successMessage} />}
         {errorMessage && <Alert message={errorMessage} />}
+        <ProfileImage src={formData.profileImage} alt="Profile Image" />
         <Input
           type="text"
           name="name"
-          placeholder="Nome"
+          placeholder={t("name")}
           value={formData.name}
           onChange={handleChange}
         />
         <Input
           type="email"
           name="email"
-          placeholder="Email"
+          placeholder={t("email")}
           value={formData.email}
           onChange={handleChange}
         />
         <TextArea
           name="description"
-          placeholder="Biografia"
+          placeholder={t("biography")}
           value={formData.description}
           onChange={handleChange}
         />
         <Input
           type="date"
           name="birthDate"
-          placeholder="Data de Nascimento"
+          placeholder={t("date of birth")}
           value={formData.birthDate}
           onChange={handleChange}
         />
@@ -142,7 +158,7 @@ const ProfileForm = ({ isEdit = false }) => {
           setSelectedGenres={setSelectedGenres}
         />
         <Button type="submit" disabled={loading}>
-          {loading ? "Salvando..." : isEdit ? "Salvar Alterações" : "Registrar"}
+          {loading ? t("saving") : isEdit ? t("save") : "Registrar"}
         </Button>
       </Form>
     </FormContainer>

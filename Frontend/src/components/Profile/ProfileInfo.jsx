@@ -125,7 +125,7 @@ const ProfileInfo = ({ user }) => {
         <SectionContent>
           {user.interests && user.interests.length > 0
             ? user.interests.join(", ")
-            : "Nenhum interesse cadastrado."}
+            :t("no interest registered.")}
         </SectionContent>
       </Section>
     </InfoCard>

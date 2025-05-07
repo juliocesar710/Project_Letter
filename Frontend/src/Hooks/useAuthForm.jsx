@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 export const useAuthForm = ({ fields, onSubmitAPI, redirectPath }) => {
   const [formData, setFormData] = useState(
@@ -11,8 +12,8 @@ export const useAuthForm = ({ fields, onSubmitAPI, redirectPath }) => {
   const [showPassword, setShowPassword] = useState(
     fields.reduce((acc, field) => ({ ...acc, [field.name]: false }), {})
   );
-
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -27,17 +28,11 @@ export const useAuthForm = ({ fields, onSubmitAPI, redirectPath }) => {
     e.preventDefault();
     if (loading) return;
 
-    const hasEmpty = fields.some((field) => !formData[field.name]);
-    if (hasEmpty) {
-      setError("Todos os campos são obrigatórios.");
-      return;
-    }
-
     if (
       fields.some((field) => field.name === "confirmPassword") &&
       formData.password !== formData.confirmPassword
     ) {
-      setError("As senhas não coincidem.");
+      setError(t("error password"));
       return;
     }
 
@@ -53,14 +48,13 @@ export const useAuthForm = ({ fields, onSubmitAPI, redirectPath }) => {
       }, 1500);
     } catch (error) {
       if (error.response?.data?.message === "User not found to here") {
-        setError("Usuário não encontrado no banco de dados.");
-      } else if (
-        error.response?.data?.message === "Email and password are required"
-      ) {
-        setError("Email já está em uso.");
+        setError(t("user not found"));
+      } else if (error.response?.data?.message === "Email already exists") {
+        setError(t("email already exists"));
       } else if (error.response?.data?.message === "Invalid password") {
-        setError("Senha inválida.");
+        setError(t("error invalid password"));
       } else setError(error.response?.data?.message || "Erro ao processar.");
+      setLoading(false);
     }
   };
 
