@@ -25,12 +25,34 @@
   "date of birth not provided":"Data de nascimento não fornecida",
   "interests": "Interesses",
   "friends": "Amigos",
+  "myfriends":"Meus Amigos",
+  "friendship":"Pedido de Amizade",
+  "addfriend":"Adicionar Amigo",
+  "nofriends":"Você ainda não tem amigos adicionados.",
   "text genre":"Gênero de texto",
+  "pending":"Pendente",
+  "user":"Usuário",
   
 
   "sending":"Enviando...",
   "confirm":"Confirmar",
   "cancel":"Cancelar",
+  "aceept":"Aceitar",
+  "reject":"Rejeitar",
+  "viewprofile":"Ver Perfil",
+  "removefriend":"Remover Amigo",
+  "wantremovefriend":"Deseja realmente remover",
+  "thisfriend":"Este Amigo",
+  "friendrequest":"Solicitação de Amizade",
+  "wait":"Aguardando Confirmação",
+
+
+
+  "searchfriends": "Buscando Amigos...",
+  "searching": "Buscando...",
+  "seach": "Buscar",
+
+  "mo posts found.":"Nenhum post encontrado.",
 
   "description of letter":" Conecte-se com outros amantes da literatura, compartilhe suas descobertas e encontre sua próxima grande leitura em nossa comunidade de leitores e escritores.",
   "quote1":" Um leitor vive mil vidas antes de morrer. O homem que nunca lê vive apenas uma.",

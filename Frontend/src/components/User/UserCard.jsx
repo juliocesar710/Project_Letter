@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import FriendRemoveButton from "../utils/Buttons/RemoveFriendButton";
 import AddFriendButton from "../utils/Buttons/AddFriendButton.jsx";
+import { useTranslation } from "react-i18next";
 
 const Card = styled.div`
   background: ${({ theme }) => theme.colors.background};
@@ -35,31 +36,35 @@ const Avatar = styled.img`
 
 
 export const UserCard = ({ user, isFriend, friendshipId, onAdd, onRemove }) => {
+  const { t } = useTranslation();
   return (
     <>
       <Card>
-          <Avatar
-            src={
-              user.profileImage ||
-              "https://cdn.vectorstock.com/i/1000v/66/13/default-avatar-profile-icon-social-media-user-vector-49816613.jpg"
-            }
-            alt={user.name}
-            onError={(e) => {
-              e.target.src =
-                "https://cdn.vectorstock.com/i/1000v/66/13/default-avatar-profile-icon-social-media-user-vector-49816613.jpg";
-            }}
-          />
-          <h4>{user.name}</h4>
-          <p>Email: {user.email || "Desconhecido"}</p>
+        <Avatar
+          src={
+            user.profileImage ||
+            "https://cdn.vectorstock.com/i/1000v/66/13/default-avatar-profile-icon-social-media-user-vector-49816613.jpg"
+          }
+          alt={user.name}
+          onError={(e) => {
+            e.target.src =
+              "https://cdn.vectorstock.com/i/1000v/66/13/default-avatar-profile-icon-social-media-user-vector-49816613.jpg";
+          }}
+        />
+        <h4>{user.name}</h4>
+        <p>
+          {t("email")}: {user.email || "Desconhecido"}
+        </p>
 
         {isFriend ? (
           <FriendRemoveButton
             friend={{ ...user, friendshipId }}
             onFriendRemoved={onRemove}
+            label={t("removefriend")}
           />
         ) : (
           <AddFriendButton friendId={user.id} onSuccess={onAdd}>
-            Adicionar Amigo
+            {t("addfriend")}
           </AddFriendButton>
         )}
       </Card>

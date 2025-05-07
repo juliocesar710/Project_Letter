@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import FriendCard from './FriendCard';
 import { friendsGetUser } from '../../api/Friends/friendsGetUser';
+import { useTranslation } from 'react-i18next';
 
 const ListContainer = styled.div`
   display: flex;
@@ -24,6 +25,7 @@ const EmptyMessage = styled.p`
 const FriendsList = () => {
   const [friends, setFriends] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { t } = useTranslation();
 
   const fetchFriends = async () => {
     try {
@@ -57,24 +59,24 @@ const FriendsList = () => {
 
   return (
     <ListContainer>
-      <SectionTitle>Meus Amigos</SectionTitle>
+      <SectionTitle>{t("myfriends")}</SectionTitle>
       {friends.length > 0 ? (
         friends.map((friend) => (
-          <FriendCard 
-            key={friend.friend.id} 
+          <FriendCard
+            key={friend.friend.id}
             friend={{
-              name: friend.friend.name || 'Usuário',
+              name: friend.friend.name || "Usuário",
               profileImage: friend.friend.profileImage,
-              status: friend.status || 'Online',
-              email: friend.friend.email || 'email@gmail.com',
-              id: friend.friend.id || '0',
-              friendshipId: friend.id
+              status: friend.status || "Online",
+              email: friend.friend.email || "email@gmail.com",
+              id: friend.friend.id || "0",
+              friendshipId: friend.id,
             }}
             onFriendRemoved={handleFriendRemoved}
           />
         ))
       ) : (
-        <EmptyMessage>Você ainda não tem amigos adicionados.</EmptyMessage>
+        <EmptyMessage>{t("nofriends")}</EmptyMessage>
       )}
     </ListContainer>
   );

@@ -4,6 +4,8 @@ import FriendsList from "../components/Friends/FriendsList";
 import FriendSearch from "../components/Friends/FriendSearch";
 import FriendRequests from "../components/Friends/FriendRequests";
 import AllUsersList from "../components/Friends/AllUsersList";
+import { useTranslation } from "react-i18next";
+
 const FriendsContainer = styled.div`
   padding: 20px;
   margin: 0 auto;
@@ -77,8 +79,8 @@ const FriendsPage = () => {
   const [activeTab, setActiveTab] = useState("friends");
   const [friends, setFriends] = useState([]);
   const [friendRequests, setFriendRequests] = useState([]);
-
   const [allUsers, setAllUsers] = useState([]);
+  const { t } = useTranslation();
 
   const handleAcceptRequest = (requestId) => {
     const request = friendRequests.find((req) => req.id === requestId);
@@ -126,19 +128,19 @@ const FriendsPage = () => {
             active={activeTab === "friends"}
             onClick={() => setActiveTab("friends")}
           >
-            Amigos
+            {t("friends")}
           </TabButton>
           <TabButton
             active={activeTab === "pending"}
             onClick={() => setActiveTab("pending")}
           >
-            Pendentes
+            {t("pending")}
           </TabButton>
           <TabButton
             active={activeTab === "users"}
             onClick={() => setActiveTab("users")}
           >
-            Usuários
+            {t("user")}
           </TabButton>
         </TabsContainer>
         <FriendSearchWrapper>

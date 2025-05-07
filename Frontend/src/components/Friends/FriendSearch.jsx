@@ -6,6 +6,7 @@ import { friendsGetUser } from "../../api/Friends/friendsGetUser";
 import AddFriendButton from "../utils/Buttons/AddFriendButton";
 import ViewProfileButton from "../utils/Buttons/ViewProfileButton";
 import Cookies from "js-cookie";
+import { useTranslation } from "react-i18next";
 
 const SearchContainer = styled.div`
   position: relative;
@@ -96,9 +97,11 @@ const FriendSearch = () => {
   const [loading, setLoading] = useState(false);
   const [friends, setFriends] = useState([]);
   const userId = JSON.parse(Cookies.get("userData") || "{}")?.id;
+  const { t } = useTranslation();
 
   useEffect(() => {
     const fetchFriends = async () => {
+      setLoading(true);
       try {
         const data = await friendsGetUser();
         setFriends(data.map((f) => f.friend));
@@ -128,8 +131,11 @@ const FriendSearch = () => {
 
     setLoading(true);
     try {
-      const users = await userGetByName(searchTerm.trim());
-      setResults(users);
+      setTimeout(async () => {
+        const users = await userGetByName(searchTerm.trim());
+        setResults(users);
+        setLoading(false);
+      }, 1000);
     } catch (error) {
       console.log(error);
       setResults([]);
@@ -142,12 +148,12 @@ const FriendSearch = () => {
     <SearchContainer>
       <SearchInput
         type="text"
-        placeholder="Buscar amigos..."
+        placeholder={t("searchfriends")}
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />
       <SearchButton onClick={handleSearch}>
-        {loading ? "Buscando..." : "Buscar"}
+        {loading ? t("search") : t("searching")}
       </SearchButton>
       {results.length > 0 && (
         <SearchResults>
@@ -163,7 +169,10 @@ const FriendSearch = () => {
                   <ResultName>{user.name}</ResultName>
                   <ResultEmail>{user.email}</ResultEmail>
                   {isFriend(user.id) ? (
-                    <ViewProfileButton userId={user.id} />
+                    <ViewProfileButton
+                      userId={user.id}
+                      label={t("viewprofile")}
+                    />
                   ) : (
                     <AddFriendButton
                       friendId={user.id}
@@ -174,7 +183,7 @@ const FriendSearch = () => {
                         );
                       }}
                     >
-                      Adicionar Amigo
+                      {t("addfriend")}
                     </AddFriendButton>
                   )}
                 </ResultInfo>

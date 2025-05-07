@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { deleteFriendship } from "../../../api/Friends/friendsDelete";
 import Confirm from "../../utils/Confirm";
+import { useTranslation } from "react-i18next";
 
 const ActionButton = styled.button`
   padding: 8px 15px;
@@ -19,8 +20,9 @@ const ActionButton = styled.button`
   }
 `;
 
-const FriendRemoveButton = ({ friend, onFriendRemoved }) => {
+const FriendRemoveButton = ({ friend, onFriendRemoved, label }) => {
   const [showConfirm, setShowConfirm] = useState(false);
+  const { t } = useTranslation();
 
   const handleConfirmRemove = async () => {
     try {
@@ -43,11 +45,11 @@ const FriendRemoveButton = ({ friend, onFriendRemoved }) => {
 
   return (
     <>
-      <ActionButton onClick={handleRemoveClick}>Remover</ActionButton>
+      <ActionButton onClick={handleRemoveClick}>{label}</ActionButton>
 
       {showConfirm && (
         <Confirm
-          message={`Deseja realmente remover ${friend.name || "este amigo"} ?`}
+          message={t("wantremovefriend")+` ${friend.name || t("thisfriend")} ?`}
           onConfirm={handleConfirmRemove}
           onCancel={() => setShowConfirm(false)}
         />

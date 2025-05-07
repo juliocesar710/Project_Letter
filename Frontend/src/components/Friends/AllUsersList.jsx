@@ -39,6 +39,7 @@ const AllUsersList = ({ onAddFriend, onRemoveFriend }) => {
               await refreshFriends();
             }}
             onRemove={onRemoveFriend}
+            
           />
          
           

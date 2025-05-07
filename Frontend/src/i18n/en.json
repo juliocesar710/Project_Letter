@@ -3,8 +3,8 @@
   "profile": "Profile",
   "logout": "Logout",
   "loading": "Loading...",
-  "saving":"saving...",
-  "save":"Save Changes",
+  "saving": "saving...",
+  "save": "Save Changes",
 
   "deleteAccount": "Delete Account",
   "confirmDeleteAccount": "Are you sure you want to delete your account?",
@@ -19,17 +19,36 @@
   "password": "Password",
   "confirm password": "Confirm Password",
   "date of birth": "date of birth",
-  "url image":"URL from image",
+  "url image": "URL from image",
 
-  "date of birth not provided":"Date of birth not provided",
+  "date of birth not provided": "Date of birth not provided",
   "interests": "Interests",
   "friends": "Friends",
-  "text genre":"Textual Genres",
-
+  "myfriends": "My Friends",
+  "friendship": "Friendship",
+  "addfriend":"Add friend",
+  "nofriends": "You have no friends added yet.",
+  "text genre": "Textual Genres",
+  "pending": "Pending",
+  "user": "User",
 
   "sending": "Sending...",
-  "confirm":"Confirm",
-  "cancel":"Cancel",
+  "confirm": "Confirm",
+  "cancel": "Cancel",
+  "accept":"Accept",
+  "reject":"Reject",
+  "viewprofile": "View Profile",
+  "removefriend": "Remove Friend",
+  "wantremovefriend":"Do you really want to remove",
+  "thisfriend":"This friend",
+  "friendrequest":"Friend Requests",
+  "wait":"Waiting for confirmation",
+
+  "searchfriends": "Search Friends...",
+  "searching": "Searching...",
+  "seach": "Search",
+
+  "no posts found.": "No posts found.",
 
   "description of letter": "Connect with other literature lovers, share your discoveries, and find your next great read in our community of readers and writers.",
   "quote1": "A reader lives a thousand lives before he dies. The man who never reads lives only one.",
@@ -48,12 +67,11 @@
   "register": "Register",
   "login": "Login",
 
-  "error password":"The passwords do not match",
-  "error user not found":"User Not found",
-  "error email already exists":"Email already exists",
-  "error invalid password":"Password is invalid",
+  "error password": "The passwords do not match",
+  "error user not found": "User Not found",
+  "error email already exists": "Email already exists",
+  "error invalid password": "Password is invalid",
 
-  "no interest registered.":"No interest registered."
-
+  "no interest registered.": "No interest registered."
 }
   

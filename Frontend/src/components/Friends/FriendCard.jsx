@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import FriendRemoveButton from "../utils/Buttons/RemoveFriendButton";
 import ViewProfileButton from "../utils/Buttons/ViewProfileButton";
+import { useTranslation } from "react-i18next";
 
 const Card = styled.div`
   background-color: ${({ theme }) => theme.colors.background};
@@ -73,6 +74,7 @@ const ButtonsContainer = styled.div`
 `;
 
 const FriendCard = ({ friend, onFriendRemoved }) => {
+  const { t } = useTranslation();
   return (
     <>
       <Card>
@@ -90,11 +92,14 @@ const FriendCard = ({ friend, onFriendRemoved }) => {
         <FriendInfo>
           <Name>{friend.name || "Usuário"}</Name>
           <Email>{friend.email || "email@gmail.com"}</Email>
-          <Status>Pedido de amizade: {friend.status || "Online"}</Status>
+          <Status>
+            {t("friendship")}: {friend.status || "Online"}
+          </Status>
         </FriendInfo>
         <ButtonsContainer>
-          <ViewProfileButton userId={friend.id} />
+          <ViewProfileButton label={t("viewprofile")} userId={friend.id} />
           <FriendRemoveButton
+            label={t("removefriend")}
             friend={friend}
             onFriendRemoved={onFriendRemoved}
           />

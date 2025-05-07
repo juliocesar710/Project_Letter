@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import PostCard from "./PostCard";
+import { useTranslation } from "react-i18next";
 
 const PostsContainer = styled.div`
   flex: 2;
@@ -18,10 +19,11 @@ const EmptyMessage = styled.p`
 `;
 
 const PostList = ({ posts }) => {
+  const { t } = useTranslation();
   return (
     <PostsContainer>
       {posts.length === 0 ? (
-        <EmptyMessage>Nenhum post encontrado.</EmptyMessage>
+        <EmptyMessage>{t("no posts found")}</EmptyMessage>
       ) : (
         posts.map((post) => <PostCard key={post.id} post={post} />)
       )}
