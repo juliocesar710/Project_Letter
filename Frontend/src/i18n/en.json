@@ -36,7 +36,7 @@
 
   "userupdatesuccess": "User updated successfully",
 
-  "favoritegenrestext": "Favorite Genres of Texts",
+  "favoritegenrestext": "Favorite Texts of Genres",
 
   "sending": "Sending...",
   "confirm": "Confirm",
@@ -55,7 +55,7 @@
 
   "searchfriends": "Search Friends...",
   "searching": "Searching...",
-  "seach": "Search",
+  "search": "Search",
 
   "no posts found.": "No posts found.",
 

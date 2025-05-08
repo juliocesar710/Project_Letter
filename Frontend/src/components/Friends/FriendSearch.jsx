@@ -1,12 +1,9 @@
-import React, { useState } from "react";
 import styled from "styled-components";
-import { userGetByName } from "../../api/Auth/userGetByName";
-import { useEffect } from "react";
-import { friendsGetUser } from "../../api/Friends/friendsGetUser";
 import AddFriendButton from "../utils/Buttons/AddFriendButton";
 import ViewProfileButton from "../utils/Buttons/ViewProfileButton";
 import Cookies from "js-cookie";
 import { useTranslation } from "react-i18next";
+import { useFriendSearch } from "../../Hooks/useFriendSearch";
 
 const SearchContainer = styled.div`
   position: relative;
@@ -92,57 +89,20 @@ const ResultEmail = styled.span`
 `;
 
 const FriendSearch = () => {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [results, setResults] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [friends, setFriends] = useState([]);
-  const userId = JSON.parse(Cookies.get("userData") || "{}")?.id;
   const { t } = useTranslation();
 
-  useEffect(() => {
-    const fetchFriends = async () => {
-      setLoading(true);
-      try {
-        const data = await friendsGetUser();
-        setFriends(data.map((f) => f.friend));
-      } catch (error) {
-        console.error("Erro ao carregar amigos:", error);
-      }
-    };
+  const userId = JSON.parse(Cookies.get("userData") || "{}")?.id;
+  const {
+    searchTerm,
+    setSearchTerm,
+    results,
+    loading,
+    handleSearch,
+    isFriend,
+    refreshFriends,
+    setResults,
+  } = useFriendSearch(userId);
 
-    fetchFriends();
-  }, []);
-
-  const isFriend = (userId) => {
-    const parsedFriends = JSON.parse(JSON.stringify(friends));
-    return parsedFriends.some((friend) => friend.id === userId);
-  };
-
-  const refreshFriends = async () => {
-    const updated = await friendsGetUser();
-    setFriends(updated || []);
-  };
-
-  const handleSearch = async () => {
-    if (searchTerm.trim().length < 3) {
-      setResults([]);
-      return;
-    }
-
-    setLoading(true);
-    try {
-      setTimeout(async () => {
-        const users = await userGetByName(searchTerm.trim());
-        setResults(users);
-        setLoading(false);
-      }, 1000);
-    } catch (error) {
-      console.log(error);
-      setResults([]);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   return (
     <SearchContainer>

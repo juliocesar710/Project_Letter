@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { format } from "date-fns";
 import { useTranslation } from "react-i18next";
 import { getCurrentLocale } from "../../i18n";
+import { Edit, Users } from "lucide-react";
 
 
 const InfoCard = styled.div`
@@ -97,13 +98,13 @@ const ProfileInfo = ({ user }) => {
       <ProfileHeader>
         <ProfileImage src={user.profileImage} alt={`${user.name} profile`} />
         <ProfileButton onClick={handleFriendsClick}>
-          {t("friends")}
+          <Users />
         </ProfileButton>
       </ProfileHeader>
 
       <Section>
         <ProfileButton onClick={handleEditProfile}>
-          {t("edit profile")}
+          <Edit />
         </ProfileButton>
         <SectionTitle>{t("personal information")}</SectionTitle>
         <SectionContent>
@@ -123,9 +124,9 @@ const ProfileInfo = ({ user }) => {
       <Section>
         <SectionTitle>{t("interests")}</SectionTitle>
         <SectionContent>
-          {user.interests && user.interests.length > 0
+            {user.interests && user.interests.length > 0
             ? user.interests.join(", ")
-            :t("no interest registered.")}
+            : t("no interest registered.")}
         </SectionContent>
       </Section>
     </InfoCard>
