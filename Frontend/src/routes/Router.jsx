@@ -7,6 +7,7 @@ import HomePage from "../pages/HomePage";
 import PrivateRoute from "./PrivateRoute";
 import FriendsPage from "../pages/FriendsPage";
 import FriendProfile from "../pages/FriendProfile";
+import FeedPage from "../pages/FeedPage";
 
 const AppRouter = ({ toggleTheme }) => {
   return (
@@ -46,6 +47,14 @@ const AppRouter = ({ toggleTheme }) => {
             </PrivateRoute>
           }
         />
+        <Route
+          path="/feed"
+          element={
+            <PrivateRoute>
+              <FeedPage />
+            </PrivateRoute>
+          }
+        ></Route>
       </Routes>
     </Router>
   );
