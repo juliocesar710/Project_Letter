@@ -6,7 +6,7 @@ export const userDelete = async (userId) => {
     const token = Cookies.get("authToken");
     api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
-    const response = await api.delete("auth/delete", userId);
+    const response = await api.delete("/auth/delete", userId);
     return response.data;
   } catch (error) {
     console.error("Error deleting user:", error);
