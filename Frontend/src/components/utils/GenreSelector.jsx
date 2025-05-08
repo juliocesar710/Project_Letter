@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { getAllGenresText } from "../../api/GenreText/genreTextGetAll";
+import { useTranslation } from "react-i18next";
 
 const GenreContainer = styled.div`
   margin-bottom: 15px;
@@ -48,6 +49,7 @@ const HiddenCheckbox = styled.input`
 
 const GenreSelector = ({ selectedGenres, setSelectedGenres }) => {
   const [genres, setGenres] = useState([]);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const fetchGenres = async () => {
@@ -71,7 +73,7 @@ const GenreSelector = ({ selectedGenres, setSelectedGenres }) => {
   return (
     <GenreContainer>
       <label>
-        <TitleCheckList>Gêneros Textuais:</TitleCheckList>
+        <TitleCheckList>{t("text genre")}</TitleCheckList>
       </label>
       <GenreList>
         {genres.map((genre) => (

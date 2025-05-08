@@ -1,87 +1,99 @@
-// components/User/UserCard.jsx
 import styled from "styled-components";
-import FriendRemoveButton from "../utils/RemoveFriendButton";
-import AddFriendButton from "../utils/AddFriendButton";
+import FriendRemoveButton from "../utils/Buttons/RemoveFriendButton";
+import AddFriendButton from "../utils/Buttons/AddFriendButton.jsx";
+import { useTranslation } from "react-i18next";
 
 const Card = styled.div`
   background: ${({ theme }) => theme.colors.background};
   border: 1px solid ${({ theme }) => theme.colors.border};
-  border-radius: ${({ theme }) => theme.borderRadius.medium};
+  border-radius: ${({ theme }) => theme.borderRadius.large};
   color: ${({ theme }) => theme.colors.text};
-  padding: 15px;
-  width: 300px;
-  overflow: hidden;
-
-  text-align: center;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s ease;
-
-  &:hover {
-    cursor: pointer;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  }
-`;
-
-const Frame = styled.div`
-  position: relative;
-  width: 80%;
-  height: 80%;
-  background: ${({ theme }) => theme.colors.background};
-  border-radius: ${({ theme }) => theme.borderRadius.medium};
-  transition: transform 0.2s ease;
-  margin-bottom: 10px;
+  padding: 20px;
+  width: 280px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  transition: transform 0.2s ease;
-  margin: 0 auto;
-  margin-bottom: 10px;
-
+  gap: 12px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  
   &:hover {
-    transform: scale(1.1);
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
   }
 `;
 
 const Avatar = styled.img`
-  width: 80px;
-  height: 80px;
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
   object-fit: cover;
-  margin-bottom: 10px;
+  border: 3px solid ${({ theme }) => theme.colors.primary};
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+`;
+
+const Name = styled.h4`
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: ${({ theme }) => theme.colors.primaryText};
+`;
+
+const GenresContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin: 8px 0;
+`;
+
+const GenreTag = styled.span`
+  background: ${({ theme }) => theme.colors.primaryLight};
+  color: ${({ theme }) => theme.colors.primaryText};
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 1rem;
 `;
 
 export const UserCard = ({ user, isFriend, friendshipId, onAdd, onRemove }) => {
-  return (
-    <>
-      <Card>
-        <Frame>
-          <Avatar
-            src={
-              user.profileImage ||
-              "https://cdn.vectorstock.com/i/1000v/66/13/default-avatar-profile-icon-social-media-user-vector-49816613.jpg"
-            }
-            alt={user.name}
-            onError={(e) => {
-              e.target.src =
-                "https://cdn.vectorstock.com/i/1000v/66/13/default-avatar-profile-icon-social-media-user-vector-49816613.jpg";
-            }}
-          />
-          <h4>{user.name}</h4>
-          <p>Email: {user.email || "Desconhecido"}</p>
-        </Frame>
+  const { t } = useTranslation();
 
-        {isFriend ? (
-          <FriendRemoveButton
-            friend={{ ...user, friendshipId }}
-            onFriendRemoved={onRemove}
-          />
-        ) : (
-          <AddFriendButton friendId={user.id} onSuccess={onAdd}>
-            Adicionar Amigo
-          </AddFriendButton>
-        )}
-      </Card>
-    </>
+  return (
+    <Card>
+      <Avatar
+        src={
+          user.profileImage ||
+          "https://cdn.vectorstock.com/i/1000v/66/13/default-avatar-profile-icon-social-media-user-vector-49816613.jpg"
+        }
+        alt={user.name}
+        onError={(e) => {
+          e.target.src =
+            "https://cdn.vectorstock.com/i/1000v/66/13/default-avatar-profile-icon-social-media-user-vector-49816613.jpg";
+        }}
+      />
+      
+      <Name>{user.name}</Name>
+      
+      {user.genres?.length > 0 && (
+        <GenresContainer>
+          {user.genres.slice(0, 3).map((genre, idx) => (
+            <GenreTag key={idx}>{genre}</GenreTag>
+          ))}
+          {user.genres.length > 3 && <GenreTag>+{user.genres.length - 3}</GenreTag>}
+        </GenresContainer>
+      )}
+      
+      {isFriend ? (
+        <FriendRemoveButton
+          friend={{ ...user, friendshipId }}
+          onFriendRemoved={onRemove}
+          label={t("removefriend")}
+        />
+      ) : (
+        <AddFriendButton friendId={user.id} onSuccess={onAdd}>
+          {t("addfriend")}
+        </AddFriendButton>
+      )}
+    </Card>
   );
 };

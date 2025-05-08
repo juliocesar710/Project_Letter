@@ -21,11 +21,20 @@ const PostContent = styled.p`
   color: ${({ theme }) => theme.colors.textSecondary};
 `;
 
+const PostImage = styled.img`
+  width: 100%;
+  height: 100%;
+  border-radius: ${({ theme }) => theme.borderRadius.medium};
+  object-fit: cover;
+  margin-bottom: 10px;
+`;
+
 const PostCard = ({ post }) => {
   return (
     <PostCardContainer>
       <PostTitle>{post.title}</PostTitle>
-      <PostContent>{post.content}</PostContent>
+      <PostContent>{post.description}</PostContent>
+      <PostImage src={post.image || "https://superkind.org/wp-content/uploads/2022/05/writeletter.png"}></PostImage>
     </PostCardContainer>
   );
 };

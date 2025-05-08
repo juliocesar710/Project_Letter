@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import Cookies from "js-cookie";
-import { updateUser } from "../../api/Auth/userUpdate";
 import Sucess from "../utils/Sucess";
 import Alert from "../utils/Error";
 import GenreSelector from "../utils/GenreSelector";
+import { useProfileForm } from "../../Hooks/useProfileForm";
+import { useTranslation } from "react-i18next";
 
 const FormContainer = styled.div`
   display: flex;
@@ -87,97 +86,64 @@ const Button = styled.button`
   }
 `;
 
-const ProfileForm = ({ onSubmit, isEdit = false }) => {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    description: "",
-    birthDate: "",
-    profileImage: "",
-    interests: [],
-  });
+const ProfileImage = styled.img`
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  border: 4px solid ${({ theme }) => theme.colors.primary};
+  margin: 0 auto 20px auto; 
+  object-fit: cover;
+  object-position: center;
+  display: block;
+`;
 
-  const [selectedGenres, setSelectedGenres] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [successMessage, setSuccessMessage] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
 
-  useEffect(() => {
-    const userData = JSON.parse(Cookies.get("userData") || "{}");
-    setFormData({
-      name: userData.name || "",
-      email: userData.email || "",
-      description: userData.description || "",
-      birthDate: userData.birthDate || "",
-      profileImage: userData.profileImage || "",
-    });
-    setSelectedGenres(userData.interests || []);
-  }, []);
+const ProfileForm = ({ isEdit = false }) => {
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
+  const { t } = useTranslation();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    setSuccessMessage("");
-    setErrorMessage("");
-
-    const payload = {
-      ...formData,
-      birthDate: formData.birthDate
-        ? new Date(formData.birthDate).toISOString()
-        : null,
-      genres: selectedGenres,
-    };
-
-    try {
-      const updatedUser = await updateUser(payload);
-      Cookies.set("userData", JSON.stringify(updatedUser), { expires: 1 });
-      onSubmit(updatedUser);
-    } catch (error) {
-      setErrorMessage("Erro ao atualizar o usuário. Tente novamente.");
-      console.error("Erro ao atualizar o usuário:", error);
-    } finally {
-      setTimeout(() => {
-        setLoading(false);
-        setSuccessMessage("Usuário atualizado com sucesso!");
-      }, 2000);
-    }
-  };
+  const {
+    formData,
+    selectedGenres,
+    loading,
+    successMessage,
+    errorMessage,
+    handleChange,
+    setSelectedGenres,
+    handleSubmit,
+  } = useProfileForm();
 
   return (
     <FormContainer>
       <Form onSubmit={handleSubmit}>
-        <FormTitle>{isEdit ? "Editar Perfil" : "Editando"}</FormTitle>
-        {successMessage && <Sucess message={successMessage} />}{" "}
-        {errorMessage && <Alert message={errorMessage} />}{" "}
+        <FormTitle>{isEdit ? t("edit profile") : "Editando"}</FormTitle>
+        {successMessage && <Sucess message={successMessage} />}
+        {errorMessage && <Alert message={errorMessage} />}
+        <ProfileImage src={formData.profileImage} alt="Profile Image" />
         <Input
           type="text"
           name="name"
-          placeholder="Nome"
+          placeholder={t("name")}
           value={formData.name}
           onChange={handleChange}
         />
         <Input
           type="email"
           name="email"
-          placeholder="Email"
+          placeholder={t("email")}
           value={formData.email}
           onChange={handleChange}
         />
         <TextArea
           name="description"
-          placeholder="Biografia"
+          placeholder={t("biography")}
           value={formData.description}
           onChange={handleChange}
         />
         <Input
           type="date"
           name="birthDate"
-          placeholder="Data de Nascimento"
+          placeholder={t("date of birth")}
           value={formData.birthDate}
           onChange={handleChange}
         />
@@ -193,7 +159,7 @@ const ProfileForm = ({ onSubmit, isEdit = false }) => {
           setSelectedGenres={setSelectedGenres}
         />
         <Button type="submit" disabled={loading}>
-          {loading ? "Salvando..." : isEdit ? "Salvar Alterações" : "Registrar"}
+          {loading ? t("saving") : isEdit ? t("save") : "Registrar"}
         </Button>
       </Form>
     </FormContainer>

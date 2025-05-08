@@ -1,4 +1,3 @@
-// hooks/useUsersAndFriends.js
 import { useEffect, useState } from "react";
 import { userGetAll } from "../api/Auth/userGetAll";
 import { friendsGetUser } from "../api/Friends/friendsGetUser";

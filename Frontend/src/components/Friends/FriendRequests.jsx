@@ -4,6 +4,7 @@ import { friendsPending } from '../../api/Friends/friendsPending';
 import { updateFriendshipStatus } from '../../api/Friends/friendsStatus';
 import { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';  
+import { useTranslation } from 'react-i18next';
 
 const RequestsContainer = styled.div`
   margin-bottom: 30px;
@@ -88,6 +89,7 @@ const FriendRequests = ({ onUpdateRequests }) => {
   const [requests, setRequests] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentUserId, setCurrentUserId] = useState(null);
+  const { t } = useTranslation();
 
   const handleStatusChange = async (friendId, status) => {
     try {
@@ -125,7 +127,7 @@ const FriendRequests = ({ onUpdateRequests }) => {
 
   return (
     <RequestsContainer>
-      <SectionTitle>Solicitações de Amizade</SectionTitle>
+      <SectionTitle>{t("friendrequest")}</SectionTitle>
       {requests.length > 0 ? (
         requests.map((request) => {
           const isSender = currentUserId && request.user.id === currentUserId;
@@ -134,25 +136,32 @@ const FriendRequests = ({ onUpdateRequests }) => {
           return (
             <RequestCard key={request.id}>
               <RequestInfo>
-                <ProfileImage src={profileUser.profileImage} alt={profileUser.name} />
+                <ProfileImage
+                  src={profileUser.profileImage}
+                  alt={profileUser.name}
+                />
                 <Name>{profileUser.name}</Name>
               </RequestInfo>
-              
+
               {isSender ? (
-                <StatusMessage>Aguardando confirmação...</StatusMessage>
+                <StatusMessage>{t("wait")}...</StatusMessage>
               ) : (
                 <ButtonGroup>
-                  <ActionButton 
+                  <ActionButton
                     className="accept"
-                    onClick={() => handleStatusChange(request.user.id, 'accepted')}
+                    onClick={() =>
+                      handleStatusChange(request.user.id, "accepted")
+                    }
                   >
-                    Aceitar
+                    {t("accept")}
                   </ActionButton>
-                  <ActionButton 
+                  <ActionButton
                     className="reject"
-                    onClick={() => handleStatusChange(request.user.id, 'rejected')}
+                    onClick={() =>
+                      handleStatusChange(request.user.id, "rejected")
+                    }
                   >
-                    Rejeitar
+                    {t("reject")}
                   </ActionButton>
                 </ButtonGroup>
               )}
@@ -160,7 +169,7 @@ const FriendRequests = ({ onUpdateRequests }) => {
           );
         })
       ) : (
-        <EmptyMessage>Nenhuma solicitação de amizade pendente.</EmptyMessage>
+        <EmptyMessage>{t("nopedingfriend")}</EmptyMessage>
       )}
     </RequestsContainer>
   );

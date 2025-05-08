@@ -11,10 +11,24 @@ export const getAllUsersRepository = async () => {
                 email: true,
                 createdAt: true,
                 profileImage: true,
+                GenreTextFromUser: {
+                    select: {
+                        genreText: {
+                            select: {
+                                name: true
+                            }
+                        }
+                    }
+                }
             }
         });
-        return users;
+
+        return users.map(user => ({
+            ...user,
+            genres: user.GenreTextFromUser.map(item => item.genreText.name)
+        }));
+
     } catch (error) {
         throw error;
     }
-}; 
+};

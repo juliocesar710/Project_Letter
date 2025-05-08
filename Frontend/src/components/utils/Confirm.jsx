@@ -1,5 +1,6 @@
-import React from "react";
 import styled from "styled-components";
+import ReactDOM from "react-dom";
+import { useTranslation } from "react-i18next";
 
 const Overlay = styled.div`
   position: fixed;
@@ -52,7 +53,9 @@ const Button = styled.button`
 `;
 
 const Confirm = ({ message, onConfirm, onCancel }) => {
-  return (
+  const { t } = useTranslation();
+
+  return ReactDOM.createPortal(
     <Overlay>
       <PopupContainer>
         <Message>{message}</Message>
@@ -64,12 +67,13 @@ const Confirm = ({ message, onConfirm, onCancel }) => {
               window.location.reload();
             }}
           >
-            Confirmar
+            {t("confirm")}
           </Button>
-          <Button onClick={onCancel}>Cancelar</Button>
+          <Button onClick={onCancel}>{t("cancel")}</Button>
         </ButtonContainer>
       </PopupContainer>
-    </Overlay>
+    </Overlay>,
+    document.body
   );
 };
 

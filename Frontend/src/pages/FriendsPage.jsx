@@ -4,6 +4,7 @@ import FriendsList from "../components/Friends/FriendsList";
 import FriendSearch from "../components/Friends/FriendSearch";
 import FriendRequests from "../components/Friends/FriendRequests";
 import AllUsersList from "../components/Friends/AllUsersList";
+import { useTranslation } from "react-i18next";
 
 const FriendsContainer = styled.div`
   padding: 20px;
@@ -11,6 +12,11 @@ const FriendsContainer = styled.div`
   background: ${({ theme }) => theme.colors.background};
   height: 100vh;
   overflow: auto;
+
+  @media (max-width: 768px) {
+    padding: 10px;
+    height: auto; // evita scroll desnecessário em mobile
+  }
 `;
 
 const FriendsHeader = styled.div`
@@ -18,12 +24,24 @@ const FriendsHeader = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-bottom: 30px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 20px;
+  }
 `;
 
 const TabsContainer = styled.div`
   display: flex;
   gap: 20px;
+  flex-wrap: wrap;
   margin-bottom: 30px;
+  justify-content: center;
+
+  @media (max-width: 768px) {
+    gap: 10px;
+  }
 `;
 
 const TabButton = styled.button`
@@ -41,14 +59,28 @@ const TabButton = styled.button`
     background: ${({ active, theme }) =>
       active ? theme.colors.primary : theme.colors.background};
   }
+
+  @media (max-width: 480px) {
+    flex: 1 1 auto;
+    font-size: 0.9rem;
+    padding: 8px 12px;
+  }
+`;
+
+const FriendSearchWrapper = styled.div`
+  flex-shrink: 0;
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 const FriendsPage = () => {
   const [activeTab, setActiveTab] = useState("friends");
   const [friends, setFriends] = useState([]);
   const [friendRequests, setFriendRequests] = useState([]);
-
   const [allUsers, setAllUsers] = useState([]);
+  const { t } = useTranslation();
 
   const handleAcceptRequest = (requestId) => {
     const request = friendRequests.find((req) => req.id === requestId);
@@ -96,22 +128,24 @@ const FriendsPage = () => {
             active={activeTab === "friends"}
             onClick={() => setActiveTab("friends")}
           >
-            Amigos
+            {t("friends")}
           </TabButton>
           <TabButton
             active={activeTab === "pending"}
             onClick={() => setActiveTab("pending")}
           >
-            Pendentes
+            {t("pending")}
           </TabButton>
           <TabButton
             active={activeTab === "users"}
             onClick={() => setActiveTab("users")}
           >
-            Usuários
+            {t("user")}
           </TabButton>
         </TabsContainer>
-        <FriendSearch />
+        <FriendSearchWrapper>
+          <FriendSearch />
+        </FriendSearchWrapper>
       </FriendsHeader>
 
       {activeTab === "friends" && <FriendsList friends={friends} />}

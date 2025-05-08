@@ -1,6 +1,7 @@
 import styled from "styled-components";
-import FriendRemoveButton from "../utils/RemoveFriendButton";
-import ViewProfileButton from "../utils/ViewProfileButton";
+import FriendRemoveButton from "../utils/Buttons/RemoveFriendButton";
+import ViewProfileButton from "../utils/Buttons/ViewProfileButton";
+import { useTranslation } from "react-i18next";
 
 const Card = styled.div`
   background-color: ${({ theme }) => theme.colors.background};
@@ -13,6 +14,13 @@ const Card = styled.div`
   align-items: center;
   gap: 15px;
   transition: transform 0.2s ease;
+  flex-wrap: wrap;
+
+  @media (max-width: 600px) {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px;
+  }
 `;
 
 const ProfileImage = styled.img`
@@ -21,10 +29,19 @@ const ProfileImage = styled.img`
   border-radius: 50%;
   object-fit: cover;
   background-color: ${({ theme }) => theme.colors.backgroundSecondary};
+
+  @media (max-width: 600px) {
+    width: 50px;
+    height: 50px;
+  }
 `;
 
 const FriendInfo = styled.div`
   flex: 1;
+
+  @media (max-width: 600px) {
+    width: 100%;
+  }
 `;
 
 const Name = styled.h3`
@@ -45,12 +62,19 @@ const Status = styled.p`
   font-size: 0.9rem;
 `;
 
+
 const ButtonsContainer = styled.div`
   display: flex;
   gap: 10px;
+
+  @media (max-width: 600px) {
+    flex-direction: column;
+    width: 100%;
+  }
 `;
 
 const FriendCard = ({ friend, onFriendRemoved }) => {
+  const { t } = useTranslation();
   return (
     <>
       <Card>
@@ -68,11 +92,14 @@ const FriendCard = ({ friend, onFriendRemoved }) => {
         <FriendInfo>
           <Name>{friend.name || "Usuário"}</Name>
           <Email>{friend.email || "email@gmail.com"}</Email>
-          <Status>Pedido de amizade: {friend.status || "Online"}</Status>
+          <Status>
+            {t("friendship")}: {friend.status || "Online"}
+          </Status>
         </FriendInfo>
         <ButtonsContainer>
-          <ViewProfileButton userId={friend.id} />
+          <ViewProfileButton label={t("viewprofile")} userId={friend.id} />
           <FriendRemoveButton
+            label={t("removefriend")}
             friend={friend}
             onFriendRemoved={onFriendRemoved}
           />

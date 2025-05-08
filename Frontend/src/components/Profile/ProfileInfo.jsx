@@ -2,7 +2,10 @@ import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { format } from "date-fns";
-import { ptBR } from "date-fns/locale";
+import { useTranslation } from "react-i18next";
+import { getCurrentLocale } from "../../i18n";
+import { Edit, Users } from "lucide-react";
+
 
 const InfoCard = styled.div`
   background-color: ${({ theme }) => theme.colors.background};
@@ -69,6 +72,7 @@ const ProfileHeader = styled.div`
 
 const ProfileInfo = ({ user }) => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const handleEditProfile = () => {
     navigate("/edit-profile");
@@ -78,13 +82,13 @@ const ProfileInfo = ({ user }) => {
     navigate("/friends");
   }
 
-  let formattedBirthDate = "Data de nascimento não informada";
+  let formattedBirthDate = t("date of birth not provided");
 
   if (user.birthDate) {
     const parsedDate = new Date(user.birthDate);
     if (!isNaN(parsedDate)) {
-      formattedBirthDate = format(parsedDate, "dd 'de' MMMM 'de' yyyy", {
-        locale: ptBR,
+      formattedBirthDate = format(parsedDate, "dd  MMMM  yyyy", {
+        locale: getCurrentLocale(),
       });
     }
   }
@@ -93,28 +97,36 @@ const ProfileInfo = ({ user }) => {
     <InfoCard>
       <ProfileHeader>
         <ProfileImage src={user.profileImage} alt={`${user.name} profile`} />
-        <ProfileButton onClick={handleFriendsClick}>Amigos</ProfileButton>
+        <ProfileButton onClick={handleFriendsClick}>
+          <Users />
+        </ProfileButton>
       </ProfileHeader>
 
       <Section>
-        <ProfileButton onClick={handleEditProfile}>Editar Perfil</ProfileButton>
-        <SectionTitle>Informações Pessoais</SectionTitle>
-        <SectionContent>Nome: {user.name}</SectionContent>
-        <SectionContent>Email: {user.email}</SectionContent>
+        <ProfileButton onClick={handleEditProfile}>
+          <Edit />
+        </ProfileButton>
+        <SectionTitle>{t("personal information")}</SectionTitle>
         <SectionContent>
-          Data de Nascimento: {formattedBirthDate}
+          {t("name")}: {user.name}
+        </SectionContent>
+        <SectionContent>
+          {t("email")}: {user.email}
+        </SectionContent>
+        <SectionContent>
+          {t("date of birth")}: {formattedBirthDate}
         </SectionContent>
       </Section>
       <Section>
-        <SectionTitle>Biografia</SectionTitle>
+        <SectionTitle>{t("biography")}</SectionTitle>
         <SectionContent>{user.bio}</SectionContent>
       </Section>
       <Section>
-        <SectionTitle>Interesses</SectionTitle>
+        <SectionTitle>{t("interests")}</SectionTitle>
         <SectionContent>
-          {user.interests && user.interests.length > 0
+            {user.interests && user.interests.length > 0
             ? user.interests.join(", ")
-            : "Nenhum interesse cadastrado."}
+            : t("no interest registered.")}
         </SectionContent>
       </Section>
     </InfoCard>

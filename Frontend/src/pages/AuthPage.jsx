@@ -1,6 +1,7 @@
 import React from "react";
 import AuthTabs from "../components/Auth/AuthTabs";
 import styled from "styled-components";
+import { useTranslation } from "react-i18next";
 
 const PageContainer = styled.div`
   display: flex;
@@ -18,10 +19,12 @@ const Heading = styled.h1`
 `;
 
 const AuthPage = () => {
+
+  const { t } = useTranslation();
   return (
     <PageContainer>
       <div>
-        <Heading>Bem-vindo!</Heading>
+        <Heading>{t("welcome")}</Heading>
         <AuthTabs />
       </div>
     </PageContainer>

@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import ProfileInfo from "../components/profile/ProfileInfo";
 import PostList from "../components/profile/PostList";
-import Cookies from "js-cookie";
-import { useNavigate } from "react-router-dom";
-import { userDelete } from "../api/Auth/userDelete";
-import { getUserGenresText } from "../api/GenreText/genreTextGet";
 import Confirm from "../components/utils/Confirm";
+import { usePosts } from "../Hooks/usePosts";
+import { useProfile } from "../Hooks/useProfile";
+import  LanguageSwitcher  from "../components/utils/Buttons/LanguageSwitcherButton";
+import { useTranslation } from "react-i18next";
 
 const PageContainer = styled.div`
   display: flex;
@@ -19,13 +19,27 @@ const PageContainer = styled.div`
     ${({ theme }) => theme.colors.border}
   );
   position: relative;
+  flex-wrap: wrap; // Garante que elementos quebrem linha se necessário
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+  }
 `;
 
 const ProfileSection = styled.div`
   flex: 1;
   max-width: 20%;
   margin-right: 20px;
+
+  @media (max-width: 768px) {
+    max-width: 100%;
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
 `;
+
 
 const SettingsIcon = styled.div`
   position: absolute;
@@ -34,6 +48,8 @@ const SettingsIcon = styled.div`
   cursor: pointer;
   font-size: 24px;
   color: ${({ theme }) => theme.colors.primaryDark};
+  z-index: 10;
+
 
   &:hover {
     color: ${({ theme }) => theme.colors.primary};
@@ -50,6 +66,8 @@ const Menu = styled.div`
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   z-index: 10;
   display: ${({ isOpen }) => (isOpen ? "block" : "none")};
+  margin:1rem;
+  padding:1rem;
 `;
 
 const MenuItem = styled.div`
@@ -64,101 +82,41 @@ const MenuItem = styled.div`
 
 const ProfilePage = ({ toggleTheme }) => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [confirmDelete, setConfirmDelete] = useState(false);
-  const [userGenres, setUserGenres] = useState([]);
-  const navigate = useNavigate();
+  const { t } = useTranslation();
 
-  useEffect(() => {
-    const fetchUserGenres = async () => {
-      try {
-        const genres = await getUserGenresText();
-        setUserGenres(genres.map((genre) => genre.genreName));
-      } catch (error) {
-        console.error("Erro ao buscar gêneros textuais do usuário:", error);
-      }
-    };
-
-    fetchUserGenres();
-  }, []);
-
-  const handleLogout = () => {
-    Cookies.remove("authToken");
-    Cookies.remove("userData");
-    navigate("/auth");
-  };
-
-  const handleDeleteAccount = () => {
-    setConfirmDelete(true);
-  };
-
-  const confirmDeleteAccount = () => {
-    const userId = JSON.parse(Cookies.get("userData") || "{}").id;
-    userDelete(userId)
-      .then(() => {
-        Cookies.remove("authToken");
-        Cookies.remove("userData");
-        navigate("/auth");
-      })
-      .catch((error) => {
-        console.error("Erro ao deletar conta:", error);
-      })
-      .finally(() => {
-        setConfirmDelete(false);
-      });
-  };
-
-  const cancelDeleteAccount = () => {
-    setConfirmDelete(false);
-  };
+  const { posts, loading, error } = usePosts();
+  const {
+    user,
+    confirmDelete,
+    handleLogout,
+    handleDeleteAccount,
+    confirmDeleteAccount,
+    cancelDeleteAccount,
+  } = useProfile();
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
 
-  
-
-  const userData = JSON.parse(Cookies.get("userData") || "{}");
-
-  const user = {
-    name: userData.name || "Usuário",
-    email: userData.email || "email@exemplo.com",
-    bio: userData.description || "Sem biografia disponível.",
-    birthDate: userData.birthDate || "Data de nascimento não informada.",
-    profileImage:
-      userData.profileImage ||
-      "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0e/d9/fa/1b/lost-valley.jpg?w=900&h=500&s=1",
-    interests: userGenres,
-    posts: [
-      {
-        id: 1,
-        title: "Meu primeiro post",
-        content: "Este é o conteúdo do meu primeiro post!",
-      },
-      {
-        id: 2,
-        title: "Explorando React",
-        content: "Hoje aprendi sobre styled-components e React Hooks.",
-      },
-    ],
-  };
-
-  console.log("User data:", userData);
+  if (loading) return <p>Carregando...</p>;
+  if (error) return <p>{error}</p>;
 
   return (
     <PageContainer>
       <SettingsIcon onClick={toggleMenu}>⚙️</SettingsIcon>
       <Menu isOpen={menuOpen}>
-        <MenuItem onClick={handleLogout}>Logout</MenuItem>
-        <MenuItem onClick={handleDeleteAccount}>Deletar Conta</MenuItem>
-        <MenuItem onClick={toggleTheme}>Alternar Tema</MenuItem>
+        <MenuItem onClick={handleLogout}>{t("logout")}</MenuItem>
+        <MenuItem onClick={handleDeleteAccount}>{t("deleteAccount")}</MenuItem>
+        <MenuItem onClick={toggleTheme}>{t("toggleTheme")}</MenuItem>
+        <LanguageSwitcher />
       </Menu>
       <ProfileSection>
         <ProfileInfo user={user} />
       </ProfileSection>
-      <PostList posts={user.posts} />
+      <PostList posts={posts} />
       {confirmDelete && (
         <Confirm
-          message="Tem certeza que deseja deletar sua conta?"
+          message={t("confirmDeleteAccount")}
           onConfirm={confirmDeleteAccount}
           onCancel={cancelDeleteAccount}
         />

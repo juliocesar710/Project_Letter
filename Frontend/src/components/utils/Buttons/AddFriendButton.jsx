@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { inviteFriend } from "../../api/Friends/friendsInvite";
-
-
+import { inviteFriend } from "../../../api/Friends/friendsInvite";
 
 const ActionButton = styled.button`
   padding: 8px 15px;
@@ -31,19 +29,17 @@ const AddFriendButton = ({ friendId, onSuccess, children }) => {
     } catch (err) {
       console.error("Erro ao adicionar amigo:", err);
     } finally {
-      setLoading(false);
+      // Adiciona um delay de 1 segundo antes de desativar o loading
+      setTimeout(() => {
+        setLoading(false);
+      }, 1000);
     }
   };
 
   return (
-    <>
-    
-      
-      <ActionButton onClick={handleAdd} disabled={loading}>
-       
-        {loading ? "..." : children}
-      </ActionButton>
-    </>
+    <ActionButton onClick={handleAdd} disabled={loading}>
+      {loading ? "..." : children}
+    </ActionButton>
   );
 };
 

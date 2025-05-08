@@ -22,7 +22,7 @@ const StyledButton = styled.button`
   }
 `;
 
-const ViewProfileButton = ({ userId, label = "Ver Perfil", icon = true }) => {
+const ViewProfileButton = ({ userId, label, icon = true }) => {
   const navigate = useNavigate();
 
   const handleClick = (e) => {
