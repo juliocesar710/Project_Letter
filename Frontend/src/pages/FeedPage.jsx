@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 import SidebarUserInfo from "../components/Feed/SidebarUserInfo";
-//import FriendsPosts from "../components/Feed/FriendsPosts";
+import FriendsPosts from "../components/Feed/FriendsPosts";
 import InterestPosts from "../components/Feed/InterestPosts";
 import AllPosts from "../components/Feed/AllPosts";
 
@@ -59,7 +59,7 @@ const FeedPage = () => {
   const renderContent = () => {
     switch (selectedTab) {
       case "friends":
-        return <h1>Friends Posts</h1> ;
+        return <FriendsPosts />;
       case "interests":
         return <InterestPosts/>;
       case "all":
