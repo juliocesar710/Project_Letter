@@ -8,6 +8,7 @@ import PrivateRoute from "./PrivateRoute";
 import FriendsPage from "../pages/FriendsPage";
 import FriendProfile from "../pages/FriendProfile";
 import FeedPage from "../pages/FeedPage";
+import CreatePostForm from "../components/Post/CreatePostForm.jsx";
 
 const AppRouter = ({ toggleTheme }) => {
   return (
@@ -55,6 +56,19 @@ const AppRouter = ({ toggleTheme }) => {
             </PrivateRoute>
           }
         ></Route>
+        <Route
+        path="create-post"
+        element={
+          <PrivateRoute>
+            <CreatePostForm />
+          </PrivateRoute>
+        }
+        ></Route>
+        <Route
+
+        >
+          
+        </Route>
       </Routes>
     </Router>
   );
