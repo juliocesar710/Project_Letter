@@ -9,6 +9,7 @@ const PostCardContainer = styled.div`
   margin-bottom: 20px;
   box-shadow: ${({ theme }) => theme.shadows.light};
   transition: transform 0.2s ease;
+  width:100%;
 
   &:hover {
     transform: scale(1.02);
@@ -69,7 +70,6 @@ const ReadMoreButton = styled.button`
   }
 `;
 
-// Componente para texto truncado com "Ler mais"
 const ExpandableText = ({ text, maxLength = 150 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   
@@ -98,7 +98,6 @@ const PostCard = ({ post }) => {
     <PostCardContainer>
       <PostTitle>{title}</PostTitle>
       
-      {/* Substituímos o PostContent pelo ExpandableText */}
       <ExpandableText text={description} maxLength={100} />
       
       <PostImage

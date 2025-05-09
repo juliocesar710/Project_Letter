@@ -8,7 +8,7 @@ import Cookies from "js-cookie";
 
 
 const FeedContainer = styled.div`
-  width:100%;
+  width: 100%;
   margin: 2rem auto;
   padding: 0 1rem;
 `;
@@ -80,7 +80,7 @@ const EmptyStateText = styled.p`
   margin-bottom: 1rem;
 `;
 
-const AllPosts = () => {
+const InterestPosts = () => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -88,21 +88,29 @@ const AllPosts = () => {
   console.log(userData.id);
   console.log(userData)
 
+useEffect(() => {
+  const fetchData = async () => {
+    try {
+      const allPosts = await getAllPosts();
+      const interests = userData.genreTexts || [];
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const allPosts = await getAllPosts();
-        setPosts(allPosts);
-      } catch (error) {
-        console.error("Erro ao buscar posts:", error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
+      const filteredPosts = allPosts.filter(post =>
+        post.genreTexts?.some(postGenre =>
+          interests.includes(postGenre.name)
+        )
+      );
 
-    fetchData();
-  }, []);
+      setPosts(filteredPosts);
+    } catch (error) {
+      console.error("Erro ao buscar posts:", error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchData();
+}, [userData.genreTexts]);
+
 
   if (loading) return <LoadingText>Carregando posts...</LoadingText>;
 
@@ -136,4 +144,4 @@ const AllPosts = () => {
   );
 };
 
-export default AllPosts;
+export default InterestPosts;

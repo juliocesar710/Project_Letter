@@ -2,7 +2,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import SidebarUserInfo from "../components/Feed/SidebarUserInfo";
 //import FriendsPosts from "../components/Feed/FriendsPosts";
-//import InterestPosts from "../components/Feed/InterestPosts";
+import InterestPosts from "../components/Feed/InterestPosts";
 import AllPosts from "../components/Feed/AllPosts";
 
 const Container = styled.div`
@@ -61,7 +61,7 @@ const FeedPage = () => {
       case "friends":
         return <h1>Friends Posts</h1> ;
       case "interests":
-        return <h1 >Interest Posts</h1>;
+        return <InterestPosts/>;
       case "all":
         return <AllPosts/>
       default:
