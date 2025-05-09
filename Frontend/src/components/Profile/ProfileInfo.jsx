@@ -3,8 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { format } from "date-fns";
 import { useTranslation } from "react-i18next";
 import { getCurrentLocale } from "../../i18n";
-import { Edit, Users } from "lucide-react";
-
+import { Edit, Users, Book } from "lucide-react";
 
 const InfoCard = styled.div`
   background-color: ${({ theme }) => theme.colors.background};
@@ -69,6 +68,33 @@ const ProfileHeader = styled.div`
   width: 100%;
 `;
 
+const TooltipWrapper = styled.div`
+  position: relative;
+  display: inline-block;
+
+  &:hover span {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  span {
+    visibility: hidden;
+    background-color: ${({ theme }) => theme.colors.primaryDark};
+    color: #fff;
+    text-align: center;
+    padding: 5px 8px;
+    border-radius: 4px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%; /* acima do botão */
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    white-space: nowrap;
+  }
+`;
+
 const ProfileInfo = ({ user }) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
@@ -79,7 +105,11 @@ const ProfileInfo = ({ user }) => {
 
   const handleFriendsClick = () => {
     navigate("/friends");
-  }
+  };
+
+  const handleFeedClick = () => {
+    navigate("/feed");
+  };
 
   let formattedBirthDate = t("date of birth not provided");
 
@@ -96,15 +126,28 @@ const ProfileInfo = ({ user }) => {
     <InfoCard>
       <ProfileHeader>
         <ProfileImage src={user.profileImage} alt={`${user.name} profile`} />
-        <ProfileButton onClick={handleFriendsClick}>
-          <Users />
-        </ProfileButton>
+        <TooltipWrapper>
+          <ProfileButton onClick={handleFriendsClick}>
+            <Users />
+          </ProfileButton>
+          <span>{t("friends")}</span>
+        </TooltipWrapper>
+
+        <TooltipWrapper>
+          <ProfileButton onClick={handleFeedClick}>
+            <Book />
+          </ProfileButton>
+          <span>{t("feed")}</span>
+        </TooltipWrapper>
       </ProfileHeader>
 
       <Section>
-        <ProfileButton onClick={handleEditProfile}>
-          <Edit />
-        </ProfileButton>
+        <TooltipWrapper>
+          <ProfileButton onClick={handleEditProfile}>
+            <Edit />
+          </ProfileButton>
+          <span>{t("edit profile")}</span>
+        </TooltipWrapper>
         <SectionTitle>{t("personal information")}</SectionTitle>
         <SectionContent>
           {t("name")}: {user.name}
@@ -123,7 +166,7 @@ const ProfileInfo = ({ user }) => {
       <Section>
         <SectionTitle>{t("interests")}</SectionTitle>
         <SectionContent>
-            {user.interests && user.interests.length > 0
+          {user.interests && user.interests.length > 0
             ? user.interests.join(", ")
             : t("no interest registered.")}
         </SectionContent>

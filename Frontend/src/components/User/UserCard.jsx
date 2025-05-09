@@ -2,6 +2,7 @@ import styled from "styled-components";
 import FriendRemoveButton from "../utils/Buttons/RemoveFriendButton";
 import AddFriendButton from "../utils/Buttons/AddFriendButton.jsx";
 import { useTranslation } from "react-i18next";
+import {UserPlus} from "lucide-react"
 
 const Card = styled.div`
   background: ${({ theme }) => theme.colors.background};
@@ -16,12 +17,15 @@ const Card = styled.div`
   gap: 12px;
   transition: all 0.3s ease;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  
+  position: relative;
+  min-height: 380px;
+
   &:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
   }
 `;
+
 
 const Avatar = styled.img`
   width: 100px;
@@ -34,6 +38,8 @@ const Avatar = styled.img`
 
 const Name = styled.h4`
   margin: 0;
+  width: 100%;
+  text-align: center;
   font-size: 1.2rem;
   font-weight: 600;
   color: ${({ theme }) => theme.colors.primaryText};
@@ -55,6 +61,14 @@ const GenreTag = styled.span`
   font-size: 1rem;
 `;
 
+const LayoutButton = styled.div`
+  margin-top: auto;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+`;
+
+
 export const UserCard = ({ user, isFriend, friendshipId, onAdd, onRemove }) => {
   const { t } = useTranslation();
 
@@ -71,29 +85,35 @@ export const UserCard = ({ user, isFriend, friendshipId, onAdd, onRemove }) => {
             "https://cdn.vectorstock.com/i/1000v/66/13/default-avatar-profile-icon-social-media-user-vector-49816613.jpg";
         }}
       />
-      
+
       <Name>{user.name}</Name>
-      
+
       {user.genres?.length > 0 && (
+        
         <GenresContainer>
+              <Name> {t("interests")}</Name>
+ 
           {user.genres.slice(0, 3).map((genre, idx) => (
             <GenreTag key={idx}>{genre}</GenreTag>
           ))}
-          {user.genres.length > 3 && <GenreTag>+{user.genres.length - 3}</GenreTag>}
+          {user.genres.length > 3 && (
+            <GenreTag>+{user.genres.length - 3}</GenreTag>
+          )}
         </GenresContainer>
       )}
-      
-      {isFriend ? (
-        <FriendRemoveButton
-          friend={{ ...user, friendshipId }}
-          onFriendRemoved={onRemove}
-          label={t("removefriend")}
-        />
-      ) : (
-        <AddFriendButton friendId={user.id} onSuccess={onAdd}>
-          {t("addfriend")}
-        </AddFriendButton>
-      )}
+      <LayoutButton>
+        {isFriend ? (
+          <FriendRemoveButton
+            friend={{ ...user, friendshipId }}
+            onFriendRemoved={onRemove}
+            label={t("removefriend")}
+          />
+        ) : (
+          <AddFriendButton friendId={user.id} onSuccess={onAdd}>
+            {t("addfriend")}
+          </AddFriendButton>
+        )}
+      </LayoutButton>
     </Card>
   );
 };
