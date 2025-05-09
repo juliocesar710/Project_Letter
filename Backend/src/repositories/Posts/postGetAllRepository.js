@@ -8,6 +8,13 @@ export const getAllPostsRepository = async () => {
           id: true,
           name: true,
           email: true,
+          profileImage: true,
+        },
+      },
+      genreTexts: {
+        select: {
+          id: true,
+          name: true,
         },
       },
     },

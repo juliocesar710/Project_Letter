@@ -1,0 +1,81 @@
+// src/components/SidebarUserInfo.tsx ou .jsx
+import styled from "styled-components";
+import { useProfile } from "../../Hooks/useProfile";
+
+const Container = styled.div`
+  padding: 1rem;
+  text-align: center;
+`;
+
+const ProfileImage = styled.img`
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 0.5rem;
+`;
+
+const UserName = styled.h2`
+  font-size: 1.2rem;
+  margin: 0.5rem 0;
+`;
+
+const Bio = styled.p`
+  font-size: 0.9rem;
+  color: ${({ theme }) => theme.colors.textSecondary};
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+`;
+
+const GenreList = styled.div`
+  margin-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  justify-content: center;
+`;
+
+const GenreTag = styled.span`
+  background-color: ${({ theme }) => theme.colors.primaryLight};
+  color: ${({ theme }) => theme.colors.onPrimary};
+  padding: 0.3rem 0.6rem;
+  border-radius: 1rem;
+  font-size: 0.75rem;
+`;
+
+const Button = styled.button`
+  margin-top: 1rem;
+  padding: 0.4rem 1rem;
+  background-color: ${({ theme }) => theme.colors.primary};
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.primaryDark};
+  }
+`;
+
+const SidebarUserInfo = () => {
+  const { user, handleLogout } = useProfile();
+
+  return (
+    <Container>
+      <ProfileImage src={user.profileImage} alt="Foto do usuário" />
+      <UserName>{user.name}</UserName>
+      <Bio>{user.bio}</Bio>
+      <GenreList>
+        {user.interests.map((genre, index) => (
+          <GenreTag key={index}>#{genre}</GenreTag>
+        ))}
+      </GenreList>
+      <Button onClick={handleLogout}>Sair</Button>
+    </Container>
+  );
+};
+
+export default SidebarUserInfo;

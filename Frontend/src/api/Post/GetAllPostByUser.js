@@ -10,7 +10,7 @@ export const getAllPostByUser = async () => {
   } catch (error) {
     if (error.response && error.response.status === 404) {
       console.warn("Nenhum post encontrado para este usuário.");
-      return []; // Trata como lista vazia
+      return []; 
     }
 
     console.error("Erro ao obter posts:", error);
