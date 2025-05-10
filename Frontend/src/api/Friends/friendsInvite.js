@@ -5,7 +5,7 @@ export const inviteFriend = async (friendId) => {
     try {
         const token = Cookies.get("authToken");
         api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-        console.log("dados1111111111: ", friendId)
+       
         const response = await api.post("/friendShip/invite", {friendId});
         
         return response.data;

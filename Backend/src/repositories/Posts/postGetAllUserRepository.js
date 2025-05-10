@@ -11,6 +11,13 @@ export const getAllPostsByUserRepository = async (userId) => {
           email: true,
         },
       },
+      genreTexts: {
+        select: {
+          id: true,
+          name: true,
+          
+        },
+      },
     },
   });
 };

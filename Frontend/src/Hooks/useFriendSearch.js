@@ -45,7 +45,7 @@ export const useFriendSearch = (currentUserId) => {
         setResults(users);
       }, 1000);
     } catch (error) {
-      console.log(error);
+      console.error(error);
       setResults([]);
     }
   };

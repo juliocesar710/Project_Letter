@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import { inviteFriend } from "../../../api/Friends/friendsInvite";
 
@@ -29,7 +29,6 @@ const AddFriendButton = ({ friendId, onSuccess, children }) => {
     } catch (err) {
       console.error("Erro ao adicionar amigo:", err);
     } finally {
-      // Adiciona um delay de 1 segundo antes de desativar o loading
       setTimeout(() => {
         setLoading(false);
       }, 1000);

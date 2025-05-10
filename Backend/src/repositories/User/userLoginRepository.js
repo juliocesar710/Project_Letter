@@ -5,11 +5,21 @@ export const findUserByEmailRepository = async (email) => {
     where: {
       email,
     },
+    include: {
+      GenreTextFromUser: {
+        include: {
+          genreText: true,
+        },
+      },
+    },
   });
 
   if (!user) {
-    throw new Error("User not found to here");
+    throw new Error("User not found");
   }
 
-  return user;
+  return {
+    ...user,
+    genreTexts: user.GenreTextFromUser.map((item) => item.genreText.name),
+  };
 };

@@ -172,6 +172,7 @@ const HomePage = () => {
 
   const handleExplore = () => {
     document.getElementById("features")?.scrollIntoView({ behavior: "smooth" });
+    navigate("/auth");
   };
 
   return (

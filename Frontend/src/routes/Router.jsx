@@ -1,4 +1,3 @@
-import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import ProfilePage from "../pages/ProfilePage";
 import AuthPage from "../pages/AuthPage";
@@ -7,6 +6,9 @@ import HomePage from "../pages/HomePage";
 import PrivateRoute from "./PrivateRoute";
 import FriendsPage from "../pages/FriendsPage";
 import FriendProfile from "../pages/FriendProfile";
+import FeedPage from "../pages/FeedPage";
+import CreatePostForm from "../components/Post/CreatePostForm.jsx";
+import PostDetailPage from "../components/Post/PostDetailPage.jsx"; 
 
 const AppRouter = ({ toggleTheme }) => {
   return (
@@ -46,6 +48,32 @@ const AppRouter = ({ toggleTheme }) => {
             </PrivateRoute>
           }
         />
+        <Route
+          path="/feed"
+          element={
+            <PrivateRoute>
+              <FeedPage />
+            </PrivateRoute>
+          }
+        ></Route>
+        <Route
+        path="create-post"
+        element={
+          <PrivateRoute>
+            <CreatePostForm />
+          </PrivateRoute>
+        }
+        ></Route>
+        <Route
+          path="/post/:id"
+          element={
+            <PrivateRoute>
+              <PostDetailPage />
+            </PrivateRoute>
+          }
+        >
+          
+        </Route>
       </Routes>
     </Router>
   );

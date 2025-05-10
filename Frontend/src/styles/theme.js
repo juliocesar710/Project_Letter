@@ -31,6 +31,7 @@ export const lightTheme = {
     borderFocus: '#a39e93',
     text: '#333',
     error: '#c17a7a',
+    errorDark: '#a05252',
   },
   ...common,
 };
