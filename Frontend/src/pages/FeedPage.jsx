@@ -4,6 +4,9 @@ import SidebarUserInfo from "../components/Feed/SidebarUserInfo";
 import FriendsPosts from "../components/Feed/FriendsPosts";
 import InterestPosts from "../components/Feed/InterestPosts";
 import AllPosts from "../components/Feed/AllPosts";
+import SearchBar from "../components/Post/SearchBar";
+import SearchResultCard from "../components/Post/SearchResultCard";
+import { useSearchPosts } from "../Hooks/useSearchPosts";
 
 const Container = styled.div`
   display: flex;
@@ -55,15 +58,16 @@ const SideBarRight = styled.aside`
 
 const FeedPage = () => {
   const [selectedTab, setSelectedTab] = useState("friends");
+  const { results, loading, search } = useSearchPosts();
 
   const renderContent = () => {
     switch (selectedTab) {
       case "friends":
         return <FriendsPosts />;
       case "interests":
-        return <InterestPosts/>;
+        return <InterestPosts />;
       case "all":
-        return <AllPosts/>
+        return <AllPosts />;
       default:
         return null;
     }
@@ -96,11 +100,23 @@ const FeedPage = () => {
             Todos
           </TabButton>
         </Tabs>
+        <div>
+          <SearchBar onSearch={search} />
+          {loading ? (
+            <p>Carregando...</p>
+          ) : (
+            results.map((post) => (
+              <SearchResultCard key={post.id} post={post} />
+            ))
+          )}
+        </div>
 
         {renderContent()}
       </MainContent>
 
-      <SideBarRight><h1>Em breve sugestões de livros e Rankings</h1></SideBarRight>
+      <SideBarRight>
+        <h1>Em breve sugestões de livros e Rankings</h1>
+      </SideBarRight>
     </Container>
   );
 };

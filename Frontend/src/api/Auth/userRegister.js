@@ -3,8 +3,7 @@ import api from '../Config/apiClient';
 export const signup = async (userData) => {
   try {
     const response = await api.post('/auth/register', userData);
-    console.log('Usuário registrado com sucesso:', response.data);
-    console.log("response.data", response.data);
+  
     return response.data; 
     
   } catch (error) {

@@ -7,7 +7,7 @@ export const postUser = async (user) => {
      const token = Cookies.get("authToken");
     api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     const response = await api.post("/api/post", user);
-    console.log("response", response.data);
+   
     return response.data;
   } catch (error) {
     console.error("Erro ao criar post:", error);

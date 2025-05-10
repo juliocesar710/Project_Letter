@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { postUser } from "../api/Post/PostUser"; 
+import { getAllPosts } from "../api/Post/GetAllPosts"; 
 import { useTranslation } from "react-i18next";
 
 export const usePostForm = () => {
@@ -35,8 +35,7 @@ export const usePostForm = () => {
         genreTexts: selectedGenres, // Pegando do estado dedicado
       };
       
-      console.log("Payload corrigido: ", payload);
-      await postUser(payload);
+      await getAllPosts(payload);
       setSuccessMessage(t("postcreatedsuccess") || "Post criado com sucesso!");
       setFormData({
         title: "",

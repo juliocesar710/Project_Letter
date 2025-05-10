@@ -1,7 +1,7 @@
 import { getAllPostsRepository } from "../../repositories/Posts/postGetAllRepository.js";
 
-export const getAllPostsService = async () => {
-  const posts = await getAllPostsRepository();
-  console.log("posts: ",posts);
+export const getAllPostsService = async (filters) => {
+  const posts = await getAllPostsRepository(filters);
+ 
   return posts || [];
 };

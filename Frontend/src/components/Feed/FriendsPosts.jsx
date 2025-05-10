@@ -85,8 +85,7 @@ const FriendsPosts = () => {
   const [loading, setLoading] = useState(true);
 
   const userData = JSON.parse(Cookies.get("userData") || "{}");
-  console.log(userData.id);
-  console.log(userData);
+
 
 useEffect(() => {
   const fetchData = async () => {
@@ -97,7 +96,7 @@ useEffect(() => {
       const allPosts = await getAllPosts();
 
       const filteredPosts = allPosts.filter((post) =>
-        friendIds.includes(post.user.id) || post.user.id === userData.id //posto do user logado
+        friendIds.includes(post.user.id) || post.user.id === userData.id 
       );
 
       setPosts(filteredPosts);

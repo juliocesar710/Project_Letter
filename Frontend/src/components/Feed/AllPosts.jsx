@@ -84,9 +84,7 @@ const AllPosts = () => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const userData = JSON.parse(Cookies.get("userData") || "{}");
-  console.log(userData.id);
-  console.log(userData)
+  
 
 
   useEffect(() => {
