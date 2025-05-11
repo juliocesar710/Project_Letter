@@ -59,7 +59,9 @@ const FriendsList = () => {
 
   return (
     <ListContainer>
-      <SectionTitle>{t("myfriends")}</SectionTitle>
+      <SectionTitle>{t("myfriends")} 
+         ( { friends.length} )
+      </SectionTitle>
       {friends.length > 0 ? (
         friends.map((friend) => (
           <FriendCard

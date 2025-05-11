@@ -98,7 +98,6 @@ const FriendProfile = () => {
     const fetchFriendProfile = async () => {
       try {
         const data = await getFriendProfile(friendId);
-        console.log("data: ", data);
         setFriend(data);
       } catch (err) {
         setError(err.error || "Erro ao carregar perfil");

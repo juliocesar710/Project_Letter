@@ -12,7 +12,7 @@ export const deleteFriendship = async (friendId) => {
         }
 
         api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-        console.log("dados: ", userId, friendId)
+       
         const response = await api.delete("/friendShip/delete", {
             data: { userId, friendId }
         });

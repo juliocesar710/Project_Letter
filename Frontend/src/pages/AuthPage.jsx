@@ -1,4 +1,3 @@
-import React from "react";
 import AuthTabs from "../components/Auth/AuthTabs";
 import styled from "styled-components";
 import { useTranslation } from "react-i18next";

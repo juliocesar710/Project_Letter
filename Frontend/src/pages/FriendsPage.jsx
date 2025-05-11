@@ -129,6 +129,7 @@ const FriendsPage = () => {
             onClick={() => setActiveTab("friends")}
           >
             {t("friends")}
+            
           </TabButton>
           <TabButton
             active={activeTab === "pending"}

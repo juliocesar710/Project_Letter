@@ -1,9 +1,10 @@
-import React from "react";
 import styled from "styled-components";
 import PostCard from "./PostCard";
 import { useTranslation } from "react-i18next";
+import CreatePostButton from "../utils/Buttons/CreatePostButton";
 
 const PostsContainer = styled.div`
+  
   flex: 2;
   max-width: 600px;
   padding: 1rem;
@@ -20,8 +21,10 @@ const EmptyMessage = styled.p`
 
 const PostList = ({ posts }) => {
   const { t } = useTranslation();
+
   return (
     <PostsContainer>
+      <CreatePostButton />
       {posts.length === 0 ? (
         <EmptyMessage>{t("no posts found")}</EmptyMessage>
       ) : (

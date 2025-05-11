@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import ProfileInfo from "../components/profile/ProfileInfo";
 import PostList from "../components/profile/PostList";

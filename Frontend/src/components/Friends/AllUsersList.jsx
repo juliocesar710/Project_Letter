@@ -1,5 +1,4 @@
 // components/User/AllUsersList.jsx
-import React from "react";
 import styled from "styled-components";
 import { useUsersAndFriends } from "../../Hooks/useUsersAndFriends";
 import { UserCard } from "../User/UserCard";
