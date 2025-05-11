@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import FriendsList from "../components/Friends/FriendsList";
 import FriendSearch from "../components/Friends/FriendSearch";
@@ -69,6 +69,9 @@ const TabButton = styled.button`
 
 const FriendSearchWrapper = styled.div`
   flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   @media (max-width: 768px) {
     width: 100%;

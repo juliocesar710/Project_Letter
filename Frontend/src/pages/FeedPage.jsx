@@ -1,11 +1,14 @@
 import { useState } from "react";
 import styled from "styled-components";
+
 import SidebarUserInfo from "../components/Feed/SidebarUserInfo";
 import FriendsPosts from "../components/Feed/FriendsPosts";
 import InterestPosts from "../components/Feed/InterestPosts";
 import AllPosts from "../components/Feed/AllPosts";
 import SearchBar from "../components/Post/SearchBar";
 import SearchResultCard from "../components/Post/SearchResultCard";
+import { useTranslation } from "react-i18next";
+
 import { useSearchPosts } from "../Hooks/useSearchPosts";
 
 const Container = styled.div`
@@ -59,6 +62,7 @@ const SideBarRight = styled.aside`
 const FeedPage = () => {
   const [selectedTab, setSelectedTab] = useState("friends");
   const { results, loading, search } = useSearchPosts();
+  const { t } = useTranslation();
 
   const renderContent = () => {
     switch (selectedTab) {
@@ -85,25 +89,25 @@ const FeedPage = () => {
             active={selectedTab === "friends"}
             onClick={() => setSelectedTab("friends")}
           >
-            Amigos
+            {t("friends")}
           </TabButton>
           <TabButton
             active={selectedTab === "interests"}
             onClick={() => setSelectedTab("interests")}
           >
-            Interesses
+            {t("interests")}
           </TabButton>
           <TabButton
             active={selectedTab === "all"}
             onClick={() => setSelectedTab("all")}
           >
-            Todos
+            {t("all")}
           </TabButton>
         </Tabs>
         <div>
           <SearchBar onSearch={search} />
           {loading ? (
-            <p>Carregando...</p>
+            <p>{t("loading")}</p>
           ) : (
             results.map((post) => (
               <SearchResultCard key={post.id} post={post} />

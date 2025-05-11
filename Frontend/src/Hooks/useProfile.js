@@ -67,12 +67,12 @@ export const useProfile = () => {
   return {
     user,
     confirmDelete,
-    confirmLogout, // Adicionado
+    confirmLogout, 
     handleLogout,
     handleDeleteAccount,
     confirmDeleteAccount,
     cancelDeleteAccount,
-    confirmLogoutAction, // Adicionado
-    cancelLogout, // Adicionado
+    confirmLogoutAction, 
+    cancelLogout, 
   };
 };

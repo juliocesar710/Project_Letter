@@ -80,37 +80,67 @@ const EmptyStateText = styled.p`
   margin-bottom: 1rem;
 `;
 
+const Pagination = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2rem;
+
+  button {
+    background-color: ${({ theme }) => theme.colors.primary || "#3498db"};
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+
+    &:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+  }
+`;
+
 const FriendsPosts = () => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const postsPerPage = 5;
+
   const userData = JSON.parse(Cookies.get("userData") || "{}");
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const friends = await friendsGetUser(userData);
+        const friendIds = friends.map((f) => f.friend.id);
 
-useEffect(() => {
-  const fetchData = async () => {
-    try {
-      const friends = await friendsGetUser(userData);
-      const friendIds = friends.map((f) => f.friend.id);
+        const allPosts = await getAllPosts();
 
-      const allPosts = await getAllPosts();
+        const filteredPosts = allPosts.filter(
+          (post) => friendIds.includes(post.user.id) || post.user.id === userData.id
+        );
 
-      const filteredPosts = allPosts.filter((post) =>
-        friendIds.includes(post.user.id) || post.user.id === userData.id 
-      );
+        setPosts(filteredPosts);
+      } catch (error) {
+        console.error("Erro ao buscar posts:", error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-      setPosts(filteredPosts);
-    } catch (error) {
-      console.error("Erro ao buscar posts:", error.message);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  fetchData();
-}, [userData]);
+    fetchData();
+  }, [userData]);
 
   if (loading) return <LoadingText>Carregando posts...</LoadingText>;
+
+  // Paginação
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
+  const totalPages = Math.ceil(posts.length / postsPerPage);
 
   return (
     <FeedContainer>
@@ -120,23 +150,39 @@ useEffect(() => {
           <p>Seja o primeiro a compartilhar algo!</p>
         </EmptyState>
       ) : (
-        posts.map((post) => (
-          <PostContainer key={post.id}>
-            <PostHeader>
-              <AuthorAvatar src={post.user.profileImage} alt={post.user.name} />
-              <AuthorInfo>
-                <AuthorName>{post.user.name}</AuthorName>
-                <PostDate>
-                  {format(new Date(post.createdAt), "d 'de' MMMM 'de' yyyy", {
-                    locale: getCurrentLocale(),
-                  })}
-                </PostDate>
-              </AuthorInfo>
-            </PostHeader>
+        <>
+          {currentPosts.map((post) => (
+            <PostContainer key={post.id}>
+              <PostHeader>
+                <AuthorAvatar src={post.user.profileImage} alt={post.user.name} />
+                <AuthorInfo>
+                  <AuthorName>{post.user.name}</AuthorName>
+                  <PostDate>
+                    {format(new Date(post.createdAt), "d 'de' MMMM 'de' yyyy", {
+                      locale: getCurrentLocale(),
+                    })}
+                  </PostDate>
+                </AuthorInfo>
+              </PostHeader>
+              <PostCard post={post} />
+            </PostContainer>
+          ))}
 
-            <PostCard post={post} />
-          </PostContainer>
-        ))
+          <Pagination>
+            <button
+              onClick={() => setCurrentPage((prev) => prev - 1)}
+              disabled={currentPage === 1}
+            >
+              Anterior
+            </button>
+            <button
+              onClick={() => setCurrentPage((prev) => prev + 1)}
+              disabled={currentPage === totalPages}
+            >
+              Próxima
+            </button>
+          </Pagination>
+        </>
       )}
     </FeedContainer>
   );

@@ -1,6 +1,8 @@
 // src/components/SidebarUserInfo.tsx ou .jsx
 import styled from "styled-components";
 import { useProfile } from "../../Hooks/useProfile";
+import { useTranslation } from "react-i18next";
+import Confirm from "../utils/Confirm";
 
 const Container = styled.div`
   padding: 1rem;
@@ -61,7 +63,14 @@ const Button = styled.button`
 `;
 
 const SidebarUserInfo = () => {
-  const { user, handleLogout } = useProfile();
+  const {
+    user,
+    handleLogout,
+    confirmLogout,
+    confirmLogoutAction,
+    cancelLogout,
+  } = useProfile();
+  const { t } = useTranslation();
 
   return (
     <Container>
@@ -73,7 +82,17 @@ const SidebarUserInfo = () => {
           <GenreTag key={index}>#{genre}</GenreTag>
         ))}
       </GenreList>
-      <Button onClick={handleLogout}>Sair</Button>
+      <Button onClick={handleLogout}>{t("logout")}</Button>
+
+      {confirmLogout && (
+        <Confirm
+          isOpen={confirmLogout}
+          onConfirm={confirmLogoutAction}
+          onCancel={cancelLogout}
+          title={t("confirmLogoutTitle")}
+          message={t("confirmLogoutMessage")}
+        />
+      )}
     </Container>
   );
 };

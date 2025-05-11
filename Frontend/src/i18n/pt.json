@@ -55,9 +55,11 @@
 
   "userupdatesuccess": "Usuário atualizado com sucesso!",
 
-  "searchfriends": "Buscando Amigos...",
+  "searchfriends": "Buscar Amigos...",
   "searching": "Buscando...",
   "search": "Buscar",
+
+  "all": "Todos",
 
   "mo posts found.": "Nenhum post encontrado.",
 

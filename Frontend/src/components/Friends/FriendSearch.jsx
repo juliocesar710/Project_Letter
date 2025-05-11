@@ -87,6 +87,29 @@ const ResultEmail = styled.span`
   color: ${({ theme }) => theme.colors.subtleText || "#888"};
   font-size: 0.85rem;
 `;
+// ...existing code...
+
+const ClearButton = styled.button`
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: ${({ theme }) => theme.colors.text};
+  font-size: 2rem;
+  cursor: pointer;
+
+  &:hover {
+    color: ${({ theme }) => theme.colors.primary};
+  }
+`;
+
+const InputSearchContainer = styled.div`
+  position: relative;
+  width: 100%;
+  margin-bottom: 10px;
+`;
 
 const FriendSearch = () => {
   const { t } = useTranslation();
@@ -103,15 +126,27 @@ const FriendSearch = () => {
     setResults,
   } = useFriendSearch(userId);
 
+  const clearSearch = () => {
+    setSearchTerm("");
+    setResults([]);
+  };
 
   return (
     <SearchContainer>
-      <SearchInput
-        type="text"
-        placeholder={t("searchfriends")}
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-      />
+      <InputSearchContainer>
+        <SearchInput
+          type="text"
+          placeholder={t("searchfriends")}
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />{" "}
+        {searchTerm && (
+          <ClearButton onClick={clearSearch} aria-label={t("clearsearch")}>
+            &times;
+          </ClearButton>
+        )}
+      </InputSearchContainer>
+
       <SearchButton onClick={handleSearch}>
         {loading ? t("search") : t("searching")}
       </SearchButton>

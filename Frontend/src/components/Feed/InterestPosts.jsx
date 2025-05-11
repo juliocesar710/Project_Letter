@@ -6,7 +6,6 @@ import { format } from "date-fns";
 import { getCurrentLocale } from "../../i18n";
 import Cookies from "js-cookie";
 
-
 const FeedContainer = styled.div`
   width: 100%;
   margin: 2rem auto;
@@ -80,48 +79,83 @@ const EmptyStateText = styled.p`
   margin-bottom: 1rem;
 `;
 
+const PaginationContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+`;
+
+const PaginationButton = styled.button`
+  padding: 0.5rem 1rem;
+  margin: 0 0.5rem;
+  background-color: ${({ theme }) => theme.colors.primary || "#3498db"};
+  color: ${({ theme }) => theme.colors.onPrimary || "#fff"};
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+
+  &:disabled {
+    background-color: ${({ theme }) => theme.colors.disabled || "#ccc"};
+    cursor: not-allowed;
+  }
+`;
+
 const InterestPosts = () => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const postsPerPage = 10;
 
   const userData = JSON.parse(Cookies.get("userData") || "{}");
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const allPosts = await getAllPosts();
+        const interests = userData.genreTexts || [];
 
-useEffect(() => {
-  const fetchData = async () => {
-    try {
-      const allPosts = await getAllPosts();
-      const interests = userData.genreTexts || [];
+        const filteredPosts = allPosts.filter(post =>
+          post.genreTexts?.some(postGenre =>
+            interests.includes(postGenre.name)
+          )
+        );
 
-      const filteredPosts = allPosts.filter(post =>
-        post.genreTexts?.some(postGenre =>
-          interests.includes(postGenre.name)
-        )
-      );
+        setPosts(filteredPosts);
+      } catch (error) {
+        console.error("Erro ao buscar posts:", error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-      setPosts(filteredPosts);
-    } catch (error) {
-      console.error("Erro ao buscar posts:", error.message);
-    } finally {
-      setLoading(false);
-    }
+    fetchData();
+  }, [userData.genreTexts]);
+
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
+
+  const handleNextPage = () => {
+    setCurrentPage((prev) => prev + 1);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  fetchData();
-}, [userData.genreTexts]);
-
+  const handlePreviousPage = () => {
+    setCurrentPage((prev) => Math.max(prev - 1, 1));
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   if (loading) return <LoadingText>Carregando posts...</LoadingText>;
 
   return (
     <FeedContainer>
-      {posts.length === 0 ? (
+      {currentPosts.length === 0 ? (
         <EmptyState>
           <EmptyStateText>Nenhum post encontrado.</EmptyStateText>
           <p>Seja o primeiro a compartilhar algo!</p>
         </EmptyState>
       ) : (
-        posts.map((post) => (
+        currentPosts.map((post) => (
           <PostContainer key={post.id}>
             <PostHeader>
               <AuthorAvatar src={post.user.profileImage} alt={post.user.name} />
@@ -134,11 +168,25 @@ useEffect(() => {
                 </PostDate>
               </AuthorInfo>
             </PostHeader>
-
             <PostCard post={post} />
           </PostContainer>
         ))
       )}
+
+      <PaginationContainer>
+        <PaginationButton
+          onClick={handlePreviousPage}
+          disabled={currentPage === 1}
+        >
+          Anterior
+        </PaginationButton>
+        <PaginationButton
+          onClick={handleNextPage}
+          disabled={indexOfLastPost >= posts.length}
+        >
+          Próximo
+        </PaginationButton>
+      </PaginationContainer>
     </FeedContainer>
   );
 };
