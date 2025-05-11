@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { BookOpen, PenSquare, Users, Sparkles, Bookmark } from "lucide-react";
@@ -177,11 +176,7 @@ const HomePage = () => {
 
   return (
     <Container>
-      <BookOpen
-        size={64}
-        color="var(--theme-colors-accent)"
-        style={{ marginBottom: "1rem" }}
-      />
+      
 
       <Title>{t("welcome")}</Title>
 
@@ -245,16 +240,7 @@ const HomePage = () => {
         </FeaturesGrid>
       </div>
 
-      <div
-        style={{
-          margin: "3rem 0",
-          minHeight: "300px",
-          width: "100%",
-          background: "rgba(255,255,255,0.05)",
-          borderRadius: "16px",
-        }}
-      >
-      </div>
+    
     </Container>
   );
 };

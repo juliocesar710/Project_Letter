@@ -47,8 +47,9 @@ export const useAuthForm = ({ fields, onSubmitAPI, redirectPath }) => {
         setLoading(false), navigate(redirectPath);
       }, 1500);
     } catch (error) {
-      if (error.response?.data?.message === "User not found to here") {
-        setError(t("user not found"));
+      if (error.response?.data?.message === "User not found") {
+        console.log(error.response?.data?.message);
+        setError(t("error user not found"));
       } else if (error.response?.data?.message === "Email already exists") {
         setError(t("email already exists"));
       } else if (error.response?.data?.message === "Invalid password") {

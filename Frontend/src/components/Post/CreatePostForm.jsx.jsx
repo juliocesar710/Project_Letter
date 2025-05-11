@@ -104,12 +104,12 @@ const SubmitButton = styled.button`
 const CreatePostForm = () => {
   const {
     formData,
-    selectedGenres, // Pega os gêneros do hook
+    selectedGenres, 
     loading,
     successMessage,
     errorMessage,
     handleChange,
-    setSelectedGenres, // Pega a função dedicada
+    setSelectedGenres,
     handleSubmit,
   } = usePostForm();
   const { t } = useTranslation();
@@ -142,8 +142,8 @@ const CreatePostForm = () => {
         </FormField>
         <FormField>
           <Input
-            type="text" // ou type="url" se preferir
-            name="image" // deve bater com o nome no estado
+            type="text"
+            name="image" 
             placeholder="URL da imagem"
             value={formData.image}
             onChange={handleChange}
@@ -151,11 +151,10 @@ const CreatePostForm = () => {
           />
         </FormField>
 
-        {/* Pré-visualização da imagem (opcional) */}
-        {formData.imageUrl && (
+        {formData.image && (
           <FormField>
             <img
-              src={formData.imageUrl}
+              src={formData.image}
               alt="Preview"
               style={{
                 maxWidth: "100%",
