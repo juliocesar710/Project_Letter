@@ -22,6 +22,7 @@ const EmptyMessage = styled.p`
 const PostList = ({ posts }) => {
   const { t } = useTranslation();
 
+  console.log("posts",posts);
   return (
     <PostsContainer>
       <CreatePostButton />

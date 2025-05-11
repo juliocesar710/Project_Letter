@@ -59,7 +59,7 @@
 
   "no posts found.": "No posts found.",
 
-  "genreText":"Genre Texts",
+  "genreText": "Genre Texts",
 
   "description of letter": "Connect with other literature lovers, share your discoveries, and find your next great read in our community of readers and writers.",
   "quote1": "A reader lives a thousand lives before he dies. The man who never reads lives only one.",
@@ -83,6 +83,9 @@
   "error email already exists": "Email already exists",
   "error invalid password": "Password is invalid",
 
-  "no interest registered.": "No interest registered."
+  "no interest registered.": "No interest registered.",
+
+  "confirmLogout": "Are you sure you want to log out?",
+  "readMore": "Read more",
+  "readless": "Read less"
 }
-  

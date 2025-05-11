@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import { useTranslation } from "react-i18next";
 
@@ -10,8 +9,9 @@ const LanguageButton = styled.button`
   color: white;
   cursor: pointer;
   font-size: 0.85rem;
-  margin: 0 5px;
+  margin: 1rem 0.5rem 0.5rem 0;
   transition: all 0.2s ease;
+  
 
   &:hover {
     background-color: ${({ theme }) => theme.colors.primaryDark};

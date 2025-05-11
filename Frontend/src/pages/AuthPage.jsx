@@ -1,6 +1,7 @@
-import AuthTabs from "../components/Auth/AuthTabs";
 import styled from "styled-components";
 import { useTranslation } from "react-i18next";
+
+import AuthTabs from "../components/Auth/AuthTabs";
 
 const PageContainer = styled.div`
   display: flex;

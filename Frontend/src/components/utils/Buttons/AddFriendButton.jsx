@@ -13,7 +13,7 @@ const ActionButton = styled.button`
   transition: all 0.2s;
 
   &:hover {
-    background-color: ${({ theme }) => theme.colors.errorDark};
+    background-color: ${({ theme }) => theme.colors.primaryDark};
     transform: translateY(-1px);
   }
 `;
