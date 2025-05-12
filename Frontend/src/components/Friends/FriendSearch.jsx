@@ -87,7 +87,6 @@ const ResultEmail = styled.span`
   color: ${({ theme }) => theme.colors.subtleText || "#888"};
   font-size: 0.85rem;
 `;
-// ...existing code...
 
 const ClearButton = styled.button`
   position: absolute;

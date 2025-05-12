@@ -27,19 +27,38 @@ const PostDescription = styled.p`
   color: ${({ theme }) => theme.colors.textSecondary};
   margin-bottom: 15px;
 `;
+const GenreList = styled.div`
+  margin-top: 10px;
+
+  span {
+    margin-right: 8px;
+    font-size: 12px;
+    color: #555;
+    background-color: ${({ theme }) => theme.colors.tagBackground || "#f0f0f0"};
+    padding: 5px 10px;
+    border-radius: ${({ theme }) => theme.borderRadius.small || "5px"};
+    display: inline-block;
+  }
+`;
 
 const SearchResultCard = ({ post }) => {
-const navigate = useNavigate();
-
+  const navigate = useNavigate();
 
   const handleClick = () => {
-   navigate(`/post/${post.id}`);
+    navigate(`/post/${post.id}`);
   };
 
+  console.log("post: ", post);
   return (
     <CardContainer onClick={handleClick}>
       <PostTitle>{post.title}</PostTitle>
       <PostDescription>{post.description}</PostDescription>
+      <GenreList>
+        {post.genreTexts &&
+          post.genreTexts.map((genre) => (
+            <span key={genre.id}>{genre.name}</span>
+          ))}
+      </GenreList>
     </CardContainer>
   );
 };

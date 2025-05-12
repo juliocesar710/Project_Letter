@@ -105,7 +105,7 @@ const SearchResultsContainer = styled.div`
 
 const FeedPage = () => {
   const [selectedTab, setSelectedTab] = useState("friends");
-  const { results, loading, search } = useSearchPosts();
+  const { results, loading, search, clearResults } = useSearchPosts();
   const { t } = useTranslation();
 
   const renderContent = () => {
@@ -150,7 +150,8 @@ const FeedPage = () => {
         </Tabs>
         
         <SearchResultsContainer>
-          <SearchBar onSearch={search} />
+          <SearchBar onSearch={search}
+           onClear={clearResults} />
           {loading ? (
             <p>{t("loading")}</p>
           ) : (
