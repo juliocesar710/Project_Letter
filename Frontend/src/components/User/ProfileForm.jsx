@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import Sucess from "../utils/Sucess";
-import Alert from "../utils/Error";
+import Sucess from "../utils/Alerts/Sucess";
+import Error from "../utils/Alerts/Error";
 import GenreSelector from "../utils/GenreSelector";
-import { useProfileForm } from "../../Hooks/useProfileForm";
+import { useProfileForm } from "../../Hooks/User/useProfileForm";
 import { useTranslation } from "react-i18next";
 
 const FormContainer = styled.div`
@@ -161,7 +161,7 @@ const ProfileForm = ({ isEdit = false }) => {
           {loading ? t("saving") : isEdit ? t("save") : "Registrar"}
         </Button>
          {successMessage && <Sucess message={successMessage} />}
-        {errorMessage && <Alert message={errorMessage} />}
+        {errorMessage && <Error message={errorMessage} />}
       </Form>
     </FormContainer>
   );

@@ -1,9 +1,12 @@
 import { useState } from "react";
 import styled from "styled-components";
+
 import FriendsList from "../components/Friends/FriendsList";
 import FriendSearch from "../components/Friends/FriendSearch";
 import FriendRequests from "../components/Friends/FriendRequests";
 import AllUsersList from "../components/Friends/AllUsersList";
+
+
 import { useTranslation } from "react-i18next";
 
 const FriendsContainer = styled.div`

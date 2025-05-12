@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 
 const AlertContainer = styled.div`
@@ -12,8 +11,8 @@ const AlertContainer = styled.div`
   box-shadow: ${({ theme }) => theme.shadows.light};
 `;
 
-const Alert = ({ message }) => {
+const Error = ({ message }) => {
   return <AlertContainer>{message}</AlertContainer>;
 };
 
-export default Alert;
+export default Error;

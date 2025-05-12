@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useUsersAndFriends } from "../../Hooks/useUsersAndFriends";
+import { useUsersAndFriends } from "../../Hooks/Friend/useUsersAndFriends";
 import { UserCard } from "../User/UserCard";
 
 const Container = styled.div`

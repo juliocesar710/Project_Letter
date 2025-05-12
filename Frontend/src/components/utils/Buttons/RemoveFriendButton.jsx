@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import { deleteFriendship } from "../../../api/Friends/friendsDelete";
-import Confirm from "../../utils/Confirm";
+import Confirm from "../Alerts/Confirm";
 import { useTranslation } from "react-i18next";
 
 const ActionButton = styled.button`

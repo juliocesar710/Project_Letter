@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import Sucess from "../utils/Sucess";
-import Alert from "../utils/Error";
+import Sucess from "../utils/Alerts/Sucess";
+import Error from "../utils/Alerts/Error";
 import GenreSelector from "../utils/GenreSelector";
 import { usePostForm } from "../../Hooks/Post/usePostForm";
 import { useTranslation } from "react-i18next";
@@ -118,7 +118,7 @@ const CreatePostForm = () => {
     <FormContainer>
       <StyledForm onSubmit={handleSubmit}>
         {successMessage && <Sucess message={successMessage} />}
-        {errorMessage && <Alert message={errorMessage} />}
+        {errorMessage && <Error message={errorMessage} />}
 
         <FormField>
           <Input

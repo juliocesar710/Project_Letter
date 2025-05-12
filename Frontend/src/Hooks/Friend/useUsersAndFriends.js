@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { userGetAll } from "../api/Auth/userGetAll";
-import { friendsGetUser } from "../api/Friends/friendsGetUser";
+import { userGetAll } from "../../api/Auth/userGetAll";
+import { friendsGetUser } from "../../api/Friends/friendsGetUser";
 import Cookies from "js-cookie";
 
 export function useUsersAndFriends() {

@@ -5,7 +5,7 @@ import ProfileInfo from "../components/profile/ProfileInfo";
 import PostList from "../components/profile/PostList";
 
 import LanguageSwitcher from "../components/utils/Buttons/LanguageSwitcherButton";
-import Confirm from "../components/utils/Confirm";
+import Confirm from "../components/utils/Alerts/Confirm";
 
 import { usePosts } from "../Hooks/Post/usePosts";
 import { useProfile } from "../Hooks/Profile/useProfile";
@@ -23,7 +23,7 @@ const PageContainer = styled.div`
     ${({ theme }) => theme.colors.border}
   );
   position: relative;
-  flex-wrap: wrap; // Garante que elementos quebrem linha se necessário
+  flex-wrap: wrap;
 
   @media (max-width: 768px) {
     flex-direction: column;

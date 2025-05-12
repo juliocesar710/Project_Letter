@@ -2,7 +2,7 @@
 import styled from "styled-components";
 import { useProfile } from "../../Hooks/Profile/useProfile";
 import { useTranslation } from "react-i18next";
-import Confirm from "../utils/Confirm";
+import Confirm from "../utils/Alerts/Confirm";
 
 const Container = styled.div`
   padding: 1rem;

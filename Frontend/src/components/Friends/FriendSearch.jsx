@@ -1,9 +1,12 @@
 import styled from "styled-components";
+import Cookies from "js-cookie";
+
 import AddFriendButton from "../utils/Buttons/AddFriendButton";
 import ViewProfileButton from "../utils/Buttons/ViewProfileButton";
-import Cookies from "js-cookie";
+
 import { useTranslation } from "react-i18next";
-import { useFriendSearch } from "../../Hooks/useFriendSearch";
+
+import { useFriendSearch } from "../../Hooks/Friend/useFriendSearch";
 
 const SearchContainer = styled.div`
   position: relative;

@@ -1,8 +1,7 @@
-// components/Posts/DeletePostButton.js
 import React, { useState } from "react";
 import styled from "styled-components";
-import Confirm from "../../utils/Confirm";
-import { deletePost } from "../../../api/Post/DeletePost"; // Ajuste o caminho conforme seu projeto
+import Confirm from "../Alerts/Confirm";
+import { deletePost } from "../../../api/Post/DeletePost"; 
 import { useTranslation } from "react-i18next";
 
 const DeleteButton = styled.button`
@@ -27,7 +26,7 @@ const DeletePostButton = ({ postId, onDeleted }) => {
   const handleConfirm = async () => {
     try {
       await deletePost(postId);
-      if (onDeleted) onDeleted(postId); // Callback opcional
+      if (onDeleted) onDeleted(postId); 
     } catch (err) {
       console.error("Erro ao deletar post:", err);
     } finally {
