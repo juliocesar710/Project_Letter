@@ -40,6 +40,11 @@ const PostImage = styled.img`
   border-radius: ${({ theme }) => theme.borderRadius.medium};
   margin-bottom: 15px;
   object-fit: cover;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    height: auto;
+  }
 `;
 
 const GenreList = styled.ul`

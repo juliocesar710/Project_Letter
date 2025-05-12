@@ -11,6 +11,10 @@ const PostsContainer = styled.div`
   border: 2px solid ${({ theme }) => theme.colors.border || "#ccc"};
   border-radius: 8px;
   background-color: ${({ theme }) => theme.colors.background || "#f9f9f9"};
+  display: flex;
+  flex-direction: column;
+
+  
 `;
 
 const EmptyMessage = styled.p`
@@ -27,7 +31,7 @@ const PostList = ({ posts }) => {
     <PostsContainer>
       <CreatePostButton />
       {posts.length === 0 ? (
-        <EmptyMessage>{t("no posts found")}</EmptyMessage>
+        <EmptyMessage>{t("nopostsfound")}</EmptyMessage>
       ) : (
         posts.map((post) => <PostCard key={post.id} post={post} />)
       )}
