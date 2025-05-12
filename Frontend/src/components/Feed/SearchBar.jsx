@@ -62,7 +62,7 @@ const InputSearchContainer = styled.div`
 `;
 const SearchBar = ({ onSearch, onClear }) => {
   const [title, setTitle] = useState("");
-  const [genreName, setGenreName] = useState(""); // Alterado para armazenar o nome do gênero
+  const [genreName, setGenreName] = useState(""); 
   const [genres, setGenres] = useState([]);
 
   useEffect(() => {

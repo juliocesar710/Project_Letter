@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import PostCard from "./PostCard";
+import PostCard from "../Post/PostCard";
 import { useTranslation } from "react-i18next";
 import CreatePostButton from "../utils/Buttons/CreatePostButton";
 

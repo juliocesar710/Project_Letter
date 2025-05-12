@@ -117,8 +117,7 @@ const ProfileForm = ({ isEdit = false }) => {
     <FormContainer>
       <Form onSubmit={handleSubmit}>
         <FormTitle>{isEdit ? t("edit profile") : "Editando"}</FormTitle>
-        {successMessage && <Sucess message={successMessage} />}
-        {errorMessage && <Alert message={errorMessage} />}
+       
         <ProfileImage src={formData.profileImage} alt="Profile Image" />
         <Input
           type="text"
@@ -161,6 +160,8 @@ const ProfileForm = ({ isEdit = false }) => {
         <Button type="submit" disabled={loading}>
           {loading ? t("saving") : isEdit ? t("save") : "Registrar"}
         </Button>
+         {successMessage && <Sucess message={successMessage} />}
+        {errorMessage && <Alert message={errorMessage} />}
       </Form>
     </FormContainer>
   );

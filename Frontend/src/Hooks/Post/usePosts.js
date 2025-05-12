@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getAllPostByUser } from "../api/Post/GetAllPostByUser";
+import { getAllPostByUser } from "../../api/Post/GetAllPostByUser";
 
 export const usePosts = (userId = null) => { 
   const [posts, setPosts] = useState([]);

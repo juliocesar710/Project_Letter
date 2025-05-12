@@ -20,7 +20,6 @@ const common = {
     desktop: 'only screen and (min-width: 901px)',
   },
 };
-
 export const lightTheme = {
   colors: {
     primary: '#a39e93',
@@ -32,6 +31,8 @@ export const lightTheme = {
     text: '#333',
     error: '#c17a7a',
     errorDark: '#a05252',
+    success: '#88c099',       // verde suave para sucesso
+    successDark: '#6fa685',   // tom mais escuro para hover ou foco
   },
   ...common,
 };
@@ -49,6 +50,8 @@ export const darkTheme = {
     error: '#cc6b6b',
     hover: '#333333',
     highlight: '#2e2e2e',
+    success: '#4caf50',       // verde mais vívido, visível em fundo escuro
+    successDark: '#388e3c',   // versão mais escura
   },
   ...common,
 };

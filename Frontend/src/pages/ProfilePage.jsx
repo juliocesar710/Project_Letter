@@ -3,11 +3,12 @@ import styled from "styled-components";
 
 import ProfileInfo from "../components/profile/ProfileInfo";
 import PostList from "../components/profile/PostList";
-import Confirm from "../components/utils/Confirm";
-import LanguageSwitcher from "../components/utils/Buttons/LanguageSwitcherButton";
 
-import { usePosts } from "../Hooks/usePosts";
-import { useProfile } from "../Hooks/useProfile";
+import LanguageSwitcher from "../components/utils/Buttons/LanguageSwitcherButton";
+import Confirm from "../components/utils/Confirm";
+
+import { usePosts } from "../Hooks/Post/usePosts";
+import { useProfile } from "../Hooks/Profile/useProfile";
 
 import { useTranslation } from "react-i18next";
 

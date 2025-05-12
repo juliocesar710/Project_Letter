@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getAllPosts } from "../../api/Post/GetAllPosts";
-import PostCard from "../Profile/PostCard";
+import PostCard from "../Post/PostCard";
 import styled from "styled-components";
 import { format } from "date-fns";
 import { getCurrentLocale } from "../../i18n";

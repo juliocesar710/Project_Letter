@@ -1,10 +1,9 @@
-// src/Hooks/useProfile.js ou .ts
 
 import { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
-import { getUserGenresText } from "../api/GenreText/genreTextGet";
-import { userDelete } from "../api/Auth/userDelete";
+import { getUserGenresText } from "../../api/GenreText/genreTextGet";
+import { userDelete } from "../../api/Auth/userDelete";
 
 export const useProfile = () => {
   const [userGenres, setUserGenres] = useState([]);

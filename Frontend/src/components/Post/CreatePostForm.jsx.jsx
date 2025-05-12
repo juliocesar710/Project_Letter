@@ -2,7 +2,7 @@ import styled from "styled-components";
 import Sucess from "../utils/Sucess";
 import Alert from "../utils/Error";
 import GenreSelector from "../utils/GenreSelector";
-import { usePostForm } from "../../Hooks/usePostForm";
+import { usePostForm } from "../../Hooks/Post/usePostForm";
 import { useTranslation } from "react-i18next";
 
 const FormContainer = styled.div`

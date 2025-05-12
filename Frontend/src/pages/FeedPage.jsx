@@ -5,8 +5,8 @@ import SidebarUserInfo from "../components/Feed/SidebarUserInfo";
 import FriendsPosts from "../components/Feed/FriendsPosts";
 import InterestPosts from "../components/Feed/InterestPosts";
 import AllPosts from "../components/Feed/AllPosts";
-import SearchBar from "../components/Post/SearchBar";
-import SearchResultCard from "../components/Post/SearchResultCard";
+import SearchBar from "../components/Feed/SearchBar";
+import SearchResultCard from "../components/Feed/SearchResultCard";
 import { useTranslation } from "react-i18next";
 import { useSearchPosts } from "../Hooks/useSearchPosts";
 
