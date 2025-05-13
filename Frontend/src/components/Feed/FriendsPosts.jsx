@@ -1,16 +1,13 @@
-import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { format } from "date-fns";
-import Cookies from "js-cookie";
 
-
-import { getAllPosts } from "../../api/Post/GetAllPosts";
-import { friendsGetUser } from "../../api/Friends/friendsGetUser";
 import PostCard from "../Post/PostCard";
 
 import { getCurrentLocale } from "../../i18n";
 
 import SortControls from "../utils/SortControls";
+
+import { useFriendsPosts } from "../../Hooks/Post/useFriendsPosts";
 
 const FeedContainer = styled.div`
   width: 100%;
@@ -107,69 +104,28 @@ const Pagination = styled.div`
   }
 `;
 
-
 const FriendsPosts = () => {
-  const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  const [currentPage, setCurrentPage] = useState(1);
-  const postsPerPage = 5;
-
-  const userData = JSON.parse(Cookies.get("userData") || "{}");
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const friends = await friendsGetUser(userData);
-        const friendIds = friends.map((f) => f.friend.id);
-
-        const allPosts = await getAllPosts();
-
-        const filteredPosts = allPosts.filter(
-          (post) => friendIds.includes(post.user.id) || post.user.id === userData.id
-        );
-
-        setPosts(filteredPosts);
-      } catch (error) {
-        console.error("Erro ao buscar posts:", error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, [userData]);
-
-  const sortAlphabetically = () => {
-    const sorted = [...posts].sort((a, b) =>
-      a.title.localeCompare(b.title, undefined, { sensitivity: "base" })
-    );
-    setPosts(sorted);
-  };
-
-  const sortByDate = () => {
-    const sorted = [...posts].sort(
-      (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
-    );
-    setPosts(sorted);
-  };
+  const {
+    loading,
+    currentPosts,
+    currentPage,
+    totalPages,
+    setCurrentPage,
+    sortAlphabetically,
+    sortByDate,
+    totalPosts,
+  } = useFriendsPosts();
 
   if (loading) return <LoadingText>Carregando posts...</LoadingText>;
 
-  const indexOfLastPost = currentPage * postsPerPage;
-  const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
-  const totalPages = Math.ceil(posts.length / postsPerPage);
-
   return (
     <FeedContainer>
-      {/* Adicione o SortControls aqui */}
       <SortControls
         onSortAlphabetically={sortAlphabetically}
         onSortByDate={sortByDate}
       />
 
-      {posts.length === 0 ? (
+      {totalPosts === 0 ? (
         <EmptyState>
           <EmptyStateText>Nenhum post encontrado.</EmptyStateText>
           <p>Seja o primeiro a compartilhar algo!</p>
@@ -179,7 +135,10 @@ const FriendsPosts = () => {
           {currentPosts.map((post) => (
             <PostContainer key={post.id}>
               <PostHeader>
-                <AuthorAvatar src={post.user.profileImage} alt={post.user.name} />
+                <AuthorAvatar
+                  src={post.user.profileImage}
+                  alt={post.user.name}
+                />
                 <AuthorInfo>
                   <AuthorName>{post.user.name}</AuthorName>
                   <PostDate>

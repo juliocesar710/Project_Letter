@@ -1,11 +1,13 @@
-import { useEffect, useState } from "react";
-import { getAllPosts } from "../../api/Post/GetAllPosts";
-import PostCard from "../Post/PostCard";
 import styled from "styled-components";
 import { format } from "date-fns";
+
+import PostCard from "../Post/PostCard";
+
 import { getCurrentLocale } from "../../i18n";
-import Cookies from "js-cookie";
+
 import SortControls from "../utils/SortControls"; 
+
+import { useInterestPosts } from "../../Hooks/Post/useInterestPosts";
 
 const FeedContainer = styled.div`
   width: 100%;
@@ -100,77 +102,29 @@ const PaginationButton = styled.button`
     cursor: not-allowed;
   }
 `;
-
 const InterestPosts = () => {
-  const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [currentPage, setCurrentPage] = useState(1);
-  const postsPerPage = 10;
-
-  const userData = JSON.parse(Cookies.get("userData") || "{}");
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const allPosts = await getAllPosts();
-        const interests = userData.genreTexts || [];
-
-        const filteredPosts = allPosts.filter(post =>
-          post.genreTexts?.some(postGenre =>
-            interests.includes(postGenre.name)
-          )
-        );
-
-        setPosts(filteredPosts);
-      } catch (error) {
-        console.error("Erro ao buscar posts:", error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, [userData.genreTexts]);
-
-  const sortAlphabetically = () => {
-    const sorted = [...posts].sort((a, b) =>
-      a.title.localeCompare(b.title, undefined, { sensitivity: "base" })
-    );
-    setPosts(sorted);
-  };
-
-  const sortByDate = () => {
-    const sorted = [...posts].sort(
-      (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
-    );
-    setPosts(sorted);
-  };
-
-  const indexOfLastPost = currentPage * postsPerPage;
-  const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
-
-  const handleNextPage = () => {
-    setCurrentPage((prev) => prev + 1);
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-
-  const handlePreviousPage = () => {
-    setCurrentPage((prev) => Math.max(prev - 1, 1));
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
+  const {
+    loading,
+    currentPosts,
+    currentPage,
+    totalPages,
+    handleNextPage,
+    handlePreviousPage,
+    sortAlphabetically,
+    sortByDate,
+    totalPosts,
+  } = useInterestPosts();
 
   if (loading) return <LoadingText>Carregando posts...</LoadingText>;
 
   return (
     <FeedContainer>
-      {/* Adicione o SortControls aqui */}
       <SortControls
         onSortAlphabetically={sortAlphabetically}
         onSortByDate={sortByDate}
       />
 
-      {currentPosts.length === 0 ? (
+      {totalPosts === 0 ? (
         <EmptyState>
           <EmptyStateText>Nenhum post encontrado.</EmptyStateText>
           <p>Seja o primeiro a compartilhar algo!</p>
@@ -195,16 +149,10 @@ const InterestPosts = () => {
       )}
 
       <PaginationContainer>
-        <PaginationButton
-          onClick={handlePreviousPage}
-          disabled={currentPage === 1}
-        >
+        <PaginationButton onClick={handlePreviousPage} disabled={currentPage === 1}>
           Anterior
         </PaginationButton>
-        <PaginationButton
-          onClick={handleNextPage}
-          disabled={indexOfLastPost >= posts.length}
-        >
+        <PaginationButton onClick={handleNextPage} disabled={currentPage === totalPages}>
           Próximo
         </PaginationButton>
       </PaginationContainer>
