@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { format } from "date-fns";
 import { getCurrentLocale } from "../../i18n";
 import Cookies from "js-cookie";
+import SortControls from "../utils/SortControls"; 
 
 const FeedContainer = styled.div`
   width: 100%;
@@ -131,6 +132,20 @@ const InterestPosts = () => {
     fetchData();
   }, [userData.genreTexts]);
 
+  const sortAlphabetically = () => {
+    const sorted = [...posts].sort((a, b) =>
+      a.title.localeCompare(b.title, undefined, { sensitivity: "base" })
+    );
+    setPosts(sorted);
+  };
+
+  const sortByDate = () => {
+    const sorted = [...posts].sort(
+      (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+    );
+    setPosts(sorted);
+  };
+
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
@@ -149,6 +164,12 @@ const InterestPosts = () => {
 
   return (
     <FeedContainer>
+      {/* Adicione o SortControls aqui */}
+      <SortControls
+        onSortAlphabetically={sortAlphabetically}
+        onSortByDate={sortByDate}
+      />
+
       {currentPosts.length === 0 ? (
         <EmptyState>
           <EmptyStateText>Nenhum post encontrado.</EmptyStateText>

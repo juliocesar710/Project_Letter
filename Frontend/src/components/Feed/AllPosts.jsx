@@ -1,9 +1,15 @@
 import { useEffect, useState } from "react";
-import { getAllPosts } from "../../api/Post/GetAllPosts";
-import PostCard from "../Post/PostCard";
 import styled from "styled-components";
 import { format } from "date-fns";
+
+import { getAllPosts } from "../../api/Post/GetAllPosts";
+
+import PostCard from "../Post/PostCard";
+
 import { getCurrentLocale } from "../../i18n";
+
+import SortControls from "../utils/SortControls";
+
 const FeedContainer = styled.div`
   width: 100%;
   margin: 2rem auto;
@@ -96,6 +102,7 @@ const EmptyStateText = styled.p`
   margin-bottom: 1rem;
 `;
 
+
 const AllPosts = () => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -116,6 +123,20 @@ const AllPosts = () => {
 
     fetchData();
   }, []);
+
+  const sortAlphabetically = () => {
+    const sorted = [...posts].sort((a, b) =>
+      a.title.localeCompare(b.title, undefined, { sensitivity: "base" })
+    );
+    setPosts(sorted);
+  };
+
+  const sortByDate = () => {
+    const sorted = [...posts].sort(
+      (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+    );
+    setPosts(sorted);
+  };
 
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
@@ -139,6 +160,12 @@ const AllPosts = () => {
 
   return (
     <FeedContainer>
+      {/* Adicione o SortControls aqui */}
+      <SortControls
+        onSortAlphabetically={sortAlphabetically}
+        onSortByDate={sortByDate}
+      />
+
       {currentPosts.length === 0 ? (
         <EmptyState>
           <EmptyStateText>Nenhum post encontrado.</EmptyStateText>

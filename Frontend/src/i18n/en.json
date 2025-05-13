@@ -60,7 +60,8 @@
   "all":"All",
 
   "nopostsfound": "No posts found.",
-
+  "sortByDate":"Sort by date",
+  "sortAlphabetically":"Sort alphabetically",
   "genreText": "Genre Texts",
 
   "description of letter": "Connect with other literature lovers, share your discoveries, and find your next great read in our community of readers and writers.",

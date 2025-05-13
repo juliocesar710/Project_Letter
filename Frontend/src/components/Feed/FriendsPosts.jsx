@@ -1,11 +1,16 @@
 import { useEffect, useState } from "react";
+import styled from "styled-components";
+import { format } from "date-fns";
+import Cookies from "js-cookie";
+
+
 import { getAllPosts } from "../../api/Post/GetAllPosts";
 import { friendsGetUser } from "../../api/Friends/friendsGetUser";
 import PostCard from "../Post/PostCard";
-import styled from "styled-components";
-import { format } from "date-fns";
+
 import { getCurrentLocale } from "../../i18n";
-import Cookies from "js-cookie";
+
+import SortControls from "../utils/SortControls";
 
 const FeedContainer = styled.div`
   width: 100%;
@@ -102,6 +107,7 @@ const Pagination = styled.div`
   }
 `;
 
+
 const FriendsPosts = () => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -134,9 +140,22 @@ const FriendsPosts = () => {
     fetchData();
   }, [userData]);
 
+  const sortAlphabetically = () => {
+    const sorted = [...posts].sort((a, b) =>
+      a.title.localeCompare(b.title, undefined, { sensitivity: "base" })
+    );
+    setPosts(sorted);
+  };
+
+  const sortByDate = () => {
+    const sorted = [...posts].sort(
+      (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+    );
+    setPosts(sorted);
+  };
+
   if (loading) return <LoadingText>Carregando posts...</LoadingText>;
 
-  // Paginação
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
@@ -144,6 +163,12 @@ const FriendsPosts = () => {
 
   return (
     <FeedContainer>
+      {/* Adicione o SortControls aqui */}
+      <SortControls
+        onSortAlphabetically={sortAlphabetically}
+        onSortByDate={sortByDate}
+      />
+
       {posts.length === 0 ? (
         <EmptyState>
           <EmptyStateText>Nenhum post encontrado.</EmptyStateText>
