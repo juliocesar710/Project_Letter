@@ -4,6 +4,7 @@ import authRoutes from "./routes/auth.js";
 import apiRoutes from "./routes/api.js";
 import genreTextRoutes from "./routes/genreText.js";
 import friendShipRoutes from "./routes/friendShip.js";
+import likeRoutes from "./routes/like.js";
 import cors from "cors";
 
 
@@ -26,6 +27,8 @@ app.use("/auth", authRoutes);
 app.use("/api", apiRoutes);
 app.use("/genreText", genreTextRoutes);
 app.use("/friendship", friendShipRoutes);
+app.use("/likes", likeRoutes);
+
 
 app.get("/", (req, res) => {
   res.send("Welcome to the API!");
