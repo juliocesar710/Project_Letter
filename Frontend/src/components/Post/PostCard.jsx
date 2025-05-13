@@ -1,7 +1,10 @@
 import { useState } from "react";
 import styled from "styled-components";
-import PostDeleteButton from "../utils/Buttons/PostDeleteButton";
 import Cookies from "js-cookie";
+import { format } from "date-fns";
+import PostDeleteButton from "../utils/Buttons/PostDeleteButton";
+import { useTranslation } from "react-i18next";
+import { getCurrentLocale } from "../../i18n";
 
 const PostCardContainer = styled.div`
   background-color: ${({ theme }) => theme.colors.inputBackground};
@@ -37,6 +40,11 @@ const PostImage = styled.img`
   border-radius: ${({ theme }) => theme.borderRadius.medium};
   margin-bottom: 15px;
   object-fit: cover;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    height: auto;
+  }
 `;
 
 const GenreList = styled.ul`
@@ -87,6 +95,7 @@ width:100%;
 
 const ExpandableText = ({ text, maxLength = 150 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
+  const { t } = useTranslation();
 
   if (!text) return null;
 
@@ -100,7 +109,7 @@ const ExpandableText = ({ text, maxLength = 150 }) => {
     <PostContent>
       {isExpanded ? text : truncatedText}
       <ReadMoreButton onClick={() => setIsExpanded(!isExpanded)}>
-        {isExpanded ? "Ler menos" : "Ler mais"}
+        {isExpanded ? t("readmore") : t("readless")}
       </ReadMoreButton>
     </PostContent>
   );
@@ -108,15 +117,19 @@ const ExpandableText = ({ text, maxLength = 150 }) => {
 const PostCard = ({ post, onDeleted }) => {
   const { title, description, image, genreTexts = [], id, userId } = post;
 
-
-   const userData = Cookies.get("userData");
+  const userData = Cookies.get("userData");
   const loggedUserId = userData ? JSON.parse(userData).id : null;
 
   const isOwner = loggedUserId === userId;
 
-
-   return (
+  return (
     <PostCardContainer>
+      <PostContent>
+        {" "}
+        {format(new Date(post.createdAt), "dd/MM/yyyy 'às' HH:mm", {
+          locale: getCurrentLocale(), 
+        })}
+      </PostContent>
       {isOwner && (
         <ButtonDelete>
           <PostDeleteButton postId={id} onDeleted={onDeleted} />

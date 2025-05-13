@@ -1,24 +1,40 @@
 import { useState } from "react";
 import styled from "styled-components";
+
 import SidebarUserInfo from "../components/Feed/SidebarUserInfo";
 import FriendsPosts from "../components/Feed/FriendsPosts";
 import InterestPosts from "../components/Feed/InterestPosts";
+import SearchResultCard from "../components/Feed/SearchResultCard";
 import AllPosts from "../components/Feed/AllPosts";
-import SearchBar from "../components/Post/SearchBar";
-import SearchResultCard from "../components/Post/SearchResultCard";
-import { useSearchPosts } from "../Hooks/useSearchPosts";
+import SearchBar from "../components/Feed/SearchBar";
+
+import { useTranslation } from "react-i18next";
+
+import { useSearchPosts } from "../Hooks/Post/useSearchPosts";
 
 const Container = styled.div`
   display: flex;
   flex-direction: row;
-  height: 100vh;
-  width: 100vw;
+  min-height: 100vh;
+  width: 100%;
+
+  @media (max-width: 1024px) {
+    flex-direction: column;
+  }
 `;
 
 const SideBarLeft = styled.aside`
   width: 20%;
+  min-width: 250px;
   background-color: ${({ theme }) => theme.colors.surface};
   border-right: 1px solid ${({ theme }) => theme.colors.border};
+
+  @media (max-width: 1024px) {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid ${({ theme }) => theme.colors.border};
+    min-width: auto;
+  }
 `;
 
 const MainContent = styled.main`
@@ -27,12 +43,22 @@ const MainContent = styled.main`
   overflow-y: auto;
   display: flex;
   flex-direction: column;
+
+  @media (max-width: 1024px) {
+    width: 100%;
+    order: 3;
+  }
 `;
 
 const Tabs = styled.div`
   display: flex;
   gap: 1rem;
   margin-bottom: 1rem;
+  flex-wrap: wrap;
+
+  @media (max-width: 480px) {
+    justify-content: center;
+  }
 `;
 
 const TabButton = styled.button`
@@ -44,21 +70,45 @@ const TabButton = styled.button`
   border: none;
   border-radius: 6px;
   cursor: pointer;
+  white-space: nowrap;
 
   &:hover {
     background-color: ${({ theme }) => theme.colors.primaryLight};
+  }
+
+  @media (max-width: 480px) {
+    padding: 0.5rem 0.8rem;
+    font-size: 0.9rem;
   }
 `;
 
 const SideBarRight = styled.aside`
   width: 20%;
+  min-width: 250px;
   background-color: ${({ theme }) => theme.colors.surfaceDark};
   border-left: 1px solid ${({ theme }) => theme.colors.border};
+
+  @media (max-width: 1024px) {
+    width: 100%;
+    border-left: none;
+    border-top: 1px solid ${({ theme }) => theme.colors.border};
+    min-width: auto;
+    order: 2;
+  }
+`;
+
+const SearchResultsContainer = styled.div`
+  margin-bottom: 1.5rem;
+
+  @media (max-width: 768px) {
+    margin-bottom: 1rem;
+  }
 `;
 
 const FeedPage = () => {
   const [selectedTab, setSelectedTab] = useState("friends");
-  const { results, loading, search } = useSearchPosts();
+  const { results, loading, search, clearResults } = useSearchPosts();
+  const { t } = useTranslation();
 
   const renderContent = () => {
     switch (selectedTab) {
@@ -85,31 +135,33 @@ const FeedPage = () => {
             active={selectedTab === "friends"}
             onClick={() => setSelectedTab("friends")}
           >
-            Amigos
+            {t("friends")}
           </TabButton>
           <TabButton
             active={selectedTab === "interests"}
             onClick={() => setSelectedTab("interests")}
           >
-            Interesses
+            {t("interests")}
           </TabButton>
           <TabButton
             active={selectedTab === "all"}
             onClick={() => setSelectedTab("all")}
           >
-            Todos
+            {t("all")}
           </TabButton>
         </Tabs>
-        <div>
-          <SearchBar onSearch={search} />
+        
+        <SearchResultsContainer>
+          <SearchBar onSearch={search}
+           onClear={clearResults} />
           {loading ? (
-            <p>Carregando...</p>
+            <p>{t("loading")}</p>
           ) : (
             results.map((post) => (
               <SearchResultCard key={post.id} post={post} />
             ))
           )}
-        </div>
+        </SearchResultsContainer>
 
         {renderContent()}
       </MainContent>

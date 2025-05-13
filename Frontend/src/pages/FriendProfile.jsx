@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { getFriendProfile } from "../api/Friends/friendsProfile";
 import { format } from "date-fns";
-import { ptBR } from "date-fns/locale";
 import styled from "styled-components";
+
+import { useFriendProfile } from "../Hooks/FriendProfile/useFriendProfile";
+
 import { useTranslation } from "react-i18next";
 import { getCurrentLocale } from "../i18n";
 
@@ -89,30 +89,13 @@ const GenreTag = styled.span`
 const FriendProfile = () => {
   const { friendId } = useParams();
   const navigate = useNavigate();
-  const [friend, setFriend] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
   const { t } = useTranslation();
-
-  useEffect(() => {
-    const fetchFriendProfile = async () => {
-      try {
-        const data = await getFriendProfile(friendId);
-        setFriend(data);
-      } catch (err) {
-        setError(err.error || "Erro ao carregar perfil");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchFriendProfile();
-  }, [friendId]);
+  const { friend, loading, error } = useFriendProfile(friendId);
 
   if (loading) {
     return (
       <div className="flex justify-center items-center h-screen">
-        Carregando...
+        {t("loading")}
       </div>
     );
   }
@@ -167,7 +150,7 @@ const FriendProfile = () => {
             <SectionTitle>{t("date of birth")}</SectionTitle>
             <p>
               {format(new Date(friend.birthDate), "dd 'de' MMMM 'de' yyyy", {
-                locale: ptBR,
+                locale: getCurrentLocale(),
               })}
             </p>
           </div>

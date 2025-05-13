@@ -1,11 +1,13 @@
-import { useEffect, useState } from "react";
-import { getAllPosts } from "../../api/Post/GetAllPosts";
-import { friendsGetUser } from "../../api/Friends/friendsGetUser";
-import PostCard from "../Profile/PostCard";
 import styled from "styled-components";
 import { format } from "date-fns";
+
+import PostCard from "../Post/PostCard";
+
 import { getCurrentLocale } from "../../i18n";
-import Cookies from "js-cookie";
+
+import SortControls from "../utils/SortControls";
+
+import { useFriendsPosts } from "../../Hooks/Post/useFriendsPosts";
 
 const FeedContainer = styled.div`
   width: 100%;
@@ -80,63 +82,91 @@ const EmptyStateText = styled.p`
   margin-bottom: 1rem;
 `;
 
-const FriendsPosts = () => {
-  const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(true);
+const Pagination = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2rem;
 
-  const userData = JSON.parse(Cookies.get("userData") || "{}");
+  button {
+    background-color: ${({ theme }) => theme.colors.primary || "#3498db"};
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
 
-
-useEffect(() => {
-  const fetchData = async () => {
-    try {
-      const friends = await friendsGetUser(userData);
-      const friendIds = friends.map((f) => f.friend.id);
-
-      const allPosts = await getAllPosts();
-
-      const filteredPosts = allPosts.filter((post) =>
-        friendIds.includes(post.user.id) || post.user.id === userData.id 
-      );
-
-      setPosts(filteredPosts);
-    } catch (error) {
-      console.error("Erro ao buscar posts:", error.message);
-    } finally {
-      setLoading(false);
+    &:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
     }
-  };
+  }
+`;
 
-  fetchData();
-}, [userData]);
+const FriendsPosts = () => {
+  const {
+    loading,
+    currentPosts,
+    currentPage,
+    totalPages,
+    setCurrentPage,
+    sortAlphabetically,
+    sortByDate,
+    totalPosts,
+  } = useFriendsPosts();
 
   if (loading) return <LoadingText>Carregando posts...</LoadingText>;
 
   return (
     <FeedContainer>
-      {posts.length === 0 ? (
+      <SortControls
+        onSortAlphabetically={sortAlphabetically}
+        onSortByDate={sortByDate}
+      />
+
+      {totalPosts === 0 ? (
         <EmptyState>
           <EmptyStateText>Nenhum post encontrado.</EmptyStateText>
           <p>Seja o primeiro a compartilhar algo!</p>
         </EmptyState>
       ) : (
-        posts.map((post) => (
-          <PostContainer key={post.id}>
-            <PostHeader>
-              <AuthorAvatar src={post.user.profileImage} alt={post.user.name} />
-              <AuthorInfo>
-                <AuthorName>{post.user.name}</AuthorName>
-                <PostDate>
-                  {format(new Date(post.createdAt), "d 'de' MMMM 'de' yyyy", {
-                    locale: getCurrentLocale(),
-                  })}
-                </PostDate>
-              </AuthorInfo>
-            </PostHeader>
+        <>
+          {currentPosts.map((post) => (
+            <PostContainer key={post.id}>
+              <PostHeader>
+                <AuthorAvatar
+                  src={post.user.profileImage}
+                  alt={post.user.name}
+                />
+                <AuthorInfo>
+                  <AuthorName>{post.user.name}</AuthorName>
+                  <PostDate>
+                    {format(new Date(post.createdAt), "d 'de' MMMM 'de' yyyy", {
+                      locale: getCurrentLocale(),
+                    })}
+                  </PostDate>
+                </AuthorInfo>
+              </PostHeader>
+              <PostCard post={post} />
+            </PostContainer>
+          ))}
 
-            <PostCard post={post} />
-          </PostContainer>
-        ))
+          <Pagination>
+            <button
+              onClick={() => setCurrentPage((prev) => prev - 1)}
+              disabled={currentPage === 1}
+            >
+              Anterior
+            </button>
+            <button
+              onClick={() => setCurrentPage((prev) => prev + 1)}
+              disabled={currentPage === totalPages}
+            >
+              Próxima
+            </button>
+          </Pagination>
+        </>
       )}
     </FeedContainer>
   );

@@ -1,14 +1,15 @@
-// src/Hooks/useProfile.js ou .ts
 
 import { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
-import { getUserGenresText } from "../api/GenreText/genreTextGet";
-import { userDelete } from "../api/Auth/userDelete";
+import { getUserGenresText } from "../../api/GenreText/genreTextGet";
+import { userDelete } from "../../api/Auth/userDelete";
 
 export const useProfile = () => {
   const [userGenres, setUserGenres] = useState([]);
   const [confirmDelete, setConfirmDelete] = useState(false);
+  const [confirmLogout, setConfirmLogout] = useState(false);
+
   const navigate = useNavigate();
 
   const userData = JSON.parse(Cookies.get("userData") || "{}");
@@ -34,11 +35,16 @@ export const useProfile = () => {
     fetchGenres();
   }, []);
 
-  const handleLogout = () => {
+  const handleLogout = () => setConfirmLogout(true);
+
+  const confirmLogoutAction = () => {
     Cookies.remove("authToken");
     Cookies.remove("userData");
     navigate("/auth");
+    setConfirmLogout(false);
   };
+
+  const cancelLogout = () => setConfirmLogout(false);
 
   const handleDeleteAccount = () => setConfirmDelete(true);
 
@@ -60,10 +66,12 @@ export const useProfile = () => {
   return {
     user,
     confirmDelete,
+    confirmLogout, 
     handleLogout,
     handleDeleteAccount,
     confirmDeleteAccount,
     cancelDeleteAccount,
-    setConfirmDelete,
+    confirmLogoutAction, 
+    cancelLogout, 
   };
 };

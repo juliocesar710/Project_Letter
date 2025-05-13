@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { format } from "date-fns";
+import { Edit, Users, Book } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { getCurrentLocale } from "../../i18n";
-import { Edit, Users, Book } from "lucide-react";
 
 const InfoCard = styled.div`
   background-color: ${({ theme }) => theme.colors.background};
@@ -46,15 +46,20 @@ const ProfileImage = styled.img`
 `;
 
 const ProfileButton = styled.button`
-  padding: 10px 20px;
+  display: flex; /* Adiciona o Flexbox */
+  align-items: center; /* Centraliza verticalmente */
+  justify-content: center; /* Centraliza horizontalmente */
+  padding: 10px; /* Ajuste o padding conforme necessário */
   background-color: ${({ theme }) => theme.colors.primary};
   color: ${({ theme }) => theme.colors.inputBackground};
   border: none;
   border-radius: ${({ theme }) => theme.borderRadius.medium};
-  font-size: 16px;
+  font-size: 14px;
   font-weight: bold;
   cursor: pointer;
   transition: background-color 0.3s;
+  height: 40px;
+  width: 40px;
 
   &:hover {
     background-color: ${({ theme }) => theme.colors.primaryDark};
@@ -64,7 +69,8 @@ const ProfileButton = styled.button`
 const ProfileHeader = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
+  
   width: 100%;
 `;
 

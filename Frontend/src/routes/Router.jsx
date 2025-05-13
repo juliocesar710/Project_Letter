@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import ProfilePage from "../pages/ProfilePage";
 import AuthPage from "../pages/AuthPage";
-import ProfileForm from "../components/Profile/ProfileForm";
+import ProfileForm from "../components/User/ProfileForm.jsx";
 import HomePage from "../pages/HomePage";
 import PrivateRoute from "./PrivateRoute";
 import FriendsPage from "../pages/FriendsPage";

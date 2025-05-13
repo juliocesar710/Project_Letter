@@ -1,14 +1,16 @@
-import { useEffect, useState } from "react";
-import { getAllPosts } from "../../api/Post/GetAllPosts";
-import PostCard from "../Profile/PostCard";
 import styled from "styled-components";
 import { format } from "date-fns";
-import { getCurrentLocale } from "../../i18n";
-import Cookies from "js-cookie";
 
+import PostCard from "../Post/PostCard";
+
+import { getCurrentLocale } from "../../i18n";
+
+import SortControls from "../utils/SortControls";
+
+import { usePostsFeed } from "../../Hooks/Post/usePostsFeed";
 
 const FeedContainer = styled.div`
-  width:100%;
+  width: 100%;
   margin: 2rem auto;
   padding: 0 1rem;
 `;
@@ -34,29 +36,48 @@ const PostHeader = styled.div`
   margin-bottom: 1rem;
 `;
 
-const AuthorAvatar = styled.img`
+const ProfileImage = styled.img`
   width: 48px;
   height: 48px;
   border-radius: 50%;
   object-fit: cover;
   margin-right: 1rem;
-  border: 2px solid ${({ theme }) => theme.colors.primary || "#3498db"};
 `;
 
-const AuthorInfo = styled.div`
+const PostInfo = styled.div`
   display: flex;
   flex-direction: column;
+
+  span:first-child {
+    font-weight: 600;
+    color: ${({ theme }) => theme.colors.textPrimary || "#333"};
+  }
+
+  span:last-child {
+    font-size: 0.9rem;
+    color: ${({ theme }) => theme.colors.textSecondary || "#777"};
+  }
 `;
 
-const AuthorName = styled.span`
-  font-weight: 600;
-  color: ${({ theme }) => theme.colors.textPrimary || "#333"};
-  margin-bottom: 0.25rem;
+const PaginationContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
 `;
 
-const PostDate = styled.span`
-  font-size: 0.8rem;
-  color: ${({ theme }) => theme.colors.textSecondary || "#777"};
+const PaginationButton = styled.button`
+  padding: 0.5rem 1rem;
+  margin: 0 0.5rem;
+  background-color: ${({ theme }) => theme.colors.primary || "#3498db"};
+  color: ${({ theme }) => theme.colors.onPrimary || "#fff"};
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+
+  &:disabled {
+    background-color: ${({ theme }) => theme.colors.disabled || "#ccc"};
+    cursor: not-allowed;
+  }
 `;
 
 const LoadingText = styled.p`
@@ -81,55 +102,58 @@ const EmptyStateText = styled.p`
 `;
 
 const AllPosts = () => {
-  const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  
-
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const allPosts = await getAllPosts();
-        setPosts(allPosts);
-      } catch (error) {
-        console.error("Erro ao buscar posts:", error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
+  const {
+    currentPosts,
+    loading,
+    handleNextPage,
+    handlePreviousPage,
+    sortAlphabetically,
+    sortByDate,
+    isFirstPage,
+    isLastPage,
+  } = usePostsFeed();
 
   if (loading) return <LoadingText>Carregando posts...</LoadingText>;
 
   return (
     <FeedContainer>
-      {posts.length === 0 ? (
+      <SortControls
+        onSortAlphabetically={sortAlphabetically}
+        onSortByDate={sortByDate}
+      />
+
+      {currentPosts.length === 0 ? (
         <EmptyState>
           <EmptyStateText>Nenhum post encontrado.</EmptyStateText>
           <p>Seja o primeiro a compartilhar algo!</p>
         </EmptyState>
       ) : (
-        posts.map((post) => (
+        currentPosts.map((post) => (
           <PostContainer key={post.id}>
             <PostHeader>
-              <AuthorAvatar src={post.user.profileImage} alt={post.user.name} />
-              <AuthorInfo>
-                <AuthorName>{post.user.name}</AuthorName>
-                <PostDate>
+              <ProfileImage src={post.user.profileImage} alt={post.user.name} />
+              <PostInfo>
+                <span>{post.user.name}</span>
+                <span>
                   {format(new Date(post.createdAt), "d 'de' MMMM 'de' yyyy", {
                     locale: getCurrentLocale(),
                   })}
-                </PostDate>
-              </AuthorInfo>
+                </span>
+              </PostInfo>
             </PostHeader>
-
             <PostCard post={post} />
           </PostContainer>
         ))
       )}
+
+      <PaginationContainer>
+        <PaginationButton onClick={handlePreviousPage} disabled={isFirstPage}>
+          Anterior
+        </PaginationButton>
+        <PaginationButton onClick={handleNextPage} disabled={isLastPage}>
+          Próximo
+        </PaginationButton>
+      </PaginationContainer>
     </FeedContainer>
   );
 };

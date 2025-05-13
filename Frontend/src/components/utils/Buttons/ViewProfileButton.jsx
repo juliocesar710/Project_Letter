@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { EyeIcon } from "lucide-react";
@@ -14,6 +13,7 @@ const StyledButton = styled.button`
   transition: all 0.2s;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 5px;
 
   &:hover {

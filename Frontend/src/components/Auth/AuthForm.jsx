@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Eye, EyeOff } from "lucide-react";
-import { useAuthForm } from "../../Hooks/useAuthForm";
+import { useAuthForm } from "../../Hooks/Auth/useAuthForm";
 import { useTranslation } from "react-i18next";
 
 const PasswordInputWrapper = styled.div`

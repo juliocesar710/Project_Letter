@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { getAllPosts } from "../api/Post/GetAllPosts"; 
+import { postUser } from "../../api/Post/postUser"; 
 import { useTranslation } from "react-i18next";
 
 export const usePostForm = () => {
@@ -20,7 +20,6 @@ export const usePostForm = () => {
   };
 
   const handleGenreChange = (genres) => {
-    // Garante que genres é sempre um array
     const normalizedGenres = Array.isArray(genres) ? genres : [genres];
     setFormData((prev) => ({ ...prev, genres: normalizedGenres }));
   };
@@ -31,11 +30,11 @@ export const usePostForm = () => {
       const payload = {
         title: formData.title,
         description: formData.description,
-        image: formData.image, // Agora pegando do formData
-        genreTexts: selectedGenres, // Pegando do estado dedicado
+        image: formData.image, 
+        genreTexts: selectedGenres,
       };
       
-      await getAllPosts(payload);
+      await postUser(payload);
       setSuccessMessage(t("postcreatedsuccess") || "Post criado com sucesso!");
       setFormData({
         title: "",

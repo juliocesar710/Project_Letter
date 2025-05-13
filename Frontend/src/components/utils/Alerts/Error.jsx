@@ -1,9 +1,8 @@
-import React from "react";
 import styled from "styled-components";
 
 const AlertContainer = styled.div`
-  background-color: ${({ theme }) => theme.colors.sucess};
-  color: ${({ theme }) => theme.colors.textOnSucess};
+  background-color: ${({ theme }) => theme.colors.error};
+  color: ${({ theme }) => theme.colors.inputBackground};
   padding: 15px;
   border-radius: ${({ theme }) => theme.borderRadius.medium};
   text-align: center;
@@ -12,8 +11,8 @@ const AlertContainer = styled.div`
   box-shadow: ${({ theme }) => theme.shadows.light};
 `;
 
-const Sucess = ({ message }) => {
+const Error = ({ message }) => {
   return <AlertContainer>{message}</AlertContainer>;
 };
 
-export default Sucess;
+export default Error;

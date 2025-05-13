@@ -1,7 +1,6 @@
-// hooks/useFriendSearch.js
 import { useEffect, useState } from "react";
-import { friendsGetUser } from "../api/Friends/friendsGetUser";
-import { userGetByName } from "../api/Auth/userGetByName";
+import { friendsGetUser } from "../../api/Friends/friendsGetUser";
+import { userGetByName } from "../../api/Auth/userGetByName";
 
 export const useFriendSearch = (currentUserId) => {
   const [searchTerm, setSearchTerm] = useState("");

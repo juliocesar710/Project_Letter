@@ -1,34 +1,26 @@
-// components/User/AllUsersList.jsx
 import styled from "styled-components";
-import { useUsersAndFriends } from "../../Hooks/useUsersAndFriends";
+import { useUsersAndFriends } from "../../Hooks/Friend/useUsersAndFriends";
 import { UserCard } from "../User/UserCard";
 
 const Container = styled.div`
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
   gap: 20px;
   height: 100%;
-  
 `;
 
-
-
 const AllUsersList = ({ onAddFriend, onRemoveFriend }) => {
-  const {
-    users,
-    userId,
-    isFriend,
-    getFriendshipId,
-    refreshFriends,
-  } = useUsersAndFriends();
+  const { users, userId, isFriend, getFriendshipId, refreshFriends } =
+    useUsersAndFriends();
 
   return (
     <Container>
       {users
         .filter((u) => u.id !== userId)
         .map((user) => (
-        
-            <UserCard
+          <UserCard
             key={user.id}
             user={user}
             isFriend={isFriend(user.id)}
@@ -38,10 +30,7 @@ const AllUsersList = ({ onAddFriend, onRemoveFriend }) => {
               await refreshFriends();
             }}
             onRemove={onRemoveFriend}
-            
           />
-         
-          
         ))}
     </Container>
   );

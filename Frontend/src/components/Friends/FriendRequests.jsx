@@ -1,10 +1,6 @@
-import React from 'react';
 import styled from 'styled-components';
-import { friendsPending } from '../../api/Friends/friendsPending';
-import { updateFriendshipStatus } from '../../api/Friends/friendsStatus';
-import { useEffect, useState } from 'react';
-import Cookies from 'js-cookie';  
 import { useTranslation } from 'react-i18next';
+import { useFriendRequests } from '../../Hooks/Friend/useFriendRequests';
 
 const RequestsContainer = styled.div`
   margin-bottom: 30px;
@@ -84,46 +80,16 @@ const EmptyMessage = styled.p`
   text-align: center;
   padding: 20px;
 `;
-
-const FriendRequests = ({ onUpdateRequests }) => { 
-  const [requests, setRequests] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [currentUserId, setCurrentUserId] = useState(null);
+const FriendRequests = ({ onUpdateRequests }) => {
   const { t } = useTranslation();
+  const {
+    requests,
+    loading,
+    currentUserId,
+    handleStatusChange,
+  } = useFriendRequests(onUpdateRequests);
 
-  const handleStatusChange = async (friendId, status) => {
-    try {
-      await updateFriendshipStatus({friendId, status});
-      const updatedRequests = await friendsPending();
-      setRequests(updatedRequests);
-      if (onUpdateRequests) onUpdateRequests();
-    } catch (error) {
-      console.error("Erro ao atualizar status de amizade:", error);
-    }
-  };
-
-  useEffect(() => {
-    const token = Cookies.get('authToken');
-    if (token) {
-      const payload = JSON.parse(atob(token.split('.')[1]));
-      setCurrentUserId(payload.id);
-    }
-
-    const fetchRequests = async () => {
-      try {
-        const data = await friendsPending();
-        setRequests(data);
-      } catch (error) {
-        console.error("Erro ao carregar solicitações:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchRequests();
-  }, []);
-
-  if (loading) return <EmptyMessage>Carregando solicitações...</EmptyMessage>;
+  if (loading) return <EmptyMessage>{t("loadingrequests")}</EmptyMessage>;
 
   return (
     <RequestsContainer>
@@ -136,10 +102,7 @@ const FriendRequests = ({ onUpdateRequests }) => {
           return (
             <RequestCard key={request.id}>
               <RequestInfo>
-                <ProfileImage
-                  src={profileUser.profileImage}
-                  alt={profileUser.name}
-                />
+                <ProfileImage src={profileUser.profileImage} alt={profileUser.name} />
                 <Name>{profileUser.name}</Name>
               </RequestInfo>
 
@@ -149,17 +112,13 @@ const FriendRequests = ({ onUpdateRequests }) => {
                 <ButtonGroup>
                   <ActionButton
                     className="accept"
-                    onClick={() =>
-                      handleStatusChange(request.user.id, "accepted")
-                    }
+                    onClick={() => handleStatusChange(request.user.id, "accepted")}
                   >
                     {t("accept")}
                   </ActionButton>
                   <ActionButton
                     className="reject"
-                    onClick={() =>
-                      handleStatusChange(request.user.id, "rejected")
-                    }
+                    onClick={() => handleStatusChange(request.user.id, "rejected")}
                   >
                     {t("reject")}
                   </ActionButton>

@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import Sucess from "../utils/Sucess";
-import Alert from "../utils/Error";
+import Sucess from "../utils/Alerts/Sucess";
+import Error from "../utils/Alerts/Error";
 import GenreSelector from "../utils/GenreSelector";
-import { useProfileForm } from "../../Hooks/useProfileForm";
+import { useProfileForm } from "../../Hooks/User/useProfileForm";
 import { useTranslation } from "react-i18next";
 
 const FormContainer = styled.div`
@@ -91,15 +91,13 @@ const ProfileImage = styled.img`
   height: 130px;
   border-radius: 50%;
   border: 4px solid ${({ theme }) => theme.colors.primary};
-  margin: 0 auto 20px auto; 
+  margin: 0 auto 20px auto;
   object-fit: cover;
   object-position: center;
   display: block;
 `;
 
-
 const ProfileForm = ({ isEdit = false }) => {
-
   const { t } = useTranslation();
 
   const {
@@ -117,8 +115,7 @@ const ProfileForm = ({ isEdit = false }) => {
     <FormContainer>
       <Form onSubmit={handleSubmit}>
         <FormTitle>{isEdit ? t("edit profile") : "Editando"}</FormTitle>
-        {successMessage && <Sucess message={successMessage} />}
-        {errorMessage && <Alert message={errorMessage} />}
+
         <ProfileImage src={formData.profileImage} alt="Profile Image" />
         <Input
           type="text"
@@ -161,6 +158,8 @@ const ProfileForm = ({ isEdit = false }) => {
         <Button type="submit" disabled={loading}>
           {loading ? t("saving") : isEdit ? t("save") : "Registrar"}
         </Button>
+        {successMessage && <Sucess message={successMessage} />}
+        {errorMessage && <Error message={errorMessage} />}
       </Form>
     </FormContainer>
   );

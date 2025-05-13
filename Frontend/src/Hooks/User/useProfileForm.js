@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Cookies from "js-cookie";
-import { updateUser } from "../api/Auth/userUpdate";
+
+import { updateUser } from "../../api/Auth/userUpdate";
 import { useTranslation } from "react-i18next";
 
 export const useProfileForm = () => {

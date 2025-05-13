@@ -49,6 +49,7 @@
   "thisfriend": "This friend",
   "friendrequest": "Friend Requests",
   "wait": "Waiting for confirmation",
+  "allGenres":"All Genres of Texts",
 
   "back": "Back",
   "member": "Member since",
@@ -57,9 +58,12 @@
   "searching": "Searching...",
   "search": "Search",
 
-  "no posts found.": "No posts found.",
+  "all":"All",
 
-  "genreText":"Genre Texts",
+  "nopostsfound": "No posts found.",
+  "sortByDate":"Sort by date",
+  "sortAlphabetically":"Sort alphabetically",
+  "genreText": "Genre Texts",
 
   "description of letter": "Connect with other literature lovers, share your discoveries, and find your next great read in our community of readers and writers.",
   "quote1": "A reader lives a thousand lives before he dies. The man who never reads lives only one.",
@@ -83,6 +87,9 @@
   "error email already exists": "Email already exists",
   "error invalid password": "Password is invalid",
 
-  "no interest registered.": "No interest registered."
+  "no interest registered.": "No interest registered.",
+
+  "confirmLogout": "Are you sure you want to log out?",
+  "readMore": "Read more",
+  "readless": "Read less"
 }
-  

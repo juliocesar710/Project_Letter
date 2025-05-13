@@ -1,11 +1,13 @@
-import { useEffect, useState } from "react";
-import { getAllPosts } from "../../api/Post/GetAllPosts";
-import PostCard from "../Profile/PostCard";
 import styled from "styled-components";
 import { format } from "date-fns";
-import { getCurrentLocale } from "../../i18n";
-import Cookies from "js-cookie";
 
+import PostCard from "../Post/PostCard";
+
+import { getCurrentLocale } from "../../i18n";
+
+import SortControls from "../utils/SortControls"; 
+
+import { useInterestPosts } from "../../Hooks/Post/useInterestPosts";
 
 const FeedContainer = styled.div`
   width: 100%;
@@ -80,48 +82,55 @@ const EmptyStateText = styled.p`
   margin-bottom: 1rem;
 `;
 
+const PaginationContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+`;
+
+const PaginationButton = styled.button`
+  padding: 0.5rem 1rem;
+  margin: 0 0.5rem;
+  background-color: ${({ theme }) => theme.colors.primary || "#3498db"};
+  color: ${({ theme }) => theme.colors.onPrimary || "#fff"};
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+
+  &:disabled {
+    background-color: ${({ theme }) => theme.colors.disabled || "#ccc"};
+    cursor: not-allowed;
+  }
+`;
 const InterestPosts = () => {
-  const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  const userData = JSON.parse(Cookies.get("userData") || "{}");
-
-
-useEffect(() => {
-  const fetchData = async () => {
-    try {
-      const allPosts = await getAllPosts();
-      const interests = userData.genreTexts || [];
-
-      const filteredPosts = allPosts.filter(post =>
-        post.genreTexts?.some(postGenre =>
-          interests.includes(postGenre.name)
-        )
-      );
-
-      setPosts(filteredPosts);
-    } catch (error) {
-      console.error("Erro ao buscar posts:", error.message);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  fetchData();
-}, [userData.genreTexts]);
-
+  const {
+    loading,
+    currentPosts,
+    currentPage,
+    totalPages,
+    handleNextPage,
+    handlePreviousPage,
+    sortAlphabetically,
+    sortByDate,
+    totalPosts,
+  } = useInterestPosts();
 
   if (loading) return <LoadingText>Carregando posts...</LoadingText>;
 
   return (
     <FeedContainer>
-      {posts.length === 0 ? (
+      <SortControls
+        onSortAlphabetically={sortAlphabetically}
+        onSortByDate={sortByDate}
+      />
+
+      {totalPosts === 0 ? (
         <EmptyState>
           <EmptyStateText>Nenhum post encontrado.</EmptyStateText>
           <p>Seja o primeiro a compartilhar algo!</p>
         </EmptyState>
       ) : (
-        posts.map((post) => (
+        currentPosts.map((post) => (
           <PostContainer key={post.id}>
             <PostHeader>
               <AuthorAvatar src={post.user.profileImage} alt={post.user.name} />
@@ -134,11 +143,19 @@ useEffect(() => {
                 </PostDate>
               </AuthorInfo>
             </PostHeader>
-
             <PostCard post={post} />
           </PostContainer>
         ))
       )}
+
+      <PaginationContainer>
+        <PaginationButton onClick={handlePreviousPage} disabled={currentPage === 1}>
+          Anterior
+        </PaginationButton>
+        <PaginationButton onClick={handleNextPage} disabled={currentPage === totalPages}>
+          Próximo
+        </PaginationButton>
+      </PaginationContainer>
     </FeedContainer>
   );
 };

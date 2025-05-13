@@ -1,9 +1,12 @@
 import styled from "styled-components";
+import Cookies from "js-cookie";
+
 import AddFriendButton from "../utils/Buttons/AddFriendButton";
 import ViewProfileButton from "../utils/Buttons/ViewProfileButton";
-import Cookies from "js-cookie";
+
 import { useTranslation } from "react-i18next";
-import { useFriendSearch } from "../../Hooks/useFriendSearch";
+
+import { useFriendSearch } from "../../Hooks/Friend/useFriendSearch";
 
 const SearchContainer = styled.div`
   position: relative;
@@ -88,6 +91,28 @@ const ResultEmail = styled.span`
   font-size: 0.85rem;
 `;
 
+const ClearButton = styled.button`
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: ${({ theme }) => theme.colors.text};
+  font-size: 2rem;
+  cursor: pointer;
+
+  &:hover {
+    color: ${({ theme }) => theme.colors.primary};
+  }
+`;
+
+const InputSearchContainer = styled.div`
+  position: relative;
+  width: 100%;
+  margin-bottom: 10px;
+`;
+
 const FriendSearch = () => {
   const { t } = useTranslation();
 
@@ -103,15 +128,27 @@ const FriendSearch = () => {
     setResults,
   } = useFriendSearch(userId);
 
+  const clearSearch = () => {
+    setSearchTerm("");
+    setResults([]);
+  };
 
   return (
     <SearchContainer>
-      <SearchInput
-        type="text"
-        placeholder={t("searchfriends")}
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-      />
+      <InputSearchContainer>
+        <SearchInput
+          type="text"
+          placeholder={t("searchfriends")}
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />{" "}
+        {searchTerm && (
+          <ClearButton onClick={clearSearch} aria-label={t("clearsearch")}>
+            &times;
+          </ClearButton>
+        )}
+      </InputSearchContainer>
+
       <SearchButton onClick={handleSearch}>
         {loading ? t("search") : t("searching")}
       </SearchButton>

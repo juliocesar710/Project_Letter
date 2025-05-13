@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import Sucess from "../utils/Sucess";
-import Alert from "../utils/Error";
+import Sucess from "../utils/Alerts/Sucess";
+import Error from "../utils/Alerts/Error";
 import GenreSelector from "../utils/GenreSelector";
-import { usePostForm } from "../../Hooks/usePostForm";
+import { usePostForm } from "../../Hooks/Post/usePostForm";
 import { useTranslation } from "react-i18next";
 
 const FormContainer = styled.div`
@@ -104,12 +104,12 @@ const SubmitButton = styled.button`
 const CreatePostForm = () => {
   const {
     formData,
-    selectedGenres, // Pega os gêneros do hook
+    selectedGenres, 
     loading,
     successMessage,
     errorMessage,
     handleChange,
-    setSelectedGenres, // Pega a função dedicada
+    setSelectedGenres,
     handleSubmit,
   } = usePostForm();
   const { t } = useTranslation();
@@ -118,7 +118,7 @@ const CreatePostForm = () => {
     <FormContainer>
       <StyledForm onSubmit={handleSubmit}>
         {successMessage && <Sucess message={successMessage} />}
-        {errorMessage && <Alert message={errorMessage} />}
+        {errorMessage && <Error message={errorMessage} />}
 
         <FormField>
           <Input
@@ -142,8 +142,8 @@ const CreatePostForm = () => {
         </FormField>
         <FormField>
           <Input
-            type="text" // ou type="url" se preferir
-            name="image" // deve bater com o nome no estado
+            type="text"
+            name="image" 
             placeholder="URL da imagem"
             value={formData.image}
             onChange={handleChange}
@@ -151,11 +151,10 @@ const CreatePostForm = () => {
           />
         </FormField>
 
-        {/* Pré-visualização da imagem (opcional) */}
-        {formData.imageUrl && (
+        {formData.image && (
           <FormField>
             <img
-              src={formData.imageUrl}
+              src={formData.image}
               alt="Preview"
               style={{
                 maxWidth: "100%",

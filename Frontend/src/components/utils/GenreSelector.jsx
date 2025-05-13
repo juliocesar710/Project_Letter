@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import { useEffect } from "react";
 import styled from "styled-components";
-import { getAllGenresText } from "../../api/GenreText/genreTextGetAll";
 import { useTranslation } from "react-i18next";
+import { useGenreSelector } from "../../Hooks/utils/useGenreSelector";
 
 const GenreContainer = styled.div`
   margin-bottom: 15px;
@@ -47,28 +47,14 @@ const HiddenCheckbox = styled.input`
   cursor: pointer;
 `;
 
-const GenreSelector = ({ selectedGenres, setSelectedGenres }) => {
-  const [genres, setGenres] = useState([]);
+const GenreSelector = ({ onChange, initialSelected = [] }) => {
   const { t } = useTranslation();
+  const { genres, selectedGenres, toggleGenre } =
+    useGenreSelector(initialSelected);
 
   useEffect(() => {
-    const fetchGenres = async () => {
-      try {
-        const data = await getAllGenresText();
-        setGenres(data);
-      } catch (error) {
-        console.error("Erro ao buscar gêneros textuais:", error);
-      }
-    };
-
-    fetchGenres();
-  }, []);
-
-  const handleGenreChange = (genre) => {
-    setSelectedGenres((prev) =>
-      prev.includes(genre) ? prev.filter((g) => g !== genre) : [...prev, genre]
-    );
-  };
+    if (onChange) onChange(selectedGenres);
+  }, [selectedGenres, onChange]);
 
   return (
     <GenreContainer>
@@ -84,7 +70,7 @@ const GenreSelector = ({ selectedGenres, setSelectedGenres }) => {
             <HiddenCheckbox
               type="checkbox"
               checked={selectedGenres.includes(genre.genreName)}
-              onChange={() => handleGenreChange(genre.genreName)}
+              onChange={() => toggleGenre(genre.genreName)}
             />
             {genre.genreName}
           </GenreBadge>

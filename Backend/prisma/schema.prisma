@@ -16,13 +16,14 @@ model User {
   email             String              @unique
   password          String
   createdAt         DateTime            @default(now())
-  birthDate         DateTime?          
-  description       String?             
-  profileImage      String?             
+  birthDate         DateTime?
+  description       String?
+  profileImage      String?
   Posts             Post[]
   GenreTextFromUser GenreTextFromUser[]
   friendships       Friendship[]        @relation("UserAsUser")
   friendsWithMe     Friendship[]        @relation("UserAsFriend")
+  likes             Like[]
 }
 
 model GenreText {
@@ -55,15 +56,29 @@ model Post {
   userId      Int
   user        User        @relation(fields: [userId], references: [id])
   genreTexts  GenreText[] @relation("PostGenreTexts")
+  likes       Like[]
+  likesCount  Int         @default(0)
 }
 
 model Friendship {
   id        Int      @id @default(autoincrement())
   userId    Int
   friendId  Int
-  status    String  
+  status    String
   createdAt DateTime @default(now())
 
-  user      User     @relation("UserAsUser", fields: [userId], references: [id])
-  friend    User     @relation("UserAsFriend", fields: [friendId], references: [id])
+  user   User @relation("UserAsUser", fields: [userId], references: [id])
+  friend User @relation("UserAsFriend", fields: [friendId], references: [id])
+}
+
+model Like {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  postId    Int
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+  post Post @relation(fields: [postId], references: [id])
+
+  @@unique([userId, postId]) 
 }
