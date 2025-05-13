@@ -1,8 +1,7 @@
-import { useState } from "react";
 import styled from "styled-components";
-import { deleteFriendship } from "../../../api/Friends/friendsDelete";
 import Confirm from "../Alerts/Confirm";
 import { useTranslation } from "react-i18next";
+import { useRemoveFriendship } from "../../../Hooks/utils/useRemoveFriendship";
 
 const ActionButton = styled.button`
   padding: 8px 15px;
@@ -19,28 +18,14 @@ const ActionButton = styled.button`
     transform: translateY(-1px);
   }
 `;
-
 const FriendRemoveButton = ({ friend, onFriendRemoved, label }) => {
-  const [showConfirm, setShowConfirm] = useState(false);
   const { t } = useTranslation();
-
-  const handleConfirmRemove = async () => {
-    try {
-      await deleteFriendship(friend.id);
-      if (onFriendRemoved) {
-        onFriendRemoved(friend.id);
-      }
-      window.location.reload(); 
-    } catch (error) {
-      console.error("Erro ao remover amigo:", error);
-    } finally {
-      setShowConfirm(false);
-    }
-  };
+  const { showConfirm, openConfirm, closeConfirm, handleConfirmRemove } =
+    useRemoveFriendship(friend.id, onFriendRemoved);
 
   const handleRemoveClick = (e) => {
     e.stopPropagation();
-    setShowConfirm(true);
+    openConfirm();
   };
 
   return (
@@ -49,9 +34,11 @@ const FriendRemoveButton = ({ friend, onFriendRemoved, label }) => {
 
       {showConfirm && (
         <Confirm
-          message={t("wantremovefriend")+` ${friend.name || t("thisfriend")} ?`}
+          message={
+            t("wantremovefriend") + ` ${friend.name || t("thisfriend")} ?`
+          }
           onConfirm={handleConfirmRemove}
-          onCancel={() => setShowConfirm(false)}
+          onCancel={closeConfirm}
         />
       )}
     </>

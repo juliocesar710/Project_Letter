@@ -1,8 +1,7 @@
-import React, { useState } from "react";
 import styled from "styled-components";
 import Confirm from "../Alerts/Confirm";
-import { deletePost } from "../../../api/Post/DeletePost"; 
 import { useTranslation } from "react-i18next";
+import { useDeletePost } from "../../../Hooks/utils/useDeletePost";
 
 const DeleteButton = styled.button`
   padding: 5px 10px;
@@ -18,32 +17,19 @@ const DeleteButton = styled.button`
     background-color: ${({ theme }) => theme.colors.errorDark};
   }
 `;
-
 const DeletePostButton = ({ postId, onDeleted }) => {
-  const [showConfirm, setShowConfirm] = useState(false);
   const { t } = useTranslation();
-
-  const handleConfirm = async () => {
-    try {
-      await deletePost(postId);
-      if (onDeleted) onDeleted(postId); 
-    } catch (err) {
-      console.error("Erro ao deletar post:", err);
-    } finally {
-      setShowConfirm(false);
-    }
-  };
+  const { showConfirm, openConfirm, closeConfirm, handleConfirm } =
+    useDeletePost(postId, onDeleted);
 
   return (
     <>
-      <DeleteButton onClick={() => setShowConfirm(true)}>
-        {t("delete")}
-      </DeleteButton>
+      <DeleteButton onClick={openConfirm}>{t("delete")}</DeleteButton>
       {showConfirm && (
         <Confirm
           message={t("wantremovepost")}
           onConfirm={handleConfirm}
-          onCancel={() => setShowConfirm(false)}
+          onCancel={closeConfirm}
         />
       )}
     </>

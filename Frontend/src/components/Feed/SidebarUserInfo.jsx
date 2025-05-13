@@ -1,4 +1,3 @@
-// src/components/SidebarUserInfo.tsx ou .jsx
 import styled from "styled-components";
 import { useProfile } from "../../Hooks/Profile/useProfile";
 import { useTranslation } from "react-i18next";

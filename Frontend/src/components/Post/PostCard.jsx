@@ -1,10 +1,10 @@
 import { useState } from "react";
 import styled from "styled-components";
-import PostDeleteButton from "../utils/Buttons/PostDeleteButton";
 import Cookies from "js-cookie";
+import { format } from "date-fns";
+import PostDeleteButton from "../utils/Buttons/PostDeleteButton";
 import { useTranslation } from "react-i18next";
 import { getCurrentLocale } from "../../i18n";
-import { format } from "date-fns";
 
 const PostCardContainer = styled.div`
   background-color: ${({ theme }) => theme.colors.inputBackground};

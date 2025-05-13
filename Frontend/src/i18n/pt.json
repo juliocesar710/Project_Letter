@@ -50,9 +50,10 @@
   "favoritegenrestext": "Genêros Favoritos de Textos",
 
   "about": "Sobre",
-  "nopostsfound":"Nenhum post encontrado.",
-  "sortByDate":"Ordenar por data",
-  "sortAlphabetically":"Ordenar alfabeticamente",
+  "nopostsfound": "Nenhum post encontrado.",
+  "sortByDate": "Ordenar por data",
+  "sortAlphabetically": "Ordenar alfabeticamente",
+  "allGenres": "Todos os Gêneros de Textos",
 
   "nopedingfriend": "Nenhuma solicitação de amizade pendente.",
 

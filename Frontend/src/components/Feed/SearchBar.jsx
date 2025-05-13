@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
 import styled from "styled-components";
-import { getAllGenresText } from "../../api/GenreText/genreTextGetAll";
+import { useSearchBar } from "../../Hooks/Feed/useSearchBar";
+import { useTranslation } from "react-i18next";
 
 const SearchContainer = styled.div`
   display: flex;
@@ -60,33 +60,18 @@ const InputSearchContainer = styled.div`
   width: 100%;
   margin-bottom: 10px;
 `;
+
 const SearchBar = ({ onSearch, onClear }) => {
-  const [title, setTitle] = useState("");
-  const [genreName, setGenreName] = useState(""); 
-  const [genres, setGenres] = useState([]);
-
-  useEffect(() => {
-    const fetchGenres = async () => {
-      try {
-        const data = await getAllGenresText();
-        setGenres(data);
-      } catch (err) {
-        console.error("Erro ao carregar gêneros:", err);
-      }
-    };
-
-    fetchGenres();
-  }, []);
-
-  const handleSearch = () => {
-    onSearch({ title, genreName }); // Envia o nome do gênero textual
-  };
-
-  const handleClear = () => {
-    setTitle("");
-    setGenreName("");
-    onClear();
-  };
+  const { t } = useTranslation();
+  const {
+    title,
+    setTitle,
+    genreName,
+    setGenreName,
+    genres,
+    handleSearch,
+    handleClear,
+  } = useSearchBar(onSearch, onClear);
 
   return (
     <SearchContainer>
@@ -103,13 +88,13 @@ const SearchBar = ({ onSearch, onClear }) => {
           </ClearButton>
         )}
       </InputSearchContainer>
-      <Button onClick={handleSearch}>Buscar</Button>
+      <Button onClick={handleSearch}>{t("search")}</Button>
 
       <Select
         value={genreName}
-        onChange={(e) => setGenreName(e.target.value)} // Atualiza o estado com o nome do gênero
+        onChange={(e) => setGenreName(e.target.value)}
       >
-        <option value="">Todos os Gêneros</option>
+        <option value="">{t("allGenres")}</option>
         {genres.map((genre) => (
           <option key={genre.id} value={genre.genreName}>
             {genre.genreName}

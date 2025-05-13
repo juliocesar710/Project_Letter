@@ -2,7 +2,6 @@ import styled from "styled-components";
 import FriendRemoveButton from "../utils/Buttons/RemoveFriendButton";
 import AddFriendButton from "../utils/Buttons/AddFriendButton.jsx";
 import { useTranslation } from "react-i18next";
-import {UserPlus} from "lucide-react"
 
 const Card = styled.div`
   background: ${({ theme }) => theme.colors.background};
@@ -25,7 +24,6 @@ const Card = styled.div`
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
   }
 `;
-
 
 const Avatar = styled.img`
   width: 100px;
@@ -68,7 +66,6 @@ const LayoutButton = styled.div`
   justify-content: center;
 `;
 
-
 export const UserCard = ({ user, isFriend, friendshipId, onAdd, onRemove }) => {
   const { t } = useTranslation();
 
@@ -89,10 +86,9 @@ export const UserCard = ({ user, isFriend, friendshipId, onAdd, onRemove }) => {
       <Name>{user.name}</Name>
 
       {user.genres?.length > 0 && (
-        
         <GenresContainer>
-              <Name> {t("interests")}</Name>
- 
+          <Name> {t("interests")}</Name>
+
           {user.genres.slice(0, 3).map((genre, idx) => (
             <GenreTag key={idx}>{genre}</GenreTag>
           ))}
