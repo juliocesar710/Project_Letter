@@ -2,7 +2,12 @@ import { useState } from "react";
 import styled from "styled-components";
 import Cookies from "js-cookie";
 import { format } from "date-fns";
+
 import PostDeleteButton from "../utils/Buttons/PostDeleteButton";
+import LikeButton from "../utils/Buttons/LikeButton";
+
+import { useLike } from "../../Hooks/Like/useLike";
+
 import { useTranslation } from "react-i18next";
 import { getCurrentLocale } from "../../i18n";
 
@@ -116,6 +121,13 @@ const ExpandableText = ({ text, maxLength = 150 }) => {
 };
 const PostCard = ({ post, onDeleted }) => {
   const { title, description, image, genreTexts = [], id, userId } = post;
+  const { likesCount, likedByUser } = post;
+
+  const {
+    liked,
+    likesCount: currentLikesCount,
+    toggleLike,
+  } = useLike(likedByUser, likesCount, id);
 
   const userData = Cookies.get("userData");
   const loggedUserId = userData ? JSON.parse(userData).id : null;
@@ -127,7 +139,7 @@ const PostCard = ({ post, onDeleted }) => {
       <PostContent>
         {" "}
         {format(new Date(post.createdAt), "dd/MM/yyyy 'às' HH:mm", {
-          locale: getCurrentLocale(), 
+          locale: getCurrentLocale(),
         })}
       </PostContent>
       {isOwner && (
@@ -155,6 +167,11 @@ const PostCard = ({ post, onDeleted }) => {
           ))}
         </GenreList>
       )}
+      <LikeButton
+        liked={liked}
+        likesCount={currentLikesCount}
+        onToggle={toggleLike}
+      />
     </PostCardContainer>
   );
 };
