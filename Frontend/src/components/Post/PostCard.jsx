@@ -5,8 +5,10 @@ import { format } from "date-fns";
 
 import PostDeleteButton from "../utils/Buttons/PostDeleteButton";
 import LikeButton from "../utils/Buttons/LikeButton";
+import LikesPopup from "../Like/LikesPopup";
 
 import { useLike } from "../../Hooks/Like/useLike";
+import { usePostLikes } from "../../Hooks/Like/usePostLikes";
 
 import { useTranslation } from "react-i18next";
 import { getCurrentLocale } from "../../i18n";
@@ -98,6 +100,22 @@ width:100%;
 }
 `;
 
+const ViewLikesButton = styled.button`
+  margin-top: 1rem;
+  padding: 0.4rem 1rem;
+  background-color: ${({ theme }) => theme.colors.primary};
+  color: white;
+  border: none;
+  border-radius: ${({ theme }) => theme.borderRadius.small};
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.primaryDark};
+  }
+`;
+
 const ExpandableText = ({ text, maxLength = 150 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const { t } = useTranslation();
@@ -122,6 +140,8 @@ const ExpandableText = ({ text, maxLength = 150 }) => {
 const PostCard = ({ post, onDeleted }) => {
   const { title, description, image, genreTexts = [], id, userId } = post;
   const { likesCount, likedByUser } = post;
+  const [showPopup, setShowPopup] = useState(false);
+  const { users, loading, fetchLikes } = usePostLikes(post.id);
 
   const {
     liked,
@@ -133,6 +153,11 @@ const PostCard = ({ post, onDeleted }) => {
   const loggedUserId = userData ? JSON.parse(userData).id : null;
 
   const isOwner = loggedUserId === userId;
+
+  const handleShowPopup = () => {
+    fetchLikes(); // 🔁 Aqui fazemos a busca
+    setShowPopup(true);
+  };
 
   return (
     <PostCardContainer>
@@ -172,6 +197,16 @@ const PostCard = ({ post, onDeleted }) => {
         likesCount={currentLikesCount}
         onToggle={toggleLike}
       />
+      <ViewLikesButton onClick={handleShowPopup}>Ver curtidas</ViewLikesButton>
+      {showPopup && (
+        <LikesPopup
+          postId={post.id}
+          onClose={() => setShowPopup(false)}
+          fetchLikes={fetchLikes}
+          users={users}
+          loading={loading}
+        />
+      )}
     </PostCardContainer>
   );
 };
