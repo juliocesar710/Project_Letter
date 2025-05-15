@@ -8,7 +8,8 @@ import FriendsPage from "../pages/FriendsPage";
 import FriendProfile from "../pages/FriendProfile";
 import FeedPage from "../pages/FeedPage";
 import CreatePostForm from "../components/Post/CreatePostForm.jsx";
-import PostDetailPage from "../components/Post/PostDetailPage.jsx"; 
+import PostDetailPage from "../components/Post/PostDetailPage.jsx";
+import LikedPostsPage from "../pages/LikedPostsPage.jsx";
 
 const AppRouter = ({ toggleTheme }) => {
   return (
@@ -57,12 +58,12 @@ const AppRouter = ({ toggleTheme }) => {
           }
         ></Route>
         <Route
-        path="create-post"
-        element={
-          <PrivateRoute>
-            <CreatePostForm />
-          </PrivateRoute>
-        }
+          path="create-post"
+          element={
+            <PrivateRoute>
+              <CreatePostForm />
+            </PrivateRoute>
+          }
         ></Route>
         <Route
           path="/post/:id"
@@ -71,9 +72,15 @@ const AppRouter = ({ toggleTheme }) => {
               <PostDetailPage />
             </PrivateRoute>
           }
-        >
-          
-        </Route>
+        ></Route>
+        <Route
+          path="/liked-posts"
+          element={
+            <PrivateRoute>
+              <LikedPostsPage />
+            </PrivateRoute>
+          }
+        ></Route>
       </Routes>
     </Router>
   );
