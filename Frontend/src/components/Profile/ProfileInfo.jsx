@@ -1,7 +1,10 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { format } from "date-fns";
-import { Edit, Users, Book } from "lucide-react";
+import { Edit, Users, Book, Notebook } from "lucide-react";
+
+import PostsButton from "../Like/PostsButton";
+
 import { useTranslation } from "react-i18next";
 import { getCurrentLocale } from "../../i18n";
 
@@ -70,7 +73,7 @@ const ProfileHeader = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-around;
-  
+
   width: 100%;
 `;
 
@@ -99,6 +102,13 @@ const TooltipWrapper = styled.div`
     transition: opacity 0.3s;
     white-space: nowrap;
   }
+`;
+
+const ProfileButtons = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
 `;
 
 const ProfileInfo = ({ user }) => {
@@ -148,12 +158,18 @@ const ProfileInfo = ({ user }) => {
       </ProfileHeader>
 
       <Section>
-        <TooltipWrapper>
-          <ProfileButton onClick={handleEditProfile}>
-            <Edit />
-          </ProfileButton>
-          <span>{t("edit profile")}</span>
-        </TooltipWrapper>
+        <ProfileButtons>
+          <TooltipWrapper>
+            <ProfileButton onClick={handleEditProfile}>
+              <Edit />
+            </ProfileButton>
+            <span>{t("edit profile")}</span>
+          </TooltipWrapper>
+          <TooltipWrapper>
+            <PostsButton icon={<Notebook />} label={t("liked posts")} />
+          </TooltipWrapper>
+        </ProfileButtons>
+
         <SectionTitle>{t("personal information")}</SectionTitle>
         <SectionContent>
           {t("name")}: {user.name}

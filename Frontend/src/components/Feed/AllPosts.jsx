@@ -117,6 +117,14 @@ const AllPosts = () => {
 
   return (
     <FeedContainer>
+      <PaginationContainer>
+        <PaginationButton onClick={handlePreviousPage} disabled={isFirstPage}>
+          Anterior
+        </PaginationButton>
+        <PaginationButton onClick={handleNextPage} disabled={isLastPage}>
+          Próximo
+        </PaginationButton>
+      </PaginationContainer>
       <SortControls
         onSortAlphabetically={sortAlphabetically}
         onSortByDate={sortByDate}

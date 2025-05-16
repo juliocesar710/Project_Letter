@@ -109,6 +109,10 @@ const FeedPage = () => {
   const [selectedTab, setSelectedTab] = useState("friends");
   const { results, loading, search, clearResults } = useSearchPosts();
   const { t } = useTranslation();
+  
+
+
+
 
   const renderContent = () => {
     switch (selectedTab) {

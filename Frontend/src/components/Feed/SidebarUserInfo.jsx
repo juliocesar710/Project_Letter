@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { useProfile } from "../../Hooks/Profile/useProfile";
 import { useTranslation } from "react-i18next";
 import Confirm from "../utils/Alerts/Confirm";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
   padding: 1rem;
@@ -14,6 +15,7 @@ const ProfileImage = styled.img`
   border-radius: 50%;
   object-fit: cover;
   margin-bottom: 0.5rem;
+  cursor: pointer;
 `;
 
 const UserName = styled.h2`
@@ -70,10 +72,20 @@ const SidebarUserInfo = () => {
     cancelLogout,
   } = useProfile();
   const { t } = useTranslation();
+  const navigate = useNavigate();
+
+  const handleProfile = (event) => {
+    event.preventDefault();
+    navigate("/profile");
+  };
 
   return (
     <Container>
-      <ProfileImage src={user.profileImage} alt="Foto do usuário" />
+      <ProfileImage
+        src={user.profileImage}
+        alt="Foto do usuário"
+        onClick={handleProfile}
+      />
       <UserName>{user.name}</UserName>
       <Bio>{user.bio}</Bio>
       <GenreList>
