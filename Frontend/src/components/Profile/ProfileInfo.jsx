@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { format } from "date-fns";
-import { Edit, Users, Book, Notebook } from "lucide-react";
+import { Edit, Users, Book, BookHeart } from "lucide-react";
 
 import PostsButton from "../Like/PostsButton";
 
@@ -166,7 +166,7 @@ const ProfileInfo = ({ user }) => {
             <span>{t("edit profile")}</span>
           </TooltipWrapper>
           <TooltipWrapper>
-            <PostsButton icon={<Notebook />} label={t("liked posts")} />
+            <PostsButton icon={<BookHeart />} label={t("liked posts")} />
           </TooltipWrapper>
         </ProfileButtons>
 
