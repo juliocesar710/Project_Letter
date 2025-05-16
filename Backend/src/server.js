@@ -5,6 +5,7 @@ import apiRoutes from "./routes/api.js";
 import genreTextRoutes from "./routes/genreText.js";
 import friendShipRoutes from "./routes/friendShip.js";
 import likeRoutes from "./routes/like.js";
+import commentRoutes from "./routes/comment.js";
 import cors from "cors";
 
 
@@ -28,6 +29,7 @@ app.use("/api", apiRoutes);
 app.use("/genreText", genreTextRoutes);
 app.use("/friendship", friendShipRoutes);
 app.use("/likes", likeRoutes);
+app.use("/comments", commentRoutes);
 
 
 app.get("/", (req, res) => {

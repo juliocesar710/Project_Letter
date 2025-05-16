@@ -24,6 +24,7 @@ model User {
   friendships       Friendship[]        @relation("UserAsUser")
   friendsWithMe     Friendship[]        @relation("UserAsFriend")
   likes             Like[]
+  comments          Comment[]
 }
 
 model GenreText {
@@ -58,6 +59,7 @@ model Post {
   genreTexts  GenreText[] @relation("PostGenreTexts")
   likes       Like[]
   likesCount  Int         @default(0)
+  comments    Comment[]
 }
 
 model Friendship {
@@ -80,5 +82,17 @@ model Like {
   user User @relation(fields: [userId], references: [id])
   post Post @relation(fields: [postId], references: [id])
 
-  @@unique([userId, postId]) 
+  @@unique([userId, postId])
+}
+
+model Comment {
+  id        Int      @id @default(autoincrement())
+  content   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  userId    Int
+  postId    Int
+
+  user User @relation(fields: [userId], references: [id])
+  post Post @relation(fields: [postId], references: [id])
 }
