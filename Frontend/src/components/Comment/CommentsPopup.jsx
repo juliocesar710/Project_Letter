@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import ReactDOM from "react-dom";
+import { usePostCommentForm } from "../../Hooks/Comment/usePostComments";
+
 
 const Overlay = styled.div`
   position: fixed;
@@ -88,7 +90,13 @@ const CommentContent = styled.div`
   }
 `;
 
-const CommentsPopup = ({ open, onClose, comments, loading }) => {
+const CommentsPopup = ({ open, onClose, comments, loading, fetchComments, postId }) => {
+  const { content, setContent, loading: sending, error, handleSubmit } =
+     usePostCommentForm(
+      postId, // <-- Use o postId da prop, nunca dos comentários!
+      fetchComments
+    );
+
   if (!open) return null;
 
   return ReactDOM.createPortal(
@@ -96,6 +104,20 @@ const CommentsPopup = ({ open, onClose, comments, loading }) => {
       <Popup onClick={(e) => e.stopPropagation()}>
         <CloseButton onClick={onClose}>&times;</CloseButton>
         <Title>Comentários</Title>
+        <form onSubmit={handleSubmit} style={{ marginBottom: 16 }}>
+          <input
+            type="text"
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+            placeholder="Escreva um comentário..."
+            disabled={sending}
+            style={{ width: "80%", marginRight: 8 }}
+          />
+          <button type="submit" disabled={sending || !content.trim()}>
+            {sending ? "Enviando..." : "Enviar"}
+          </button>
+        </form>
+        {error && <p style={{ color: "red" }}>{error}</p>}
         {loading ? (
           <p>Carregando...</p>
         ) : comments.length === 0 ? (

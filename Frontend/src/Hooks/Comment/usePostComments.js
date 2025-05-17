@@ -1,28 +1,31 @@
-import { useState, useEffect, useCallback } from "react";
-import { getComment } from "../../api/Comment/GetComment";
+import { useState } from "react";
+import { postComment } from "../../api/Comment/PostComment";
 
-export const usePostComments = (postId) => {
-  const [comments, setComments] = useState([]);
+export const usePostCommentForm = (postId, onSuccess) => {
+  const [content, setContent] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const fetchComments = useCallback(async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     setLoading(true);
     setError(null);
     try {
-      const data = await getComment(postId);
-      console.log("Comments fetched:", data);
-      setComments(data);
+      await postComment(postId, content);
+      setContent("");
+      if (onSuccess) onSuccess();
     } catch (err) {
-      setError("Erro ao carregar comentários.", err);
+      setError("Erro ao enviar comentário.", err);
     } finally {
       setLoading(false);
     }
-  }, [postId]);
+  };
 
-  useEffect(() => {
-    if (postId) fetchComments();
-  }, [postId, fetchComments]);
-
-  return { comments, loading, error, fetchComments };
+  return {
+    content,
+    setContent,
+    loading,
+    error,
+    handleSubmit,
+  };
 };

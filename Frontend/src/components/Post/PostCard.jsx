@@ -11,7 +11,7 @@ import CommentsPopup from "../Comment/CommentsPopup";
 
 import { useLike } from "../../Hooks/Like/useLike";
 import { usePostLikes } from "../../Hooks/Like/usePostLikes";
-import { usePostComments } from "../../Hooks/Comment/usePostComments";
+import { useGetComments } from "../../Hooks/Comment/useGetComments";
 
 import { useTranslation } from "react-i18next";
 import { getCurrentLocale } from "../../i18n";
@@ -121,7 +121,7 @@ const ViewLikesButton = styled.button`
 
 const Button = styled.button`
   margin-top: 1rem;
-  padding: 0.4rem 1rem; 
+  padding: 0.4rem 1rem;
   background-color: ${({ theme }) => theme.colors.primary};
   color: white;
   border: none;
@@ -129,7 +129,7 @@ const Button = styled.button`
   font-size: 0.85rem;
   cursor: pointer;
   transition: background-color 0.2s ease;
-  `;
+`;
 
 const ContainerButtons = styled.div`
   display: flex;
@@ -138,7 +138,7 @@ const ContainerButtons = styled.div`
   margin-top: 1rem;
   margin-bottom: 1rem;
   margin-right: 10px;
-  width:100%;
+  width: 100%;
 `;
 
 const ExpandableText = ({ text, maxLength = 150 }) => {
@@ -169,7 +169,7 @@ const PostCard = ({ post, onDeleted }) => {
   const [showPopup, setShowPopup] = useState(false);
   const { users, loading, fetchLikes } = usePostLikes(post.id);
   const [showComments, setShowComments] = useState(false);
-  const { comments } = usePostComments(post.id);
+  const { comments } = useGetComments(post.id);
   console.log("comments", comments);
   console.log("likesCount", post);
 
@@ -230,25 +230,27 @@ const PostCard = ({ post, onDeleted }) => {
         onToggle={toggleLike}
       />
       <ContainerButtons>
-        <ViewLikesButton onClick={handleShowPopup}>Ver curtidas</ViewLikesButton>
-      {showPopup && (
-        <LikesPopup
-          postId={post.id}
-          onClose={() => setShowPopup(false)}
-          fetchLikes={fetchLikes}
-          users={users}
+        <ViewLikesButton onClick={handleShowPopup}>
+          Ver curtidas
+        </ViewLikesButton>
+        {showPopup && (
+          <LikesPopup
+            postId={post.id}
+            onClose={() => setShowPopup(false)}
+            fetchLikes={fetchLikes}
+            users={users}
+            loading={loading}
+          />
+        )}
+        <Button onClick={() => setShowComments(true)}>Ver comentários</Button>
+        <CommentsPopup
+          open={showComments}
+          onClose={() => setShowComments(false)}
+          comments={comments}
           loading={loading}
+          postId={id} // <-- Passe o id do post aqui!
         />
-      )}
-      <Button onClick={() => setShowComments(true)}>Ver comentários</Button>
-      <CommentsPopup
-        open={showComments}
-        onClose={() => setShowComments(false)}
-        comments={comments}
-        loading={loading}
-      />
       </ContainerButtons>
-      
     </PostCardContainer>
   );
 };
