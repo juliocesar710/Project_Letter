@@ -15,7 +15,23 @@ export const getAllPostsByUserRepository = async (userId) => {
         select: {
           id: true,
           name: true,
-          
+        },
+      },
+      comments: {
+        select: {
+          id: true,
+          content: true,
+          createdAt: true,
+          user: {
+            select: {
+              id: true,
+              name: true,
+              profileImage: true,
+            },
+          },
+        },
+        orderBy: {
+          createdAt: "desc",
         },
       },
     },
