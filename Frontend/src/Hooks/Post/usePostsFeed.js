@@ -10,6 +10,7 @@ export const usePostsFeed = (postsPerPage = 10) => {
     const fetchData = async () => {
       try {
         const allPosts = await getAllPosts();
+        console.log("Posts fetched:", allPosts);
         setPosts(allPosts);
       } catch (error) {
         console.error("Erro ao buscar posts:", error.message);

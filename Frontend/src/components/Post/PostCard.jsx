@@ -5,10 +5,13 @@ import { format } from "date-fns";
 
 import PostDeleteButton from "../utils/Buttons/PostDeleteButton";
 import LikeButton from "../utils/Buttons/LikeButton";
+
 import LikesPopup from "../Like/LikesPopup";
+import CommentsPopup from "../Comment/CommentsPopup";
 
 import { useLike } from "../../Hooks/Like/useLike";
 import { usePostLikes } from "../../Hooks/Like/usePostLikes";
+import { useGetComments } from "../../Hooks/Comment/useGetComments";
 
 import { useTranslation } from "react-i18next";
 import { getCurrentLocale } from "../../i18n";
@@ -116,6 +119,28 @@ const ViewLikesButton = styled.button`
   }
 `;
 
+const Button = styled.button`
+  margin-top: 1rem;
+  padding: 0.4rem 1rem;
+  background-color: ${({ theme }) => theme.colors.primary};
+  color: white;
+  border: none;
+  border-radius: ${({ theme }) => theme.borderRadius.small};
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+`;
+
+const ContainerButtons = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  margin-right: 10px;
+  width: 100%;
+`;
+
 const ExpandableText = ({ text, maxLength = 150 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const { t } = useTranslation();
@@ -137,11 +162,18 @@ const ExpandableText = ({ text, maxLength = 150 }) => {
     </PostContent>
   );
 };
+
 const PostCard = ({ post, onDeleted }) => {
   const { title, description, image, genreTexts = [], id, userId } = post;
   const { likesCount, likedByUser } = post;
   const [showPopup, setShowPopup] = useState(false);
   const { users, loading, fetchLikes } = usePostLikes(post.id);
+  const [showComments, setShowComments] = useState(false);
+  const { comments } = useGetComments(post.id);
+  console.log("comments", comments);
+  console.log("likesCount", post);
+
+  //console.log("likedByUser", likedByUser);
 
   const {
     liked,
@@ -155,7 +187,7 @@ const PostCard = ({ post, onDeleted }) => {
   const isOwner = loggedUserId === userId;
 
   const handleShowPopup = () => {
-    fetchLikes(); // 🔁 Aqui fazemos a busca
+    fetchLikes();
     setShowPopup(true);
   };
 
@@ -197,16 +229,28 @@ const PostCard = ({ post, onDeleted }) => {
         likesCount={currentLikesCount}
         onToggle={toggleLike}
       />
-      <ViewLikesButton onClick={handleShowPopup}>Ver curtidas</ViewLikesButton>
-      {showPopup && (
-        <LikesPopup
-          postId={post.id}
-          onClose={() => setShowPopup(false)}
-          fetchLikes={fetchLikes}
-          users={users}
+      <ContainerButtons>
+        <ViewLikesButton onClick={handleShowPopup}>
+          Ver curtidas
+        </ViewLikesButton>
+        {showPopup && (
+          <LikesPopup
+            postId={post.id}
+            onClose={() => setShowPopup(false)}
+            fetchLikes={fetchLikes}
+            users={users}
+            loading={loading}
+          />
+        )}
+        <Button onClick={() => setShowComments(true)}>Ver comentários</Button>
+        <CommentsPopup
+          open={showComments}
+          onClose={() => setShowComments(false)}
+          comments={comments}
           loading={loading}
+          postId={id} // <-- Passe o id do post aqui!
         />
-      )}
+      </ContainerButtons>
     </PostCardContainer>
   );
 };

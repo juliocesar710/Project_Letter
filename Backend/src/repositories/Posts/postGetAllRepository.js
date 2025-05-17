@@ -38,6 +38,23 @@ export const getAllPostsRepository = async ({ genre, userId, title }) => {
           name: true,
         },
       },
+      comments: {
+        select: {
+          id: true,
+          content: true,
+          createdAt: true,
+          user: {
+            select: {
+              id: true,
+              name: true,
+              profileImage: true,
+            },
+          },
+        },
+        orderBy: {
+          createdAt: "desc",
+        },
+      },
     },
   });
-};
+};''
