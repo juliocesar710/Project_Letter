@@ -3,7 +3,6 @@ import { initReactI18next } from "react-i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 import { enUS, ptBR, es } from "date-fns/locale";
 
-
 import pt from "./i18n/pt.json";
 import en from "./i18n/en.json";
 
@@ -21,15 +20,12 @@ i18n
     },
   });
 
-
 const localeMap = {
   en: enUS,
   pt: ptBR,
   es: es,
 };
 
-export const getCurrentLocale = () =>
-  localeMap[i18n.language] || ptBR;
-
+export const getCurrentLocale = () => localeMap[i18n.language] || ptBR;
 
 export default i18n;

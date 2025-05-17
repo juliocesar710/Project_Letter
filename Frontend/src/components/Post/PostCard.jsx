@@ -162,7 +162,6 @@ const ExpandableText = ({ text, maxLength = 150 }) => {
     </PostContent>
   );
 };
-
 const PostCard = ({ post, onDeleted }) => {
   const { title, description, image, genreTexts = [], id, userId } = post;
   const { likesCount, likedByUser } = post;
@@ -170,20 +169,16 @@ const PostCard = ({ post, onDeleted }) => {
   const { users, loading, fetchLikes } = usePostLikes(post.id);
   const [showComments, setShowComments] = useState(false);
   const { comments } = useGetComments(post.id);
-  console.log("comments", comments);
-  console.log("likesCount", post);
-
-  //console.log("likedByUser", likedByUser);
 
   const {
     liked,
     likesCount: currentLikesCount,
     toggleLike,
+    isLoading: likeLoading
   } = useLike(likedByUser, likesCount, id);
 
   const userData = Cookies.get("userData");
   const loggedUserId = userData ? JSON.parse(userData).id : null;
-
   const isOwner = loggedUserId === userId;
 
   const handleShowPopup = () => {
@@ -224,10 +219,11 @@ const PostCard = ({ post, onDeleted }) => {
           ))}
         </GenreList>
       )}
-      <LikeButton
+        <LikeButton
         liked={liked}
         likesCount={currentLikesCount}
         onToggle={toggleLike}
+        disabled={likeLoading}
       />
       <ContainerButtons>
         <ViewLikesButton onClick={handleShowPopup}>

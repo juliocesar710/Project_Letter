@@ -98,13 +98,13 @@ const ProfilePage = ({ toggleTheme }) => {
   const {
     user,
     confirmDelete,
-    confirmLogout, 
+    confirmLogout,
     handleLogout,
     handleDeleteAccount,
     confirmDeleteAccount,
     cancelDeleteAccount,
-    confirmLogoutAction, 
-    cancelLogout, 
+    confirmLogoutAction,
+    cancelLogout,
   } = useProfile();
 
   const toggleMenu = () => {

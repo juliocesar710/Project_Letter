@@ -1,4 +1,5 @@
 import styled from "styled-components";
+
 import { useTranslation } from "react-i18next";
 
 import AuthTabs from "../components/Auth/AuthTabs";
@@ -8,18 +9,22 @@ const PageContainer = styled.div`
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: linear-gradient(90deg, ${({theme})=> theme.colors.background}, ${({theme})=> theme.colors.border});
+  background: linear-gradient(
+    90deg,
+    ${({ theme }) => theme.colors.background},
+    ${({ theme }) => theme.colors.secondary} 
+  );
 `;
 
 const Heading = styled.h1`
-  font-size: 36px;
-  margin-bottom: 20px;
+  font-size: ${({ theme }) => theme.fontSize.title};
+  margin-bottom: ${({ theme }) => theme.padding.container};
   text-align: center;
-  color: ${({theme})=> theme.colors.primaryDark};
+  color: ${({ theme }) => theme.colors.primaryDark};
+  font-weight: ${({ theme }) => theme.fontWeight.medium};
 `;
 
 const AuthPage = () => {
-
   const { t } = useTranslation();
   return (
     <PageContainer>

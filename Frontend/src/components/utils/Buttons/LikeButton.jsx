@@ -1,27 +1,37 @@
 import styled from "styled-components";
-import { Heart, CalendarHeart } from "lucide-react"; 
 
-const LikeButtonStyled = styled.button`
+const LikeButtonContainer = styled.button`
   background: none;
   border: none;
-  cursor: pointer;
+  cursor: ${props => props.disabled ? 'not-allowed' : 'pointer'};
   display: flex;
   align-items: center;
   gap: 5px;
-  color: ${({ liked, theme }) => (liked ? theme.colors.primary : theme.colors.textSecondary)};
-  font-size: 1rem;
-
-  &:hover {
-    color: ${({ theme }) => theme.colors.primaryDark};
+  padding: 5px 10px;
+  opacity: ${props => props.disabled ? 0.7 : 1};
+  
+  &:hover:not(:disabled) {
+    opacity: 0.8;
   }
 `;
 
-const LikeButton = ({ liked, likesCount, onToggle }) => {
+const LikeIcon = styled.span`
+  color: ${props => props.liked ? props.theme.colors.primary : props.theme.colors.textSecondary};
+  font-size: 1.2rem;
+`;
+
+const LikeButton = ({ liked, likesCount, onToggle, disabled }) => {
   return (
-    <LikeButtonStyled liked={liked} onClick={onToggle}>
-      {liked ? <CalendarHeart size={20} /> : <Heart size={20} />}
+    <LikeButtonContainer 
+      onClick={onToggle} 
+      disabled={disabled}
+      aria-label={liked ? "Remover curtida" : "Curtir"}
+    >
+      <LikeIcon liked={liked}>
+        {liked ? '♥' : '♡'}
+      </LikeIcon>
       <span>{likesCount}</span>
-    </LikeButtonStyled>
+    </LikeButtonContainer>
   );
 };
 
