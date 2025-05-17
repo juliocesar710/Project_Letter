@@ -1,13 +1,20 @@
 import styled from "styled-components";
 import ReactDOM from "react-dom";
 import { usePostCommentForm } from "../../Hooks/Comment/usePostComments";
-
+import { useDeleteComment } from "../../Hooks/Comment/useDeleteComments";
+import Cookies from "js-cookie";
+import { Trash } from "lucide-react";
 
 const Overlay = styled.div`
   position: fixed;
-  top: 0; left: 0; width: 100vw; height: 100vh;
-  background: rgba(0,0,0,0.5);
-  display: flex; align-items: center; justify-content: center;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   z-index: 1000;
   backdrop-filter: blur(4px);
 `;
@@ -53,15 +60,61 @@ const Title = styled.h3`
   font-weight: 600;
 `;
 
+const Form = styled.form`
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+`;
+
+const Input = styled.input`
+  flex: 1;
+  padding: ${({ theme }) => theme.padding.input};
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  border-radius: ${({ theme }) => theme.borderRadius.medium};
+  background: ${({ theme }) => theme.colors.background};
+  color: ${({ theme }) => theme.colors.text};
+  font-size: 1rem;
+
+  &:focus {
+    outline: none;
+    border-color: ${({ theme }) => theme.colors.borderFocus};
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+`;
+
+const SubmitButton = styled.button`
+  padding: ${({ theme }) => theme.padding.input};
+  background: ${({ theme }) => theme.colors.primary};
+  color: white;
+  border: none;
+  border-radius: ${({ theme }) => theme.borderRadius.medium};
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+
+  &:hover {
+    background: ${({ theme }) => theme.colors.primaryDark};
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+`;
+
 const CommentList = styled.ul`
   list-style: none;
   padding: 0;
   margin: 0;
 `;
-
 const CommentItem = styled.li`
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 12px;
   padding: 12px 0;
   border-bottom: 1px solid ${({ theme }) => theme.colors.border};
@@ -71,6 +124,30 @@ const CommentItem = styled.li`
   }
 `;
 
+const DeleteButton = styled.button`
+  margin-left: auto;
+  background: none;
+  border: none;
+  color: ${({ theme }) => theme.colors.error};
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 4px;
+
+  &:hover {
+    color: ${({ theme }) => theme.colors.errorDark};
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  svg {
+    width: 18px;
+    height: 18px;
+  }
+`;
 const Avatar = styled.img`
   width: 36px;
   height: 36px;
@@ -90,12 +167,32 @@ const CommentContent = styled.div`
   }
 `;
 
-const CommentsPopup = ({ open, onClose, comments, loading, fetchComments, postId }) => {
-  const { content, setContent, loading: sending, error, handleSubmit } =
-     usePostCommentForm(
-      postId, // <-- Use o postId da prop, nunca dos comentários!
-      fetchComments
-    );
+const ErrorText = styled.p`
+  color: ${({ theme }) => theme.colors.error};
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+`;
+
+const CommentsPopup = ({
+  open,
+  onClose,
+  comments,
+  loading,
+  fetchComments,
+  postId,
+}) => {
+  const {
+    content,
+    setContent,
+    loading: sending,
+    error,
+    handleSubmit,
+  } = usePostCommentForm(postId, fetchComments);
+
+  const { loading: deleting, handleDelete } = useDeleteComment(fetchComments);
+
+  const userData = Cookies.get("userData");
+  const currentUserId = userData ? JSON.parse(userData).id : null;
 
   if (!open) return null;
 
@@ -104,20 +201,19 @@ const CommentsPopup = ({ open, onClose, comments, loading, fetchComments, postId
       <Popup onClick={(e) => e.stopPropagation()}>
         <CloseButton onClick={onClose}>&times;</CloseButton>
         <Title>Comentários</Title>
-        <form onSubmit={handleSubmit} style={{ marginBottom: 16 }}>
-          <input
+        <Form onSubmit={handleSubmit}>
+          <Input
             type="text"
             value={content}
             onChange={(e) => setContent(e.target.value)}
             placeholder="Escreva um comentário..."
             disabled={sending}
-            style={{ width: "80%", marginRight: 8 }}
           />
-          <button type="submit" disabled={sending || !content.trim()}>
+          <SubmitButton type="submit" disabled={sending || !content.trim()}>
             {sending ? "Enviando..." : "Enviar"}
-          </button>
-        </form>
-        {error && <p style={{ color: "red" }}>{error}</p>}
+          </SubmitButton>
+        </Form>
+        {error && <ErrorText>{error}</ErrorText>}
         {loading ? (
           <p>Carregando...</p>
         ) : comments.length === 0 ? (
@@ -134,6 +230,15 @@ const CommentsPopup = ({ open, onClose, comments, loading, fetchComments, postId
                   <strong>{comment.user?.name || "Usuário"}</strong>
                   {comment.content}
                 </CommentContent>
+                {comment.user?.id === currentUserId && (
+                  <DeleteButton
+                    disabled={deleting}
+                    onClick={() => handleDelete(comment.id)}
+                    title="Excluir comentário"
+                  >
+                    <Trash />
+                  </DeleteButton>
+                )}
               </CommentItem>
             ))}
           </CommentList>
