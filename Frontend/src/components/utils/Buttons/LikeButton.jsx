@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Heart, HeartPlus } from "lucide-react";
 
 const LikeButtonContainer = styled.button`
   background: none;
@@ -22,14 +23,12 @@ const LikeIcon = styled.span`
 
 const LikeButton = ({ liked, likesCount, onToggle, disabled }) => {
   return (
-    <LikeButtonContainer 
-      onClick={onToggle} 
+    <LikeButtonContainer
+      onClick={onToggle}
       disabled={disabled}
       aria-label={liked ? "Remover curtida" : "Curtir"}
     >
-      <LikeIcon liked={liked}>
-        {liked ? '♥' : '♡'}
-      </LikeIcon>
+      <LikeIcon liked={liked}>{liked ? <HeartPlus /> : <Heart />}</LikeIcon>
       <span>{likesCount}</span>
     </LikeButtonContainer>
   );
