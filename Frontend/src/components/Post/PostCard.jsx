@@ -6,8 +6,8 @@ import { format } from "date-fns";
 import PostDeleteButton from "../utils/Buttons/PostDeleteButton";
 import LikeButton from "../utils/Buttons/LikeButton";
 
-import LikesPopup from "../Like/LikesPopup";
-import CommentsPopup from "../Comment/CommentsPopup";
+import LikesPopup from "../utils/Pop-ups/LikesPopup";
+import CommentsPopup from "../utils/Pop-ups/CommentsPopup";
 
 import { useLike } from "../../Hooks/Like/useLike";
 import { usePostLikes } from "../../Hooks/Like/usePostLikes";
@@ -103,44 +103,62 @@ width:100%;
 }
 `;
 
-const ViewLikesButton = styled.button`
-  margin-top: 1rem;
-  padding: 0.4rem 1rem;
-  background-color: ${({ theme }) => theme.colors.primary};
-  color: white;
-  border: none;
-  border-radius: ${({ theme }) => theme.borderRadius.small};
-  font-size: 0.85rem;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-
-  &:hover {
-    background-color: ${({ theme }) => theme.colors.primaryDark};
-  }
-`;
-
-const Button = styled.button`
-  margin-top: 1rem;
-  padding: 0.4rem 1rem;
-  background-color: ${({ theme }) => theme.colors.primary};
-  color: white;
-  border: none;
-  border-radius: ${({ theme }) => theme.borderRadius.small};
-  font-size: 0.85rem;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-`;
 
 const ContainerButtons = styled.div`
   display: flex;
+  flex-wrap: wrap; /* Permite que os itens quebrem para nova linha */
   justify-content: space-between;
   align-items: center;
   margin-top: 1rem;
   margin-bottom: 1rem;
-  margin-right: 10px;
+  gap: 0.5rem; /* Espaço entre os itens */
   width: 100%;
+
+  @media (max-width: 768px) {
+    flex-direction: column; /* Empilha os botões verticalmente em telas pequenas */
+    align-items: stretch; /* Faz os botões ocuparem toda a largura */
+  }
 `;
 
+const ViewLikesButton = styled.button`
+  margin-top: 0;
+  padding: 0.4rem 1rem;
+  background-color: ${({ theme }) => theme.colors.primary};
+  color: white;
+  border: none;
+  border-radius: ${({ theme }) => theme.borderRadius.small};
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  flex: 1; /* Permite que o botão cresça */
+  min-width: 120px; /* Largura mínima */
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.primaryDark};
+  }
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+`;
+
+const Button = styled.button`
+  margin-top: 0;
+  padding: 0.4rem 1rem;
+  background-color: ${({ theme }) => theme.colors.primary};
+  color: white;
+  border: none;
+  border-radius: ${({ theme }) => theme.borderRadius.small};
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  flex: 1; /* Permite que o botão cresça */
+  min-width: 120px; /* Largura mínima */
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+`;
 const ExpandableText = ({ text, maxLength = 150 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const { t } = useTranslation();

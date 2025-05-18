@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import Sucess from "../utils/Alerts/Sucess";
-import Error from "../utils/Alerts/Error";
-import GenreSelector from "../utils/GenreSelector";
-import { useProfileForm } from "../../Hooks/User/useProfileForm";
+import Sucess from "../components/utils/Alerts/Sucess";
+import Error from "../components/utils/Alerts/Error";
+import GenreSelector from "../components/utils/GenreSelector";
+import { useProfileForm } from "../Hooks/User/useProfileForm";
 import { useTranslation } from "react-i18next";
 
 const FormContainer = styled.div`

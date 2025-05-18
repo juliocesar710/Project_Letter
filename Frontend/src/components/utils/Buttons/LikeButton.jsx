@@ -17,7 +17,7 @@ const LikeButtonContainer = styled.button`
 
 const LikeIcon = styled.span`
   color: ${props => props.liked ? props.theme.colors.primary : props.theme.colors.textSecondary};
-  font-size: 1.2rem;
+  font-size: 3rem;
 `;
 
 const LikeButton = ({ liked, likesCount, onToggle, disabled }) => {

@@ -1,14 +1,14 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import ProfilePage from "../pages/ProfilePage";
 import AuthPage from "../pages/AuthPage";
-import ProfileForm from "../components/User/ProfileForm.jsx";
+import ProfileForm from "../pages/ProfileForm.jsx";
 import HomePage from "../pages/HomePage";
 import PrivateRoute from "./PrivateRoute";
 import FriendsPage from "../pages/FriendsPage";
 import FriendProfile from "../pages/FriendProfile";
 import FeedPage from "../pages/FeedPage";
-import CreatePostForm from "../components/Post/CreatePostForm.jsx";
-import PostDetailPage from "../components/Post/PostDetailPage.jsx";
+import CreatePostForm from "../pages/CreatePostForm.jsx.jsx";
+import PostDetailPage from "../pages/PostDetailPage.jsx";
 import LikedPostsPage from "../pages/LikedPostsPage.jsx";
 
 const AppRouter = ({ toggleTheme }) => {

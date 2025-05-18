@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import ReactDOM from "react-dom";
-import { usePostCommentForm } from "../../Hooks/Comment/usePostComments";
-import { useDeleteComment } from "../../Hooks/Comment/useDeleteComments";
+import { usePostCommentForm } from "../../../Hooks/Comment/usePostComments";
+import { useDeleteComment } from "../../../Hooks/Comment/useDeleteComments";
 import Cookies from "js-cookie";
 import { Trash } from "lucide-react";
 

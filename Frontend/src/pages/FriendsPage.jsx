@@ -6,7 +6,6 @@ import FriendSearch from "../components/Friends/FriendSearch";
 import FriendRequests from "../components/Friends/FriendRequests";
 import AllUsersList from "../components/Friends/AllUsersList";
 
-
 import { useTranslation } from "react-i18next";
 
 const FriendsContainer = styled.div`
@@ -135,7 +134,6 @@ const FriendsPage = () => {
             onClick={() => setActiveTab("friends")}
           >
             {t("friends")}
-            
           </TabButton>
           <TabButton
             active={activeTab === "pending"}

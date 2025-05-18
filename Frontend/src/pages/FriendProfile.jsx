@@ -1,89 +1,212 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { format } from "date-fns";
 import styled from "styled-components";
-
 import { useFriendProfile } from "../Hooks/FriendProfile/useFriendProfile";
-
 import { useTranslation } from "react-i18next";
 import { getCurrentLocale } from "../i18n";
 
 const PageContainer = styled.div`
   display: flex;
   justify-content: center;
-  padding: 20px;
+  padding: 2rem;
   min-height: 100vh;
-  background: linear-gradient(
-    90deg,
-    ${({ theme }) => theme.colors.background},
-    ${({ theme }) => theme.colors.border}
-  );
-  position: relative;
+  background: ${({ theme }) => theme.colors.background};
+  background-image: ${({ theme }) => 
+    theme.name === 'dark' 
+      ? 'linear-gradient(to bottom, rgba(0,0,0,0.8), rgba(0,0,0,0.3))'
+      : 'linear-gradient(to bottom, rgba(255,255,255,0.8), rgba(255,255,255,0.3))'};
 `;
 
 const ProfileCard = styled.div`
-  flex: 1;
-  max-width: 800px;
-  background-color: white;
-  border-radius: 12px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  padding: 24px;
+  width: 100%;
+  max-width: 900px;
+  background-color: ${({ theme }) => theme.colors.cardBackground};
+  border-radius: 16px;
+  box-shadow: ${({ theme }) => theme.shadows.medium};
+  padding: 2.5rem;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  transition: all 0.3s ease;
+
+  &:hover {
+    box-shadow: ${({ theme }) => theme.shadows.large};
+    transform: translateY(-5px);
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 8px;
+    background: ${({ theme }) => theme.colors.primaryGradient || theme.colors.primary};
+  }
 `;
 
 const BackButton = styled.button`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   color: ${({ theme }) => theme.colors.primary};
   background: none;
   border: none;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  transition: all 0.2s ease;
 
   &:hover {
     color: ${({ theme }) => theme.colors.primaryDark};
+    background: ${({ theme }) => theme.colors.primary}10;
   }
 `;
 
-const ProfileImage = styled.div`
-  width: 128px;
-  height: 128px;
-  border-radius: 50%;
-  margin-bottom: 16px;
-  overflow: hidden;
+const ProfileHeader = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 2rem 0 3rem;
+  position: relative;
+`;
 
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+const ProfileImageContainer = styled.div`
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  margin-bottom: 1.5rem;
+  overflow: hidden;
+  border: 4px solid ${({ theme }) => theme.colors.primaryLight};
+  box-shadow: ${({ theme }) => theme.shadows.small};
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: scale(1.05);
   }
+`;
+
+const ProfileImage = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 `;
 
 const ProfileInitial = styled.div`
-  width: 128px;
-  height: 128px;
+  width: 160px;
+  height: 160px;
   border-radius: 50%;
-  background-color: ${({ theme }) => theme.colors.background};
+  background: ${({ theme }) => theme.colors.primaryGradient || theme.colors.primary};
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 48px;
-  color: ${({ theme }) => theme.colors.primaryDark};
+  font-size: 4rem;
+  color: white;
+  font-weight: bold;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+`;
+
+const ProfileName = styled.h1`
+  font-size: 2rem;
+  font-weight: 700;
+  color: ${({ theme }) => theme.colors.textPrimary};
+  margin-bottom: 0.5rem;
+  text-align: center;
+`;
+
+const MemberSince = styled.p`
+  color: ${({ theme }) => theme.colors.textSecondary};
+  font-size: 0.9rem;
+  opacity: 0.8;
+`;
+
+const Section = styled.section`
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: ${({ theme }) => theme.colors.sectionBackground};
+  border-radius: 12px;
+  box-shadow: ${({ theme }) => theme.shadows.soft};
 `;
 
 const SectionTitle = styled.h2`
-  color: ${({ theme }) => theme.colors.text};
-  font-size: 1.25rem;
+  color: ${({ theme }) => theme.colors.primary};
+  font-size: 1.5rem;
   font-weight: 600;
-  margin-bottom: 0.5rem;
-  margin-top: 1rem;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  &::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: ${({ theme }) => theme.colors.border};
+    margin-left: 0.5rem;
+  }
+`;
+
+const SectionContent = styled.div`
+  color: ${({ theme }) => theme.colors.textSecondary};
+  line-height: 1.6;
+  font-size: 1rem;
 `;
 
 const GenreTag = styled.span`
-  background-color: ${({ theme }) => theme.colors.primary}20;
-  color: ${({ theme }) => theme.colors.primary};
-  padding: 4px 12px;
+  background: ${({ theme }) => theme.colors.primaryGradient || theme.colors.primary};
+  color: white;
+  padding: 0.5rem 1rem;
   border-radius: 20px;
   font-size: 0.875rem;
-  margin-right: 8px;
-  margin-bottom: 8px;
-  display: inline-block;
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  box-shadow: ${({ theme }) => theme.shadows.small};
+  transition: all 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: ${({ theme }) => theme.shadows.medium};
+  }
+`;
+
+const LoadingContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  color: ${({ theme }) => theme.colors.textPrimary};
+  font-size: 1.2rem;
+`;
+
+const ErrorContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  color: ${({ theme }) => theme.colors.error};
+`;
+
+const ErrorButton = styled.button`
+  background: ${({ theme }) => theme.colors.primary};
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: ${({ theme }) => theme.colors.primaryDark};
+    transform: translateY(-2px);
+  }
 `;
 
 const FriendProfile = () => {
@@ -93,78 +216,83 @@ const FriendProfile = () => {
   const { friend, loading, error } = useFriendProfile(friendId);
 
   if (loading) {
-    return (
-      <div className="flex justify-center items-center h-screen">
-        {t("loading")}
-      </div>
-    );
+    return <LoadingContainer>{t("loading")}</LoadingContainer>;
   }
 
   if (error) {
     return (
-      <div className="flex flex-col items-center justify-center h-screen">
-        <p className="text-red-500 mb-4">{error}</p>
-        <button
-          onClick={() => navigate(-1)}
-          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-        >
+      <ErrorContainer>
+        <p>{error}</p>
+        <ErrorButton onClick={() => navigate(-1)}>
           {t("back")}
-        </button>
-      </div>
+        </ErrorButton>
+      </ErrorContainer>
     );
   }
 
   return (
     <PageContainer>
       <ProfileCard>
-        <BackButton onClick={() => navigate(-1)}>← {t("back")}</BackButton>
+        <BackButton onClick={() => navigate(-1)}>
+          <span>←</span> {t("back")}
+        </BackButton>
 
-        <div className="flex flex-col items-center my-8">
+        <ProfileHeader>
           {friend.profileImage ? (
-            <ProfileImage>
-              <img src={friend.profileImage} alt={friend.name} />
-            </ProfileImage>
+            <ProfileImageContainer>
+              <ProfileImage src={friend.profileImage} alt={friend.name} />
+            </ProfileImageContainer>
           ) : (
             <ProfileInitial>
               {friend.name.charAt(0).toUpperCase()}
             </ProfileInitial>
           )}
-          <h1 className="text-2xl font-bold mb-2">{friend.name}</h1>
-          <p className="text-gray-500">
-            {t("member")}
-            {format(new Date(friend.createdAt), ": PPP", {
+          <ProfileName>{friend.name}</ProfileName>
+          <MemberSince>
+            {t("member")}{" "}
+            {format(new Date(friend.createdAt), "PPP", {
               locale: getCurrentLocale(),
             })}
-          </p>
-        </div>
+          </MemberSince>
+        </ProfileHeader>
 
         {friend.description && (
-          <div className="mb-6">
-            <SectionTitle>{t("about")}</SectionTitle>
-            <p>{friend.description}</p>
-          </div>
+          <Section>
+            <SectionTitle>
+              <span>📝</span> {t("about")}
+            </SectionTitle>
+            <SectionContent>{friend.description}</SectionContent>
+          </Section>
         )}
 
         {friend.birthDate && (
-          <div className="mb-6">
-            <SectionTitle>{t("date of birth")}</SectionTitle>
-            <p>
-              {format(new Date(friend.birthDate), "dd 'de' MMMM 'de' yyyy", {
+          <Section>
+            <SectionTitle>
+              <span>🎂</span> {t("date of birth")}
+            </SectionTitle>
+            <SectionContent>
+              {format(new Date(friend.birthDate), "PPP", {
                 locale: getCurrentLocale(),
               })}
-            </p>
-          </div>
+            </SectionContent>
+          </Section>
         )}
 
         {friend.genres && friend.genres.length > 0 && (
-          <div>
-            <SectionTitle>{t("favoritegenrestext")}</SectionTitle>
-            <div className="flex flex-wrap">
-              {friend.genres.map((genre) => (
-                <GenreTag key={genre.id}>{genre.name}</GenreTag>
-              ))}
-            </div>
-          </div>
+          <Section>
+            <SectionTitle>
+              {t("favoritegenrestext")}
+            </SectionTitle>
+            <SectionContent>
+              <div style={{ display: "flex", flexWrap: "wrap" }}>
+                {friend.genres.map((genre) => (
+                  <GenreTag key={genre.id}>
+                    {genre.name}
+                  </GenreTag>
+                ))}
+              </div>
+            </SectionContent>
+          </Section>
         )}
       </ProfileCard>
     </PageContainer>
