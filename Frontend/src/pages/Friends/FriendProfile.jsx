@@ -1,9 +1,9 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { format } from "date-fns";
 import styled from "styled-components";
-import { useFriendProfile } from "../Hooks/FriendProfile/useFriendProfile";
+import { useFriendProfile } from "../../Hooks/FriendProfile/useFriendProfile";
 import { useTranslation } from "react-i18next";
-import { getCurrentLocale } from "../i18n";
+import { getCurrentLocale } from "../../i18n";
 
 const PageContainer = styled.div`
   display: flex;
@@ -11,10 +11,10 @@ const PageContainer = styled.div`
   padding: 2rem;
   min-height: 100vh;
   background: ${({ theme }) => theme.colors.background};
-  background-image: ${({ theme }) => 
-    theme.name === 'dark' 
-      ? 'linear-gradient(to bottom, rgba(0,0,0,0.8), rgba(0,0,0,0.3))'
-      : 'linear-gradient(to bottom, rgba(255,255,255,0.8), rgba(255,255,255,0.3))'};
+  background-image: ${({ theme }) =>
+    theme.name === "dark"
+      ? "linear-gradient(to bottom, rgba(0,0,0,0.8), rgba(0,0,0,0.3))"
+      : "linear-gradient(to bottom, rgba(255,255,255,0.8), rgba(255,255,255,0.3))"};
 `;
 
 const ProfileCard = styled.div`
@@ -35,13 +35,14 @@ const ProfileCard = styled.div`
   }
 
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 8px;
-    background: ${({ theme }) => theme.colors.primaryGradient || theme.colors.primary};
+    background: ${({ theme }) =>
+      theme.colors.primaryGradient || theme.colors.primary};
   }
 `;
 
@@ -98,14 +99,15 @@ const ProfileInitial = styled.div`
   width: 160px;
   height: 160px;
   border-radius: 50%;
-  background: ${({ theme }) => theme.colors.primaryGradient || theme.colors.primary};
+  background: ${({ theme }) =>
+    theme.colors.primaryGradient || theme.colors.primary};
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 4rem;
   color: white;
   font-weight: bold;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 `;
 
 const ProfileName = styled.h1`
@@ -140,7 +142,7 @@ const SectionTitle = styled.h2`
   gap: 0.5rem;
 
   &::after {
-    content: '';
+    content: "";
     flex: 1;
     height: 1px;
     background: ${({ theme }) => theme.colors.border};
@@ -155,7 +157,8 @@ const SectionContent = styled.div`
 `;
 
 const GenreTag = styled.span`
-  background: ${({ theme }) => theme.colors.primaryGradient || theme.colors.primary};
+  background: ${({ theme }) =>
+    theme.colors.primaryGradient || theme.colors.primary};
   color: white;
   padding: 0.5rem 1rem;
   border-radius: 20px;
@@ -223,9 +226,7 @@ const FriendProfile = () => {
     return (
       <ErrorContainer>
         <p>{error}</p>
-        <ErrorButton onClick={() => navigate(-1)}>
-          {t("back")}
-        </ErrorButton>
+        <ErrorButton onClick={() => navigate(-1)}>{t("back")}</ErrorButton>
       </ErrorContainer>
     );
   }
@@ -280,15 +281,11 @@ const FriendProfile = () => {
 
         {friend.genres && friend.genres.length > 0 && (
           <Section>
-            <SectionTitle>
-              {t("favoritegenrestext")}
-            </SectionTitle>
+            <SectionTitle>{t("favoritegenrestext")}</SectionTitle>
             <SectionContent>
               <div style={{ display: "flex", flexWrap: "wrap" }}>
                 {friend.genres.map((genre) => (
-                  <GenreTag key={genre.id}>
-                    {genre.name}
-                  </GenreTag>
+                  <GenreTag key={genre.id}>{genre.name}</GenreTag>
                 ))}
               </div>
             </SectionContent>

@@ -1,0 +1,219 @@
+"filename", "language", "JSON", "Markdown", "JavaScript JSX", "JavaScript", "PostCSS", "HTML", "Prisma", "MS SQL", "comment", "blank", "total"
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\README.md", "Markdown", 0, 74, 0, 0, 0, 0, 0, 0, 0, 20, 94
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\jest.config.mjs", "JavaScript", 0, 0, 0, 6, 0, 0, 0, 0, 0, 0, 6
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\package-lock.json", "JSON", 7329, 0, 0, 0, 0, 0, 0, 0, 0, 1, 7330
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\package.json", "JSON", 31, 0, 0, 0, 0, 0, 0, 0, 0, 1, 32
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\prisma\migrations\20250409152847_init\migration.sql", "MS SQL", 0, 0, 0, 0, 0, 0, 0, 17, 4, 6, 27
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\prisma\migrations\20250409153631_table_relation_genres_user\migration.sql", "MS SQL", 0, 0, 0, 0, 0, 0, 0, 10, 3, 4, 17
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\prisma\migrations\20250420132318_add_posts_table\migration.sql", "MS SQL", 0, 0, 0, 0, 0, 0, 0, 41, 22, 19, 82
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\prisma\migrations\20250426173532_make_optional_fields\migration.sql", "MS SQL", 0, 0, 0, 0, 0, 0, 0, 13, 4, 5, 22
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\prisma\migrations\20250513103606_created_table_likes\migration.sql", "MS SQL", 0, 0, 0, 0, 0, 0, 0, 11, 5, 6, 22
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\prisma\migrations\20250516135442_add_table_comments\migration.sql", "MS SQL", 0, 0, 0, 0, 0, 0, 0, 11, 3, 4, 18
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\prisma\schema.prisma", "Prisma", 0, 0, 0, 0, 0, 0, 82, 0, 0, 14, 96
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\controllers\Comment\commentCreateController.js", "JavaScript", 0, 0, 0, 12, 0, 0, 0, 0, 0, 2, 14
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\controllers\Comment\commentDeleteController.js", "JavaScript", 0, 0, 0, 11, 0, 0, 0, 0, 0, 1, 12
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\controllers\Comment\commentGetByPostController.js", "JavaScript", 0, 0, 0, 10, 0, 0, 0, 0, 0, 1, 11
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\controllers\GenresText\genreTextGetAllController.js", "JavaScript", 0, 0, 0, 10, 0, 0, 0, 0, 0, 1, 11
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\controllers\GenresText\genreTextGetController.js", "JavaScript", 0, 0, 0, 10, 0, 0, 0, 0, 0, 1, 11
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\controllers\Like\likeDeleteController.js", "JavaScript", 0, 0, 0, 11, 0, 0, 0, 0, 0, 3, 14
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\controllers\Like\likeGetPostsByUserController.js", "JavaScript", 0, 0, 0, 10, 0, 0, 0, 0, 0, 3, 13
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\controllers\Like\likeGetUsersController.js", "JavaScript", 0, 0, 0, 12, 0, 0, 0, 0, 0, 3, 15
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\controllers\Like\likePostController.js", "JavaScript", 0, 0, 0, 11, 0, 0, 0, 0, 0, 2, 13
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\controllers\NetWork\friendProfileController.js", "JavaScript", 0, 0, 0, 18, 0, 0, 0, 0, 0, 5, 23
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\controllers\NetWork\friendShipController.js", "JavaScript", 0, 0, 0, 11, 0, 0, 0, 0, 0, 3, 14
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\controllers\NetWork\friendShipDeleteController.js", "JavaScript", 0, 0, 0, 11, 0, 0, 0, 0, 0, 4, 15
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\controllers\NetWork\friendShipGetController.js", "JavaScript", 0, 0, 0, 10, 0, 0, 0, 0, 0, 3, 13
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\controllers\NetWork\friendShipStatus.js", "JavaScript", 0, 0, 0, 15, 0, 0, 0, 0, 0, 4, 19
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\controllers\NetWork\pendingFriendshipController.js", "JavaScript", 0, 0, 0, 10, 0, 0, 0, 0, 0, 3, 13
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\controllers\Posts\postDeleteController.js", "JavaScript", 0, 0, 0, 11, 0, 0, 0, 0, 0, 4, 15
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\controllers\Posts\postGetAllController.js", "JavaScript", 0, 0, 0, 10, 0, 0, 0, 0, 0, 3, 13
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\controllers\Posts\postGetAllUserController.js", "JavaScript", 0, 0, 0, 10, 0, 0, 0, 0, 0, 3, 13
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\controllers\Posts\postGetController.js", "JavaScript", 0, 0, 0, 10, 0, 0, 0, 0, 0, 3, 13
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\controllers\Posts\postMakeController.js", "JavaScript", 0, 0, 0, 11, 0, 0, 0, 0, 0, 3, 14
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\controllers\User\userDeleteController.js", "JavaScript", 0, 0, 0, 10, 0, 0, 0, 0, 0, 3, 13
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\controllers\User\userGetAllController.js", "JavaScript", 0, 0, 0, 9, 0, 0, 0, 0, 0, 1, 10
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\controllers\User\userGetByIdController.js", "JavaScript", 0, 0, 0, 10, 0, 0, 0, 0, 0, 2, 12
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\controllers\User\userGetByNameController.js", "JavaScript", 0, 0, 0, 10, 0, 0, 0, 0, 0, 1, 11
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\controllers\User\userLoginController.js", "JavaScript", 0, 0, 0, 18, 0, 0, 0, 0, 0, 4, 22
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\controllers\User\userRegisterController.js", "JavaScript", 0, 0, 0, 15, 0, 0, 0, 0, 0, 4, 19
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\controllers\User\userUpdateController.js", "JavaScript", 0, 0, 0, 11, 0, 0, 0, 0, 0, 3, 14
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\middlewares\auth.js", "JavaScript", 0, 0, 0, 17, 0, 0, 0, 0, 0, 7, 24
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\repositories\Comment\commentCreateRepository.js", "JavaScript", 0, 0, 0, 10, 0, 0, 0, 0, 0, 1, 11
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\repositories\Comment\commentDeleteRepository.js", "JavaScript", 0, 0, 0, 6, 0, 0, 0, 0, 0, 1, 7
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\repositories\Comment\commentGetByPostRepository.js", "JavaScript", 0, 0, 0, 16, 0, 0, 0, 0, 0, 1, 17
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\repositories\GenresText\genreTextGetAllRespository.js", "JavaScript", 0, 0, 0, 16, 0, 0, 0, 0, 0, 2, 18
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\repositories\GenresText\genreTextGetRepository.js", "JavaScript", 0, 0, 0, 23, 0, 0, 0, 0, 0, 2, 25
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\repositories\Like\likeDeleteRepository.js", "JavaScript", 0, 0, 0, 16, 0, 0, 0, 0, 0, 2, 18
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\repositories\Like\likeGetPostsByUserRepository.js", "JavaScript", 0, 0, 0, 20, 0, 0, 0, 0, 0, 1, 21
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\repositories\Like\likeGetUsersRepository.js", "JavaScript", 0, 0, 0, 17, 0, 0, 0, 0, 0, 1, 18
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\repositories\Like\likePostRepository.js", "JavaScript", 0, 0, 0, 24, 0, 0, 0, 0, 0, 3, 27
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\repositories\NetWork\friendProfileRepository.js", "JavaScript", 0, 0, 0, 34, 0, 0, 0, 0, 0, 2, 36
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\repositories\NetWork\friendShipDeleteRepository.js", "JavaScript", 0, 0, 0, 18, 0, 0, 0, 0, 0, 3, 21
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\repositories\NetWork\friendShipGetRepository.js", "JavaScript", 0, 0, 0, 21, 0, 0, 0, 0, 0, 1, 22
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\repositories\NetWork\friendShipRepository.js", "JavaScript", 0, 0, 0, 22, 0, 0, 0, 0, 0, 3, 25
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\repositories\NetWork\friendShipStatusRepository.js", "JavaScript", 0, 0, 0, 26, 0, 0, 0, 0, 0, 3, 29
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\repositories\NetWork\pendingFriendshipRepository.js", "JavaScript", 0, 0, 0, 21, 0, 0, 0, 0, 0, 1, 22
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\repositories\Posts\postDeleteRepository.js", "JavaScript", 0, 0, 0, 13, 0, 0, 0, 0, 0, 1, 14
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\repositories\Posts\postGetAllRepository.js", "JavaScript", 0, 0, 0, 59, 0, 0, 0, 0, 0, 1, 60
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\repositories\Posts\postGetAllUserRepository.js", "JavaScript", 0, 0, 0, 38, 0, 0, 0, 0, 0, 1, 39
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\repositories\Posts\postGetRepository.js", "JavaScript", 0, 0, 0, 15, 0, 0, 0, 0, 0, 1, 16
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\repositories\Posts\postMakeRepository.js", "JavaScript", 0, 0, 0, 17, 0, 0, 0, 0, 0, 1, 18
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\repositories\User\userDeleteRepository.js", "JavaScript", 0, 0, 0, 19, 0, 0, 0, 0, 0, 7, 26
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\repositories\User\userGetAllRepository.js", "JavaScript", 0, 0, 0, 30, 0, 0, 0, 0, 0, 4, 34
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\repositories\User\userGetByIdRepository.js", "JavaScript", 0, 0, 0, 18, 0, 0, 0, 0, 0, 3, 21
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\repositories\User\userGetByNameRepository.js", "JavaScript", 0, 0, 0, 10, 0, 0, 0, 0, 0, 3, 13
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\repositories\User\userLoginRepository.js", "JavaScript", 0, 0, 0, 22, 0, 0, 0, 0, 0, 4, 26
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\repositories\User\userRegisterRepository.js", "JavaScript", 0, 0, 0, 21, 0, 0, 0, 0, 0, 8, 29
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\repositories\User\userUpdateRepository.js", "JavaScript", 0, 0, 0, 43, 0, 0, 0, 0, 0, 9, 52
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\routes\api.js", "JavaScript", 0, 0, 0, 14, 0, 0, 0, 0, 0, 6, 20
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\routes\auth.js", "JavaScript", 0, 0, 0, 18, 0, 0, 0, 0, 0, 7, 25
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\routes\comment.js", "JavaScript", 0, 0, 0, 10, 0, 0, 0, 0, 0, 6, 16
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\routes\friendShip.js", "JavaScript", 0, 0, 0, 16, 0, 0, 0, 0, 0, 7, 23
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\routes\genreText.js", "JavaScript", 0, 0, 0, 8, 0, 0, 0, 0, 0, 4, 12
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\routes\like.js", "JavaScript", 0, 0, 0, 12, 0, 0, 0, 0, 0, 6, 18
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\server.js", "JavaScript", 0, 0, 0, 33, 0, 0, 0, 0, 0, 11, 44
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\services\Comment\commentCreateService.js", "JavaScript", 0, 0, 0, 7, 0, 0, 0, 0, 0, 1, 8
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\services\Comment\commentDeleteService.js", "JavaScript", 0, 0, 0, 8, 0, 0, 0, 0, 0, 1, 9
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\services\Comment\commentGetByPostService.js", "JavaScript", 0, 0, 0, 4, 0, 0, 0, 0, 0, 1, 5
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\services\GenresText\genreTextGetAllService.js", "JavaScript", 0, 0, 0, 10, 0, 0, 0, 0, 0, 1, 11
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\services\GenresText\genreTextGetService.js", "JavaScript", 0, 0, 0, 11, 0, 0, 0, 0, 0, 5, 16
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\services\Like\likeDeleteService.js", "JavaScript", 0, 0, 0, 13, 0, 0, 0, 0, 0, 4, 17
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\services\Like\likeGetPostsByUserService.js", "JavaScript", 0, 0, 0, 9, 0, 0, 0, 0, 0, 3, 12
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\services\Like\likeGetUsersService.js", "JavaScript", 0, 0, 0, 9, 0, 0, 0, 0, 0, 4, 13
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\services\Like\likePostService.js", "JavaScript", 0, 0, 0, 14, 0, 0, 0, 0, 0, 5, 19
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\services\NetWork\friendProfileService.js", "JavaScript", 0, 0, 0, 17, 0, 0, 0, 0, 1, 6, 24
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\services\NetWork\friendShipDeleteService.js", "JavaScript", 0, 0, 0, 17, 0, 0, 0, 0, 0, 6, 23
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\services\NetWork\friendShipGetService.js", "JavaScript", 0, 0, 0, 20, 0, 0, 0, 0, 0, 4, 24
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\services\NetWork\friendShipService.js", "JavaScript", 0, 0, 0, 37, 0, 0, 0, 0, 0, 9, 46
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\services\NetWork\friendShipStatusService.js", "JavaScript", 0, 0, 0, 24, 0, 0, 0, 0, 0, 8, 32
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\services\NetWork\pendingFriendshipService.js", "JavaScript", 0, 0, 0, 16, 0, 0, 0, 0, 0, 3, 19
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\services\Posts\postDeleteService.js", "JavaScript", 0, 0, 0, 19, 0, 0, 0, 0, 0, 6, 25
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\services\Posts\postGetAllService.js", "JavaScript", 0, 0, 0, 5, 0, 0, 0, 0, 0, 3, 8
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\services\Posts\postGetAllUserService.js", "JavaScript", 0, 0, 0, 8, 0, 0, 0, 0, 0, 3, 11
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\services\Posts\postGetService.js", "JavaScript", 0, 0, 0, 12, 0, 0, 0, 0, 0, 5, 17
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\services\Posts\postMakeService.js", "JavaScript", 0, 0, 0, 8, 0, 0, 0, 0, 0, 2, 10
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\services\User\userDeleteService.js", "JavaScript", 0, 0, 0, 7, 0, 0, 0, 0, 0, 2, 9
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\services\User\userGetAllService.js", "JavaScript", 0, 0, 0, 9, 0, 0, 0, 0, 0, 1, 10
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\services\User\userGetByIdService.js", "JavaScript", 0, 0, 0, 8, 0, 0, 0, 0, 0, 2, 10
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\services\User\userGetByNameService.js", "JavaScript", 0, 0, 0, 8, 0, 0, 0, 0, 0, 1, 9
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\services\User\userLoginService.js", "JavaScript", 0, 0, 0, 19, 0, 0, 0, 0, 0, 7, 26
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\services\User\userRegisterService.js", "JavaScript", 0, 0, 0, 11, 0, 0, 0, 0, 0, 7, 18
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\services\User\userUpdateService.js", "JavaScript", 0, 0, 0, 15, 0, 0, 0, 0, 0, 8, 23
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\tests\User\userLoginController.test.js", "JavaScript", 0, 0, 0, 68, 0, 0, 0, 0, 0, 17, 85
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\tests\User\userRegisterController.test.js", "JavaScript", 0, 0, 0, 50, 0, 0, 0, 0, 0, 12, 62
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\utils\generateTokenJWT.js", "JavaScript", 0, 0, 0, 8, 0, 0, 0, 0, 0, 3, 11
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Backend\src\utils\prismaClient.js", "JavaScript", 0, 0, 0, 3, 0, 0, 0, 0, 0, 3, 6
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\README.md", "Markdown", 0, 29, 0, 0, 0, 0, 0, 0, 0, 10, 39
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\eslint.config.js", "JavaScript", 0, 0, 0, 32, 0, 0, 0, 0, 0, 2, 34
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\index.html", "HTML", 0, 0, 0, 0, 0, 13, 0, 0, 0, 1, 14
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\package-lock.json", "JSON", 3353, 0, 0, 0, 0, 0, 0, 0, 0, 1, 3354
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\package.json", "JSON", 36, 0, 0, 0, 0, 0, 0, 0, 0, 1, 37
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\App.jsx", "JavaScript JSX", 0, 0, 16, 0, 0, 0, 0, 0, 0, 6, 22
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\Hooks\Auth\useAuthForm.js", "JavaScript", 0, 0, 0, 62, 0, 0, 0, 0, 0, 10, 72
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\Hooks\Comment\useDeleteComments.js", "JavaScript", 0, 0, 0, 19, 0, 0, 0, 0, 0, 3, 22
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\Hooks\Comment\useGetComments.js", "JavaScript", 0, 0, 0, 24, 0, 0, 0, 0, 0, 4, 28
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\Hooks\Comment\usePostComments.js", "JavaScript", 0, 0, 0, 28, 0, 0, 0, 0, 0, 3, 31
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\Hooks\Feed\useSearchBar.js", "JavaScript", 0, 0, 0, 35, 0, 0, 0, 0, 0, 7, 42
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\Hooks\FriendProfile\useFriendProfile.js", "JavaScript", 0, 0, 0, 23, 0, 0, 0, 0, 0, 5, 28
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\Hooks\Friend\useFriendRequests.js", "JavaScript", 0, 0, 0, 43, 0, 0, 0, 0, 0, 7, 50
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\Hooks\Friend\useFriendSearch.js", "JavaScript", 0, 0, 0, 55, 0, 0, 0, 0, 0, 8, 63
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\Hooks\Friend\useFriends.js", "JavaScript", 0, 0, 0, 32, 0, 0, 0, 0, 0, 6, 38
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\Hooks\Friend\useUsersAndFriends.js", "JavaScript", 0, 0, 0, 43, 0, 0, 0, 0, 0, 8, 51
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\Hooks\Like\useLike.js", "JavaScript", 0, 0, 0, 43, 0, 0, 0, 0, 0, 7, 50
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\Hooks\Like\useLikedPosts.js", "JavaScript", 0, 0, 0, 24, 0, 0, 0, 0, 0, 5, 29
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\Hooks\Like\usePostLikes.js", "JavaScript", 0, 0, 0, 20, 0, 0, 0, 0, 0, 4, 24
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\Hooks\Post\useFriendsPosts.js", "JavaScript", 0, 0, 0, 54, 0, 0, 0, 0, 0, 12, 66
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\Hooks\Post\useInterestPosts.js", "JavaScript", 0, 0, 0, 65, 0, 0, 0, 0, 0, 14, 79
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\Hooks\Post\usePostForm.js", "JavaScript", 0, 0, 0, 65, 0, 0, 0, 0, 1, 6, 72
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\Hooks\Post\usePosts.js", "JavaScript", 0, 0, 0, 22, 0, 0, 0, 0, 0, 4, 26
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\Hooks\Post\usePostsFeed.js", "JavaScript", 0, 0, 0, 57, 0, 0, 0, 0, 0, 11, 68
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\Hooks\Post\useSearchPosts.js", "JavaScript", 0, 0, 0, 31, 0, 0, 0, 0, 1, 6, 38
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\Hooks\Profile\useProfile.js", "JavaScript", 0, 0, 0, 64, 0, 0, 0, 0, 0, 14, 78
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\Hooks\User\useProfileForm.js", "JavaScript", 0, 0, 0, 65, 0, 0, 0, 0, 0, 11, 76
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\Hooks\utils\useAddFriend.js", "JavaScript", 0, 0, 0, 19, 0, 0, 0, 0, 0, 4, 23
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\Hooks\utils\useDeletePost.js", "JavaScript", 0, 0, 0, 27, 0, 0, 0, 0, 0, 5, 32
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\Hooks\utils\useGenreSelector.js", "JavaScript", 0, 0, 0, 30, 0, 0, 0, 0, 0, 6, 36
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\Hooks\utils\useRemoveFriendship.js", "JavaScript", 0, 0, 0, 32, 0, 0, 0, 0, 0, 5, 37
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\api\Auth\userDelete.js", "JavaScript", 0, 0, 0, 13, 0, 0, 0, 0, 0, 3, 16
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\api\Auth\userGetAll.js", "JavaScript", 0, 0, 0, 10, 0, 0, 0, 0, 0, 1, 11
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\api\Auth\userGetByName.js", "JavaScript", 0, 0, 0, 10, 0, 0, 0, 0, 0, 1, 11
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\api\Auth\userLogin.js", "JavaScript", 0, 0, 0, 13, 0, 0, 0, 0, 0, 1, 14
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\api\Auth\userRegister.js", "JavaScript", 0, 0, 0, 10, 0, 0, 0, 0, 0, 3, 13
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\api\Auth\userUpdate.js", "JavaScript", 0, 0, 0, 16, 0, 0, 0, 0, 0, 4, 20
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\api\Comment\DeleteComment.js", "JavaScript", 0, 0, 0, 13, 0, 0, 0, 0, 0, 1, 14
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\api\Comment\GetComment.js", "JavaScript", 0, 0, 0, 14, 0, 0, 0, 0, 0, 3, 17
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\api\Comment\PostComment.js", "JavaScript", 0, 0, 0, 13, 0, 0, 0, 0, 0, 1, 14
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\api\Config\apiClient.js", "JavaScript", 0, 0, 0, 5, 0, 0, 0, 0, 0, 3, 8
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\api\Friends\friendsDelete.js", "JavaScript", 0, 0, 0, 20, 0, 0, 0, 0, 0, 5, 25
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\api\Friends\friendsGetUser.js", "JavaScript", 0, 0, 0, 13, 0, 0, 0, 0, 0, 6, 19
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\api\Friends\friendsInvite.js", "JavaScript", 0, 0, 0, 13, 0, 0, 0, 0, 0, 3, 16
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\api\Friends\friendsPending.js", "JavaScript", 0, 0, 0, 13, 0, 0, 0, 0, 0, 4, 17
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\api\Friends\friendsProfile.js", "JavaScript", 0, 0, 0, 13, 0, 0, 0, 0, 0, 5, 18
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\api\Friends\friendsStatus.js", "JavaScript", 0, 0, 0, 13, 0, 0, 0, 0, 0, 5, 18
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\api\GenreText\genreTextGet.js", "JavaScript", 0, 0, 0, 13, 0, 0, 0, 0, 0, 4, 17
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\api\GenreText\genreTextGetAll.js", "JavaScript", 0, 0, 0, 10, 0, 0, 0, 0, 0, 2, 12
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\api\Like\DeleteLike.js", "JavaScript", 0, 0, 0, 13, 0, 0, 0, 0, 0, 2, 15
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\api\Like\GetPostsFromUser.js", "JavaScript", 0, 0, 0, 14, 0, 0, 0, 0, 0, 2, 16
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\api\Like\GetUsersFromPost.js", "JavaScript", 0, 0, 0, 13, 0, 0, 0, 0, 0, 1, 14
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\api\Like\PostLike.js", "JavaScript", 0, 0, 0, 13, 0, 0, 0, 0, 0, 1, 14
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\api\Post\DeletePost.js", "JavaScript", 0, 0, 0, 13, 0, 0, 0, 0, 0, 1, 14
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\api\Post\GetAllPostByUser.js", "JavaScript", 0, 0, 0, 17, 0, 0, 0, 0, 0, 4, 21
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\api\Post\GetAllPosts.js", "JavaScript", 0, 0, 0, 14, 0, 0, 0, 0, 0, 3, 17
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\api\Post\PostUser.js", "JavaScript", 0, 0, 0, 13, 0, 0, 0, 0, 0, 3, 16
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\components\Auth\AuthForm.jsx", "JavaScript JSX", 0, 0, 107, 0, 0, 0, 0, 0, 0, 12, 119
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\components\Auth\AuthTabs.jsx", "JavaScript JSX", 0, 0, 94, 0, 0, 0, 0, 0, 0, 10, 104
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\components\Auth\LoginForm.jsx", "JavaScript JSX", 0, 0, 18, 0, 0, 0, 0, 0, 0, 3, 21
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\components\Auth\RegisterForm.jsx", "JavaScript JSX", 0, 0, 24, 0, 0, 0, 0, 0, 0, 3, 27
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\components\Feed\AllPosts.jsx", "JavaScript JSX", 0, 0, 159, 0, 0, 0, 0, 0, 2, 19, 180
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\components\Feed\FriendsPosts.jsx", "JavaScript JSX", 0, 0, 178, 0, 0, 0, 0, 0, 2, 22, 202
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\components\Feed\InterestPosts.jsx", "JavaScript JSX", 0, 0, 177, 0, 0, 0, 0, 0, 2, 21, 200
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\components\Feed\SearchBar.jsx", "JavaScript JSX", 0, 0, 98, 0, 0, 0, 0, 0, 0, 10, 108
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\components\Feed\SearchResultCard.jsx", "JavaScript JSX", 0, 0, 58, 0, 0, 0, 0, 0, 0, 8, 66
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\components\Feed\SidebarUserInfo.jsx", "JavaScript JSX", 0, 0, 99, 0, 0, 0, 0, 0, 0, 13, 112
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\components\Friends\AllUsersList.jsx", "JavaScript JSX", 0, 0, 35, 0, 0, 0, 0, 0, 0, 5, 40
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\components\Friends\FriendCard.jsx", "JavaScript JSX", 0, 0, 102, 0, 0, 0, 0, 0, 0, 11, 113
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\components\Friends\FriendRequests.jsx", "JavaScript JSX", 0, 0, 122, 0, 0, 0, 0, 0, 0, 15, 137
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\components\Friends\FriendSearch.jsx", "JavaScript JSX", 0, 0, 175, 0, 0, 0, 0, 0, 0, 21, 196
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\components\Friends\FriendsList.jsx", "JavaScript JSX", 0, 0, 52, 0, 0, 0, 0, 0, 0, 6, 58
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\components\Post\PostCard.jsx", "JavaScript JSX", 0, 0, 250, 0, 0, 0, 0, 0, 0, 31, 281
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\components\Profile\PostList.jsx", "JavaScript JSX", 0, 0, 60, 0, 0, 0, 0, 0, 0, 9, 69
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\components\Profile\ProfileInfo.jsx", "JavaScript JSX", 0, 0, 183, 0, 0, 0, 0, 0, 0, 23, 206
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\components\User\UserCard.jsx", "JavaScript JSX", 0, 0, 104, 0, 0, 0, 0, 0, 0, 12, 116
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\components\utils\Alerts\Confirm.jsx", "JavaScript JSX", 0, 0, 72, 0, 0, 0, 0, 0, 0, 9, 81
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\components\utils\Alerts\Error.jsx", "JavaScript JSX", 0, 0, 15, 0, 0, 0, 0, 0, 0, 3, 18
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\components\utils\Alerts\Sucess.jsx", "JavaScript JSX", 0, 0, 19, 0, 0, 0, 0, 0, 0, 3, 22
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\components\utils\Buttons\AddFriendButton.jsx", "JavaScript JSX", 0, 0, 26, 0, 0, 0, 0, 0, 0, 3, 29
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\components\utils\Buttons\CreatePostButton.jsx", "JavaScript JSX", 0, 0, 27, 0, 0, 0, 0, 0, 0, 6, 33
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\components\utils\Buttons\LanguageSwitcherButton.jsx", "JavaScript JSX", 0, 0, 49, 0, 0, 0, 0, 0, 0, 7, 56
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\components\utils\Buttons\LikeButton.jsx", "JavaScript JSX", 0, 0, 36, 0, 0, 0, 0, 0, 0, 5, 41
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\components\utils\Buttons\PostDeleteButton.jsx", "JavaScript JSX", 0, 0, 36, 0, 0, 0, 0, 0, 0, 4, 40
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\components\utils\Buttons\RemoveFriendButton.jsx", "JavaScript JSX", 0, 0, 43, 0, 0, 0, 0, 0, 0, 6, 49
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\components\utils\Buttons\ViewProfileButton.jsx", "JavaScript JSX", 0, 0, 46, 0, 0, 0, 0, 0, 0, 6, 52
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\components\utils\GenreSelector.jsx", "JavaScript JSX", 0, 0, 74, 0, 0, 0, 0, 0, 0, 10, 84
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\components\utils\Pop-ups\CommentsPopup.jsx", "JavaScript JSX", 0, 0, 235, 0, 0, 0, 0, 0, 0, 18, 253
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\components\utils\Pop-ups\LikesPopup.jsx", "JavaScript JSX", 0, 0, 108, 0, 0, 0, 0, 0, 0, 7, 115
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\components\utils\SortControls.jsx", "JavaScript JSX", 0, 0, 49, 0, 0, 0, 0, 0, 0, 5, 54
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\i18n.js", "JavaScript", 0, 0, 0, 26, 0, 0, 0, 0, 0, 6, 32
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\i18n\en.json", "JSON", 84, 0, 0, 0, 0, 0, 0, 0, 0, 1, 85
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\i18n\pt.json", "JSON", 86, 0, 0, 0, 0, 0, 0, 0, 0, 1, 87
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\index.css", "PostCSS", 0, 0, 0, 0, 9, 0, 0, 0, 0, 1, 10
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\main.jsx", "JavaScript JSX", 0, 0, 10, 0, 0, 0, 0, 0, 0, 3, 13
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\pages\Auth\AuthPage.jsx", "JavaScript JSX", 0, 0, 33, 0, 0, 0, 0, 0, 0, 7, 40
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\pages\Feed\FeedPage.jsx", "JavaScript JSX", 0, 0, 157, 0, 0, 0, 0, 0, 0, 19, 176
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\pages\Friends\FriendProfile.jsx", "JavaScript JSX", 0, 0, 274, 0, 0, 0, 0, 0, 0, 26, 300
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\pages\Friends\FriendsPage.jsx", "JavaScript JSX", 0, 0, 160, 0, 0, 0, 0, 0, 0, 16, 176
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\pages\Home\HomePage.jsx", "JavaScript JSX", 0, 0, 129, 0, 0, 0, 0, 0, 1, 19, 149
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\pages\PostDetailPage.jsx", "JavaScript JSX", 0, 0, 216, 0, 0, 0, 0, 0, 1, 26, 243
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\pages\Post\CreatePostForm.jsx.jsx", "JavaScript JSX", 0, 0, 108, 0, 0, 0, 0, 0, 0, 13, 121
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\pages\Post\LikedPostsPage.jsx", "JavaScript JSX", 0, 0, 90, 0, 0, 0, 0, 0, 0, 13, 103
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\pages\ProfileForm.jsx", "JavaScript JSX", 0, 0, 156, 0, 0, 0, 0, 0, 0, 13, 169
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\pages\Profile\ProfilePage.jsx", "JavaScript JSX", 0, 0, 133, 0, 0, 0, 0, 0, 0, 16, 149
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\routes\PrivateRoute.jsx", "JavaScript JSX", 0, 0, 8, 0, 0, 0, 0, 0, 0, 3, 11
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\routes\Router.jsx", "JavaScript JSX", 0, 0, 87, 0, 0, 0, 0, 0, 0, 10, 97
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\styles\SharedComponents.js", "JavaScript", 0, 0, 0, 60, 0, 0, 0, 0, 0, 6, 66
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\src\styles\theme.js", "JavaScript", 0, 0, 0, 82, 0, 0, 0, 0, 0, 3, 85
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\Frontend\vite.config.js", "JavaScript", 0, 0, 0, 5, 0, 0, 0, 0, 1, 2, 8
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\README.md", "Markdown", 0, 15, 0, 0, 0, 0, 0, 0, 0, 11, 26
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\package-lock.json", "JSON", 338, 0, 0, 0, 0, 0, 0, 0, 0, 1, 339
+"c:\Users\julio\OneDrive\Área de Trabalho\Project_Letter\package.json", "JSON", 25, 0, 0, 0, 0, 0, 0, 0, 0, 1, 26
+"Total", "-", 11282, 118, 4507, 3032, 9, 13, 82, 103, 53, 1251, 20450

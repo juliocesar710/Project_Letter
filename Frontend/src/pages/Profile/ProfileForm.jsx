@@ -1,10 +1,9 @@
 import styled from "styled-components";
-import Sucess from "../components/utils/Alerts/Sucess";
-import Error from "../components/utils/Alerts/Error";
-import GenreSelector from "../components/utils/GenreSelector";
-import { useProfileForm } from "../Hooks/User/useProfileForm";
+import Sucess from "../../components/utils/Alerts/Sucess";
+import Error from "../../components/utils/Alerts/Error";
+import GenreSelector from "../../components/utils/GenreSelector";
+import { useProfileForm } from "../../Hooks/User/useProfileForm";
 import { useTranslation } from "react-i18next";
-
 const FormContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -18,13 +17,11 @@ const FormContainer = styled.div`
     ${({ theme }) => theme.colors.border}
   );
 `;
-
 const FormTitle = styled.h2`
   text-align: center;
   margin-bottom: 20px;
   color: ${({ theme }) => theme.colors.primaryDark};
 `;
-
 const Form = styled.form`
   background-color: ${({ theme }) => theme.colors.inputBackground};
   padding: 20px;
@@ -33,7 +30,6 @@ const Form = styled.form`
   width: 100%;
   max-width: 400px;
 `;
-
 const Input = styled.input`
   width: 100%;
   padding: ${({ theme }) => theme.padding.input};
@@ -49,7 +45,6 @@ const Input = styled.input`
     outline: none;
   }
 `;
-
 const TextArea = styled.textarea`
   width: 100%;
   padding: ${({ theme }) => theme.padding.input};
@@ -65,7 +60,6 @@ const TextArea = styled.textarea`
     outline: none;
   }
 `;
-
 const Button = styled.button`
   width: 100%;
   padding: ${({ theme }) => theme.padding.button};
@@ -85,7 +79,6 @@ const Button = styled.button`
     cursor: not-allowed;
   }
 `;
-
 const ProfileImage = styled.img`
   width: 130px;
   height: 130px;
@@ -96,10 +89,8 @@ const ProfileImage = styled.img`
   object-position: center;
   display: block;
 `;
-
 const ProfileForm = ({ isEdit = false }) => {
   const { t } = useTranslation();
-
   const {
     formData,
     selectedGenres,
@@ -110,12 +101,10 @@ const ProfileForm = ({ isEdit = false }) => {
     setSelectedGenres,
     handleSubmit,
   } = useProfileForm();
-
   return (
     <FormContainer>
       <Form onSubmit={handleSubmit}>
         <FormTitle>{isEdit ? t("edit profile") : "Editando"}</FormTitle>
-
         <ProfileImage src={formData.profileImage} alt="Profile Image" />
         <Input
           type="text"
@@ -164,5 +153,4 @@ const ProfileForm = ({ isEdit = false }) => {
     </FormContainer>
   );
 };
-
 export default ProfileForm;

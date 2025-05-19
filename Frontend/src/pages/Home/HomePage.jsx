@@ -1,9 +1,9 @@
 import styled from "styled-components";
+
 import { useNavigate } from "react-router-dom";
 import { BookOpen, PenSquare, Users, Sparkles } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-// --- Styled Components ---
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -41,7 +41,7 @@ const Description = styled.p`
 
 const Quote = styled.blockquote`
   font-style: italic;
-  color: ${({ theme }) => theme.colors.textLight};
+  color: ${({ theme }) => theme.colors.text};
   margin: 2rem auto;
   max-width: 600px;
 `;

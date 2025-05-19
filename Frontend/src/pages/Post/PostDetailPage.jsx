@@ -1,12 +1,13 @@
-import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import { getAllPosts } from "../api/Post/GetAllPosts";
 import styled from "styled-components";
+import { useEffect, useState } from "react";
 import { format } from "date-fns";
-import { getCurrentLocale } from "../i18n";
+import { useParams, useNavigate } from "react-router-dom";
+
+import { getCurrentLocale } from "../../i18n";
 import { useTranslation } from "react-i18next";
 
-// Componentes estilizados
+import { getAllPosts } from "../../api/Post/GetAllPosts";
+
 const PostDetailContainer = styled.div`
   padding: 2rem 1rem;
   max-width: 900px;
@@ -196,9 +197,7 @@ const PostDetailPage = () => {
 
   return (
     <PostDetailContainer>
-      <BackButton onClick={() => navigate(-1)}>
-        ← {t("backToPosts")}
-      </BackButton>
+      <BackButton onClick={() => navigate(-1)}>← {t("backToPosts")}</BackButton>
 
       <PostCard>
         <PostHeader>
@@ -208,7 +207,7 @@ const PostDetailPage = () => {
             })}
           </PostDate>
           <PostTitle>{post.title}</PostTitle>
-          
+
           {post.genreTexts && post.genreTexts.length > 0 && (
             <GenreList>
               {post.genreTexts.map((genre) => (
@@ -220,17 +219,13 @@ const PostDetailPage = () => {
 
         {post.image && (
           <PostImageContainer>
-            <PostImage
-              src={post.image}
-              alt={post.title}
-              loading="lazy"
-            />
+            <PostImage src={post.image} alt={post.title} loading="lazy" />
           </PostImageContainer>
         )}
 
         <PostContentWrapper>
           <PostContent>
-            {post.description.split('\n').map((paragraph, i) => (
+            {post.description.split("\n").map((paragraph, i) => (
               <p key={i}>{paragraph}</p>
             ))}
           </PostContent>
