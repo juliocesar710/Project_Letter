@@ -1,14 +1,14 @@
 import { useState } from "react";
 import styled from "styled-components";
 
-import ProfileInfo from "../components/profile/ProfileInfo";
-import PostList from "../components/profile/PostList";
+import ProfileInfo from "../../components/profile/ProfileInfo";
+import PostList from "../../components/profile/PostList";
 
-import LanguageSwitcher from "../components/utils/Buttons/LanguageSwitcherButton";
-import Confirm from "../components/utils/Alerts/Confirm";
+import LanguageSwitcher from "../../components/utils/Buttons/LanguageSwitcherButton";
+import Confirm from "../../components/utils/Alerts/Confirm";
 
-import { usePosts } from "../Hooks/Post/usePosts";
-import { useProfile } from "../Hooks/Profile/useProfile";
+import { usePosts } from "../../Hooks/Post/usePosts";
+import { useProfile } from "../../Hooks/Profile/useProfile";
 
 import { useTranslation } from "react-i18next";
 

@@ -3,8 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { format } from "date-fns";
 import { Edit, Users, Book, BookHeart } from "lucide-react";
 
-import PostsButton from "../Like/PostsButton";
-
 import { useTranslation } from "react-i18next";
 import { getCurrentLocale } from "../../i18n";
 
@@ -127,6 +125,10 @@ const ProfileInfo = ({ user }) => {
     navigate("/feed");
   };
 
+  const handleLikedPostsClick = () => {
+    navigate("/liked-posts");
+  };
+
   let formattedBirthDate = t("date of birth not provided");
 
   if (user.birthDate) {
@@ -163,10 +165,13 @@ const ProfileInfo = ({ user }) => {
             <ProfileButton onClick={handleEditProfile}>
               <Edit />
             </ProfileButton>
-            <span>{t("edit profile")}</span>
+            <span>{t("editProfile")}</span>
           </TooltipWrapper>
           <TooltipWrapper>
-            <PostsButton icon={<BookHeart />} label={t("liked posts")} />
+            <ProfileButton onClick={handleLikedPostsClick}>
+              <BookHeart />
+            </ProfileButton>
+            <span>{t("likedPosts")}</span>
           </TooltipWrapper>
         </ProfileButtons>
 

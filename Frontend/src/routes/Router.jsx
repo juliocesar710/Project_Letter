@@ -1,10 +1,14 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import ProfilePage from "../pages/ProfilePage";
-import AuthPage from "../pages/AuthPage";
+
+import AuthPage from "../pages/Auth/AuthPage";
+
+import ProfilePage from "../pages/Profile/ProfilePage";
+
+import FriendsPage from "../pages/Friends/FriendsPage";
+
 import ProfileForm from "../pages/ProfileForm.jsx";
 import HomePage from "../pages/HomePage";
 import PrivateRoute from "./PrivateRoute";
-import FriendsPage from "../pages/FriendsPage";
 import FriendProfile from "../pages/FriendProfile";
 import FeedPage from "../pages/FeedPage";
 import CreatePostForm from "../pages/CreatePostForm.jsx.jsx";

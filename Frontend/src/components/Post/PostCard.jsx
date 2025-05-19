@@ -103,7 +103,6 @@ width:100%;
 }
 `;
 
-
 const ContainerButtons = styled.div`
   display: flex;
   flex-wrap: wrap; /* Permite que os itens quebrem para nova linha */
@@ -152,13 +151,19 @@ const Button = styled.button`
   font-size: 0.85rem;
   cursor: pointer;
   transition: background-color 0.2s ease;
-  flex: 1; /* Permite que o botão cresça */
-  min-width: 120px; /* Largura mínima */
+  flex: 1; 
+  min-width: 120px; 
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.primaryDark};
+  }
 
   @media (max-width: 768px) {
     width: 100%;
   }
 `;
+
+
 const ExpandableText = ({ text, maxLength = 150 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const { t } = useTranslation();
@@ -187,12 +192,13 @@ const PostCard = ({ post, onDeleted }) => {
   const { users, loading, fetchLikes } = usePostLikes(post.id);
   const [showComments, setShowComments] = useState(false);
   const { comments } = useGetComments(post.id);
+  const { t } = useTranslation();
 
   const {
     liked,
     likesCount: currentLikesCount,
     toggleLike,
-    isLoading: likeLoading
+    isLoading: likeLoading,
   } = useLike(likedByUser, likesCount, id);
 
   const userData = Cookies.get("userData");
@@ -237,7 +243,7 @@ const PostCard = ({ post, onDeleted }) => {
           ))}
         </GenreList>
       )}
-        <LikeButton
+      <LikeButton
         liked={liked}
         likesCount={currentLikesCount}
         onToggle={toggleLike}
@@ -245,7 +251,7 @@ const PostCard = ({ post, onDeleted }) => {
       />
       <ContainerButtons>
         <ViewLikesButton onClick={handleShowPopup}>
-          Ver curtidas
+          {t("viewLikes")}
         </ViewLikesButton>
         {showPopup && (
           <LikesPopup
@@ -256,13 +262,15 @@ const PostCard = ({ post, onDeleted }) => {
             loading={loading}
           />
         )}
-        <Button onClick={() => setShowComments(true)}>Ver comentários</Button>
+        <Button onClick={() => setShowComments(true)}>
+          {t("viewComments")}
+        </Button>
         <CommentsPopup
           open={showComments}
           onClose={() => setShowComments(false)}
           comments={comments}
           loading={loading}
-          postId={id} // <-- Passe o id do post aqui!
+          postId={id}
         />
       </ContainerButtons>
     </PostCardContainer>
