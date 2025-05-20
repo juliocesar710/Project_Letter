@@ -5,6 +5,7 @@ import { ErrorMessage } from "../../styles/SharedComponents";
 import { useLikedPosts } from "../../Hooks/Like/useLikedPosts";
 import PostCard from "../../components/Post/PostCard";
 import { useTranslation } from "react-i18next";
+import { FormTitle } from "../../styles/SharedComponents";
 
 const PageContainer = styled.div`
   padding: ${({ theme }) => theme.padding.container};
@@ -18,20 +19,6 @@ const PageContainer = styled.div`
 
   @media ${({ theme }) => theme.breakpoints.mobile} {
     padding: 1rem;
-  }
-`;
-
-const PageTitle = styled.h1`
-  color: ${({ theme }) => theme.colors.text};
-  font-size: ${({ theme }) => theme.fontSize.title};
-  margin-bottom: 2rem;
-  font-weight: ${({ theme }) => theme.fontWeight.bold};
-  border-bottom: 2px solid ${({ theme }) => theme.colors.primary};
-  padding-bottom: 0.5rem;
-
-  @media ${({ theme }) => theme.breakpoints.mobile} {
-    font-size: ${({ theme }) => theme.fontSize.large};
-    margin-bottom: 1.5rem;
   }
 `;
 
@@ -69,7 +56,7 @@ const LikedPostsPage = () => {
   if (loading)
     return (
       <PageContainer>
-        <PageTitle>{t("likedPosts")}</PageTitle>
+        <FormTitle>{t("likedPosts")}</FormTitle>
         <LoadingMessage>{t("loading")}</LoadingMessage>
       </PageContainer>
     );
@@ -77,14 +64,14 @@ const LikedPostsPage = () => {
   if (error)
     return (
       <PageContainer>
-        <PageTitle>{t("likedPosts")}</PageTitle>
+        <FormTitle>{t("likedPosts")}</FormTitle>
         <ErrorMessage>{error}</ErrorMessage>
       </PageContainer>
     );
 
   return (
     <PageContainer>
-      <PageTitle>{t("likedPosts")}</PageTitle>
+      <FormTitle>{t("likedPosts")}</FormTitle>
 
       {likedPosts.length === 0 ? (
         <EmptyMessage>{t("noLikedPosts")}</EmptyMessage>

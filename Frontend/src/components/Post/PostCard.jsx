@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Cookies from "js-cookie";
 import { format } from "date-fns";
 
-import { DeleteButton } from "../../styles/SharedComponents";
+import { DeleteButton, Button } from "../../styles/SharedComponents";
 
 import PostDeleteButton from "../utils/Buttons/PostDeleteButton";
 import LikeButton from "../utils/Buttons/LikeButton";
@@ -92,19 +92,6 @@ const ReadMoreButton = styled.button`
   }
 `;
 
-const ButtonDelete = styled.div`
-display: flex;
-justify-content: flex-end;
-align-items: center;
-margin-top: 10px;
-margin-bottom: 10px;
-margin-right: 10px;
-width:100%;
-
-
-}
-`;
-
 const ContainerButtons = styled.div`
   display: flex;
   flex-wrap: wrap; /* Permite que os itens quebrem para nova linha */
@@ -120,51 +107,6 @@ const ContainerButtons = styled.div`
     align-items: stretch; /* Faz os botões ocuparem toda a largura */
   }
 `;
-
-const ViewLikesButton = styled.button`
-  margin-top: 0;
-  padding: 0.4rem 1rem;
-  background-color: ${({ theme }) => theme.colors.primary};
-  color: white;
-  border: none;
-  border-radius: ${({ theme }) => theme.borderRadius.small};
-  font-size: 0.85rem;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-  flex: 1; /* Permite que o botão cresça */
-  min-width: 120px; /* Largura mínima */
-
-  &:hover {
-    background-color: ${({ theme }) => theme.colors.primaryDark};
-  }
-
-  @media (max-width: 768px) {
-    width: 100%;
-  }
-`;
-
-const Button = styled.button`
-  margin-top: 0;
-  padding: 0.4rem 1rem;
-  background-color: ${({ theme }) => theme.colors.primary};
-  color: white;
-  border: none;
-  border-radius: ${({ theme }) => theme.borderRadius.small};
-  font-size: 0.85rem;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-  flex: 1; 
-  min-width: 120px; 
-
-  &:hover {
-    background-color: ${({ theme }) => theme.colors.primaryDark};
-  }
-
-  @media (max-width: 768px) {
-    width: 100%;
-  }
-`;
-
 
 const ExpandableText = ({ text, maxLength = 150 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -221,9 +163,9 @@ const PostCard = ({ post, onDeleted }) => {
         })}
       </PostContent>
       {isOwner && (
-        <ButtonDelete>
+        <DeleteButton>
           <PostDeleteButton postId={id} onDeleted={onDeleted} />
-        </ButtonDelete>
+        </DeleteButton>
       )}
 
       <PostTitle>{title}</PostTitle>
@@ -252,9 +194,7 @@ const PostCard = ({ post, onDeleted }) => {
         disabled={likeLoading}
       />
       <ContainerButtons>
-        <ViewLikesButton onClick={handleShowPopup}>
-          {t("viewLikes")}
-        </ViewLikesButton>
+        <Button onClick={handleShowPopup}>{t("viewLikes")}</Button>
         {showPopup && (
           <LikesPopup
             postId={post.id}

@@ -2,6 +2,8 @@ import { useEffect } from "react";
 import styled from "styled-components";
 import ReactDOM from "react-dom";
 
+import { Avatar, ListConatainer, FormTitle } from "../../../styles/SharedComponents";
+
 const Overlay = styled.div`
   position: fixed;
   top: 0;
@@ -89,11 +91,13 @@ const LikesPopup = ({ onClose, fetchLikes, users, loading }) => {
     fetchLikes();
   }, [fetchLikes]);
 
+  console.log(users);
+
   return ReactDOM.createPortal(
     <Overlay onClick={onClose}>
       <PopupContainer onClick={(e) => e.stopPropagation()}>
         <CloseButton onClick={onClose}>&times;</CloseButton>
-        <h3>Usuários que curtiram</h3>
+        <FormTitle>Usuários que curtiram</FormTitle>
         {loading ? (
           <p>Carregando...</p>
         ) : users.length === 0 ? (
@@ -101,7 +105,13 @@ const LikesPopup = ({ onClose, fetchLikes, users, loading }) => {
         ) : (
           <ul>
             {users.map((user) => (
-              <li key={user.id}>{user.name}</li>
+              <ListConatainer key={user.id}>
+                <Avatar
+                  src={user?.profileImage || "default.png"}
+                  alt={user?.name || "Usuário"}
+                />
+                {user.name}
+              </ListConatainer>
             ))}
           </ul>
         )}

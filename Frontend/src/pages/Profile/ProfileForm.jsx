@@ -1,4 +1,3 @@
-import styled from "styled-components";
 import {
   FormTitle,
   Input,
@@ -6,36 +5,15 @@ import {
   Button,
   ProfileImage,
   ProfileImageContainer,
+  Form,
+  FormContainer,
 } from "../../styles/SharedComponents";
 import Sucess from "../../components/utils/Alerts/Sucess";
 import Error from "../../components/utils/Alerts/Error";
 import GenreSelector from "../../components/utils/GenreSelector";
 import { useProfileForm } from "../../Hooks/User/useProfileForm";
 import { useTranslation } from "react-i18next";
-const FormContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  min-height: 100vh;
-  background: linear-gradient(
-    90deg,
-    ${({ theme }) => theme.colors.background},
-    ${({ theme }) => theme.colors.border}
-  );
-`;
-const Form = styled.form`
-  background-color: ${({ theme }) => theme.colors.inputBackground};
-  padding: 20px;
-  border-radius: ${({ theme }) => theme.borderRadius.medium};
-  box-shadow: ${({ theme }) => theme.shadows.light};
-  width: 100%;
-  max-width: 400px;
-  display: flex;
-  flex-direction: column;
-  align-items: center; 
-`;
+
 const ProfileForm = ({ isEdit = false }) => {
   const { t } = useTranslation();
   const {

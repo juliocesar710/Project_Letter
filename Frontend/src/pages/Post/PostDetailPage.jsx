@@ -1,12 +1,13 @@
 import styled from "styled-components";
-import { useEffect, useState } from "react";
 import { format } from "date-fns";
 import { useParams, useNavigate } from "react-router-dom";
 
 import { getCurrentLocale } from "../../i18n";
 import { useTranslation } from "react-i18next";
 
-import { getAllPosts } from "../../api/Post/GetAllPosts";
+import { usePostById } from "../../Hooks/Post/usePostById";
+
+import { BackButton } from "../../styles/SharedComponents";
 
 const PostDetailContainer = styled.div`
   padding: 2rem 1rem;
@@ -16,26 +17,6 @@ const PostDetailContainer = styled.div`
 
   @media (min-width: 768px) {
     padding: 3rem 2rem;
-  }
-`;
-
-const BackButton = styled.button`
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  background: ${({ theme }) => theme.colors.primary}10;
-  color: ${({ theme }) => theme.colors.primary};
-  border: none;
-  border-radius: 8px;
-  padding: 0.5rem 1rem;
-  font-size: 1rem;
-  cursor: pointer;
-  margin-bottom: 2rem;
-  transition: all 0.2s ease;
-
-  &:hover {
-    background: ${({ theme }) => theme.colors.primary}20;
-    transform: translateY(-1px);
   }
 `;
 
@@ -155,26 +136,8 @@ const PostDetailPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const [post, setPost] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const fetchPostDetail = async () => {
-      try {
-        setLoading(true);
-        const postData = await getAllPosts({ id });
-        setPost(postData);
-      } catch (err) {
-        console.error("Erro ao carregar post:", err);
-        setError(t("errorLoadingPost"));
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchPostDetail();
-  }, [id, t]);
+  const { post, loading, error } = usePostById(id, t);
 
   if (loading) {
     return <LoadingContainer>{t("loading")}...</LoadingContainer>;

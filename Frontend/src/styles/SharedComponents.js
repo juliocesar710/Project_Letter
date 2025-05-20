@@ -106,9 +106,10 @@ export const ProfileButton = styled.button`
   }
 `;
 export const Avatar = styled.img`
-  width: 36px;
-  height: 36px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
+  margin: 10px;
   object-fit: cover;
   background-color: ${({ theme }) => theme.colors.border};
 `;
@@ -134,5 +135,64 @@ export const DeleteButton = styled.button`
   svg {
     width: 18px;
     height: 18px;
+  }
+`;
+export const ListConatainer = styled.li`
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.border};
+  color: ${({ theme }) => theme.colors.text};
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.backgroundLight};
+  }
+`;
+export const FormContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  min-height: 100vh;
+  background: linear-gradient(
+    90deg,
+    ${({ theme }) => theme.colors.background},
+    ${({ theme }) => theme.colors.border}
+  );
+`;
+export const Form = styled.form`
+  background-color: ${({ theme }) => theme.colors.inputBackground};
+  padding: 20px;
+  border-radius: ${({ theme }) => theme.borderRadius.medium};
+  box-shadow: ${({ theme }) => theme.shadows.light};
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+`;
+export const BackButton = styled.button`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: ${({ theme }) => theme.colors.primary}10;
+  color: ${({ theme }) => theme.colors.primary};
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-bottom: 2rem;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: ${({ theme }) => theme.colors.primary}20;
+    transform: translateY(-1px);
   }
 `;

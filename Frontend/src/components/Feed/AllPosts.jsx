@@ -6,8 +6,8 @@ import { getCurrentLocale } from "../../i18n";
 import SortControls from "../utils/SortControls";
 import { usePostsFeed } from "../../Hooks/Post/usePostsFeed";
 import { useTranslation } from "react-i18next";
+import { Avatar } from "../../styles/SharedComponents";
 
-// --- Styled Components ---
 const FeedContainer = styled.div`
   width: 100%;
   max-width: 960px;
@@ -34,14 +34,6 @@ const PostHeader = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 1rem;
-`;
-
-const ProfileImage = styled.img`
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-right: 1rem;
 `;
 
 const PostInfo = styled.div`
@@ -108,7 +100,6 @@ const EmptyStateText = styled.p`
   margin-bottom: 0.5rem;
 `;
 
-// --- Component ---
 const AllPosts = () => {
   const {
     currentPosts,
@@ -149,7 +140,7 @@ const AllPosts = () => {
         currentPosts.map((post) => (
           <PostContainer key={post.id}>
             <PostHeader>
-              <ProfileImage src={post.user.profileImage} alt={post.user.name} />
+              <Avatar src={post.user.profileImage} alt={post.user.name} />
               <PostInfo>
                 <span>{post.user.name}</span>
                 <span>

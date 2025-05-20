@@ -1,17 +1,16 @@
 import styled from "styled-components";
 
-import { Input, TextArea, Button } from "../../styles/SharedComponents";
+import {
+  Input,
+  TextArea,
+  Button,
+  FormContainer,
+} from "../../styles/SharedComponents";
 import Sucess from "../../components/utils/Alerts/Sucess";
 import Error from "../../components/utils/Alerts/Error";
 import GenreSelector from "../../components/utils/GenreSelector";
 import { usePostForm } from "../../Hooks/Post/usePostForm";
 import { useTranslation } from "react-i18next";
-
-const FormContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  padding: ${({ theme }) => theme.padding.container};
-`;
 
 const StyledForm = styled.form`
   background-color: ${({ theme }) => theme.colors.inputBackground};

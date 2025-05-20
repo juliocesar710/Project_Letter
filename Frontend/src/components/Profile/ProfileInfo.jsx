@@ -45,7 +45,7 @@ const SectionContent = styled.p`
 const ProfileHeader = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: center;
 
   width: 100%;
 `;
@@ -53,6 +53,7 @@ const ProfileHeader = styled.div`
 const TooltipWrapper = styled.div`
   position: relative;
   display: inline-block;
+  margin-left: 10px;
 
   &:hover span {
     visibility: visible;
@@ -68,7 +69,7 @@ const TooltipWrapper = styled.div`
     border-radius: 4px;
     position: absolute;
     z-index: 1;
-    bottom: 125%; /* acima do botão */
+    bottom: 125%; 
     left: 50%;
     transform: translateX(-50%);
     opacity: 0;
