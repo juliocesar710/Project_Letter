@@ -1,4 +1,12 @@
 import styled from "styled-components";
+import {
+  FormTitle,
+  Input,
+  TextArea,
+  Button,
+  ProfileImage,
+  ProfileImageContainer,
+} from "../../styles/SharedComponents";
 import Sucess from "../../components/utils/Alerts/Sucess";
 import Error from "../../components/utils/Alerts/Error";
 import GenreSelector from "../../components/utils/GenreSelector";
@@ -17,11 +25,6 @@ const FormContainer = styled.div`
     ${({ theme }) => theme.colors.border}
   );
 `;
-const FormTitle = styled.h2`
-  text-align: center;
-  margin-bottom: 20px;
-  color: ${({ theme }) => theme.colors.primaryDark};
-`;
 const Form = styled.form`
   background-color: ${({ theme }) => theme.colors.inputBackground};
   padding: 20px;
@@ -29,65 +32,9 @@ const Form = styled.form`
   box-shadow: ${({ theme }) => theme.shadows.light};
   width: 100%;
   max-width: 400px;
-`;
-const Input = styled.input`
-  width: 100%;
-  padding: ${({ theme }) => theme.padding.input};
-  margin-bottom: 15px;
-  border: 1px solid ${({ theme }) => theme.colors.border};
-  border-radius: ${({ theme }) => theme.borderRadius.small};
-  font-size: 16px;
-  color: ${({ theme }) => theme.colors.text};
-  background-color: ${({ theme }) => theme.colors.inputBackground};
-
-  &:focus {
-    border-color: ${({ theme }) => theme.colors.borderFocus};
-    outline: none;
-  }
-`;
-const TextArea = styled.textarea`
-  width: 100%;
-  padding: ${({ theme }) => theme.padding.input};
-  margin-bottom: 15px;
-  border: 1px solid ${({ theme }) => theme.colors.border};
-  border-radius: ${({ theme }) => theme.borderRadius.small};
-  font-size: 16px;
-  color: ${({ theme }) => theme.colors.text};
-  background-color: ${({ theme }) => theme.colors.inputBackground};
-
-  &:focus {
-    border-color: ${({ theme }) => theme.colors.borderFocus};
-    outline: none;
-  }
-`;
-const Button = styled.button`
-  width: 100%;
-  padding: ${({ theme }) => theme.padding.button};
-  background-color: ${({ theme }) => theme.colors.primary};
-  color: ${({ theme }) => theme.colors.inputBackground};
-  border: none;
-  border-radius: ${({ theme }) => theme.borderRadius.small};
-  cursor: pointer;
-  font-size: 16px;
-
-  &:hover {
-    background-color: ${({ theme }) => theme.colors.primaryDark};
-  }
-
-  &:disabled {
-    background-color: ${({ theme }) => theme.colors.border};
-    cursor: not-allowed;
-  }
-`;
-const ProfileImage = styled.img`
-  width: 130px;
-  height: 130px;
-  border-radius: 50%;
-  border: 4px solid ${({ theme }) => theme.colors.primary};
-  margin: 0 auto 20px auto;
-  object-fit: cover;
-  object-position: center;
-  display: block;
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
 `;
 const ProfileForm = ({ isEdit = false }) => {
   const { t } = useTranslation();
@@ -104,8 +51,11 @@ const ProfileForm = ({ isEdit = false }) => {
   return (
     <FormContainer>
       <Form onSubmit={handleSubmit}>
-        <FormTitle>{isEdit ? t("edit profile") : "Editando"}</FormTitle>
-        <ProfileImage src={formData.profileImage} alt="Profile Image" />
+        <FormTitle>{isEdit ? t("editProfile") : "Editando"}</FormTitle>
+        <ProfileImageContainer>
+          <ProfileImage src={formData.profileImage} alt="Profile Image" />
+        </ProfileImageContainer>
+
         <Input
           type="text"
           name="name"

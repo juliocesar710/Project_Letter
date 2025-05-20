@@ -2,7 +2,11 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { format } from "date-fns";
 import { Edit, Users, Book, BookHeart } from "lucide-react";
-
+import {
+  ProfileImage,
+  ProfileImageContainer,
+  ProfileButton,
+} from "../../styles/SharedComponents";
 import { useTranslation } from "react-i18next";
 import { getCurrentLocale } from "../../i18n";
 
@@ -36,35 +40,6 @@ const SectionContent = styled.p`
   font-size: 16px;
   color: ${({ theme }) => theme.colors.text};
   font-weight: bold;
-`;
-
-const ProfileImage = styled.img`
-  width: 130px;
-  height: 130px;
-  border-radius: 50%;
-  border: 4px solid ${({ theme }) => theme.colors.primary};
-  margin-bottom: 20px;
-`;
-
-const ProfileButton = styled.button`
-  display: flex; /* Adiciona o Flexbox */
-  align-items: center; /* Centraliza verticalmente */
-  justify-content: center; /* Centraliza horizontalmente */
-  padding: 10px; /* Ajuste o padding conforme necessário */
-  background-color: ${({ theme }) => theme.colors.primary};
-  color: ${({ theme }) => theme.colors.inputBackground};
-  border: none;
-  border-radius: ${({ theme }) => theme.borderRadius.medium};
-  font-size: 14px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  height: 40px;
-  width: 40px;
-
-  &:hover {
-    background-color: ${({ theme }) => theme.colors.primaryDark};
-  }
 `;
 
 const ProfileHeader = styled.div`
@@ -139,18 +114,18 @@ const ProfileInfo = ({ user }) => {
       });
     }
   }
-
   return (
     <InfoCard>
       <ProfileHeader>
-        <ProfileImage src={user.profileImage} alt={`${user.name} profile`} />
+        <ProfileImageContainer>
+          <ProfileImage src={user.profileImage} alt={`${user.name} profile`} />
+        </ProfileImageContainer>
         <TooltipWrapper>
           <ProfileButton onClick={handleFriendsClick}>
             <Users />
           </ProfileButton>
           <span>{t("friends")}</span>
         </TooltipWrapper>
-
         <TooltipWrapper>
           <ProfileButton onClick={handleFeedClick}>
             <Book />
@@ -158,7 +133,6 @@ const ProfileInfo = ({ user }) => {
           <span>{t("feed")}</span>
         </TooltipWrapper>
       </ProfileHeader>
-
       <Section>
         <ProfileButtons>
           <TooltipWrapper>
@@ -174,7 +148,6 @@ const ProfileInfo = ({ user }) => {
             <span>{t("likedPosts")}</span>
           </TooltipWrapper>
         </ProfileButtons>
-
         <SectionTitle>{t("personal information")}</SectionTitle>
         <SectionContent>
           {t("name")}: {user.name}

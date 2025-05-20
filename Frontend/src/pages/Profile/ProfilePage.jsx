@@ -68,7 +68,6 @@ const Menu = styled.div`
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   z-index: 10;
 
-  /* Animação */
   opacity: ${({ isOpen }) => (isOpen ? 1 : 0)};
   transform: ${({ isOpen }) =>
     isOpen ? "translateY(0)" : "translateY(-10px)"};

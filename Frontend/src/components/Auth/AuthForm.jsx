@@ -1,10 +1,13 @@
 import styled from "styled-components";
-
-import { Input, Button, ErrorMessage } from "../../styles/SharedComponents";
+import {
+  Input,
+  Button,
+  ErrorMessage,
+  FormTitle,
+} from "../../styles/SharedComponents";
 import { Eye, EyeOff } from "lucide-react";
 import { useAuthForm } from "../../Hooks/Auth/useAuthForm";
 import { useTranslation } from "react-i18next";
-
 const FormContainer = styled.form`
   background-color: ${({ theme }) => theme.colors.inputBackground};
   padding: ${({ theme }) => theme.padding.container};
@@ -14,20 +17,10 @@ const FormContainer = styled.form`
   margin: 0 auto;
   box-shadow: ${({ theme }) => theme.shadows.light};
 `;
-
-const FormTitle = styled.h2`
-  text-align: center;
-  margin-bottom: ${({ theme }) => theme.padding.container};
-  color: ${({ theme }) => theme.colors.primaryDark};
-  font-size: ${({ theme }) => theme.fontSize.large};
-  font-weight: ${({ theme }) => theme.fontWeight.medium};
-`;
-
 const InputGroup = styled.div`
   margin-bottom: ${({ theme }) => theme.padding.button};
   position: relative;
 `;
-
 const PasswordToggleButton = styled.button`
   position: absolute;
   right: 12px;
@@ -50,7 +43,6 @@ const PasswordToggleButton = styled.button`
     outline: 2px solid ${({ theme }) => theme.colors.borderFocus};
   }
 `;
-
 const AuthForm = ({ title, fields, onSubmitAPI, redirectPath }) => {
   const {
     formData,
@@ -62,7 +54,6 @@ const AuthForm = ({ title, fields, onSubmitAPI, redirectPath }) => {
     togglePasswordVisibility,
   } = useAuthForm({ fields, onSubmitAPI, redirectPath });
   const { t } = useTranslation();
-
   return (
     <FormContainer onSubmit={handleSubmit}>
       <FormTitle>{title}</FormTitle>

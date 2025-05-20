@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { useFriendProfile } from "../../Hooks/FriendProfile/useFriendProfile";
 import { useTranslation } from "react-i18next";
 import { getCurrentLocale } from "../../i18n";
+import { ProfileImage, ProfileImageContainer } from "../../styles/SharedComponents";
 
 const PageContainer = styled.div`
   display: flex;
@@ -73,28 +74,6 @@ const ProfileHeader = styled.div`
   margin: 2rem 0 3rem;
   position: relative;
 `;
-
-const ProfileImageContainer = styled.div`
-  width: 160px;
-  height: 160px;
-  border-radius: 50%;
-  margin-bottom: 1.5rem;
-  overflow: hidden;
-  border: 4px solid ${({ theme }) => theme.colors.primaryLight};
-  box-shadow: ${({ theme }) => theme.shadows.small};
-  transition: all 0.3s ease;
-
-  &:hover {
-    transform: scale(1.05);
-  }
-`;
-
-const ProfileImage = styled.img`
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-`;
-
 const ProfileInitial = styled.div`
   width: 160px;
   height: 160px;
