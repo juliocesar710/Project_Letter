@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import styled from "styled-components";
 import { useTranslation } from "react-i18next";
 import { Avatar, FormTitle } from "../../../styles/SharedComponents";
+import { CloseButton } from "../../../styles/Shared/buttons";
 
 const Overlay = styled.div`
   position: fixed;
@@ -43,20 +44,7 @@ const PopupContainer = styled.div`
   }
 `;
 
-const CloseButton = styled.button`
-  background: none;
-  border: none;
-  font-size: 1.5rem;
-  color: ${({ theme }) => theme.colors.primaryDark};
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  cursor: pointer;
 
-  &:hover {
-    color: ${({ theme }) => theme.colors.primary};
-  }
-`;
 
 const UserItem = styled.li`
   display: flex;

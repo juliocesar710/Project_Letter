@@ -7,10 +7,10 @@ import Confirm from "../Alerts/Confirm";
 import { useTranslation } from "react-i18next";
 import {
   FormTitle,
-  Button,
   Avatar,
   DeleteButton,
 } from "../../../styles/SharedComponents";
+import { CloseButton, Button } from "../../../styles/Shared/buttons";
 import { TextArea } from "../../../styles/Shared/Inputs";
 import { usePostCommentForm } from "../../../Hooks/Comment/usePostComments";
 import { useDeleteComment } from "../../../Hooks/Comment/useDeleteComments";
@@ -44,23 +44,6 @@ const Popup = styled.div`
   @media ${({ theme }) => theme.breakpoints.mobile} {
     max-width: 90vw;
     padding: 24px 16px;
-  }
-`;
-
-const CloseButton = styled.button`
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  background: transparent;
-  border: none;
-  font-size: 1.5rem;
-  color: ${({ theme }) => theme.colors.text};
-  cursor: pointer;
-  line-height: 1;
-  transition: transform 0.2s;
-
-  &:hover {
-    transform: scale(1.1);
   }
 `;
 

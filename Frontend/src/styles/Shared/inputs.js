@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
- export const Input = styled.input`
-  width: 100%;
+export const Input = styled.input`
+  width: ${({ width }) => width || '100%'};
   padding: ${({ theme }) => theme.padding.input};
   margin-bottom: 15px;
   border: 1px solid ${({ theme }) => theme.colors.border};
@@ -17,7 +17,7 @@ import styled from "styled-components";
 `;
 
 export const TextArea = styled.textarea`
-  width: 100%;
+  width: ${({ width }) => width || '100%'};
   padding: ${({ theme }) => theme.padding.input};
   margin-bottom: 15px;
   border: 1px solid ${({ theme }) => theme.colors.border};

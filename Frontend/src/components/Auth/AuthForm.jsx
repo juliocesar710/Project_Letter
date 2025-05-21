@@ -1,11 +1,11 @@
 import styled from "styled-components";
 import {
  
-  Button,
   ErrorMessage,
   FormTitle,
 } from "../../styles/SharedComponents";
 import { Input } from "../../styles/Shared/Inputs";
+import { Button } from "../../styles/Shared/buttons";
 import { Eye, EyeOff } from "lucide-react";
 import { useAuthForm } from "../../Hooks/Auth/useAuthForm";
 import { useTranslation } from "react-i18next";

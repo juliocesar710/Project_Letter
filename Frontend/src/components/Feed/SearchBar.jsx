@@ -2,54 +2,42 @@ import styled from "styled-components";
 import { useSearchBar } from "../../Hooks/Feed/useSearchBar";
 import { useTranslation } from "react-i18next";
 import { Input } from "../../styles/Shared/Inputs";
+import { Button, ClearButton } from "../../styles/Shared/buttons";
 const SearchContainer = styled.div`
   display: flex;
+
   flex-wrap: wrap;
   gap: 10px;
   align-items: center;
   margin-bottom: 20px;
   position: relative;
+
+  @media (max-width: 768px) {
+    align-items: center;
+    justify-content: center;
+  }
 `;
 
 const Select = styled.select`
-  padding: 8px;
-  border-radius: 4px;
+  width: ${({ width }) => width || "auto"};
+  padding: ${({ theme }) => theme.padding.input};
+  border-radius: ${({ theme }) => theme.borderRadius.small};
   border: 1px solid ${({ theme }) => theme.colors.border};
-`;
-
-const Button = styled.button`
-  padding: 8px 16px;
-  background-color: ${({ theme }) => theme.colors.primary};
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-
-  &:hover {
-    background-color: ${({ theme }) => theme.colors.primaryDark};
-  }
-`;
-
-const ClearButton = styled.button`
-  position: absolute;
-  top: 50%;
-  right: 10px;
-  transform: translateY(-50%);
-  background: none;
-  border: none;
+  background-color: ${({ theme }) => theme.colors.inputBackground};
   color: ${({ theme }) => theme.colors.text};
-  font-size: 2rem;
+  font-size: 16px;
   cursor: pointer;
+  transition: border-color 0.3s;
 
-  &:hover {
-    color: ${({ theme }) => theme.colors.primary};
+  &:focus {
+    border-color: ${({ theme }) => theme.colors.borderFocus};
+    outline: none;
   }
-`;
 
-const InputSearchContainer = styled.div`
-  position: relative;
-  width: 100%;
-  margin-bottom: 10px;
+  option {
+    background-color: ${({ theme }) => theme.colors.inputBackground};
+    color: ${({ theme }) => theme.colors.text};
+  }
 `;
 
 const SearchBar = ({ onSearch, onClear }) => {
@@ -66,20 +54,21 @@ const SearchBar = ({ onSearch, onClear }) => {
 
   return (
     <SearchContainer>
-      <InputSearchContainer>
-        <Input
-          type="text"
-          placeholder="Buscar por título"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
-        {title && (
-          <ClearButton onClick={handleClear} aria-label="Limpar pesquisa">
-            &times;
-          </ClearButton>
-        )}
-      </InputSearchContainer>
-      <Button onClick={handleSearch}>{t("search")}</Button>
+      <Input
+        type="text"
+        placeholder="Buscar por título"
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+      />
+      {title && (
+        <ClearButton onClick={handleClear} aria-label="Limpar pesquisa">
+          &times;
+        </ClearButton>
+      )}
+
+      <Button width="300px" onClick={handleSearch}>
+        {t("search")}
+      </Button>
 
       <Select value={genreName} onChange={(e) => setGenreName(e.target.value)}>
         <option value="">{t("allGenres")}</option>
