@@ -4,22 +4,7 @@ import { useTranslation } from "react-i18next";
 import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
 
-const AuthContainer = styled.div`
-  position: relative;
-  width: 100%;
-  max-width: 420px;
-  margin: 0 auto;
-  overflow: hidden;
-  border-radius: ${({ theme }) => theme.borderRadius.large};
-  background-color: ${({ theme }) => theme.colors.inputBackground};
-  padding: ${({ theme }) => theme.padding.container};
-  box-shadow: ${({ theme }) => theme.shadows.light};
 
-  @media ${({ theme }) => theme.breakpoints.mobile} {
-    padding: 20px;
-    max-width: 100%;
-  }
-`;
 
 const TabButtons = styled.div`
   display: flex;
@@ -53,17 +38,29 @@ const TabButton = styled.button`
   }
 `;
 
+const AuthContainer = styled.div`
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  margin: 10px;
+  overflow: hidden; 
+  padding: 30px 10px;
+  border-radius: ${({ theme }) => theme.borderRadius.large};
+  background-color: ${({ theme }) => theme.colors.inputBackground};
+  box-shadow: ${({ theme }) => theme.shadows.light};
+`;
+
 const FormContainer = styled.div`
   position: relative;
   width: 200%;
   display: flex;
-  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.4s ease;
   transform: ${({ activeTab }) =>
     activeTab === "login" ? "translateX(0)" : "translateX(-50%)"};
 `;
 
 const FormWrapper = styled.div`
-  width: 50%;
+  width: 50%; // Cada formulário ocupa metade do FormContainer
   padding: 0 10px;
 `;
 

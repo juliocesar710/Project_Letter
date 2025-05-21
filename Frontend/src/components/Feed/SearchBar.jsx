@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useSearchBar } from "../../Hooks/Feed/useSearchBar";
 import { useTranslation } from "react-i18next";
-
+import { Input } from "../../styles/Shared/Inputs";
 const SearchContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -9,15 +9,6 @@ const SearchContainer = styled.div`
   align-items: center;
   margin-bottom: 20px;
   position: relative;
-`;
-
-const Input = styled.input`
-  padding: 8px;
-  padding-right: 30px; /* Espaço para o X */
-  border-radius: 4px;
-  border: 1px solid ${({ theme }) => theme.colors.border};
-  flex: 1;
-  width: 100%;
 `;
 
 const Select = styled.select`
@@ -90,10 +81,7 @@ const SearchBar = ({ onSearch, onClear }) => {
       </InputSearchContainer>
       <Button onClick={handleSearch}>{t("search")}</Button>
 
-      <Select
-        value={genreName}
-        onChange={(e) => setGenreName(e.target.value)}
-      >
+      <Select value={genreName} onChange={(e) => setGenreName(e.target.value)}>
         <option value="">{t("allGenres")}</option>
         {genres.map((genre) => (
           <option key={genre.id} value={genre.genreName}>

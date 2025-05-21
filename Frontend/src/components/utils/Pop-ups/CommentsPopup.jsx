@@ -6,12 +6,12 @@ import { useState } from "react";
 import Confirm from "../Alerts/Confirm";
 import { useTranslation } from "react-i18next";
 import {
-  TextArea,
   FormTitle,
   Button,
   Avatar,
   DeleteButton,
 } from "../../../styles/SharedComponents";
+import { TextArea } from "../../../styles/Shared/Inputs";
 import { usePostCommentForm } from "../../../Hooks/Comment/usePostComments";
 import { useDeleteComment } from "../../../Hooks/Comment/useDeleteComments";
 import { Trash } from "lucide-react";

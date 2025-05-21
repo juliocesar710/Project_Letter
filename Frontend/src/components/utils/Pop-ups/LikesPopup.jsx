@@ -1,8 +1,8 @@
 import { useEffect } from "react";
-import styled from "styled-components";
 import ReactDOM from "react-dom";
-
-import { Avatar, ListConatainer, FormTitle } from "../../../styles/SharedComponents";
+import styled from "styled-components";
+import { useTranslation } from "react-i18next";
+import { Avatar, FormTitle } from "../../../styles/SharedComponents";
 
 const Overlay = styled.div`
   position: fixed;
@@ -19,7 +19,7 @@ const Overlay = styled.div`
 
 const PopupContainer = styled.div`
   background: ${({ theme }) => theme.colors.inputBackground};
-  padding: 20px 24px;
+  padding: 24px;
   border-radius: ${({ theme }) => theme.borderRadius.medium};
   width: 100%;
   max-width: 400px;
@@ -33,34 +33,6 @@ const PopupContainer = styled.div`
     padding: 16px;
   }
 
-  h3 {
-    margin-top: 0;
-    margin-bottom: 16px;
-    font-size: 1.2rem;
-    color: ${({ theme }) => theme.colors.text};
-  }
-
-  ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-
-    li {
-      padding: 10px;
-      border-bottom: 1px solid ${({ theme }) => theme.colors.border};
-      color: ${({ theme }) => theme.colors.text};
-
-      &:last-child {
-        border-bottom: none;
-      }
-    }
-  }
-
-  p {
-    color: ${({ theme }) => theme.colors.text};
-  }
-
-  /* Scrollbar leve */
   &::-webkit-scrollbar {
     width: 6px;
   }
@@ -86,32 +58,50 @@ const CloseButton = styled.button`
   }
 `;
 
+const UserItem = styled.li`
+  display: flex;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.border};
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  span {
+    margin-left: 10px;
+    color: ${({ theme }) => theme.colors.text};
+    font-weight: 500;
+  }
+`;
+
 const LikesPopup = ({ onClose, fetchLikes, users, loading }) => {
+  const { t } = useTranslation();
+
   useEffect(() => {
     fetchLikes();
   }, [fetchLikes]);
-
-  console.log(users);
 
   return ReactDOM.createPortal(
     <Overlay onClick={onClose}>
       <PopupContainer onClick={(e) => e.stopPropagation()}>
         <CloseButton onClick={onClose}>&times;</CloseButton>
-        <FormTitle>Usuários que curtiram</FormTitle>
+        <FormTitle>{t("usersLike")}</FormTitle>
+
         {loading ? (
-          <p>Carregando...</p>
+          <p>{t("loading")}</p>
         ) : users.length === 0 ? (
-          <p>Nenhum usuário curtiu ainda.</p>
+          <p>{t("noLikesYet")}</p>
         ) : (
           <ul>
             {users.map((user) => (
-              <ListConatainer key={user.id}>
+              <UserItem key={user.id}>
                 <Avatar
-                  src={user?.profileImage || "default.png"}
-                  alt={user?.name || "Usuário"}
+                  src={user.profileImage || "default.png"}
+                  alt={user.name || "Usuário"}
                 />
-                {user.name}
-              </ListConatainer>
+                <span>{user.name}</span>
+              </UserItem>
             ))}
           </ul>
         )}
