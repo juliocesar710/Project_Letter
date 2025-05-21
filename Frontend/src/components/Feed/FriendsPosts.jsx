@@ -2,26 +2,26 @@ import styled from "styled-components";
 import { format } from "date-fns";
 
 import PostCard from "../Post/PostCard";
-
 import { getCurrentLocale } from "../../i18n";
-
 import SortControls from "../utils/SortControls";
-
 import { useFriendsPosts } from "../../Hooks/Post/useFriendsPosts";
+import { useTranslation } from "react-i18next";
 
+// --- Styled Components ---
 const FeedContainer = styled.div`
   width: 100%;
+  max-width: 960px;
   margin: 2rem auto;
   padding: 0 1rem;
 `;
 
 const PostContainer = styled.article`
-  background: ${({ theme }) => theme.colors.background || "#ffffff"};
-  border-radius: 16px;
+  background: ${({ theme }) => theme.colors.background};
+  border-radius: ${({ theme }) => theme.borderRadius.medium};
   padding: 1.5rem;
   margin-bottom: 2rem;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-  border: 1px solid ${({ theme }) => theme.colors.border || "#eee"};
+  border: 1px solid ${({ theme }) => theme.colors.border};
   transition: all 0.2s ease;
 
   &:hover {
@@ -42,7 +42,7 @@ const AuthorAvatar = styled.img`
   border-radius: 50%;
   object-fit: cover;
   margin-right: 1rem;
-  border: 2px solid ${({ theme }) => theme.colors.primary || "#3498db"};
+  border: 2px solid ${({ theme }) => theme.colors.primary};
 `;
 
 const AuthorInfo = styled.div`
@@ -52,58 +52,65 @@ const AuthorInfo = styled.div`
 
 const AuthorName = styled.span`
   font-weight: 600;
-  color: ${({ theme }) => theme.colors.textPrimary || "#333"};
+  color: ${({ theme }) => theme.colors.textPrimary};
   margin-bottom: 0.25rem;
 `;
 
 const PostDate = styled.span`
   font-size: 0.8rem;
-  color: ${({ theme }) => theme.colors.textSecondary || "#777"};
+  color: ${({ theme }) => theme.colors.textSecondary};
 `;
 
 const LoadingText = styled.p`
   text-align: center;
   font-size: 1.1rem;
-  color: #888;
+  color: ${({ theme }) => theme.colors.textSecondary};
   padding: 2rem;
 `;
 
 const EmptyState = styled.div`
   text-align: center;
-  padding: 3rem;
-  background: ${({ theme }) => theme.colors.backgroundLight || "#f9f9f9"};
-  border-radius: 16px;
+  padding: 3rem 2rem;
+  background: ${({ theme }) => theme.colors.backgroundLight};
+  border-radius: ${({ theme }) => theme.borderRadius.medium};
   margin-top: 2rem;
 `;
 
 const EmptyStateText = styled.p`
   font-size: 1.1rem;
-  color: ${({ theme }) => theme.colors.textSecondary || "#777"};
-  margin-bottom: 1rem;
+  color: ${({ theme }) => theme.colors.textSecondary};
+  margin-bottom: 0.5rem;
 `;
 
-const Pagination = styled.div`
+const PaginationContainer = styled.div`
   display: flex;
   justify-content: center;
-  gap: 1rem;
-  margin-top: 2rem;
+  gap: 0.75rem;
+  margin: 2rem 0;
+  flex-wrap: wrap;
+`;
 
-  button {
-    background-color: ${({ theme }) => theme.colors.primary || "#3498db"};
-    color: white;
-    padding: 0.5rem 1rem;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 1rem;
+const PaginationButton = styled.button`
+  padding: 0.6rem 1.25rem;
+  background-color: ${({ theme }) => theme.colors.primary};
+  color: ${({ theme }) => theme.colors.onPrimary};
+  border: none;
+  border-radius: ${({ theme }) => theme.borderRadius.small};
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: background-color 0.2s ease;
 
-    &:disabled {
-      background-color: #ccc;
-      cursor: not-allowed;
-    }
+  &:hover:not(:disabled) {
+    background-color: ${({ theme }) => theme.colors.primaryDark};
+  }
+
+  &:disabled {
+    background-color: ${({ theme }) => theme.colors.disabled};
+    cursor: not-allowed;
   }
 `;
 
+// --- Component ---
 const FriendsPosts = () => {
   const {
     loading,
@@ -115,11 +122,30 @@ const FriendsPosts = () => {
     sortByDate,
     totalPosts,
   } = useFriendsPosts();
+  const { t } = useTranslation();
+
+  const handlePreviousPage = () => setCurrentPage((prev) => prev - 1);
+  const handleNextPage = () => setCurrentPage((prev) => prev + 1);
 
   if (loading) return <LoadingText>Carregando posts...</LoadingText>;
 
   return (
     <FeedContainer>
+      <PaginationContainer>
+        <PaginationButton
+          onClick={handlePreviousPage}
+          disabled={currentPage === 1}
+        >
+          {t("previous")}
+        </PaginationButton>
+        <PaginationButton
+          onClick={handleNextPage}
+          disabled={currentPage === totalPages}
+        >
+          {t("next")}
+        </PaginationButton>
+      </PaginationContainer>
+
       <SortControls
         onSortAlphabetically={sortAlphabetically}
         onSortByDate={sortByDate}
@@ -152,20 +178,20 @@ const FriendsPosts = () => {
             </PostContainer>
           ))}
 
-          <Pagination>
-            <button
-              onClick={() => setCurrentPage((prev) => prev - 1)}
+          <PaginationContainer>
+            <PaginationButton
+              onClick={handlePreviousPage}
               disabled={currentPage === 1}
             >
-              Anterior
-            </button>
-            <button
-              onClick={() => setCurrentPage((prev) => prev + 1)}
+              {t("previous")}
+            </PaginationButton>
+            <PaginationButton
+              onClick={handleNextPage}
               disabled={currentPage === totalPages}
             >
-              Próxima
-            </button>
-          </Pagination>
+              {t("next")}
+            </PaginationButton>
+          </PaginationContainer>
         </>
       )}
     </FeedContainer>

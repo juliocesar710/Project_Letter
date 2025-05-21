@@ -3,6 +3,7 @@ import { useProfile } from "../../Hooks/Profile/useProfile";
 import { useTranslation } from "react-i18next";
 import Confirm from "../utils/Alerts/Confirm";
 import { useNavigate } from "react-router-dom";
+import { Button } from "../../styles/Shared/buttons";
 
 const Container = styled.div`
   padding: 1rem;
@@ -47,20 +48,6 @@ const GenreTag = styled.span`
   padding: 0.3rem 0.6rem;
   border-radius: 1rem;
   font-size: 0.75rem;
-`;
-
-const Button = styled.button`
-  margin-top: 1rem;
-  padding: 0.4rem 1rem;
-  background-color: ${({ theme }) => theme.colors.primary};
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-
-  &:hover {
-    background-color: ${({ theme }) => theme.colors.primaryDark};
-  }
 `;
 
 const SidebarUserInfo = () => {

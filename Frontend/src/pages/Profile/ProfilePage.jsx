@@ -1,14 +1,14 @@
 import { useState } from "react";
 import styled from "styled-components";
 
-import ProfileInfo from "../components/profile/ProfileInfo";
-import PostList from "../components/profile/PostList";
+import ProfileInfo from "../../components/profile/ProfileInfo";
+import PostList from "../../components/profile/PostList";
 
-import LanguageSwitcher from "../components/utils/Buttons/LanguageSwitcherButton";
-import Confirm from "../components/utils/Alerts/Confirm";
+import LanguageSwitcher from "../../components/utils/Buttons/LanguageSwitcherButton";
+import Confirm from "../../components/utils/Alerts/Confirm";
 
-import { usePosts } from "../Hooks/Post/usePosts";
-import { useProfile } from "../Hooks/Profile/useProfile";
+import { usePosts } from "../../Hooks/Post/usePosts";
+import { useProfile } from "../../Hooks/Profile/useProfile";
 
 import { useTranslation } from "react-i18next";
 
@@ -68,7 +68,6 @@ const Menu = styled.div`
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   z-index: 10;
 
-  /* Animação */
   opacity: ${({ isOpen }) => (isOpen ? 1 : 0)};
   transform: ${({ isOpen }) =>
     isOpen ? "translateY(0)" : "translateY(-10px)"};
@@ -98,13 +97,13 @@ const ProfilePage = ({ toggleTheme }) => {
   const {
     user,
     confirmDelete,
-    confirmLogout, 
+    confirmLogout,
     handleLogout,
     handleDeleteAccount,
     confirmDeleteAccount,
     cancelDeleteAccount,
-    confirmLogoutAction, 
-    cancelLogout, 
+    confirmLogoutAction,
+    cancelLogout,
   } = useProfile();
 
   const toggleMenu = () => {

@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import ReactDOM from "react-dom";
 import { useTranslation } from "react-i18next";
+import { ConfirmButton } from "../../../styles/Shared/buttons";
 
 const Overlay = styled.div`
   position: fixed;
@@ -36,22 +37,6 @@ const ButtonContainer = styled.div`
   justify-content: space-between;
 `;
 
-const Button = styled.button`
-  padding: 10px 20px;
-  border: none;
-  border-radius: ${({ theme }) => theme.borderRadius.small};
-  cursor: pointer;
-  font-size: 14px;
-  color: ${({ theme }) => theme.colors.inputBackground};
-  background-color: ${({ confirm, theme }) =>
-    confirm ? theme.colors.primaryDark : theme.colors.error};
-  box-shadow: ${({ theme }) => theme.shadows.light};
-
-  &:hover {
-    opacity: 0.9;
-  }
-`;
-
 const Confirm = ({ message, onConfirm, onCancel }) => {
   const { t } = useTranslation();
 
@@ -60,7 +45,7 @@ const Confirm = ({ message, onConfirm, onCancel }) => {
       <PopupContainer>
         <Message>{message}</Message>
         <ButtonContainer>
-          <Button
+          <ConfirmButton
             confirm
             onClick={() => {
               onConfirm();
@@ -68,7 +53,7 @@ const Confirm = ({ message, onConfirm, onCancel }) => {
             }}
           >
             {t("confirm")}
-          </Button>
+          </ConfirmButton>
           <Button onClick={onCancel}>{t("cancel")}</Button>
         </ButtonContainer>
       </PopupContainer>

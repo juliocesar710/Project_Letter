@@ -1,15 +1,15 @@
 import styled from "styled-components";
-import Sucess from "../utils/Alerts/Sucess";
-import Error from "../utils/Alerts/Error";
-import GenreSelector from "../utils/GenreSelector";
+
+import {
+  Button,
+  FormContainer,
+} from "../../styles/SharedComponents";
+import { Input, TextArea } from "../../styles/Shared/Inputs";
+import Sucess from "../../components/utils/Alerts/Sucess";
+import Error from "../../components/utils/Alerts/Error";
+import GenreSelector from "../../components/utils/GenreSelector";
 import { usePostForm } from "../../Hooks/Post/usePostForm";
 import { useTranslation } from "react-i18next";
-
-const FormContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  padding: ${({ theme }) => theme.padding.container};
-`;
 
 const StyledForm = styled.form`
   background-color: ${({ theme }) => theme.colors.inputBackground};
@@ -31,80 +31,10 @@ const FormField = styled.div`
   margin-bottom: 1.5rem;
 `;
 
-const Input = styled.input`
-  width: 100%;
-  padding: ${({ theme }) => theme.padding.input};
-  border: 1px solid ${({ theme }) => theme.colors.border};
-  border-radius: ${({ theme }) => theme.borderRadius.small};
-  background-color: ${({ theme }) => theme.colors.inputBackground};
-  color: ${({ theme }) => theme.colors.text};
-  font-size: 1rem;
-  transition: border-color 0.3s ease;
-
-  &:focus {
-    outline: none;
-    border-color: ${({ theme }) => theme.colors.borderFocus};
-  }
-
-  &::placeholder {
-    color: ${({ theme }) => theme.colors.subtleText || "#999"};
-  }
-`;
-
-const TextArea = styled.textarea`
-  width: 100%;
-  min-height: 120px;
-  padding: ${({ theme }) => theme.padding.input};
-  border: 1px solid ${({ theme }) => theme.colors.border};
-  border-radius: ${({ theme }) => theme.borderRadius.small};
-  background-color: ${({ theme }) => theme.colors.inputBackground};
-  color: ${({ theme }) => theme.colors.text};
-  font-size: 1rem;
-  resize: vertical;
-  transition: border-color 0.3s ease;
-
-  &:focus {
-    outline: none;
-    border-color: ${({ theme }) => theme.colors.borderFocus};
-  }
-
-  &::placeholder {
-    color: ${({ theme }) => theme.colors.subtleText || "#999"};
-  }
-`;
-
-const SubmitButton = styled.button`
-  width: 100%;
-  padding: ${({ theme }) => theme.padding.button};
-  background-color: ${({ theme }) => theme.colors.primary};
-  color: white;
-  border: none;
-  border-radius: ${({ theme }) => theme.borderRadius.small};
-  font-size: 1rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s ease;
-
-  &:hover:not(:disabled) {
-    background-color: ${({ theme }) => theme.colors.primaryDark};
-    transform: translateY(-1px);
-  }
-
-  &:active:not(:disabled) {
-    transform: translateY(0);
-  }
-
-  &:disabled {
-    background-color: ${({ theme }) => theme.colors.border};
-    cursor: not-allowed;
-    opacity: 0.7;
-  }
-`;
-
 const CreatePostForm = () => {
   const {
     formData,
-    selectedGenres, 
+    selectedGenres,
     loading,
     successMessage,
     errorMessage,
@@ -143,7 +73,7 @@ const CreatePostForm = () => {
         <FormField>
           <Input
             type="text"
-            name="image" 
+            name="image"
             placeholder="URL da imagem"
             value={formData.image}
             onChange={handleChange}
@@ -163,7 +93,7 @@ const CreatePostForm = () => {
                 marginTop: "10px",
               }}
               onError={(e) => {
-                e.target.style.display = "none"; // Esconde se a imagem não carregar
+                e.target.style.display = "none";
               }}
             />
           </FormField>
@@ -177,9 +107,9 @@ const CreatePostForm = () => {
           />
         </FormField>
 
-        <SubmitButton type="submit" disabled={loading}>
+        <Button type="submit" disabled={loading}>
           {loading ? t("creating") : t("createpost")}
-        </SubmitButton>
+        </Button>
       </StyledForm>
     </FormContainer>
   );

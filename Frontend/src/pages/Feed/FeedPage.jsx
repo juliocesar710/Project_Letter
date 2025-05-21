@@ -1,16 +1,16 @@
 import { useState } from "react";
 import styled from "styled-components";
 
-import SidebarUserInfo from "../components/Feed/SidebarUserInfo";
-import FriendsPosts from "../components/Feed/FriendsPosts";
-import InterestPosts from "../components/Feed/InterestPosts";
-import SearchResultCard from "../components/Feed/SearchResultCard";
-import AllPosts from "../components/Feed/AllPosts";
-import SearchBar from "../components/Feed/SearchBar";
+import SidebarUserInfo from "../../components/Feed/SidebarUserInfo";
+import FriendsPosts from "../../components/Feed/FriendsPosts";
+import InterestPosts from "../../components/Feed/InterestPosts";
+import SearchResultCard from "../../components/Feed/SearchResultCard";
+import AllPosts from "../../components/Feed/AllPosts";
+import SearchBar from "../../components/Feed/SearchBar";
 
 import { useTranslation } from "react-i18next";
 
-import { useSearchPosts } from "../Hooks/Post/useSearchPosts";
+import { useSearchPosts } from "../../Hooks/Post/useSearchPosts";
 
 const Container = styled.div`
   display: flex;
@@ -109,10 +109,6 @@ const FeedPage = () => {
   const [selectedTab, setSelectedTab] = useState("friends");
   const { results, loading, search, clearResults } = useSearchPosts();
   const { t } = useTranslation();
-  
-
-
-
 
   const renderContent = () => {
     switch (selectedTab) {
@@ -154,10 +150,9 @@ const FeedPage = () => {
             {t("all")}
           </TabButton>
         </Tabs>
-        
+
         <SearchResultsContainer>
-          <SearchBar onSearch={search}
-           onClear={clearResults} />
+          <SearchBar onSearch={search} onClear={clearResults} />
           {loading ? (
             <p>{t("loading")}</p>
           ) : (

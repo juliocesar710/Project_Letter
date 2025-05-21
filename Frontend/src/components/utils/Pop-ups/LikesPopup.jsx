@@ -1,6 +1,9 @@
 import { useEffect } from "react";
-import styled from "styled-components";
 import ReactDOM from "react-dom";
+import styled from "styled-components";
+import { useTranslation } from "react-i18next";
+import { Avatar, FormTitle } from "../../../styles/SharedComponents";
+import { CloseButton } from "../../../styles/Shared/buttons";
 
 const Overlay = styled.div`
   position: fixed;
@@ -17,7 +20,7 @@ const Overlay = styled.div`
 
 const PopupContainer = styled.div`
   background: ${({ theme }) => theme.colors.inputBackground};
-  padding: 20px 24px;
+  padding: 24px;
   border-radius: ${({ theme }) => theme.borderRadius.medium};
   width: 100%;
   max-width: 400px;
@@ -31,34 +34,6 @@ const PopupContainer = styled.div`
     padding: 16px;
   }
 
-  h3 {
-    margin-top: 0;
-    margin-bottom: 16px;
-    font-size: 1.2rem;
-    color: ${({ theme }) => theme.colors.text};
-  }
-
-  ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-
-    li {
-      padding: 10px;
-      border-bottom: 1px solid ${({ theme }) => theme.colors.border};
-      color: ${({ theme }) => theme.colors.text};
-
-      &:last-child {
-        border-bottom: none;
-      }
-    }
-  }
-
-  p {
-    color: ${({ theme }) => theme.colors.text};
-  }
-
-  /* Scrollbar leve */
   &::-webkit-scrollbar {
     width: 6px;
   }
@@ -69,22 +44,28 @@ const PopupContainer = styled.div`
   }
 `;
 
-const CloseButton = styled.button`
-  background: none;
-  border: none;
-  font-size: 1.5rem;
-  color: ${({ theme }) => theme.colors.primaryDark};
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  cursor: pointer;
 
-  &:hover {
-    color: ${({ theme }) => theme.colors.primary};
+
+const UserItem = styled.li`
+  display: flex;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.border};
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  span {
+    margin-left: 10px;
+    color: ${({ theme }) => theme.colors.text};
+    font-weight: 500;
   }
 `;
 
 const LikesPopup = ({ onClose, fetchLikes, users, loading }) => {
+  const { t } = useTranslation();
+
   useEffect(() => {
     fetchLikes();
   }, [fetchLikes]);
@@ -93,15 +74,22 @@ const LikesPopup = ({ onClose, fetchLikes, users, loading }) => {
     <Overlay onClick={onClose}>
       <PopupContainer onClick={(e) => e.stopPropagation()}>
         <CloseButton onClick={onClose}>&times;</CloseButton>
-        <h3>Usuários que curtiram</h3>
+        <FormTitle>{t("usersLike")}</FormTitle>
+
         {loading ? (
-          <p>Carregando...</p>
+          <p>{t("loading")}</p>
         ) : users.length === 0 ? (
-          <p>Nenhum usuário curtiu ainda.</p>
+          <p>{t("noLikesYet")}</p>
         ) : (
           <ul>
             {users.map((user) => (
-              <li key={user.id}>{user.name}</li>
+              <UserItem key={user.id}>
+                <Avatar
+                  src={user.profileImage || "default.png"}
+                  alt={user.name || "Usuário"}
+                />
+                <span>{user.name}</span>
+              </UserItem>
             ))}
           </ul>
         )}

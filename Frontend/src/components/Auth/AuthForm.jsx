@@ -1,74 +1,48 @@
 import styled from "styled-components";
+import {
+ 
+  ErrorMessage,
+  FormTitle,
+} from "../../styles/SharedComponents";
+import { Input } from "../../styles/Shared/Inputs";
+import { Button } from "../../styles/Shared/buttons";
 import { Eye, EyeOff } from "lucide-react";
 import { useAuthForm } from "../../Hooks/Auth/useAuthForm";
 import { useTranslation } from "react-i18next";
-
-const PasswordInputWrapper = styled.div`
-  position: relative;
-  width: 100%;
-`;
-
-const PasswordToggleButton = styled.button`
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: ${({ theme }) => theme.colors.primaryDark};
-`;
-
 const FormContainer = styled.form`
-  background-color: ${({ theme }) => theme.colors.background};
+  background-color: ${({ theme }) => theme.colors.inputBackground};
   padding: ${({ theme }) => theme.padding.container};
   border-radius: ${({ theme }) => theme.borderRadius.large};
   width: 100%;
-  max-width: 400px;
+  max-width: 420px;
   margin: 0 auto;
+  box-shadow: ${({ theme }) => theme.shadows.light};
 `;
-
-const FormTitle = styled.h2`
-  text-align: center;
-  margin-bottom: 20px;
-  color: ${({ theme }) => theme.colors.primaryDark};
+const InputGroup = styled.div`
+  margin-bottom: ${({ theme }) => theme.padding.button};
+  position: relative;
 `;
-
-const Input = styled.input`
-  width: 100%;
-  padding: 12px;
-  margin: 10px 0;
-  border: 1px solid ${({ theme }) => theme.colors.border};
-  border-radius: 5px;
-  font-size: 16px;
-  background-color: ${({ theme }) => theme.colors.inputBackground};
-
-  &:focus {
-    border-color: ${({ theme }) => theme.colors.borderFocus};
-    outline: none;
-  }
-`;
-
-const Button = styled.button`
-  width: 100%;
-  padding: 12px;
-  background-color: ${({ theme }) => theme.colors.primary};
-  color: ${({ theme }) => theme.colors.inputBackground};
-  font-size: 16px;
+const PasswordToggleButton = styled.button`
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
   border: none;
-  border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  color: ${({ theme }) => theme.colors.subtleText};
+  padding: 4px;
+  border-radius: 50%;
+  transition: all 0.2s ease;
 
   &:hover {
-    background-color: ${({ theme }) => theme.colors.primaryDark};
+    color: ${({ theme }) => theme.colors.primaryDark};
+    background-color: ${({ theme }) => theme.colors.secondary}30;
   }
-`;
 
-const ErrorMessage = styled.p`
-  color: ${({ theme }) => theme.colors.error};
-  font-size: 14px;
-  margin: 5px 0;
+  &:focus-visible {
+    outline: 2px solid ${({ theme }) => theme.colors.borderFocus};
+  }
 `;
 const AuthForm = ({ title, fields, onSubmitAPI, redirectPath }) => {
   const {
@@ -81,14 +55,14 @@ const AuthForm = ({ title, fields, onSubmitAPI, redirectPath }) => {
     togglePasswordVisibility,
   } = useAuthForm({ fields, onSubmitAPI, redirectPath });
   const { t } = useTranslation();
-
   return (
     <FormContainer onSubmit={handleSubmit}>
       <FormTitle>{title}</FormTitle>
+
       {fields.map(({ name, type, placeholder }) => (
-        <div key={name}>
+        <InputGroup key={name}>
           {type === "password" ? (
-            <PasswordInputWrapper>
+            <>
               <Input
                 type={showPassword[name] ? "text" : "password"}
                 name={name}
@@ -101,12 +75,16 @@ const AuthForm = ({ title, fields, onSubmitAPI, redirectPath }) => {
                 type="button"
                 onClick={() => togglePasswordVisibility(name)}
                 aria-label={
-                  showPassword[name] ? "Ocultar senha" : "Mostrar senha"
+                  showPassword[name] ? t("hide_password") : t("show_password")
                 }
               >
-                {showPassword[name] ? <EyeOff size={18} /> : <Eye size={18} />}
+                {showPassword[name] ? (
+                  <EyeOff size={18} aria-hidden="true" />
+                ) : (
+                  <Eye size={18} aria-hidden="true" />
+                )}
               </PasswordToggleButton>
-            </PasswordInputWrapper>
+            </>
           ) : (
             <Input
               type={type}
@@ -117,9 +95,11 @@ const AuthForm = ({ title, fields, onSubmitAPI, redirectPath }) => {
               required
             />
           )}
-        </div>
+        </InputGroup>
       ))}
+
       {error && <ErrorMessage>{error}</ErrorMessage>}
+
       <Button type="submit" disabled={loading}>
         {loading ? t("sending") : title}
       </Button>

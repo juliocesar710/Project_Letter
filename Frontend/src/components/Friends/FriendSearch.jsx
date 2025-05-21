@@ -7,25 +7,11 @@ import ViewProfileButton from "../utils/Buttons/ViewProfileButton";
 import { useTranslation } from "react-i18next";
 
 import { useFriendSearch } from "../../Hooks/Friend/useFriendSearch";
+import { Input } from "../../styles/Shared/Inputs";
 
 const SearchContainer = styled.div`
   position: relative;
   width: 300px;
-`;
-
-const SearchInput = styled.input`
-  width: 100%;
-  padding: 10px 15px;
-  border: 1px solid ${({ theme }) => theme.colors.border};
-  border-radius: ${({ theme }) => theme.borderRadius.medium};
-  font-size: 1rem;
-  background-color: ${({ theme }) => theme.colors.inputBackground};
-  color: ${({ theme }) => theme.colors.text};
-
-  &:focus {
-    outline: none;
-    border-color: ${({ theme }) => theme.colors.primary};
-  }
 `;
 
 const SearchButton = styled.button`
@@ -136,7 +122,7 @@ const FriendSearch = () => {
   return (
     <SearchContainer>
       <InputSearchContainer>
-        <SearchInput
+        <Input
           type="text"
           placeholder={t("searchfriends")}
           value={searchTerm}

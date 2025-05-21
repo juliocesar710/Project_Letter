@@ -1,8 +1,19 @@
 import styled from "styled-components";
 import ReactDOM from "react-dom";
-import { usePostCommentForm } from "../../Hooks/Comment/usePostComments";
-import { useDeleteComment } from "../../Hooks/Comment/useDeleteComments";
 import Cookies from "js-cookie";
+import { useState } from "react";
+
+import Confirm from "../Alerts/Confirm";
+import { useTranslation } from "react-i18next";
+import {
+  FormTitle,
+  Avatar,
+  DeleteButton,
+} from "../../../styles/SharedComponents";
+import { CloseButton, Button } from "../../../styles/Shared/buttons";
+import { TextArea } from "../../../styles/Shared/Inputs";
+import { usePostCommentForm } from "../../../Hooks/Comment/usePostComments";
+import { useDeleteComment } from "../../../Hooks/Comment/useDeleteComments";
 import { Trash } from "lucide-react";
 
 const Overlay = styled.div`
@@ -36,75 +47,11 @@ const Popup = styled.div`
   }
 `;
 
-const CloseButton = styled.button`
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  background: transparent;
-  border: none;
-  font-size: 1.5rem;
-  color: ${({ theme }) => theme.colors.text};
-  cursor: pointer;
-  line-height: 1;
-  transition: transform 0.2s;
-
-  &:hover {
-    transform: scale(1.1);
-  }
-`;
-
-const Title = styled.h3`
-  margin: 0 0 16px;
-  color: ${({ theme }) => theme.colors.text};
-  font-size: 1.25rem;
-  font-weight: 600;
-`;
-
 const Form = styled.form`
   display: flex;
   gap: 8px;
   margin-bottom: 16px;
   flex-wrap: wrap;
-`;
-
-const Input = styled.input`
-  flex: 1;
-  padding: ${({ theme }) => theme.padding.input};
-  border: 1px solid ${({ theme }) => theme.colors.border};
-  border-radius: ${({ theme }) => theme.borderRadius.medium};
-  background: ${({ theme }) => theme.colors.background};
-  color: ${({ theme }) => theme.colors.text};
-  font-size: 1rem;
-
-  &:focus {
-    outline: none;
-    border-color: ${({ theme }) => theme.colors.borderFocus};
-  }
-
-  &:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-  }
-`;
-
-const SubmitButton = styled.button`
-  padding: ${({ theme }) => theme.padding.input};
-  background: ${({ theme }) => theme.colors.primary};
-  color: white;
-  border: none;
-  border-radius: ${({ theme }) => theme.borderRadius.medium};
-  font-weight: bold;
-  cursor: pointer;
-  transition: background 0.2s;
-
-  &:hover {
-    background: ${({ theme }) => theme.colors.primaryDark};
-  }
-
-  &:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
 `;
 
 const CommentList = styled.ul`
@@ -118,42 +65,10 @@ const CommentItem = styled.li`
   gap: 12px;
   padding: 12px 0;
   border-bottom: 1px solid ${({ theme }) => theme.colors.border};
-
+  width: 100%;
   &:last-child {
     border-bottom: none;
   }
-`;
-
-const DeleteButton = styled.button`
-  margin-left: auto;
-  background: none;
-  border: none;
-  color: ${({ theme }) => theme.colors.error};
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  padding: 4px;
-
-  &:hover {
-    color: ${({ theme }) => theme.colors.errorDark};
-  }
-
-  &:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
-
-  svg {
-    width: 18px;
-    height: 18px;
-  }
-`;
-const Avatar = styled.img`
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  object-fit: cover;
-  background-color: ${({ theme }) => theme.colors.border};
 `;
 
 const CommentContent = styled.div`
@@ -188,6 +103,8 @@ const CommentsPopup = ({
     error,
     handleSubmit,
   } = usePostCommentForm(postId, fetchComments);
+  const { t } = useTranslation();
+  const [confirmDeleteId, setConfirmDeleteId] = useState(null);
 
   const { loading: deleting, handleDelete } = useDeleteComment(fetchComments);
 
@@ -200,18 +117,18 @@ const CommentsPopup = ({
     <Overlay onClick={onClose}>
       <Popup onClick={(e) => e.stopPropagation()}>
         <CloseButton onClick={onClose}>&times;</CloseButton>
-        <Title>Comentários</Title>
+        <FormTitle>{t("comments")}</FormTitle>
         <Form onSubmit={handleSubmit}>
-          <Input
+          <TextArea
             type="text"
             value={content}
             onChange={(e) => setContent(e.target.value)}
             placeholder="Escreva um comentário..."
             disabled={sending}
           />
-          <SubmitButton type="submit" disabled={sending || !content.trim()}>
+          <Button type="submit" disabled={sending || !content.trim()}>
             {sending ? "Enviando..." : "Enviar"}
-          </SubmitButton>
+          </Button>
         </Form>
         {error && <ErrorText>{error}</ErrorText>}
         {loading ? (
@@ -231,13 +148,28 @@ const CommentsPopup = ({
                   {comment.content}
                 </CommentContent>
                 {comment.user?.id === currentUserId && (
-                  <DeleteButton
-                    disabled={deleting}
-                    onClick={() => handleDelete(comment.id)}
-                    title="Excluir comentário"
-                  >
-                    <Trash />
-                  </DeleteButton>
+                  <>
+                    <DeleteButton
+                      disabled={deleting}
+                      onClick={() => setConfirmDeleteId(comment.id)}
+                      title="Excluir comentário"
+                    >
+                      <Trash />
+                    </DeleteButton>
+                    {confirmDeleteId === comment.id && (
+                      <Confirm
+                        message={
+                          t("wantremovecomment") ||
+                          "Deseja remover este comentário?"
+                        }
+                        onConfirm={async () => {
+                          await handleDelete(comment.id);
+                          setConfirmDeleteId(null);
+                        }}
+                        onCancel={() => setConfirmDeleteId(null)}
+                      />
+                    )}
+                  </>
                 )}
               </CommentItem>
             ))}

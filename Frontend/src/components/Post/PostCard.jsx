@@ -3,11 +3,13 @@ import styled from "styled-components";
 import Cookies from "js-cookie";
 import { format } from "date-fns";
 
+import { DeleteButton, Button } from "../../styles/SharedComponents";
+
 import PostDeleteButton from "../utils/Buttons/PostDeleteButton";
 import LikeButton from "../utils/Buttons/LikeButton";
 
-import LikesPopup from "../Like/LikesPopup";
-import CommentsPopup from "../Comment/CommentsPopup";
+import LikesPopup from "../utils/Pop-ups/LikesPopup";
+import CommentsPopup from "../utils/Pop-ups/CommentsPopup";
 
 import { useLike } from "../../Hooks/Like/useLike";
 import { usePostLikes } from "../../Hooks/Like/usePostLikes";
@@ -90,55 +92,20 @@ const ReadMoreButton = styled.button`
   }
 `;
 
-const ButtonDelete = styled.div`
-display: flex;
-justify-content: flex-end;
-align-items: center;
-margin-top: 10px;
-margin-bottom: 10px;
-margin-right: 10px;
-width:100%;
-
-
-}
-`;
-
-const ViewLikesButton = styled.button`
-  margin-top: 1rem;
-  padding: 0.4rem 1rem;
-  background-color: ${({ theme }) => theme.colors.primary};
-  color: white;
-  border: none;
-  border-radius: ${({ theme }) => theme.borderRadius.small};
-  font-size: 0.85rem;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-
-  &:hover {
-    background-color: ${({ theme }) => theme.colors.primaryDark};
-  }
-`;
-
-const Button = styled.button`
-  margin-top: 1rem;
-  padding: 0.4rem 1rem;
-  background-color: ${({ theme }) => theme.colors.primary};
-  color: white;
-  border: none;
-  border-radius: ${({ theme }) => theme.borderRadius.small};
-  font-size: 0.85rem;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-`;
-
 const ContainerButtons = styled.div`
   display: flex;
+  flex-wrap: wrap; /* Permite que os itens quebrem para nova linha */
   justify-content: space-between;
   align-items: center;
   margin-top: 1rem;
   margin-bottom: 1rem;
-  margin-right: 10px;
+  gap: 0.5rem; /* Espaço entre os itens */
   width: 100%;
+
+  @media (max-width: 768px) {
+    flex-direction: column; /* Empilha os botões verticalmente em telas pequenas */
+    align-items: stretch; /* Faz os botões ocuparem toda a largura */
+  }
 `;
 
 const ExpandableText = ({ text, maxLength = 150 }) => {
@@ -162,7 +129,6 @@ const ExpandableText = ({ text, maxLength = 150 }) => {
     </PostContent>
   );
 };
-
 const PostCard = ({ post, onDeleted }) => {
   const { title, description, image, genreTexts = [], id, userId } = post;
   const { likesCount, likedByUser } = post;
@@ -170,20 +136,17 @@ const PostCard = ({ post, onDeleted }) => {
   const { users, loading, fetchLikes } = usePostLikes(post.id);
   const [showComments, setShowComments] = useState(false);
   const { comments } = useGetComments(post.id);
-  console.log("comments", comments);
-  console.log("likesCount", post);
-
-  //console.log("likedByUser", likedByUser);
+  const { t } = useTranslation();
 
   const {
     liked,
     likesCount: currentLikesCount,
     toggleLike,
+    isLoading: likeLoading,
   } = useLike(likedByUser, likesCount, id);
 
   const userData = Cookies.get("userData");
   const loggedUserId = userData ? JSON.parse(userData).id : null;
-
   const isOwner = loggedUserId === userId;
 
   const handleShowPopup = () => {
@@ -200,9 +163,9 @@ const PostCard = ({ post, onDeleted }) => {
         })}
       </PostContent>
       {isOwner && (
-        <ButtonDelete>
+        <DeleteButton>
           <PostDeleteButton postId={id} onDeleted={onDeleted} />
-        </ButtonDelete>
+        </DeleteButton>
       )}
 
       <PostTitle>{title}</PostTitle>
@@ -228,11 +191,10 @@ const PostCard = ({ post, onDeleted }) => {
         liked={liked}
         likesCount={currentLikesCount}
         onToggle={toggleLike}
+        disabled={likeLoading}
       />
       <ContainerButtons>
-        <ViewLikesButton onClick={handleShowPopup}>
-          Ver curtidas
-        </ViewLikesButton>
+        <Button onClick={handleShowPopup}>{t("viewLikes")}</Button>
         {showPopup && (
           <LikesPopup
             postId={post.id}
@@ -242,13 +204,15 @@ const PostCard = ({ post, onDeleted }) => {
             loading={loading}
           />
         )}
-        <Button onClick={() => setShowComments(true)}>Ver comentários</Button>
+        <Button onClick={() => setShowComments(true)}>
+          {t("viewComments")}
+        </Button>
         <CommentsPopup
           open={showComments}
           onClose={() => setShowComments(false)}
           comments={comments}
           loading={loading}
-          postId={id} // <-- Passe o id do post aqui!
+          postId={id}
         />
       </ContainerButtons>
     </PostCardContainer>
