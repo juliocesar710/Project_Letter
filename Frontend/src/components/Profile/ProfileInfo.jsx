@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { format } from "date-fns";
 import { Edit, Users, Book, BookHeart } from "lucide-react";
 
-import { ProfileButton, BaseButton } from "../../styles/Shared/buttons";
+import {  BaseButton } from "../../styles/Shared/buttons";
 import {
   ProfileImage,
   ProfileImageContainer,

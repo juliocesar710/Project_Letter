@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Cookies from "js-cookie";
 import { format } from "date-fns";
 
-import { DeleteButton, BaseButton } from "../../styles/Shared/buttons";
+import { BaseButton } from "../../styles/Shared/buttons";
 
 import PostDeleteButton from "../utils/Buttons/PostDeleteButton";
 import LikeButton from "../utils/Buttons/LikeButton";
@@ -135,7 +135,11 @@ const PostCard = ({ post, onDeleted }) => {
   const [showPopup, setShowPopup] = useState(false);
   const { users, loading, fetchLikes } = usePostLikes(post.id);
   const [showComments, setShowComments] = useState(false);
-  const { comments } = useGetComments(post.id);
+  const {
+    comments,
+    loading: commentsLoading,
+    fetchComments,
+  } = useGetComments(post.id);
   const { t } = useTranslation();
 
   const {
@@ -222,7 +226,8 @@ const PostCard = ({ post, onDeleted }) => {
           open={showComments}
           onClose={() => setShowComments(false)}
           comments={comments}
-          loading={loading}
+          loading={commentsLoading}
+          fetchComments={fetchComments} 
           postId={id}
         />
       </ContainerButtons>

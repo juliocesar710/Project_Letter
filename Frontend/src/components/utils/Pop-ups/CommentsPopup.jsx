@@ -96,13 +96,13 @@ const CommentsPopup = ({
   fetchComments,
   postId,
 }) => {
-  const {
-    content,
-    setContent,
-    loading: sending,
-    error,
-    handleSubmit,
-  } = usePostCommentForm(postId, fetchComments);
+ const {
+  content,
+  setContent,
+  loading: sending,
+  error,
+  handleSubmit,
+} = usePostCommentForm(postId, fetchComments);
   const { t } = useTranslation();
   const [confirmDeleteId, setConfirmDeleteId] = useState(null);
 
@@ -134,7 +134,9 @@ const CommentsPopup = ({
             placeholder="Escreva um comentário..."
             disabled={sending}
           />
-          <BaseButton type="submit" disabled={sending || !content.trim()}>
+          <BaseButton
+          width="100%"
+          type="submit" disabled={sending || !content.trim()}>
             {sending ? "Enviando..." : "Enviar"}
           </BaseButton>
         </Form>

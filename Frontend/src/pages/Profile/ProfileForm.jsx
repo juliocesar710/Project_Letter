@@ -1,5 +1,5 @@
 import { Input, TextArea } from "../../styles/Shared/Inputs";
-import { Button, BaseButton } from "../../styles/Shared/buttons";
+import {  BaseButton } from "../../styles/Shared/buttons";
 import { Form, FormContainer, FormTitle } from "../../styles/Shared/form";
 import {
   ProfileImage,
