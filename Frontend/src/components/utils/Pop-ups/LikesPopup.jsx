@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { useTranslation } from "react-i18next";
 import { Avatar } from "../../../styles/Shared/profile";
 import { FormTitle } from "../../../styles/Shared/form";
-import { CloseButton } from "../../../styles/Shared/buttons";
+import {  IconButton } from "../../../styles/Shared/buttons";
 
 const Overlay = styled.div`
   position: fixed;
@@ -74,7 +74,12 @@ const LikesPopup = ({ onClose, fetchLikes, users, loading }) => {
   return ReactDOM.createPortal(
     <Overlay onClick={onClose}>
       <PopupContainer onClick={(e) => e.stopPropagation()}>
-        <CloseButton onClick={onClose}>&times;</CloseButton>
+        <IconButton 
+        position="absolute"
+          top="1.5rem"
+          right="1rem"
+          size="2rem"
+        onClick={onClose}>&times;</IconButton>
         <FormTitle>{t("usersLike")}</FormTitle>
 
         {loading ? (

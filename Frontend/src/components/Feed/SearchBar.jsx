@@ -2,7 +2,10 @@ import styled from "styled-components";
 import { useSearchBar } from "../../Hooks/Feed/useSearchBar";
 import { useTranslation } from "react-i18next";
 import { Input } from "../../styles/Shared/Inputs";
-import { Button, ClearButton } from "../../styles/Shared/buttons";
+import {
+  BaseButton,
+  IconButton,
+} from "../../styles/Shared/buttons";
 const SearchContainer = styled.div`
   display: flex;
 
@@ -61,14 +64,21 @@ const SearchBar = ({ onSearch, onClear }) => {
         onChange={(e) => setTitle(e.target.value)}
       />
       {title && (
-        <ClearButton onClick={handleClear} aria-label="Limpar pesquisa">
+        <IconButton
+          position="absolute"
+          top="1.5rem"
+          right="1rem"
+          size="2rem"
+          onClick={handleClear}
+          aria-label="Limpar pesquisa"
+        >
           &times;
-        </ClearButton>
+        </IconButton>
       )}
 
-      <Button width="300px" onClick={handleSearch}>
+      <BaseButton width="300px" onClick={handleSearch}>
         {t("search")}
-      </Button>
+      </BaseButton>
 
       <Select value={genreName} onChange={(e) => setGenreName(e.target.value)}>
         <option value="">{t("allGenres")}</option>

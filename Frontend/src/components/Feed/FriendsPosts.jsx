@@ -7,7 +7,6 @@ import SortControls from "../utils/SortControls";
 import { useFriendsPosts } from "../../Hooks/Post/useFriendsPosts";
 import { useTranslation } from "react-i18next";
 
-// --- Styled Components ---
 const FeedContainer = styled.div`
   width: 100%;
   max-width: 960px;

@@ -1,7 +1,10 @@
 import { Input, TextArea } from "../../styles/Shared/Inputs";
-import { Button } from "../../styles/Shared/buttons";
+import { Button, BaseButton } from "../../styles/Shared/buttons";
 import { Form, FormContainer, FormTitle } from "../../styles/Shared/form";
-import { ProfileImage, ProfileImageContainer } from "../../styles/Shared/profile";
+import {
+  ProfileImage,
+  ProfileImageContainer,
+} from "../../styles/Shared/profile";
 import Sucess from "../../components/utils/Alerts/Sucess";
 import Error from "../../components/utils/Alerts/Error";
 import GenreSelector from "../../components/utils/GenreSelector";
@@ -66,9 +69,9 @@ const ProfileForm = ({ isEdit = false }) => {
           selectedGenres={selectedGenres}
           setSelectedGenres={setSelectedGenres}
         />
-        <Button type="submit" disabled={loading}>
+        <BaseButton width="100%" type="submit" disabled={loading}>
           {loading ? t("saving") : isEdit ? t("save") : "Registrar"}
-        </Button>
+        </BaseButton>
         {successMessage && <Sucess message={successMessage} />}
         {errorMessage && <Error message={errorMessage} />}
       </Form>

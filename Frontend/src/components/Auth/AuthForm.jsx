@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 import { Input } from "../../styles/Shared/Inputs";
-import { Button } from "../../styles/Shared/buttons";
+import { BaseButton } from "../../styles/Shared/buttons";
 import { FormTitle, ErrorMessage } from "../../styles/Shared/form";
 import { Eye, EyeOff } from "lucide-react";
 import { useAuthForm } from "../../Hooks/Auth/useAuthForm";
@@ -97,9 +97,11 @@ const AuthForm = ({ title, fields, onSubmitAPI, redirectPath }) => {
 
       {error && <ErrorMessage>{error}</ErrorMessage>}
 
-      <Button type="submit" disabled={loading}>
+      <BaseButton
+      width="100%"
+      type="submit" disabled={loading}>
         {loading ? t("sending") : title}
-      </Button>
+      </BaseButton>
     </FormContainer>
   );
 };

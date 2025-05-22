@@ -4,8 +4,6 @@ import { useTranslation } from "react-i18next";
 import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
 
-
-
 const TabButtons = styled.div`
   display: flex;
   justify-content: center;
@@ -43,7 +41,7 @@ const AuthContainer = styled.div`
   width: 100%;
   max-width: 420px;
   margin: 10px;
-  overflow: hidden; 
+  overflow: hidden;
   padding: 30px 10px;
   border-radius: ${({ theme }) => theme.borderRadius.large};
   background-color: ${({ theme }) => theme.colors.inputBackground};

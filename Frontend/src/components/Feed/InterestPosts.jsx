@@ -7,7 +7,6 @@ import SortControls from "../utils/SortControls";
 import { useInterestPosts } from "../../Hooks/Post/useInterestPosts";
 import { useTranslation } from "react-i18next";
 
-// --- Styled Components ---
 const FeedContainer = styled.div`
   width: 100%;
   max-width: 960px;
@@ -110,7 +109,6 @@ const PaginationButton = styled.button`
   }
 `;
 
-// --- Component ---
 const InterestPosts = () => {
   const {
     loading,

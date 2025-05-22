@@ -2,6 +2,7 @@ import styled from "styled-components";
 import ReactDOM from "react-dom";
 import { useTranslation } from "react-i18next";
 import { ConfirmButton } from "../../../styles/Shared/buttons";
+import { BaseButton } from "../../../styles/Shared/buttons";
 
 const Overlay = styled.div`
   position: fixed;
@@ -54,7 +55,9 @@ const Confirm = ({ message, onConfirm, onCancel }) => {
           >
             {t("confirm")}
           </ConfirmButton>
-          <Button onClick={onCancel}>{t("cancel")}</Button>
+          <BaseButton bg="error" onClick={onCancel}>
+            {t("cancel")}
+          </BaseButton>
         </ButtonContainer>
       </PopupContainer>
     </Overlay>,

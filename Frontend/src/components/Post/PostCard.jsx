@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Cookies from "js-cookie";
 import { format } from "date-fns";
 
-import { Button, DeleteButton } from "../../styles/Shared/buttons";
+import { DeleteButton, BaseButton } from "../../styles/Shared/buttons";
 
 import PostDeleteButton from "../utils/Buttons/PostDeleteButton";
 import LikeButton from "../utils/Buttons/LikeButton";
@@ -163,9 +163,18 @@ const PostCard = ({ post, onDeleted }) => {
         })}
       </PostContent>
       {isOwner && (
-        <DeleteButton>
+        <BaseButton
+          hasFlex
+          gap="4px"
+          margin="0 0 0 auto"
+          bg="transparent"
+          color="error"
+          bgHover="none"
+          withTransform={false}
+          padding="4px"
+        >
           <PostDeleteButton postId={id} onDeleted={onDeleted} />
-        </DeleteButton>
+        </BaseButton>
       )}
 
       <PostTitle>{title}</PostTitle>
@@ -194,7 +203,9 @@ const PostCard = ({ post, onDeleted }) => {
         disabled={likeLoading}
       />
       <ContainerButtons>
-        <Button onClick={handleShowPopup}>{t("viewLikes")}</Button>
+        <BaseButton width="100%" onClick={handleShowPopup}>
+          {t("viewLikes")}
+        </BaseButton>
         {showPopup && (
           <LikesPopup
             postId={post.id}
@@ -204,9 +215,9 @@ const PostCard = ({ post, onDeleted }) => {
             loading={loading}
           />
         )}
-        <Button onClick={() => setShowComments(true)}>
+        <BaseButton width="100%" onClick={() => setShowComments(true)}>
           {t("viewComments")}
-        </Button>
+        </BaseButton>
         <CommentsPopup
           open={showComments}
           onClose={() => setShowComments(false)}
