@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { useFriendProfile } from "../../Hooks/FriendProfile/useFriendProfile";
 import { useTranslation } from "react-i18next";
 import { getCurrentLocale } from "../../i18n";
-import { ProfileImage, ProfileImageContainer } from "../../styles/SharedComponents";
+import { ProfileImage, ProfileImageContainer } from "../../styles/Shared/profile";
 
 const PageContainer = styled.div`
   display: flex;

@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 
 import { usePostById } from "../../Hooks/Post/usePostById";
 
-import { BackButton } from "../../styles/SharedComponents";
+import { BackButton } from "../../styles/Shared/buttons";
 
 const PostDetailContainer = styled.div`
   padding: 2rem 1rem;

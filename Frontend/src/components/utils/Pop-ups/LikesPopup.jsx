@@ -2,7 +2,8 @@ import { useEffect } from "react";
 import ReactDOM from "react-dom";
 import styled from "styled-components";
 import { useTranslation } from "react-i18next";
-import { Avatar, FormTitle } from "../../../styles/SharedComponents";
+import { Avatar } from "../../../styles/Shared/profile";
+import { FormTitle } from "../../../styles/Shared/form";
 import { CloseButton } from "../../../styles/Shared/buttons";
 
 const Overlay = styled.div`

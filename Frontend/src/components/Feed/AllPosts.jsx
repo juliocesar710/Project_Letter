@@ -6,7 +6,7 @@ import { getCurrentLocale } from "../../i18n";
 import SortControls from "../utils/SortControls";
 import { usePostsFeed } from "../../Hooks/Post/usePostsFeed";
 import { useTranslation } from "react-i18next";
-import { Avatar } from "../../styles/SharedComponents";
+import { Avatar } from "../../styles/Shared/profile";
 
 const FeedContainer = styled.div`
   width: 100%;

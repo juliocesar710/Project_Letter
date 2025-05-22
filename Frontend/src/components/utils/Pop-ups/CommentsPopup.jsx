@@ -5,13 +5,14 @@ import { useState } from "react";
 
 import Confirm from "../Alerts/Confirm";
 import { useTranslation } from "react-i18next";
+import { Avatar } from "../../../styles/Shared/profile";
 import {
-  FormTitle,
-  Avatar,
+  CloseButton,
+  Button,
   DeleteButton,
-} from "../../../styles/SharedComponents";
-import { CloseButton, Button } from "../../../styles/Shared/buttons";
+} from "../../../styles/Shared/buttons";
 import { TextArea } from "../../../styles/Shared/Inputs";
+import { FormTitle } from "../../../styles/Shared/form";
 import { usePostCommentForm } from "../../../Hooks/Comment/usePostComments";
 import { useDeleteComment } from "../../../Hooks/Comment/useDeleteComments";
 import { Trash } from "lucide-react";

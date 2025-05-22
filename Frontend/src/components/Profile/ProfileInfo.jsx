@@ -2,11 +2,9 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { format } from "date-fns";
 import { Edit, Users, Book, BookHeart } from "lucide-react";
-import {
-  ProfileImage,
-  ProfileImageContainer,
-  ProfileButton,
-} from "../../styles/SharedComponents";
+
+import { ProfileButton } from "../../styles/Shared/buttons";
+import { ProfileImage, ProfileImageContainer } from "../../styles/Shared/profile";
 import { useTranslation } from "react-i18next";
 import { getCurrentLocale } from "../../i18n";
 

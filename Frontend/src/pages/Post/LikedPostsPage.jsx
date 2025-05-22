@@ -1,11 +1,10 @@
 import styled from "styled-components";
 import Cookies from "js-cookie";
 
-import { ErrorMessage } from "../../styles/SharedComponents";
 import { useLikedPosts } from "../../Hooks/Like/useLikedPosts";
 import PostCard from "../../components/Post/PostCard";
 import { useTranslation } from "react-i18next";
-import { FormTitle } from "../../styles/SharedComponents";
+import { FormTitle, ErrorMessage } from "../../styles/Shared/form";
 
 const PageContainer = styled.div`
   padding: ${({ theme }) => theme.padding.container};

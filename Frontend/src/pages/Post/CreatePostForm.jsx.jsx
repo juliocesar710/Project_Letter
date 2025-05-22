@@ -1,10 +1,10 @@
 import styled from "styled-components";
 
 import {
-  Button,
   FormContainer,
-} from "../../styles/SharedComponents";
+} from "../../styles/Shared/form";
 import { Input, TextArea } from "../../styles/Shared/Inputs";
+import { Button } from "../../styles/Shared/buttons";
 import Sucess from "../../components/utils/Alerts/Sucess";
 import Error from "../../components/utils/Alerts/Error";
 import GenreSelector from "../../components/utils/GenreSelector";

@@ -1,12 +1,7 @@
-import {
-  FormTitle,
-  ProfileImage,
-  ProfileImageContainer,
-  Form,
-  FormContainer,
-} from "../../styles/SharedComponents";
 import { Input, TextArea } from "../../styles/Shared/Inputs";
 import { Button } from "../../styles/Shared/buttons";
+import { Form, FormContainer, FormTitle } from "../../styles/Shared/form";
+import { ProfileImage, ProfileImageContainer } from "../../styles/Shared/profile";
 import Sucess from "../../components/utils/Alerts/Sucess";
 import Error from "../../components/utils/Alerts/Error";
 import GenreSelector from "../../components/utils/GenreSelector";

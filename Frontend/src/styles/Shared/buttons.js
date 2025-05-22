@@ -19,7 +19,6 @@ export const Button = styled.button`
     cursor: not-allowed;
   }
 `;
-
 export const ClearButton = styled.button`
   position: absolute;
   top: 1.5rem;
@@ -36,7 +35,6 @@ export const ClearButton = styled.button`
     color: ${({ theme }) => theme.colors.primary};
   }
 `;
-
 export const ConfirmButton = styled.button`
   padding: 10px 20px;
   border: none;
@@ -106,5 +104,68 @@ export const CloseButton = styled.button`
 
   &:hover {
     color: ${({ theme }) => theme.colors.primary};
+  }
+`;
+export const DeleteButton = styled.button`
+  margin-left: auto;
+  background: none;
+  border: none;
+  color: ${({ theme }) => theme.colors.error};
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 4px;
+
+  &:hover {
+    color: ${({ theme }) => theme.colors.errorDark};
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  svg {
+    width: 18px;
+    height: 18px;
+  }
+`;
+export const ProfileButton = styled.button`
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  padding: 10px; 
+  background-color: ${({ theme }) => theme.colors.primary};
+  color: ${({ theme }) => theme.colors.inputBackground};
+  border: none;
+  border-radius: ${({ theme }) => theme.borderRadius.medium};
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  height: 40px;
+  width: 40px;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.primaryDark};
+  }
+`;
+export const BackButton = styled.button`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: ${({ theme }) => theme.colors.primary}10;
+  color: ${({ theme }) => theme.colors.primary};
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-bottom: 2rem;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: ${({ theme }) => theme.colors.primary}20;
+    transform: translateY(-1px);
   }
 `;

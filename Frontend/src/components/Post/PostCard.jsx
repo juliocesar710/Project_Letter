@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Cookies from "js-cookie";
 import { format } from "date-fns";
 
-import { DeleteButton, Button } from "../../styles/SharedComponents";
+import { Button, DeleteButton } from "../../styles/Shared/buttons";
 
 import PostDeleteButton from "../utils/Buttons/PostDeleteButton";
 import LikeButton from "../utils/Buttons/LikeButton";

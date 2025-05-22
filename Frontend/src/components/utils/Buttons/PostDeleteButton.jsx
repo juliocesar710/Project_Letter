@@ -2,7 +2,7 @@ import Confirm from "../Alerts/Confirm";
 import { useTranslation } from "react-i18next";
 import { useDeletePost } from "../../../Hooks/utils/useDeletePost";
 import { Trash } from "lucide-react";
-import { DeleteButton } from "../../../styles/SharedComponents";
+import { DeleteButton } from "../../../styles/Shared/buttons";
 
 const DeletePostButton = ({ postId, onDeleted }) => {
   const { t } = useTranslation();
