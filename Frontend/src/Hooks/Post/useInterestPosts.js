@@ -12,6 +12,7 @@ export const useInterestPosts = (postsPerPage = 10) => {
       try {
         const userData = JSON.parse(Cookies.get("userData") || "{}");
         const interests = userData.genreTexts || [];
+       
 
         const allPosts = await getAllPosts();
 

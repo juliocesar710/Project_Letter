@@ -1,5 +1,5 @@
 import { Input, TextArea } from "../../styles/Shared/Inputs";
-import {  BaseButton } from "../../styles/Shared/buttons";
+import { BaseButton } from "../../styles/Shared/buttons";
 import { Form, FormContainer, FormTitle } from "../../styles/Shared/form";
 import {
   ProfileImage,
@@ -66,8 +66,8 @@ const ProfileForm = ({ isEdit = false }) => {
           onChange={handleChange}
         />
         <GenreSelector
-          selectedGenres={selectedGenres}
-          setSelectedGenres={setSelectedGenres}
+          initialSelected={selectedGenres}
+          onChange={setSelectedGenres}
         />
         <BaseButton width="100%" type="submit" disabled={loading}>
           {loading ? t("saving") : isEdit ? t("save") : "Registrar"}

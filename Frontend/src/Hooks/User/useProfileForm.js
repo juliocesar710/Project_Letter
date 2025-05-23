@@ -11,17 +11,18 @@ export const useProfileForm = () => {
     description: "",
     birthDate: "",
     profileImage: "",
-    interests: [],
+    genres: [],
   });
 
   const [selectedGenres, setSelectedGenres] = useState([]);
   const [loading, setLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const {t} = useTranslation();
+  const { t } = useTranslation();
 
   useEffect(() => {
-    const userData = JSON.parse(Cookies.get("userData") || "{}");
+  const userData = JSON.parse(Cookies.get("userData") || "{}");
+
     setFormData({
       name: userData.name || "",
       email: userData.email || "",
@@ -29,7 +30,7 @@ export const useProfileForm = () => {
       birthDate: userData.birthDate || "",
       profileImage: userData.profileImage || "",
     });
-    setSelectedGenres(userData.interests || []);
+    setSelectedGenres(userData.genres || []);
   }, []);
 
   const handleChange = (e) => {
@@ -48,14 +49,15 @@ export const useProfileForm = () => {
       birthDate: formData.birthDate
         ? new Date(formData.birthDate).toISOString()
         : null,
-      genres: selectedGenres,
+      genreTexts: selectedGenres,
     };
 
     try {
       const updatedUser = await updateUser(payload);
       Cookies.set("userData", JSON.stringify(updatedUser), { expires: 1 });
-      setTimeout(() => {setLoading(false), setSuccessMessage(t("userupdatesuccess"));}, 2000);
-      
+      setTimeout(() => {
+        setLoading(false), setSuccessMessage(t("userupdatesuccess"));
+      }, 2000);
     } catch (error) {
       setErrorMessage("Erro ao atualizar o usuário. Tente novamente.");
       console.error(error);

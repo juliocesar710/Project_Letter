@@ -51,7 +51,6 @@ const PostImage = styled.img`
   height: 300px;
   border-radius: ${({ theme }) => theme.borderRadius.medium};
   margin-bottom: 15px;
-  object-fit: cover;
 
   @media (max-width: 768px) {
     width: 100%;
