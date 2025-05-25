@@ -9,8 +9,6 @@ export const createUserService = async (userData) => {
     throw new Error("Password should be at least 6 characters long");
   }
 
-  
-
   const newUser = await createUserRepository(userData);
 
   return newUser;

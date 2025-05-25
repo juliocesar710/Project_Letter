@@ -3,7 +3,7 @@ import { useProfile } from "../../Hooks/Profile/useProfile";
 import { useTranslation } from "react-i18next";
 import Confirm from "../utils/Alerts/Confirm";
 import { useNavigate } from "react-router-dom";
-import { Button } from "../../styles/Shared/buttons";
+import { BaseButton } from "../../styles/Shared/buttons";
 
 const Container = styled.div`
   padding: 1rem;
@@ -80,7 +80,9 @@ const SidebarUserInfo = () => {
           <GenreTag key={index}>#{genre}</GenreTag>
         ))}
       </GenreList>
-      <Button onClick={handleLogout}>{t("logout")}</Button>
+      <BaseButton
+      width="100%"
+      onClick={handleLogout}>{t("logout")}</BaseButton>
 
       {confirmLogout && (
         <Confirm

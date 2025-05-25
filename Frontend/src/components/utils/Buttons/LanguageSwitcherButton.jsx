@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { LanguageButton } from "../../../styles/Shared/buttons";
+import { BaseButton } from "../../../styles/Shared/buttons";
 
 const LanguageSwitcher = () => {
   const { i18n } = useTranslation();
@@ -10,20 +10,24 @@ const LanguageSwitcher = () => {
   };
 
   return (
-    <div style={{ display: "flex", gap: "10px" }}>
-      <LanguageButton
+    <div style={{ display: "flex" }}>
+      <BaseButton
+        margin="0.5rem"
+        padding="0.5rem"
         onClick={() => changeLanguage("pt")}
         disabled={currentLang === "pt"}
       >
         🇧🇷 Português
-      </LanguageButton>
+      </BaseButton>
 
-      <LanguageButton
+      <BaseButton
+        margin="0.5rem"
+        padding="0.5rem"
         onClick={() => changeLanguage("en")}
         disabled={currentLang === "en"}
       >
         🇺🇸 English
-      </LanguageButton>
+      </BaseButton>
     </div>
   );
 };

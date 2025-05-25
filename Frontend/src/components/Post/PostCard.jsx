@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Cookies from "js-cookie";
 import { format } from "date-fns";
 
-import { DeleteButton, Button } from "../../styles/SharedComponents";
+import { BaseButton } from "../../styles/Shared/buttons";
 
 import PostDeleteButton from "../utils/Buttons/PostDeleteButton";
 import LikeButton from "../utils/Buttons/LikeButton";
@@ -51,7 +51,6 @@ const PostImage = styled.img`
   height: 300px;
   border-radius: ${({ theme }) => theme.borderRadius.medium};
   margin-bottom: 15px;
-  object-fit: cover;
 
   @media (max-width: 768px) {
     width: 100%;
@@ -135,7 +134,11 @@ const PostCard = ({ post, onDeleted }) => {
   const [showPopup, setShowPopup] = useState(false);
   const { users, loading, fetchLikes } = usePostLikes(post.id);
   const [showComments, setShowComments] = useState(false);
-  const { comments } = useGetComments(post.id);
+  const {
+    comments,
+    loading: commentsLoading,
+    fetchComments,
+  } = useGetComments(post.id);
   const { t } = useTranslation();
 
   const {
@@ -163,9 +166,18 @@ const PostCard = ({ post, onDeleted }) => {
         })}
       </PostContent>
       {isOwner && (
-        <DeleteButton>
+        <BaseButton
+          hasFlex
+          gap="4px"
+          margin="0 0 0 auto"
+          bg="transparent"
+          color="error"
+          bgHover="none"
+          withTransform={false}
+          padding="4px"
+        >
           <PostDeleteButton postId={id} onDeleted={onDeleted} />
-        </DeleteButton>
+        </BaseButton>
       )}
 
       <PostTitle>{title}</PostTitle>
@@ -194,7 +206,9 @@ const PostCard = ({ post, onDeleted }) => {
         disabled={likeLoading}
       />
       <ContainerButtons>
-        <Button onClick={handleShowPopup}>{t("viewLikes")}</Button>
+        <BaseButton width="100%" onClick={handleShowPopup}>
+          {t("viewLikes")}
+        </BaseButton>
         {showPopup && (
           <LikesPopup
             postId={post.id}
@@ -204,14 +218,15 @@ const PostCard = ({ post, onDeleted }) => {
             loading={loading}
           />
         )}
-        <Button onClick={() => setShowComments(true)}>
+        <BaseButton width="100%" onClick={() => setShowComments(true)}>
           {t("viewComments")}
-        </Button>
+        </BaseButton>
         <CommentsPopup
           open={showComments}
           onClose={() => setShowComments(false)}
           comments={comments}
-          loading={loading}
+          loading={commentsLoading}
+          fetchComments={fetchComments} 
           postId={id}
         />
       </ContainerButtons>

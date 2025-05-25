@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { BookOpen, PenSquare, Users, Sparkles } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import {  BaseButton } from "../../styles/Shared/buttons";
 
 const Container = styled.div`
   display: flex;
@@ -13,7 +14,8 @@ const Container = styled.div`
   background: linear-gradient(
     135deg,
     ${({ theme }) => theme.colors.primary},
-    ${({ theme }) => theme.colors.secondary || theme.colors.primaryDark} /* fallback */
+    ${({ theme }) => theme.colors.secondary || theme.colors.primaryDark}
+      /* fallback */
   );
   text-align: center;
 `;
@@ -46,24 +48,6 @@ const Quote = styled.blockquote`
   max-width: 600px;
 `;
 
-const Button = styled.button`
-  background-color: ${({ theme }) => theme.colors.accent};
-  color: ${({ theme }) => theme.colors.textContrast};
-  padding: 0.75rem 1.5rem;
-  border: none;
-  border-radius: ${({ theme }) => theme.borderRadius.medium};
-  font-size: 1rem;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  transition: background-color 0.2s;
-
-  &:hover {
-    background-color: ${({ theme }) => theme.colors.accentDark};
-  }
-`;
-
 const SectionTitle = styled.h2`
   margin-top: 4rem;
   font-size: 1.3rem;
@@ -80,7 +64,8 @@ const FeaturesGrid = styled.div`
 `;
 
 const FeatureCard = styled.div`
-  background: ${({ theme }) => theme.colors.cardBackground || "rgba(255, 255, 255, 0.08)"};
+  background: ${({ theme }) =>
+    theme.colors.cardBackground || "rgba(255, 255, 255, 0.08)"};
   padding: 1rem;
   border-radius: ${({ theme }) => theme.borderRadius.medium};
 `;
@@ -96,7 +81,6 @@ const FeatureText = styled.p`
   color: ${({ theme }) => theme.colors.textLight};
 `;
 
-// --- Component ---
 const HomePage = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
@@ -112,10 +96,10 @@ const HomePage = () => {
         <br />— George R.R. Martin
       </Quote>
 
-      <Button onClick={goToLogin}>
+      <BaseButton width="200px" onClick={goToLogin}>
         <PenSquare size={20} />
         {t("start writing")}
-      </Button>
+      </BaseButton>
 
       <SectionTitle>{t("what you find here")}</SectionTitle>
 

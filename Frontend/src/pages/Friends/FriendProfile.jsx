@@ -4,7 +4,11 @@ import styled from "styled-components";
 import { useFriendProfile } from "../../Hooks/FriendProfile/useFriendProfile";
 import { useTranslation } from "react-i18next";
 import { getCurrentLocale } from "../../i18n";
-import { ProfileImage, ProfileImageContainer } from "../../styles/SharedComponents";
+import {
+  ProfileImage,
+  ProfileImageContainer,
+} from "../../styles/Shared/profile";
+import { BaseButton } from "../../styles/Shared/buttons";
 
 const PageContainer = styled.div`
   display: flex;
@@ -47,25 +51,7 @@ const ProfileCard = styled.div`
   }
 `;
 
-const BackButton = styled.button`
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  color: ${({ theme }) => theme.colors.primary};
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 1rem;
-  font-weight: 500;
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
-  transition: all 0.2s ease;
 
-  &:hover {
-    color: ${({ theme }) => theme.colors.primaryDark};
-    background: ${({ theme }) => theme.colors.primary}10;
-  }
-`;
 
 const ProfileHeader = styled.div`
   display: flex;
@@ -213,9 +199,20 @@ const FriendProfile = () => {
   return (
     <PageContainer>
       <ProfileCard>
-        <BackButton onClick={() => navigate(-1)}>
+        <BaseButton
+          hasFlex
+          gap="0.5rem"
+          color="primary"
+          bg="transparent"
+          border="none"
+          borderRadius="8px"
+          padding="0.5rem 1rem"
+          margin="0 0 2rem 0"
+          withTransform
+          onClick={() => navigate(-1)}
+        >
           <span>←</span> {t("back")}
-        </BackButton>
+        </BaseButton>
 
         <ProfileHeader>
           {friend.profileImage ? (

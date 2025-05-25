@@ -2,11 +2,12 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { format } from "date-fns";
 import { Edit, Users, Book, BookHeart } from "lucide-react";
+
+import {  BaseButton } from "../../styles/Shared/buttons";
 import {
   ProfileImage,
   ProfileImageContainer,
-  ProfileButton,
-} from "../../styles/SharedComponents";
+} from "../../styles/Shared/profile";
 import { useTranslation } from "react-i18next";
 import { getCurrentLocale } from "../../i18n";
 
@@ -69,7 +70,7 @@ const TooltipWrapper = styled.div`
     border-radius: 4px;
     position: absolute;
     z-index: 1;
-    bottom: 125%; 
+    bottom: 125%;
     left: 50%;
     transform: translateX(-50%);
     opacity: 0;
@@ -122,30 +123,64 @@ const ProfileInfo = ({ user }) => {
           <ProfileImage src={user.profileImage} alt={`${user.name} profile`} />
         </ProfileImageContainer>
         <TooltipWrapper>
-          <ProfileButton onClick={handleFriendsClick}>
+          <BaseButton
+            hasFlex={true}
+            padding="10px"
+            fontSize="14px"
+            fontWeight="bold"
+            height="40px"
+            width="40px"
+            onClick={handleFriendsClick}
+          >
             <Users />
-          </ProfileButton>
+          </BaseButton>
+
           <span>{t("friends")}</span>
         </TooltipWrapper>
         <TooltipWrapper>
-          <ProfileButton onClick={handleFeedClick}>
+          <BaseButton
+            hasFlex={true}
+            padding="10px"
+            fontSize="14px"
+            fontWeight="bold"
+            height="40px"
+            width="40px"
+            onClick={handleFeedClick}
+          >
             <Book />
-          </ProfileButton>
+          </BaseButton>
+
           <span>{t("feed")}</span>
         </TooltipWrapper>
       </ProfileHeader>
       <Section>
         <ProfileButtons>
           <TooltipWrapper>
-            <ProfileButton onClick={handleEditProfile}>
+            <BaseButton
+              hasFlex={true}
+              padding="10px"
+              fontSize="14px"
+              fontWeight="bold"
+              height="40px"
+              width="40px"
+              onClick={handleEditProfile}
+            >
               <Edit />
-            </ProfileButton>
+            </BaseButton>
             <span>{t("editProfile")}</span>
           </TooltipWrapper>
           <TooltipWrapper>
-            <ProfileButton onClick={handleLikedPostsClick}>
+            <BaseButton
+              hasFlex={true}
+              padding="10px"
+              fontSize="14px"
+              fontWeight="bold"
+              height="40px"
+              width="40px"
+              onClick={handleLikedPostsClick}
+            >
               <BookHeart />
-            </ProfileButton>
+            </BaseButton>
             <span>{t("likedPosts")}</span>
           </TooltipWrapper>
         </ProfileButtons>

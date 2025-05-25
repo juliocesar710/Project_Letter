@@ -2,7 +2,7 @@ import Confirm from "../Alerts/Confirm";
 import { useTranslation } from "react-i18next";
 import { useDeletePost } from "../../../Hooks/utils/useDeletePost";
 import { Trash } from "lucide-react";
-import { DeleteButton } from "../../../styles/SharedComponents";
+import {  BaseButton } from "../../../styles/Shared/buttons";
 
 const DeletePostButton = ({ postId, onDeleted }) => {
   const { t } = useTranslation();
@@ -11,9 +11,16 @@ const DeletePostButton = ({ postId, onDeleted }) => {
 
   return (
     <>
-      <DeleteButton onClick={openConfirm}>
+      <BaseButton
+        bg="transparent"
+        color="error"
+        hasFlex
+        gap="4px"
+        padding="4px"
+        onClick={openConfirm}
+      >
         <Trash></Trash>
-      </DeleteButton>
+      </BaseButton>
       {showConfirm && (
         <Confirm
           message={t("wantremovepost")}

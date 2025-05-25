@@ -5,13 +5,13 @@ import { useState } from "react";
 
 import Confirm from "../Alerts/Confirm";
 import { useTranslation } from "react-i18next";
+import { Avatar } from "../../../styles/Shared/profile";
 import {
-  FormTitle,
-  Avatar,
-  DeleteButton,
-} from "../../../styles/SharedComponents";
-import { CloseButton, Button } from "../../../styles/Shared/buttons";
+  BaseButton,
+  IconButton,
+} from "../../../styles/Shared/buttons";
 import { TextArea } from "../../../styles/Shared/Inputs";
+import { FormTitle } from "../../../styles/Shared/form";
 import { usePostCommentForm } from "../../../Hooks/Comment/usePostComments";
 import { useDeleteComment } from "../../../Hooks/Comment/useDeleteComments";
 import { Trash } from "lucide-react";
@@ -96,13 +96,13 @@ const CommentsPopup = ({
   fetchComments,
   postId,
 }) => {
-  const {
-    content,
-    setContent,
-    loading: sending,
-    error,
-    handleSubmit,
-  } = usePostCommentForm(postId, fetchComments);
+ const {
+  content,
+  setContent,
+  loading: sending,
+  error,
+  handleSubmit,
+} = usePostCommentForm(postId, fetchComments);
   const { t } = useTranslation();
   const [confirmDeleteId, setConfirmDeleteId] = useState(null);
 
@@ -116,7 +116,15 @@ const CommentsPopup = ({
   return ReactDOM.createPortal(
     <Overlay onClick={onClose}>
       <Popup onClick={(e) => e.stopPropagation()}>
-        <CloseButton onClick={onClose}>&times;</CloseButton>
+        <IconButton
+          position="absolute"
+          top="1.5rem"
+          right="1rem"
+          size="2rem"
+          onClick={onClose}
+        >
+          &times;
+        </IconButton>
         <FormTitle>{t("comments")}</FormTitle>
         <Form onSubmit={handleSubmit}>
           <TextArea
@@ -126,9 +134,11 @@ const CommentsPopup = ({
             placeholder="Escreva um comentário..."
             disabled={sending}
           />
-          <Button type="submit" disabled={sending || !content.trim()}>
+          <BaseButton
+          width="100%"
+          type="submit" disabled={sending || !content.trim()}>
             {sending ? "Enviando..." : "Enviar"}
-          </Button>
+          </BaseButton>
         </Form>
         {error && <ErrorText>{error}</ErrorText>}
         {loading ? (
@@ -149,13 +159,18 @@ const CommentsPopup = ({
                 </CommentContent>
                 {comment.user?.id === currentUserId && (
                   <>
-                    <DeleteButton
+                    <BaseButton
+                      bg="transparent"
+                      color="error"
+                      hasFlex
+                      gap="4px"
+                      padding="4px"
                       disabled={deleting}
                       onClick={() => setConfirmDeleteId(comment.id)}
                       title="Excluir comentário"
                     >
                       <Trash />
-                    </DeleteButton>
+                    </BaseButton>
                     {confirmDeleteId === comment.id && (
                       <Confirm
                         message={

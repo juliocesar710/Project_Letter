@@ -1,110 +1,59 @@
 import styled from "styled-components";
 
-export const Button = styled.button`
-  width: ${({ width }) => width || "100%"};
-  padding: ${({ theme }) => theme.padding.button};
-  background-color: ${({ theme }) => theme.colors.primary};
-  color: ${({ theme }) => theme.colors.inputBackground};
-  border: none;
-  border-radius: ${({ theme }) => theme.borderRadius.small};
+export const BaseButton = styled.button`
+  display: ${({ hasFlex }) => (hasFlex ? "flex" : "inline-block")};
+  align-items: ${({ hasFlex }) => (hasFlex ? "center" : "initial")};
+  justify-content: ${({ hasFlex }) => (hasFlex ? "center" : "initial")};
+  gap: ${({ gap }) => gap || "0"};
+  width: ${({ width }) => width || "auto"};
+  padding: ${({ padding, theme }) => padding || theme.padding.button};
+  margin: ${({ margin }) => margin || "0"};
+  border-radius: ${({ borderRadius, theme }) =>
+    borderRadius || theme.borderRadius.small};
+  border: ${({ border }) => border || "none"};
+
+  background-color: ${({ bg, theme }) =>
+    theme.colors[bg] || bg || theme.colors.primary};
+
+  color: ${({ color, theme }) =>
+    theme.colors[color] || color || theme.colors.inputBackground};
+
   cursor: pointer;
-  font-size: 16px;
+  font-size: ${({ fontSize }) => fontSize || "1rem"};
+  transition: all 0.2s ease;
 
   &:hover {
-    background-color: ${({ theme }) => theme.colors.primaryDark};
+    background-color: ${({ bgHover, theme, bg }) =>
+      theme.colors[bgHover] ||
+      bgHover ||
+      (theme.colors[bg]
+        ? theme.colors[`${bg}Dark`]
+        : theme.colors.primaryDark)};
+
+    transform: ${({ withTransform }) =>
+      withTransform ? "translateY(-1px)" : "none"};
   }
 
   &:disabled {
     background-color: ${({ theme }) => theme.colors.border};
     cursor: not-allowed;
-  }
-`;
-
-export const ClearButton = styled.button`
-  position: absolute;
-  top: 1.5rem;
-  right: 1rem;
-
-  transform: translateY(-50%);
-  background: none;
-  border: none;
-  color: ${({ theme }) => theme.colors.text};
-  font-size: 2rem;
-  cursor: pointer;
-
-  &:hover {
-    color: ${({ theme }) => theme.colors.primary};
-  }
-`;
-
-export const ConfirmButton = styled.button`
-  padding: 10px 20px;
-  border: none;
-  border-radius: ${({ theme }) => theme.borderRadius.small};
-  cursor: pointer;
-  font-size: 14px;
-  color: ${({ theme }) => theme.colors.inputBackground};
-  background-color: ${({ confirm, theme }) =>
-    confirm ? theme.colors.primaryDark : theme.colors.error};
-  box-shadow: ${({ theme }) => theme.shadows.light};
-
-  &:hover {
-    opacity: 0.9;
-  }
-`;
-export const LanguageButton = styled.button`
-  padding: ${({ theme }) => theme.padding.button};
-  border: none;
-  border-radius: ${({ theme }) => theme.borderRadius.small};
-  background-color: ${({ theme }) => theme.colors.primary};
-  color: white;
-  cursor: pointer;
-  font-size: 0.85rem;
-  margin: 1rem 0.5rem 0.5rem 0;
-  transition: all 0.2s ease;
-  
-
-  &:hover {
-    background-color: ${({ theme }) => theme.colors.primaryDark};
-    transform: translateY(-1px);
-  }
-
-  &:disabled {
-    background-color: ${({ theme }) => theme.colors.border};
-    cursor: default;
     transform: none;
+    opacity: 0.7;
   }
 `;
-export const ViewFriendProfileButton = styled.button`
-  padding: 8px 15px;
-  border: none;
-  border-radius: ${({ theme }) => theme.borderRadius.small};
-  background-color: ${({ theme }) => theme.colors.primary};
-  color: white;
-  cursor: pointer;
-  font-size: 0.9rem;
-  transition: all 0.2s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 5px;
 
-  &:hover {
-    background-color: ${({ theme }) => theme.colors.primaryDark};
-    transform: translateY(-1px);
-  }
-`;
-export const CloseButton = styled.button`
+export const IconButton = styled.button`
   background: none;
   border: none;
-  font-size: 1.5rem;
-  color: ${({ theme }) => theme.colors.primaryDark};
-  position: absolute;
-  top: 10px;
-  right: 10px;
   cursor: pointer;
+  color: ${({ color, theme }) => color || theme.colors.text};
+  font-size: ${({ size }) => size || "1.5rem"};
+  position: ${({ position }) => position || "relative"};
+  top: ${({ top }) => top || "auto"};
+  right: ${({ right }) => right || "auto"};
+  transform: translateY(-50%);
 
   &:hover {
-    color: ${({ theme }) => theme.colors.primary};
+    color: ${({ hoverColor, theme }) => hoverColor || theme.colors.primary};
   }
 `;

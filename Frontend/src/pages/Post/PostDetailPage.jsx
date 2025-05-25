@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 
 import { usePostById } from "../../Hooks/Post/usePostById";
 
-import { BackButton } from "../../styles/SharedComponents";
+import { BaseButton } from "../../styles/Shared/buttons";
 
 const PostDetailContainer = styled.div`
   padding: 2rem 1rem;
@@ -147,9 +147,20 @@ const PostDetailPage = () => {
     return (
       <ErrorContainer>
         <p>{error}</p>
-        <BackButton onClick={() => navigate(-1)}>
+        <BaseButton
+          hasFlex
+          gap="0.5rem"
+          color="primary"
+          bg="transparent"
+          border="none"
+          borderRadius="8px"
+          padding="0.5rem 1rem"
+          margin="0 0 2rem 0"
+          withTransform
+          onClick={() => navigate(-1)}
+        >
           ← {t("backToPosts")}
-        </BackButton>
+        </BaseButton>
       </ErrorContainer>
     );
   }
@@ -160,7 +171,20 @@ const PostDetailPage = () => {
 
   return (
     <PostDetailContainer>
-      <BackButton onClick={() => navigate(-1)}>← {t("backToPosts")}</BackButton>
+      <BaseButton
+        hasFlex
+        gap="0.5rem"
+        color="primary"
+        bg="transparent"
+        border="none"
+        borderRadius="8px"
+        padding="0.5rem 1rem"
+        margin="0 0 2rem 0"
+        withTransform
+        onClick={() => navigate(-1)}
+      >
+        ← {t("backToPosts")}
+      </BaseButton>
 
       <PostCard>
         <PostHeader>
