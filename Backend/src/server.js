@@ -4,6 +4,8 @@ import authRoutes from "./routes/auth.js";
 import apiRoutes from "./routes/api.js";
 import genreTextRoutes from "./routes/genreText.js";
 import friendShipRoutes from "./routes/friendShip.js";
+import likeRoutes from "./routes/like.js";
+import commentRoutes from "./routes/comment.js";
 import cors from "cors";
 
 
@@ -16,7 +18,7 @@ app.use(express.json());
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: process.env.URL_FRONTEND,
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
@@ -26,6 +28,9 @@ app.use("/auth", authRoutes);
 app.use("/api", apiRoutes);
 app.use("/genreText", genreTextRoutes);
 app.use("/friendship", friendShipRoutes);
+app.use("/likes", likeRoutes);
+app.use("/comments", commentRoutes);
+
 
 app.get("/", (req, res) => {
   res.send("Welcome to the API!");

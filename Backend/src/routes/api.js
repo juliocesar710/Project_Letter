@@ -8,10 +8,12 @@ import { getAllPosts } from "../controllers/Posts/postGetAllController.js";
 
 const router = express.Router();
 
-router.post("/post", authMiddleware, createPost);
-router.delete("/postDelete/:postId", authMiddleware, deletePost);
-router.get("/postGet/:postId", authMiddleware, getPostById);
-router.get("/postGetAllUser", authMiddleware, getAllPostsByUser);
 router.get("/postGetAll", getAllPosts);
+router.get("/postGetAllUser", authMiddleware, getAllPostsByUser);
+router.get("/postGet/:postId", authMiddleware, getPostById);
+
+router.post("/post", authMiddleware, createPost);
+
+router.delete("/postDelete/:postId", authMiddleware, deletePost);
 
 export default router;

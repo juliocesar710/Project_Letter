@@ -1,28 +1,17 @@
 import styled from "styled-components";
+import Cookies from "js-cookie";
+
 import AddFriendButton from "../utils/Buttons/AddFriendButton";
 import ViewProfileButton from "../utils/Buttons/ViewProfileButton";
-import Cookies from "js-cookie";
+
 import { useTranslation } from "react-i18next";
-import { useFriendSearch } from "../../Hooks/useFriendSearch";
+
+import { useFriendSearch } from "../../Hooks/Friend/useFriendSearch";
+import { Input } from "../../styles/Shared/Inputs";
 
 const SearchContainer = styled.div`
   position: relative;
   width: 300px;
-`;
-
-const SearchInput = styled.input`
-  width: 100%;
-  padding: 10px 15px;
-  border: 1px solid ${({ theme }) => theme.colors.border};
-  border-radius: ${({ theme }) => theme.borderRadius.medium};
-  font-size: 1rem;
-  background-color: ${({ theme }) => theme.colors.inputBackground};
-  color: ${({ theme }) => theme.colors.text};
-
-  &:focus {
-    outline: none;
-    border-color: ${({ theme }) => theme.colors.primary};
-  }
 `;
 
 const SearchButton = styled.button`
@@ -88,6 +77,28 @@ const ResultEmail = styled.span`
   font-size: 0.85rem;
 `;
 
+const ClearButton = styled.button`
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: ${({ theme }) => theme.colors.text};
+  font-size: 2rem;
+  cursor: pointer;
+
+  &:hover {
+    color: ${({ theme }) => theme.colors.primary};
+  }
+`;
+
+const InputSearchContainer = styled.div`
+  position: relative;
+  width: 100%;
+  margin-bottom: 10px;
+`;
+
 const FriendSearch = () => {
   const { t } = useTranslation();
 
@@ -103,15 +114,27 @@ const FriendSearch = () => {
     setResults,
   } = useFriendSearch(userId);
 
+  const clearSearch = () => {
+    setSearchTerm("");
+    setResults([]);
+  };
 
   return (
     <SearchContainer>
-      <SearchInput
-        type="text"
-        placeholder={t("searchfriends")}
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-      />
+      <InputSearchContainer>
+        <Input
+          type="text"
+          placeholder={t("searchfriends")}
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />{" "}
+        {searchTerm && (
+          <ClearButton onClick={clearSearch} aria-label={t("clearsearch")}>
+            &times;
+          </ClearButton>
+        )}
+      </InputSearchContainer>
+
       <SearchButton onClick={handleSearch}>
         {loading ? t("search") : t("searching")}
       </SearchButton>

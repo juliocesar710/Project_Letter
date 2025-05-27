@@ -1,29 +1,5 @@
-import React from "react";
-import styled from "styled-components";
 import { useTranslation } from "react-i18next";
-
-const LanguageButton = styled.button`
-  padding: ${({ theme }) => theme.padding.button};
-  border: none;
-  border-radius: ${({ theme }) => theme.borderRadius.small};
-  background-color: ${({ theme }) => theme.colors.primary};
-  color: white;
-  cursor: pointer;
-  font-size: 0.85rem;
-  margin: 0 5px;
-  transition: all 0.2s ease;
-
-  &:hover {
-    background-color: ${({ theme }) => theme.colors.primaryDark};
-    transform: translateY(-1px);
-  }
-
-  &:disabled {
-    background-color: ${({ theme }) => theme.colors.border};
-    cursor: default;
-    transform: none;
-  }
-`;
+import { BaseButton } from "../../../styles/Shared/buttons";
 
 const LanguageSwitcher = () => {
   const { i18n } = useTranslation();
@@ -34,20 +10,24 @@ const LanguageSwitcher = () => {
   };
 
   return (
-    <div style={{ display: "flex", gap: "10px" }}>
-      <LanguageButton
+    <div style={{ display: "flex" }}>
+      <BaseButton
+        margin="0.5rem"
+        padding="0.5rem"
         onClick={() => changeLanguage("pt")}
         disabled={currentLang === "pt"}
       >
         🇧🇷 Português
-      </LanguageButton>
+      </BaseButton>
 
-      <LanguageButton
+      <BaseButton
+        margin="0.5rem"
+        padding="0.5rem"
         onClick={() => changeLanguage("en")}
         disabled={currentLang === "en"}
       >
         🇺🇸 English
-      </LanguageButton>
+      </BaseButton>
     </div>
   );
 };

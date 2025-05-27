@@ -2,18 +2,15 @@ import prisma from "../../utils/prismaClient.js";
 import bcrypt from "bcrypt";
 
 export const createUserRepository = async (userData) => {
+  const existingUser = await prisma.user.findUnique({
+    where: {
+      email: userData.email,
+    },
+  });
 
- 
-    const existingUser = await prisma.user.findUnique({
-      where: {
-        email: userData.email,
-      },
-    });
-
-    if (existingUser) {
-      throw new Error("Email already exists");
-    }
-  
+  if (existingUser) {
+    throw new Error("Email already exists");
+  }
 
   const hashedPassword = await bcrypt.hash(userData.password, 10);
   const newUser = await prisma.user.create({
@@ -24,5 +21,19 @@ export const createUserRepository = async (userData) => {
     },
   });
 
-  return newUser;
+  const userWithGenres = await prisma.user.findUnique({
+    where: { id: newUser.id },
+    include: {
+      GenreTextFromUser: {
+        include: {
+          genreText: true,
+        },
+      },
+    },
+  });
+
+  return {
+    ...userWithGenres,
+    genreTexts: userWithGenres.GenreTextFromUser.map((item) => item.genreText.name),
+  };
 };

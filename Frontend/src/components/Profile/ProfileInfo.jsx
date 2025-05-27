@@ -1,11 +1,15 @@
-import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { format } from "date-fns";
+import { Edit, Users, Book, BookHeart } from "lucide-react";
+
+import {  BaseButton } from "../../styles/Shared/buttons";
+import {
+  ProfileImage,
+  ProfileImageContainer,
+} from "../../styles/Shared/profile";
 import { useTranslation } from "react-i18next";
 import { getCurrentLocale } from "../../i18n";
-import { Edit, Users } from "lucide-react";
-
 
 const InfoCard = styled.div`
   background-color: ${({ theme }) => theme.colors.background};
@@ -39,35 +43,47 @@ const SectionContent = styled.p`
   font-weight: bold;
 `;
 
-const ProfileImage = styled.img`
-  width: 130px;
-  height: 130px;
-  border-radius: 50%;
-  border: 4px solid ${({ theme }) => theme.colors.primary};
-  margin-bottom: 20px;
-`;
-
-const ProfileButton = styled.button`
-  padding: 10px 20px;
-  background-color: ${({ theme }) => theme.colors.primary};
-  color: ${({ theme }) => theme.colors.inputBackground};
-  border: none;
-  border-radius: ${({ theme }) => theme.borderRadius.medium};
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background-color 0.3s;
-
-  &:hover {
-    background-color: ${({ theme }) => theme.colors.primaryDark};
-  }
-`;
-
 const ProfileHeader = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+
   width: 100%;
+`;
+
+const TooltipWrapper = styled.div`
+  position: relative;
+  display: inline-block;
+  margin-left: 10px;
+
+  &:hover span {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  span {
+    visibility: hidden;
+    background-color: ${({ theme }) => theme.colors.primaryDark};
+    color: #fff;
+    text-align: center;
+    padding: 5px 8px;
+    border-radius: 4px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    white-space: nowrap;
+  }
+`;
+
+const ProfileButtons = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
 `;
 
 const ProfileInfo = ({ user }) => {
@@ -80,7 +96,15 @@ const ProfileInfo = ({ user }) => {
 
   const handleFriendsClick = () => {
     navigate("/friends");
-  }
+  };
+
+  const handleFeedClick = () => {
+    navigate("/feed");
+  };
+
+  const handleLikedPostsClick = () => {
+    navigate("/liked-posts");
+  };
 
   let formattedBirthDate = t("date of birth not provided");
 
@@ -92,20 +116,74 @@ const ProfileInfo = ({ user }) => {
       });
     }
   }
-
   return (
     <InfoCard>
       <ProfileHeader>
-        <ProfileImage src={user.profileImage} alt={`${user.name} profile`} />
-        <ProfileButton onClick={handleFriendsClick}>
-          <Users />
-        </ProfileButton>
-      </ProfileHeader>
+        <ProfileImageContainer>
+          <ProfileImage src={user.profileImage} alt={`${user.name} profile`} />
+        </ProfileImageContainer>
+        <TooltipWrapper>
+          <BaseButton
+            hasFlex={true}
+            padding="10px"
+            fontSize="14px"
+            fontWeight="bold"
+            height="40px"
+            width="40px"
+            onClick={handleFriendsClick}
+          >
+            <Users />
+          </BaseButton>
 
+          <span>{t("friends")}</span>
+        </TooltipWrapper>
+        <TooltipWrapper>
+          <BaseButton
+            hasFlex={true}
+            padding="10px"
+            fontSize="14px"
+            fontWeight="bold"
+            height="40px"
+            width="40px"
+            onClick={handleFeedClick}
+          >
+            <Book />
+          </BaseButton>
+
+          <span>{t("feed")}</span>
+        </TooltipWrapper>
+      </ProfileHeader>
       <Section>
-        <ProfileButton onClick={handleEditProfile}>
-          <Edit />
-        </ProfileButton>
+        <ProfileButtons>
+          <TooltipWrapper>
+            <BaseButton
+              hasFlex={true}
+              padding="10px"
+              fontSize="14px"
+              fontWeight="bold"
+              height="40px"
+              width="40px"
+              onClick={handleEditProfile}
+            >
+              <Edit />
+            </BaseButton>
+            <span>{t("editProfile")}</span>
+          </TooltipWrapper>
+          <TooltipWrapper>
+            <BaseButton
+              hasFlex={true}
+              padding="10px"
+              fontSize="14px"
+              fontWeight="bold"
+              height="40px"
+              width="40px"
+              onClick={handleLikedPostsClick}
+            >
+              <BookHeart />
+            </BaseButton>
+            <span>{t("likedPosts")}</span>
+          </TooltipWrapper>
+        </ProfileButtons>
         <SectionTitle>{t("personal information")}</SectionTitle>
         <SectionContent>
           {t("name")}: {user.name}
@@ -124,7 +202,7 @@ const ProfileInfo = ({ user }) => {
       <Section>
         <SectionTitle>{t("interests")}</SectionTitle>
         <SectionContent>
-            {user.interests && user.interests.length > 0
+          {user.interests && user.interests.length > 0
             ? user.interests.join(", ")
             : t("no interest registered.")}
         </SectionContent>

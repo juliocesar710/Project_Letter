@@ -1,12 +1,22 @@
-import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import ProfilePage from "../pages/ProfilePage";
-import AuthPage from "../pages/AuthPage";
-import ProfileForm from "../components/Profile/ProfileForm";
-import HomePage from "../pages/HomePage";
+
+import AuthPage from "../pages/Auth/AuthPage";
+
+import ProfilePage from "../pages/Profile/ProfilePage";
+import ProfileForm from "../pages/Profile/ProfileForm.jsx";
+
+import FriendsPage from "../pages/Friends/FriendsPage";
+import FriendProfile from "../pages/Friends/FriendProfile.jsx";
+
+import CreatePostForm from "../pages/Post/CreatePostForm.jsx.jsx";
+import LikedPostsPage from "../pages/Post/LikedPostsPage.jsx";
+import PostDetailPage from "../pages/Post/PostDetailPage.jsx";
+
+import FeedPage from "../pages/Feed/FeedPage.jsx";
+
+import HomePage from "../pages/Home/HomePage.jsx";
+
 import PrivateRoute from "./PrivateRoute";
-import FriendsPage from "../pages/FriendsPage";
-import FriendProfile from "../pages/FriendProfile";
 
 const AppRouter = ({ toggleTheme }) => {
   return (
@@ -46,6 +56,38 @@ const AppRouter = ({ toggleTheme }) => {
             </PrivateRoute>
           }
         />
+        <Route
+          path="/feed"
+          element={
+            <PrivateRoute>
+              <FeedPage />
+            </PrivateRoute>
+          }
+        ></Route>
+        <Route
+          path="create-post"
+          element={
+            <PrivateRoute>
+              <CreatePostForm />
+            </PrivateRoute>
+          }
+        ></Route>
+        <Route
+          path="/post/:id"
+          element={
+            <PrivateRoute>
+              <PostDetailPage />
+            </PrivateRoute>
+          }
+        ></Route>
+        <Route
+          path="/liked-posts"
+          element={
+            <PrivateRoute>
+              <LikedPostsPage />
+            </PrivateRoute>
+          }
+        ></Route>
       </Routes>
     </Router>
   );

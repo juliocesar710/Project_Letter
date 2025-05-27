@@ -1,6 +1,5 @@
-import React, { useState } from "react";
 import styled from "styled-components";
-import { inviteFriend } from "../../../api/Friends/friendsInvite";
+import { useAddFriend } from "../../../Hooks/utils/useAddFriend";
 
 const ActionButton = styled.button`
   padding: 8px 15px;
@@ -13,31 +12,15 @@ const ActionButton = styled.button`
   transition: all 0.2s;
 
   &:hover {
-    background-color: ${({ theme }) => theme.colors.errorDark};
+    background-color: ${({ theme }) => theme.colors.primaryDark};
     transform: translateY(-1px);
   }
 `;
-
 const AddFriendButton = ({ friendId, onSuccess, children }) => {
-  const [loading, setLoading] = useState(false);
-
-  const handleAdd = async () => {
-    setLoading(true);
-    try {
-      await inviteFriend(friendId);
-      if (onSuccess) onSuccess(friendId);
-    } catch (err) {
-      console.error("Erro ao adicionar amigo:", err);
-    } finally {
-      // Adiciona um delay de 1 segundo antes de desativar o loading
-      setTimeout(() => {
-        setLoading(false);
-      }, 1000);
-    }
-  };
+  const { loading, addFriend } = useAddFriend(onSuccess);
 
   return (
-    <ActionButton onClick={handleAdd} disabled={loading}>
+    <ActionButton onClick={() => addFriend(friendId)} disabled={loading}>
       {loading ? "..." : children}
     </ActionButton>
   );

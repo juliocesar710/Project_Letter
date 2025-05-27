@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import FriendCard from './FriendCard';
-import { friendsGetUser } from '../../api/Friends/friendsGetUser';
 import { useTranslation } from 'react-i18next';
+import {useFriends} from '../../Hooks/Friend/useFriends';
 
 const ListContainer = styled.div`
   display: flex;
@@ -21,45 +20,19 @@ const EmptyMessage = styled.p`
   text-align: center;
   padding: 20px;
 `;
-
 const FriendsList = () => {
-  const [friends, setFriends] = useState([]);
-  const [loading, setLoading] = useState(true);
   const { t } = useTranslation();
-
-  const fetchFriends = async () => {
-    try {
-      const response = await friendsGetUser();
-      
-      if (Array.isArray(response) && response.length > 0) {
-        setFriends(response);
-      } else {
-        setFriends([]);
-      }
-    } catch (error) {
-      console.error('Erro ao buscar amigos:', error);
-      setFriends([]);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchFriends();
-  }, []);
-
-  const handleFriendRemoved = (friendId) => {
-    setFriends(prevFriends => prevFriends.filter(friend => friend.id !== friendId));
-  };
-  
+  const { friends, loading, removeFriend } = useFriends();
 
   if (loading) {
-    return <EmptyMessage>Carregando amigos...</EmptyMessage>;
+    return <EmptyMessage>{t("loadingfriends")}</EmptyMessage>;
   }
 
   return (
     <ListContainer>
-      <SectionTitle>{t("myfriends")}</SectionTitle>
+      <SectionTitle>
+        {t("myfriends")} ({friends.length})
+      </SectionTitle>
       {friends.length > 0 ? (
         friends.map((friend) => (
           <FriendCard
@@ -72,7 +45,7 @@ const FriendsList = () => {
               id: friend.friend.id || "0",
               friendshipId: friend.id,
             }}
-            onFriendRemoved={handleFriendRemoved}
+            onFriendRemoved={removeFriend}
           />
         ))
       ) : (
@@ -82,4 +55,4 @@ const FriendsList = () => {
   );
 };
 
-export default FriendsList; 
+export default FriendsList;

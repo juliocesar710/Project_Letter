@@ -9,11 +9,14 @@ import { getPendingFriendships } from "../controllers/NetWork/pendingFriendshipC
 
 const router = express.Router();
 
-router.post("/invite", authMiddleware, createFriendship);
-router.patch("/status", authMiddleware, updateFriendshipStatus);
 router.get("/get", authMiddleware, getUserFriendships);
 router.get("/pending", authMiddleware, getPendingFriendships);
-router.delete("/delete", authMiddleware, deleteFriendship);
 router.get("/profile/:friendId", authMiddleware, getFriendProfile);
+
+router.post("/invite", authMiddleware, createFriendship);
+
+router.patch("/status", authMiddleware, updateFriendshipStatus);
+
+router.delete("/delete", authMiddleware, deleteFriendship);
 
 export default router;
