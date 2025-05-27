@@ -1,8 +1,8 @@
 import { useState } from "react";
 import styled from "styled-components";
 
-import ProfileInfo from "../../components/profile/ProfileInfo";
-import PostList from "../../components/profile/PostList";
+import ProfileInfo from "../../components/Profile/ProfileInfo";
+import PostList from "../../components/Profile/PostList";
 
 import LanguageSwitcher from "../../components/utils/Buttons/LanguageSwitcherButton";
 import Confirm from "../../components/utils/Alerts/Confirm";
