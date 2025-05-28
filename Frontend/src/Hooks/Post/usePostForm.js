@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { postUser } from "../../api/Post/postUser"; 
+import { postUser } from "../../api/Post/PostUser"; 
 import { useTranslation } from "react-i18next";
 
 export const usePostForm = () => {
