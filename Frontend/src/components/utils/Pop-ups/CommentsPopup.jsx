@@ -10,7 +10,7 @@ import {
   BaseButton,
   IconButton,
 } from "../../../styles/Shared/buttons";
-import { TextArea } from "../../../styles/Shared/Inputs";
+import { TextArea } from "../../../styles/Shared/inputs";
 import { FormTitle } from "../../../styles/Shared/form";
 import { usePostCommentForm } from "../../../Hooks/Comment/usePostComments";
 import { useDeleteComment } from "../../../Hooks/Comment/useDeleteComments";
