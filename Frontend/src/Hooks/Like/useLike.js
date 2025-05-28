@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { postLike } from "../../api/Like/PostLike";
 import { deleteLike } from "../../api/Like/DeleteLike";
-import { getUsersFromPost } from "../../api/Like/getUsersFromPost";
+import { getUsersFromPost } from "../../api/Like/GetUsersFromPost";
 import Cookies from "js-cookie";
 
 export const useLike = (initialLiked, initialLikesCount, postId) => {
