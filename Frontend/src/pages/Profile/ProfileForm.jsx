@@ -1,4 +1,4 @@
-import { Input, TextArea } from "../../styles/Shared/Inputs";
+import { Input, TextArea } from "../../styles/Shared/inputs";
 import { BaseButton } from "../../styles/Shared/buttons";
 import { Form, FormContainer, FormTitle } from "../../styles/Shared/form";
 import {
