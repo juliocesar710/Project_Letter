@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useSearchBar } from "../../Hooks/Feed/useSearchBar";
 import { useTranslation } from "react-i18next";
-import { Input } from "../../styles/Shared/Inputs";
+import { Input } from "../../styles/Shared/inputs";
 import {
   BaseButton,
   IconButton,

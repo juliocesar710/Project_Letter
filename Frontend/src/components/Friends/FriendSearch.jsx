@@ -7,7 +7,7 @@ import ViewProfileButton from "../utils/Buttons/ViewProfileButton";
 import { useTranslation } from "react-i18next";
 
 import { useFriendSearch } from "../../Hooks/Friend/useFriendSearch";
-import { Input } from "../../styles/Shared/Inputs";
+import { Input } from "../../styles/Shared/inputs";
 
 const SearchContainer = styled.div`
   position: relative;

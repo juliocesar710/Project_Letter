@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { Input } from "../../styles/Shared/Inputs";
+import { Input } from "../../styles/Shared/inputs";
 import { BaseButton } from "../../styles/Shared/buttons";
 import { FormTitle, ErrorMessage } from "../../styles/Shared/form";
 import { Eye, EyeOff } from "lucide-react";
