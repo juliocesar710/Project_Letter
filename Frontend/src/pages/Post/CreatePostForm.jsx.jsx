@@ -3,7 +3,7 @@ import styled from "styled-components";
 import {
   FormContainer,
 } from "../../styles/Shared/form";
-import { Input, TextArea } from "../../styles/Shared/Inputs";
+import { Input, TextArea } from "../../styles/Shared/inputs";
 import {  BaseButton } from "../../styles/Shared/buttons";
 import Sucess from "../../components/utils/Alerts/Sucess";
 import Error from "../../components/utils/Alerts/Error";
