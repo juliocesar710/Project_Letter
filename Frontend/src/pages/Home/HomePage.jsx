@@ -11,11 +11,10 @@ const Container = styled.div`
   align-items: center;
   padding: 4rem 2rem;
   min-height: 100vh;
-  background: linear-gradient(
-    135deg,
-    ${({ theme }) => theme.colors.primary},
-    ${({ theme }) => theme.colors.secondary || theme.colors.primaryDark}
-      /* fallback */
+   background: linear-gradient(
+    90deg,
+    ${({ theme }) => theme.colors.background},
+    ${({ theme }) => theme.colors.secondary} 
   );
   text-align: center;
 `;
@@ -64,21 +63,27 @@ const FeaturesGrid = styled.div`
 `;
 
 const FeatureCard = styled.div`
-  background: ${({ theme }) =>
-    theme.colors.cardBackground || "rgba(255, 255, 255, 0.08)"};
+  background: ${({ theme }) => theme.colors.primary};
   padding: 1rem;
   border-radius: ${({ theme }) => theme.borderRadius.medium};
+
+  &:hover {
+    background: ${({ theme }) => theme.colors.primaryHover};
+    scale: 1.05;
+    transform: translateY(5px);
+    transition: transform 0.3s ease-in-out;
+  }
 `;
 
 const FeatureTitle = styled.h3`
   font-size: 1.1rem;
   margin: 0.5rem 0;
-  color: ${({ theme }) => theme.colors.text};
+  color: ${({ theme }) => theme.colors.textContrast};
 `;
 
 const FeatureText = styled.p`
   font-size: 0.9rem;
-  color: ${({ theme }) => theme.colors.textLight};
+  color: ${({ theme }) => theme.colors.textContrast};
 `;
 
 const HomePage = () => {
