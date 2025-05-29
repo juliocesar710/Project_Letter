@@ -33,6 +33,7 @@ const PostList = ({ posts }) => {
   const { t } = useTranslation();
   const [sortMethod, setSortMethod] = useState("date");
 
+
   const sortedPosts = useMemo(() => {
     const postsCopy = [...posts];
     
@@ -52,7 +53,7 @@ const PostList = ({ posts }) => {
 
   return (
     <PostsContainer>
-      <CreatePostButton />
+      <CreatePostButton children={t("createdPost") } />
       <SortControls
         onSortAlphabetically={handleSortAlphabetically}
         onSortByDate={handleSortByDate}

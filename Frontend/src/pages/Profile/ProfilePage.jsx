@@ -6,6 +6,7 @@ import PostList from "../../components/Profile/PostList";
 
 import LanguageSwitcher from "../../components/utils/Buttons/LanguageSwitcherButton";
 import Confirm from "../../components/utils/Alerts/Confirm";
+import Header from "../../components/utils/Layout/Header"; 
 
 import { usePosts } from "../../Hooks/Post/usePosts";
 import { useProfile } from "../../Hooks/Profile/useProfile";
@@ -114,33 +115,42 @@ const ProfilePage = ({ toggleTheme }) => {
   if (error) return <p>{error}</p>;
 
   return (
-    <PageContainer>
-      <SettingsIcon onClick={toggleMenu}>⚙️</SettingsIcon>
-      <Menu isOpen={menuOpen}>
-        <MenuItem onClick={handleLogout}>{t("logout")}</MenuItem>
-        <MenuItem onClick={handleDeleteAccount}>{t("deleteAccount")}</MenuItem>
-        <MenuItem onClick={toggleTheme}>{t("toggleTheme")}</MenuItem>
-        <LanguageSwitcher />
-      </Menu>
-      <ProfileSection>
-        <ProfileInfo user={user} />
-      </ProfileSection>
-      <PostList posts={posts} />
-      {confirmDelete && (
-        <Confirm
-          message={t("confirmDeleteAccount")}
-          onConfirm={confirmDeleteAccount}
-          onCancel={cancelDeleteAccount}
-        />
-      )}
-      {confirmLogout && (
-        <Confirm
-          message={t("confirmLogout")}
-          onConfirm={confirmLogoutAction}
-          onCancel={cancelLogout}
-        />
-      )}
-    </PageContainer>
+    <>
+      <Header />
+
+      <PageContainer>
+        <SettingsIcon onClick={toggleMenu}>⚙️</SettingsIcon>
+
+        <Menu isOpen={menuOpen}>
+          <MenuItem onClick={handleLogout}>{t("logout")}</MenuItem>
+          <MenuItem onClick={handleDeleteAccount}>{t("deleteAccount")}</MenuItem>
+          <MenuItem onClick={toggleTheme}>{t("toggleTheme")}</MenuItem>
+          <LanguageSwitcher />
+        </Menu>
+
+        <ProfileSection>
+          <ProfileInfo user={user} />
+        </ProfileSection>
+
+        <PostList posts={posts} />
+
+        {confirmDelete && (
+          <Confirm
+            message={t("confirmDeleteAccount")}
+            onConfirm={confirmDeleteAccount}
+            onCancel={cancelDeleteAccount}
+          />
+        )}
+
+        {confirmLogout && (
+          <Confirm
+            message={t("confirmLogout")}
+            onConfirm={confirmLogoutAction}
+            onCancel={cancelLogout}
+          />
+        )}
+      </PageContainer>
+    </>
   );
 };
 

@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { BookOpen, PenSquare, Users, Sparkles } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import {  BaseButton } from "../../styles/Shared/buttons";
+import Header from "../../components/utils/Layout/Header";
 
 const Container = styled.div`
   display: flex;
@@ -93,6 +94,8 @@ const HomePage = () => {
   const goToLogin = () => navigate("/auth");
 
   return (
+    <> 
+    <Header/>
     <Container>
       <Title>{t("welcome")}</Title>
       <Description>{t("description of letter")}</Description>
@@ -131,6 +134,7 @@ const HomePage = () => {
         </FeatureCard>
       </FeaturesGrid>
     </Container>
+    </>
   );
 };
 
