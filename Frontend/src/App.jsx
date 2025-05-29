@@ -1,20 +1,29 @@
 import { useState } from "react";
 import { ThemeProvider } from "styled-components";
 
-import { lightTheme, darkTheme } from "./styles/theme";
+import { lightTheme, darkTheme, greenTheme, blueTheme, redTheme, pastelTheme, classicTheme, purpleTheme } from "./styles/theme";
 import AppRouter from "./routes/Router";
-
-const App = () => {
-  const [isDarkMode, setIsDarkMode] = useState(false);
-
-  const toggleTheme = () => {
-    setIsDarkMode((prevMode) => !prevMode);
+  const themes = {
+    light: lightTheme,
+    dark: darkTheme,
+    green: greenTheme,
+    blue: blueTheme,
+    red: redTheme,
+    pastel: pastelTheme,
+    classic: classicTheme,
+    purple: purpleTheme,
   };
 
-  return (
-    <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
-      
-      <AppRouter toggleTheme={toggleTheme} />
+const App = () => {
+
+
+  const [themeName, setThemeName] = useState("light");
+
+  const changeTheme = (name) => setThemeName(name);
+
+   return (
+    <ThemeProvider theme={themes[themeName]}>
+      <AppRouter themeName={themeName} changeTheme={changeTheme} />
     </ThemeProvider>
   );
 };
