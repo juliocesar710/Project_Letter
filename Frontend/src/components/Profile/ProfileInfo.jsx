@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { format } from "date-fns";
 import { Edit, Users, Book, BookHeart } from "lucide-react";
 
-import {  BaseButton } from "../../styles/Shared/buttons";
+import { BaseButton } from "../../styles/Shared/buttons";
 import {
   ProfileImage,
   ProfileImageContainer,
@@ -43,18 +43,9 @@ const SectionContent = styled.p`
   font-weight: bold;
 `;
 
-const ProfileHeader = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  width: 100%;
-`;
-
 const TooltipWrapper = styled.div`
   position: relative;
   display: inline-block;
-  margin-left: 10px;
 
   &:hover span {
     visibility: visible;
@@ -79,126 +70,138 @@ const TooltipWrapper = styled.div`
   }
 `;
 
-const ProfileButtons = styled.div`
+const ActionsContainer = styled.div`
   display: flex;
-  align-items: center;
+  flex-wrap: wrap; /* quebra em várias linhas se necessário */
+  justify-content: center;
   gap: 10px;
-  margin-top: 10px;
+  margin: 20px 0;
+`;
+
+const Label = styled.span`
+  color: ${({ theme }) => theme.colors.primary};
+  font-weight: bold;
+  margin-right: 5px;
+`;
+
+const Value = styled.span`
+  color: ${({ theme }) => theme.colors.text};
+  font-weight: normal;
 `;
 
 const ProfileInfo = ({ user }) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
 
-  const handleEditProfile = () => {
-    navigate("/edit-profile");
-  };
-
-  const handleFriendsClick = () => {
-    navigate("/friends");
-  };
-
-  const handleFeedClick = () => {
-    navigate("/feed");
-  };
-
-  const handleLikedPostsClick = () => {
-    navigate("/liked-posts");
-  };
+  const handleEditProfile = () => navigate("/edit-profile");
+  const handleFriendsClick = () => navigate("/friends");
+  const handleFeedClick = () => navigate("/feed");
+  const handleLikedPostsClick = () => navigate("/liked-posts");
 
   let formattedBirthDate = t("date of birth not provided");
-
   if (user.birthDate) {
     const parsedDate = new Date(user.birthDate);
     if (!isNaN(parsedDate)) {
-      formattedBirthDate = format(parsedDate, "dd  MMMM  yyyy", {
+      formattedBirthDate = format(parsedDate, "dd MMMM yyyy", {
         locale: getCurrentLocale(),
       });
     }
   }
+
   return (
     <InfoCard>
-      <ProfileHeader>
-        <ProfileImageContainer>
-          <ProfileImage src={user.profileImage} alt={`${user.name} profile`} />
-        </ProfileImageContainer>
+      <ProfileImageContainer>
+        <ProfileImage src={user.profileImage} alt={`${user.name} profile`} />
+      </ProfileImageContainer>
+
+      <ActionsContainer>
         <TooltipWrapper>
           <BaseButton
-            hasFlex={true}
+            hasFlex
             padding="10px"
             fontSize="14px"
             fontWeight="bold"
             height="40px"
             width="40px"
+            withTransform
             onClick={handleFriendsClick}
           >
             <Users />
           </BaseButton>
-
           <span>{t("friends")}</span>
         </TooltipWrapper>
+
         <TooltipWrapper>
           <BaseButton
-            hasFlex={true}
+            hasFlex
             padding="10px"
             fontSize="14px"
             fontWeight="bold"
             height="40px"
             width="40px"
+            withTransform
             onClick={handleFeedClick}
           >
             <Book />
           </BaseButton>
-
           <span>{t("feed")}</span>
         </TooltipWrapper>
-      </ProfileHeader>
+
+        <TooltipWrapper>
+          <BaseButton
+            hasFlex
+            padding="10px"
+            fontSize="14px"
+            fontWeight="bold"
+            height="40px"
+            width="40px"
+            withTransform
+            onClick={handleEditProfile}
+          >
+            <Edit />
+          </BaseButton>
+          <span>{t("editProfile")}</span>
+        </TooltipWrapper>
+
+        <TooltipWrapper>
+          <BaseButton
+            hasFlex
+            padding="10px"
+            fontSize="14px"
+            fontWeight="bold"
+            height="40px"
+            width="40px"
+            withTransform
+            onClick={handleLikedPostsClick}
+          >
+            <BookHeart />
+          </BaseButton>
+          <span>{t("likedPosts")}</span>
+        </TooltipWrapper>
+      </ActionsContainer>
+
       <Section>
-        <ProfileButtons>
-          <TooltipWrapper>
-            <BaseButton
-              hasFlex={true}
-              padding="10px"
-              fontSize="14px"
-              fontWeight="bold"
-              height="40px"
-              width="40px"
-              onClick={handleEditProfile}
-            >
-              <Edit />
-            </BaseButton>
-            <span>{t("editProfile")}</span>
-          </TooltipWrapper>
-          <TooltipWrapper>
-            <BaseButton
-              hasFlex={true}
-              padding="10px"
-              fontSize="14px"
-              fontWeight="bold"
-              height="40px"
-              width="40px"
-              onClick={handleLikedPostsClick}
-            >
-              <BookHeart />
-            </BaseButton>
-            <span>{t("likedPosts")}</span>
-          </TooltipWrapper>
-        </ProfileButtons>
         <SectionTitle>{t("personal information")}</SectionTitle>
+
         <SectionContent>
-          {t("name")}: {user.name}
+          <Label>{t("name")}:</Label> <Value>{user.name}</Value>
         </SectionContent>
+
         <SectionContent>
-          {t("email")}: {user.email}
+          <Label>{t("email")}:</Label> <Value>{user.email}</Value>
         </SectionContent>
+
         <SectionContent>
-          {t("date of birth")}: {formattedBirthDate}
+          <Label>{t("date of birth")}:</Label>{" "}
+          <Value>{formattedBirthDate}</Value>
         </SectionContent>
       </Section>
+
       <Section>
         <SectionTitle>{t("biography")}</SectionTitle>
         <SectionContent>{user.bio}</SectionContent>
       </Section>
+
       <Section>
         <SectionTitle>{t("interests")}</SectionTitle>
         <SectionContent>

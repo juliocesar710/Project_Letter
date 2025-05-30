@@ -10,6 +10,7 @@ import Error from "../../components/utils/Alerts/Error";
 import GenreSelector from "../../components/utils/GenreSelector";
 import { usePostForm } from "../../Hooks/Post/usePostForm";
 import { useTranslation } from "react-i18next";
+import Header from "../../components/utils/Layout/Header";
 
 const StyledForm = styled.form`
   background-color: ${({ theme }) => theme.colors.inputBackground};
@@ -45,6 +46,8 @@ const CreatePostForm = () => {
   const { t } = useTranslation();
 
   return (
+    <>
+    <Header/>
     <FormContainer>
       <StyledForm onSubmit={handleSubmit}>
         {successMessage && <Sucess message={successMessage} />}
@@ -114,6 +117,7 @@ const CreatePostForm = () => {
         </BaseButton>
       </StyledForm>
     </FormContainer>
+     </>
   );
 };
 

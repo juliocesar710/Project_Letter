@@ -5,6 +5,7 @@ import { useLikedPosts } from "../../Hooks/Like/useLikedPosts";
 import PostCard from "../../components/Post/PostCard";
 import { useTranslation } from "react-i18next";
 import { FormTitle, ErrorMessage } from "../../styles/Shared/form";
+import Header from "../../components/utils/Layout/Header";
 
 const PageContainer = styled.div`
   padding: ${({ theme }) => theme.padding.container};
@@ -69,6 +70,8 @@ const LikedPostsPage = () => {
     );
 
   return (
+    <> 
+    <Header/>
     <PageContainer>
       <FormTitle>{t("likedPosts")}</FormTitle>
 
@@ -82,6 +85,7 @@ const LikedPostsPage = () => {
         </PostsGrid>
       )}
     </PageContainer>
+    </>
   );
 };
 

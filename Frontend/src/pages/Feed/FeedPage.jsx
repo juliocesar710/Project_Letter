@@ -7,6 +7,7 @@ import InterestPosts from "../../components/Feed/InterestPosts";
 import SearchResultCard from "../../components/Feed/SearchResultCard";
 import AllPosts from "../../components/Feed/AllPosts";
 import SearchBar from "../../components/Feed/SearchBar";
+import Header from "../../components/utils/Layout/Header";
 
 import { useTranslation } from "react-i18next";
 
@@ -124,6 +125,8 @@ const FeedPage = () => {
   };
 
   return (
+    <>
+    <Header/>
     <Container>
       <SideBarLeft>
         <SidebarUserInfo />
@@ -169,6 +172,7 @@ const FeedPage = () => {
         <h1>Em breve sugestões de livros e Rankings</h1>
       </SideBarRight>
     </Container>
+    </>
   );
 };
 

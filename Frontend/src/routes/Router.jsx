@@ -18,17 +18,17 @@ import HomePage from "../pages/Home/HomePage.jsx";
 
 import PrivateRoute from "./PrivateRoute";
 
-const AppRouter = ({ toggleTheme }) => {
+const AppRouter = ({ themeName, changeTheme }) => {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/auth" element={<AuthPage />} />
-        <Route
+       <Route
           path="/profile"
           element={
             <PrivateRoute>
-              <ProfilePage toggleTheme={toggleTheme} />
+              <ProfilePage themeName={themeName} changeTheme={changeTheme} />
             </PrivateRoute>
           }
         />

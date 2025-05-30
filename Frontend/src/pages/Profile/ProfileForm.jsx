@@ -10,6 +10,8 @@ import Error from "../../components/utils/Alerts/Error";
 import GenreSelector from "../../components/utils/GenreSelector";
 import { useProfileForm } from "../../Hooks/User/useProfileForm";
 import { useTranslation } from "react-i18next";
+import Header from "../../components/utils/Layout/Header"; 
+
 
 const ProfileForm = ({ isEdit = false }) => {
   const { t } = useTranslation();
@@ -24,6 +26,8 @@ const ProfileForm = ({ isEdit = false }) => {
     handleSubmit,
   } = useProfileForm();
   return (
+    <>
+    <Header />
     <FormContainer>
       <Form onSubmit={handleSubmit}>
         <FormTitle>{isEdit ? t("editProfile") : "Editando"}</FormTitle>
@@ -76,6 +80,7 @@ const ProfileForm = ({ isEdit = false }) => {
         {errorMessage && <Error message={errorMessage} />}
       </Form>
     </FormContainer>
+    </>
   );
 };
 export default ProfileForm;

@@ -5,6 +5,7 @@ import FriendsList from "../../components/Friends/FriendsList";
 import FriendSearch from "../../components/Friends/FriendSearch";
 import FriendRequests from "../../components/Friends/FriendRequests";
 import AllUsersList from "../../components/Friends/AllUsersList";
+import Header from "../../components/utils/Layout/Header";
 
 import { useTranslation } from "react-i18next";
 
@@ -126,49 +127,52 @@ const FriendsPage = () => {
   };
 
   return (
-    <FriendsContainer>
-      <FriendsHeader>
-        <TabsContainer>
-          <TabButton
-            active={activeTab === "friends"}
-            onClick={() => setActiveTab("friends")}
-          >
-            {t("friends")}
-          </TabButton>
-          <TabButton
-            active={activeTab === "pending"}
-            onClick={() => setActiveTab("pending")}
-          >
-            {t("pending")}
-          </TabButton>
-          <TabButton
-            active={activeTab === "users"}
-            onClick={() => setActiveTab("users")}
-          >
-            {t("user")}
-          </TabButton>
-        </TabsContainer>
-        <FriendSearchWrapper>
-          <FriendSearch />
-        </FriendSearchWrapper>
-      </FriendsHeader>
+    <>
+      <Header />
+      <FriendsContainer>
+        <FriendsHeader>
+          <TabsContainer>
+            <TabButton
+              active={activeTab === "friends"}
+              onClick={() => setActiveTab("friends")}
+            >
+              {t("friends")}
+            </TabButton>
+            <TabButton
+              active={activeTab === "pending"}
+              onClick={() => setActiveTab("pending")}
+            >
+              {t("pending")}
+            </TabButton>
+            <TabButton
+              active={activeTab === "users"}
+              onClick={() => setActiveTab("users")}
+            >
+              {t("user")}
+            </TabButton>
+          </TabsContainer>
+          <FriendSearchWrapper>
+            <FriendSearch />
+          </FriendSearchWrapper>
+        </FriendsHeader>
 
-      {activeTab === "friends" && <FriendsList friends={friends} />}
-      {activeTab === "pending" && (
-        <FriendRequests
-          requests={friendRequests}
-          onAcceptRequest={handleAcceptRequest}
-          onRejectRequest={handleRejectRequest}
-        />
-      )}
-      {activeTab === "users" && (
-        <AllUsersList
-          onAddFriend={handleAddFriend}
-          onRemoveFriend={handleRemoveFriend}
-          showFriendStatus={true}
-        />
-      )}
-    </FriendsContainer>
+        {activeTab === "friends" && <FriendsList friends={friends} />}
+        {activeTab === "pending" && (
+          <FriendRequests
+            requests={friendRequests}
+            onAcceptRequest={handleAcceptRequest}
+            onRejectRequest={handleRejectRequest}
+          />
+        )}
+        {activeTab === "users" && (
+          <AllUsersList
+            onAddFriend={handleAddFriend}
+            onRemoveFriend={handleRemoveFriend}
+            showFriendStatus={true}
+          />
+        )}
+      </FriendsContainer>
+    </>
   );
 };
 

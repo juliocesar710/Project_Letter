@@ -6,6 +6,7 @@ import PostList from "../../components/Profile/PostList";
 
 import LanguageSwitcher from "../../components/utils/Buttons/LanguageSwitcherButton";
 import Confirm from "../../components/utils/Alerts/Confirm";
+import Header from "../../components/utils/Layout/Header";
 
 import { usePosts } from "../../Hooks/Post/usePosts";
 import { useProfile } from "../../Hooks/Profile/useProfile";
@@ -89,8 +90,9 @@ const MenuItem = styled.div`
   }
 `;
 
-const ProfilePage = ({ toggleTheme }) => {
-  const [menuOpen, setMenuOpen] = useState(false);
+const ProfilePage = ({  changeTheme }) => {
+ const [menuOpen, setMenuOpen] = useState(false);
+  const [moreThemesOpen, setMoreThemesOpen] = useState(false); // Novo estado
   const { t } = useTranslation();
 
   const { posts, loading, error } = usePosts();
@@ -114,33 +116,58 @@ const ProfilePage = ({ toggleTheme }) => {
   if (error) return <p>{error}</p>;
 
   return (
-    <PageContainer>
-      <SettingsIcon onClick={toggleMenu}>⚙️</SettingsIcon>
-      <Menu isOpen={menuOpen}>
-        <MenuItem onClick={handleLogout}>{t("logout")}</MenuItem>
-        <MenuItem onClick={handleDeleteAccount}>{t("deleteAccount")}</MenuItem>
-        <MenuItem onClick={toggleTheme}>{t("toggleTheme")}</MenuItem>
-        <LanguageSwitcher />
-      </Menu>
-      <ProfileSection>
-        <ProfileInfo user={user} />
-      </ProfileSection>
-      <PostList posts={posts} />
-      {confirmDelete && (
-        <Confirm
-          message={t("confirmDeleteAccount")}
-          onConfirm={confirmDeleteAccount}
-          onCancel={cancelDeleteAccount}
-        />
-      )}
-      {confirmLogout && (
-        <Confirm
-          message={t("confirmLogout")}
-          onConfirm={confirmLogoutAction}
-          onCancel={cancelLogout}
-        />
-      )}
-    </PageContainer>
+    <>
+      <Header />
+
+      <PageContainer>
+        <SettingsIcon onClick={toggleMenu}>⚙️</SettingsIcon>
+
+       <Menu isOpen={menuOpen}>
+          <MenuItem onClick={handleLogout}>{t("logout")}</MenuItem>
+          <MenuItem onClick={handleDeleteAccount}>
+            {t("deleteAccount")}
+          </MenuItem>
+          <MenuItem onClick={() => changeTheme("light")}>Tema Claro</MenuItem>
+          <MenuItem onClick={() => changeTheme("dark")}>Tema Escuro</MenuItem>
+          <MenuItem onClick={() => setMoreThemesOpen((v) => !v)}>
+            {moreThemesOpen ? "▲ Menos temas" : "▼ Mais temas"}
+          </MenuItem>
+          {moreThemesOpen && (
+            <div style={{ marginLeft: 10 }}>
+              <MenuItem onClick={() => changeTheme("green")}>Tema Verde</MenuItem>
+              <MenuItem onClick={() => changeTheme("red")}>Tema Vermelho</MenuItem>
+              <MenuItem onClick={() => changeTheme("purple")}>Tema Roxo</MenuItem>
+              <MenuItem onClick={() => changeTheme("classic")}>Tema Clássico</MenuItem>
+              <MenuItem onClick={() => changeTheme("blue")}>Tema Azul</MenuItem>
+              <MenuItem onClick={() => changeTheme("pastel")}>Tema Pastel</MenuItem>
+            </div>
+          )}
+          <LanguageSwitcher />
+        </Menu>
+
+        <ProfileSection>
+          <ProfileInfo user={user} />
+        </ProfileSection>
+
+        <PostList posts={posts} />
+
+        {confirmDelete && (
+          <Confirm
+            message={t("confirmDeleteAccount")}
+            onConfirm={confirmDeleteAccount}
+            onCancel={cancelDeleteAccount}
+          />
+        )}
+
+        {confirmLogout && (
+          <Confirm
+            message={t("confirmLogout")}
+            onConfirm={confirmLogoutAction}
+            onCancel={cancelLogout}
+          />
+        )}
+      </PageContainer>
+    </>
   );
 };
 
