@@ -1,7 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import {  BaseButton } from "../../../styles/Shared/buttons";
 
-const CreatePostButton = ({ children = "Criar Post" }) => {
+
+const CreatePostButton = ({ children = "createdPost" }) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
